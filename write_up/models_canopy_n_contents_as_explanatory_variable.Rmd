@@ -1,5 +1,5 @@
 ---
-title: "3way ANOVA"
+title: "3-way ANOVAs"
 author: "Mas o menos lab"
 date: "2020"
 output: 
@@ -30,6 +30,7 @@ library(ggsci)
 library(knitr)
 library(ggeffects)
 ```
+
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -66,7 +67,6 @@ data_rgr_clean <- data_rgr %>%
 
 ```{r}
 #Add RGR to the dataset
-
 data_rate_change <- 
 	
 	#Join RGR  
@@ -75,22 +75,70 @@ data_rate_change <-
 
 
 
-# Model used 
+# Models
 
 ## Model (m1): Total biomass as response variable 
 
 $$Total\ Biomass\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
 
+```{r}
+m1 <- lmer(totalbiom ~ treatment * nfixer * totalleafmass_nmass + init_height + 
+             (1|spcode), data = data_rate_change)
+
+Anova(m1, type = "III")
+```
+
+```{r}
+ggpredict(m1, terms = c("totalleafmass_nmass", "treatment")) %>%
+	plot() +
+	
+	labs(y = "total biomass ", x = "totalleafmass_nmass", 
+		 title =element_blank(), col="treatment") +
+	
+    theme(axis.title.x = element_text(size=14, face="bold"), 
+    	  axis.title.y = element_text(size=14, face="bold")) +
+	
+    theme_classic() 
+
+```
+
+
 ## Model (m2): Total biomass - whole leaf weight as response variable 
 
 $$ Biomass\ no\ leaves\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
 
+```{r}
+m2 <- lmer(biomass_no_leaves ~ treatment * nfixer * totalleafmass_nmass + 
+		   	init_height + (1|spcode), data = data_rate_change)
+
+Anova(m2, type = "III")
+
+```
+
+
+
+```{r}
+ggpredict(m2, terms = c("totalleafmass_nmass", "treatment")) %>%
+	plot() +
+    
+	labs(y = "total biomass - leaf mass", x = "totalleafmass_nmass", 
+		 title = element_blank(), col="treatment") +
+	
+    theme(axis.title.x = element_text(size=14, face="bold"), 
+    	  axis.title.y =element_text(size=14, face="bold")) +
+            theme_classic() 
+```
+
+
 ## Model (m3): RGR as response variable 
 
 $$ RGR\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
+```{r}
+m3 <- lmer(rgr ~ treatment * nfixer * totalleafmass_nmass + 
+		   	init_height + (1|spcode), data = data_rate_change)
+
+Anova(m3, type = "III")
+```
 
 
-# Run Models
-
-# Results
 
