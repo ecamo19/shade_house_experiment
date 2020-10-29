@@ -37,7 +37,7 @@ library(ggeffects)
 
 
 data_complete_final <- 
-  read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 
 #Cleaned data
@@ -58,7 +58,7 @@ data_rate_change <-
 ```{r}
 #Load RGR data
 data_rgr <- 
-	read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv")
+	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv")
 
 data_rgr_clean <- data_rgr %>% 
   dplyr::select(c(1,4, ncol(data_rgr)-1))

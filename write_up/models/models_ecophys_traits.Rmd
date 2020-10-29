@@ -29,14 +29,14 @@ library(knitr)
 
 ```{r}
 #Source maso menos plot
-source("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot2.R")
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot2.R")
 ```
 
 # Load data
 ```{r}
 
 data_ecophys_traits <- 
-  read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
   clean_names()  
 
 

@@ -40,44 +40,27 @@ library(ggeffects)
 #Source maso menos plot
 #Load plot function to keep same format to all plots
 #
-source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
 
-#Source data with Harvested at the beginning treatment
-source("/home/ecamo19/documents/projects/shade_house_exp/codes/join_data_include_harvestedatbeginning.R")
+data_complete_final <- 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
-
-#Clean data and add fixer non fixer categories
-
+#Cleaned data
 data_rate_change <- 
-  
     data_complete_final %>% 
-    mutate(nfixer = ifelse(spcode == "ec" |
-                            spcode == "dr" |
-                            spcode == "gs","fixer", "nonfixer")) %>% 
     
-
+    #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  clean_names() 
-    
-    
-glimpse(data_rate_change) 
+  clean_names()
 
 ```
-```{r}
-#Order treatment levels
-data_rate_change$treatment <- factor(data_rate_change$treatment,
-                                         levels = c("Harvestatthebegging",
-                                                    "ambientrain", 
-                                                    "ambientrain_nutrients",
-                                                    "ambientrain_water",
-                                         		"ambientrain_water_nutrients"
-                                                    ))
-```
+
+
 
 # Boxplots: Biomass variables 
 

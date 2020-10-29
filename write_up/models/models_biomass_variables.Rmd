@@ -33,15 +33,13 @@ library(knitr)
 
 ```{r}
 #Source maso menos plot
-source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
-
-
 data_complete_final <- 
-  read.csv("/home/ecamo19/documents/projects/shade_house_exp/write_up/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 #Cleaned data
 data_rate_change <- 
