@@ -4,8 +4,8 @@ author: "Mas o menos Lab"
 date: "2020"
 output: 
  prettydoc::html_pretty:
-    fig_width: 15
-    fig_height: 10 
+    fig_width: 9
+    fig_height: 6 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -29,17 +29,14 @@ library(knitr)
 
 ```{r}
 #Source maso menos plot
-source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+source("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot2.R")
 ```
 
-
 # Load data
-
-
 ```{r}
 
 data_ecophys_traits <- 
-  read.csv("/home/ecamo19/documents/projects/shade_house_exp/write_up/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+  read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
   clean_names()  
 
 
@@ -78,4 +75,99 @@ mixed_models <-  vars %>%
 
 # Results
 
+## Amax
+
+```{r message=FALSE, warning=FALSE}
+
+data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$amax,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+```{r message=FALSE, warning=FALSE}
+(plot_amax <- 
+  masomenos_plot(data = data_amax_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+    
+  theme(legend.position = "bottom") + ylab("Amax") )
+
+```
+
+## gs
+
+```{r message=FALSE, warning=FALSE}
+
+data_gs_plot <- emmip(mixed_models$gs, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$gs,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+```{r message=FALSE, warning=FALSE}
+(plot_gs <- 
+  masomenos_plot(data = data_gs_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+    
+  theme(legend.position = "bottom") + ylab("gs"))
+```
+
+
+## WUE
+```{r message=FALSE, warning=FALSE}
+
+data_wue_plot <- emmip(mixed_models$wue, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$wue,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+```{r message=FALSE, warning=FALSE}
+(plot_wue <- 
+  masomenos_plot(data = data_wue_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+    
+  theme(legend.position = "bottom") + ylab("WUE") )
+```
 
