@@ -1,0 +1,380 @@
+---
+title: "Models for biomass variables"
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 5 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+
+```{r}
+#Source maso menos plot
+source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+
+data_complete_final <- 
+  read.csv("/home/ecamo19/documents/projects/shade_house_exp/write_up/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+
+#Cleaned data
+data_rate_change <- 
+    data_complete_final %>% 
+    
+    #Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+  clean_names() 
+  
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_rate_change)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rate_change)[7:ncol(data_rate_change)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+## Total Biomasss
+```{r message=FALSE, warning=FALSE}
+data_totalbiom_plot <- 
+  emmip(mixed_models$totalbiom, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$totalbiom,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_totalbiom <- 
+  masomenos_plot_no_lines(data = data_totalbiom_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + ylab("Total Biomass"))
+```
+
+## Aboveground Biomass
+
+
+```{r message=FALSE, warning=FALSE}
+data_above_biom_plot <- 
+  emmip(mixed_models$above_biom, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$above_biom,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+
+```
+
+
+```{r}
+(plot_above_biom <- 
+  masomenos_plot_no_lines(data = data_above_biom_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + ylab("Aboveground Biomass"))
+```
+
+## Belowground Biomass
+
+
+```{r message=FALSE, warning=FALSE}
+data_below_biom_plot <- 
+  emmip(mixed_models$below_biom, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$below_biom,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+
+```
+
+```{r}
+(plot_below_biom <- 
+  masomenos_plot_no_lines(data = data_below_biom_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + ylab("Belowground Biomass"))
+```
+
+## Root Mass Fraction 
+
+```{r}
+data_rmf_plot <- 
+  emmip(mixed_models$rmf, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$rmf,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_rmf <- 
+  masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+    theme(legend.position = "none") + 
+    ylab("RMF plus CI's"))
+```
+
+
+
+## Stem Mass fraction
+
+```{r}
+data_smf_plot <- 
+  emmip(mixed_models$smf, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$smf, 
+                          pairwise ~ treatment | nfixer,
+    					  type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_smf <- 
+  masomenos_plot_no_lines(data = data_smf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none")  +
+  ylab("SMF plus CI's'"))
+```
+
+## Leaf Mass fraction
+
+```{r}
+data_lmf_plot <- 
+  emmip(mixed_models$lmf, treatment ~ nfixer, CIs = TRUE)$data 
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$lmf, 
+                          pairwise ~ treatment | nfixer, 
+                          type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+```{r}
+(plot_lmf <- 
+  masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + 
+  ylab("Leaf mass fraction plus CI's"))
+```
+
+## Root Dry weight
+
+
+```{r}
+data_root_dry_weight_plot <- 
+  emmip(mixed_models$root_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$root_dry_weight, 
+                          pairwise ~ treatment | nfixer, 
+                          type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+```{r}
+(plot_root_dry_weight <- 
+  masomenos_plot_no_lines(data = data_root_dry_weight_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + 
+  ylab("Root Dry Weight plus CI's"))
+```
+
+
+## Stem Dry weight
+
+
+```{r}
+data_stem_dry_weight_plot <- 
+  emmip(mixed_models$stem_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$stem_dry_weight, 
+                          pairwise ~ treatment | nfixer, 
+                          type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_stem_dry_weight <- 
+  masomenos_plot_no_lines(data = data_stem_dry_weight_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + 
+  ylab("Stem Dry Weight plus CI's"))
+```
+
+
+## Leaf Dry weight
+
+```{r}
+data_leaf_dry_weight_plot <- 
+  emmip(mixed_models$whole_leaf_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$whole_leaf_dry_weight, 
+                          pairwise ~ treatment | nfixer, 
+                          type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+```{r}
+(plot_leaf_dry_weight <- 
+  masomenos_plot_no_lines(data = data_leaf_dry_weight_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + 
+  ylab("Leaf Dry Weight plus CI's"))
+```
+

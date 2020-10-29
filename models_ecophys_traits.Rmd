@@ -1,0 +1,81 @@
+---
+title: "Models for ecophysiology traits"
+author: "Mas o menos Lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 15
+    fig_height: 10 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 3
+---
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+```{r}
+#Source maso menos plot
+source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+```
+
+
+# Load data
+
+
+```{r}
+
+data_ecophys_traits <- 
+  read.csv("/home/ecamo19/documents/projects/shade_house_exp/write_up/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+  clean_names()  
+
+
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_ecophys_traits)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_ecophys_traits)[6:(ncol(data_ecophys_traits)-1)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+

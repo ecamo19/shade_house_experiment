@@ -1,0 +1,252 @@
+---
+title: "Models for leaf traits"
+author: "Mas o menos Lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 15
+    fig_height: 10 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 3
+---
+
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+
+```{r}
+#Source mas o menos plot
+source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+
+data_complete_final <- 
+  read.csv("/home/ecamo19/documents/projects/shade_house_exp/write_up/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+
+
+#Cleaned data
+data_rate_change <- 
+  
+    data_complete_final %>% 
+    
+	#Order the columns
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+  clean_names() 
+  
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_rate_change)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rate_change)[18:ncol(data_rate_change)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+## d13c
+```{r}
+data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$d13c,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+```{r}
+(plot_d13c <- 
+  masomenos_plot(data = data_d13c_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+   theme(legend.position = "bottom" ) + 
+ 	ylab("d13C"))
+```
+
+## SLA
+
+```{r}
+data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$data
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$sla_cm2_g,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+```{r}
+(plot_sla <- 
+  masomenos_plot(data = data_sla_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+   theme(legend.position = "bottom" ) + 
+	ylab("SLA"))
+```
+
+## NArea
+
+```{r}
+data_narea_plot <- emmip(mixed_models$narea_g_m2, 
+						 treatment ~ nfixer, CIs = TRUE)$data
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$narea_g_m2,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+
+```
+
+```{r}
+(plot_narea <- 
+  masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  
+     theme(legend.position = "bottom" ))
+```
+
+## NMass
+
+```{r}
+data_nmass_plot <- emmip(mixed_models$nmass_mg_g, 
+                         treatment ~ nfixer, 
+                         CIs = TRUE)$data
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$nmass_mg_g,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+```{r}
+(plot_nmass <- 
+  masomenos_plot(data = data_nmass_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+ 	ylab("Nmass") +
+	theme(legend.position = "bottom" ))
+```
+
+
+
+## Canopy Nitrogen Content
+```{r}
+data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer, CIs = TRUE)$data
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$totalleafmass_nmass,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+
+```
+
+
+```{r}
+(plot_totalleafmass_nmass <- 
+  masomenos_plot(data = data_leafmass_nmass_plot,
+                 xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL) +
+  
+   theme(legend.position = "bottom" ) + 
+  ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
+```
+

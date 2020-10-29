@@ -1,0 +1,288 @@
+---
+title: 'Exploratory analisys: Boxplots figures'
+author: "Mas o menos Lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 12
+    fig_height: 7
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(knitr)
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+library(ggeffects)
+
+```
+
+
+```{r}
+#Source maso menos plot
+#Load plot function to keep same format to all plots
+#
+source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+#Source data with Harvested at the beginning treatment
+source("/home/ecamo19/documents/projects/shade_house_exp/codes/join_data_include_harvestedatbeginning.R")
+
+
+#Clean data and add fixer non fixer categories
+
+data_rate_change <- 
+  
+    data_complete_final %>% 
+    mutate(nfixer = ifelse(spcode == "ec" |
+                            spcode == "dr" |
+                            spcode == "gs","fixer", "nonfixer")) %>% 
+    
+
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+  clean_names() 
+    
+    
+glimpse(data_rate_change) 
+
+```
+```{r}
+#Order treatment levels
+data_rate_change$treatment <- factor(data_rate_change$treatment,
+                                         levels = c("Harvestatthebegging",
+                                                    "ambientrain", 
+                                                    "ambientrain_nutrients",
+                                                    "ambientrain_water",
+                                         		"ambientrain_water_nutrients"
+                                                    ))
+```
+
+# Boxplots: Biomass variables 
+
+## By fixer-non fixer 
+
+```{r}
+boxplot_total_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer,
+                                        yvar = totalbiom, color = treatment) +
+  ylab("Total Biomass") +
+  theme(legend.position = "none") 
+
+```
+
+
+```{r}
+boxplot_above_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
+                  yvar = above_biom , color = treatment) +
+  ylab("Aboveground Biomass") +
+  theme(legend.position = "none") 
+```
+
+```{r}
+boxplot_below_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer,
+                                        yvar = below_biom , color = treatment) +
+  ylab("Belowground Biomass") +
+  theme(legend.position = "none") 
+```
+
+```{r}
+boxplot_rmf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
+                  yvar = rmf, color = treatment) +
+  ylab("Root Mass Fraction %") +
+  theme(legend.position = "none") 
+```
+
+```{r}
+boxplot_smf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
+                  yvar = smf , color = treatment) +
+  ylab("Stem Mass Fraction %") + 
+  theme(legend.position = "none") 
+```
+
+```{r}
+boxplot_lmf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
+                  yvar = lmf, color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Leaf mass fraction %")
+```
+
+```{r}
+
+boxplot_whole_leaf_weight <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = nfixer,
+                                 yvar = whole_leaf_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole leaf mass")
+
+```
+
+```{r}
+
+boxplot_whole_root_weight <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = nfixer,
+                                 yvar = root_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole root mass")
+
+```
+
+```{r}
+
+boxplot_whole_stem_weight <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = nfixer,
+                                 yvar = stem_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole stem mass")
+
+```
+
+```{r}
+(masomenosplot_boxplots <- plot_grid(
+  boxplot_total_biom,boxplot_above_biom,boxplot_below_biom,
+  boxplot_rmf,boxplot_smf,boxplot_lmf,
+  boxplot_whole_root_weight,boxplot_whole_stem_weight,boxplot_whole_leaf_weight
+))
+
+```
+
+
+## By spcode
+
+```{r}
+boxplot_total_biom_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                               xvar = spcode,
+                                               yvar = totalbiom, 
+                                               color = treatment) +
+  ylab("Total Biomass") +
+  theme(legend.position = "none") 
+```
+
+```{r}
+boxplot_above_biom_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                               xvar = spcode,
+                                               yvar = above_biom , 
+                                               color = treatment) +
+  ylab("Aboveground Biomass") +
+  theme(legend.position = "none")
+```
+
+```{r}
+boxplot_below_biom_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                        xvar = spcode,
+                                        yvar = below_biom , 
+                                        color = treatment) +
+  ylab("Belowground Biomass") +
+  theme(legend.position = "none") 
+
+```
+
+
+```{r}
+boxplot_rmf_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                        xvar = spcode,
+                                        yvar = rmf, 
+                                        color = treatment) +
+  ylab("Root Mass Fraction %") +
+  theme(legend.position = "none") 
+
+```
+
+```{r}
+boxplot_smf_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                        xvar = spcode,
+                                        yvar = smf , 
+                                        color = treatment) +
+  ylab("Stem Mass Fraction %") + 
+  theme(legend.position = "none") 
+
+```
+
+```{r}
+boxplot_lmf_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = spcode,
+                                 yvar = lmf, 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Leaf mass fraction %")
+
+```
+
+
+```{r}
+
+boxplot_whole_root_weight_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = spcode,
+                                 yvar = root_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole root mass")
+
+```
+
+```{r}
+
+boxplot_whole_stem_weight_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = spcode,
+                                 yvar = stem_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole stem mass")
+
+```
+
+
+
+```{r}
+
+boxplot_whole_leaf_weight_spcode <- masomenos_boxplot(data = data_rate_change, 
+                                 xvar = spcode,
+                                 yvar = whole_leaf_dry_weight  , 
+                                 color = treatment) +
+  theme(legend.position = "none") +
+  ylab("Whole leaf mass")
+
+```
+
+
+
+
+```{r}
+(masomenosplot_boxplots_spcode <- plot_grid(
+  boxplot_total_biom_spcode,boxplot_above_biom_spcode,boxplot_below_biom_spcode,
+  boxplot_rmf_spcode,boxplot_smf_spcode,boxplot_lmf_spcode,
+  boxplot_whole_root_weight_spcode,boxplot_whole_stem_weight_spcode,
+  boxplot_whole_leaf_weight_spcode
+))
+
+```
+
+
+
+
+
+
+

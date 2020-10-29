@@ -1,0 +1,55 @@
+---
+title: "Research Questions"
+author: "Maso menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 7 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 2
+---
+
+# General idea: Trait shifts and variability
+
+__The addion of water and nutrients could cause that species (some or all) shift their leaf traits in order to uptake the new resourses available and also that the variabily (express in the reduccion of their hypervolume) decrease to maximize the ability to uptake the new resources.__ 
+
+__Plasticity can be defined as the ability of a species to vary in its trait values, and acclimation, as the phenotypic adjustment of a genotype to the environment, thus potentially enhancing its performance (Poorter et al., 2010).__
+
+
+
+# Research questions
+
++ What happen to the trait space when you add nutrients and water? This was the hypervolume idea (not done)
+
++ How traits shift with the addition of water and nutrients? Leland's result RDA 
+
++ How traits change between pre-harvested plants and post-harvested plants? Rate change (slopes?)
+
++ How trait shift and rate of change ralate to biomass gain?
+
++ Does trait shifts relate to biomass gain?
+
++ Does trait rate of change correlate with biomass gain?
+
+# Traits indicative of....
+
++ __Leaf area__:  has important consequences for leaf energy and water balance. LA has been variously related to ecological strategy with respect to environmental nutrient stress.
+
++ __SLA__: is frequently used in growth analysis because it is often positively related to potential RGR across species. SLA tends to scale positively with mass-based light-saturated photosynthetic rate and with leaf nitrogen (N) concentration, and negatively with leaf longevity and C investment in quantitatively important secondary compounds such as tannins or ligni
+
++ __LDMC__: Leaf construction and drougth-tolerance 
+
++ __Leaf thickness__:  Optimisation theory, balancing photosynthetic benefits against C
+costs of respiration and transpiration, predicts that Lt should be
+higher in sunnier, drier and less fertile habitats, as well as in
+longer-lived leaves.
+
++ __Leaf nitrogen content__: express different aspects of leaf strategy for resource capture and conservation: while N mass reflects a trade-off between the benefits of photosynthetic potential and the costs of acquiring nitrogen and suffering herbivory
+
++ __Leaf % Carbon__: 
+
++ __d13c__: Water Use efficiency 
