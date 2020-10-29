@@ -1,0 +1,96 @@
+---
+title: "3way ANOVA"
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 7 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 2
+---
+
+
+# Load packages and data 
+
+```{r message=FALSE, warning=FALSE}
+library(knitr)
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+library(ggeffects)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+
+data_complete_final <- 
+  read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+
+
+#Cleaned data
+data_rate_change <- 
+  
+    data_complete_final %>% 
+    
+	#Order the columns
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+    clean_names() %>% 
+	mutate(biomass_no_leaves = totalbiom - whole_leaf_dry_weight )
+    
+```
+
+
+
+```{r}
+#Load RGR data
+data_rgr <- 
+	read.csv("/home/ecamo19/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv")
+
+data_rgr_clean <- data_rgr %>% 
+  dplyr::select(c(1,4, ncol(data_rgr)-1))
+```
+
+
+```{r}
+#Add RGR to the dataset
+
+data_rate_change <- 
+	
+	#Join RGR  
+	right_join(data_rate_change, data_rgr_clean, by = c("id", "spcode"))
+```
+
+
+
+# Model used 
+
+## Model (m1): Total biomass as response variable 
+
+$$Total\ Biomass\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
+
+## Model (m2): Total biomass - whole leaf weight as response variable 
+
+$$ Biomass\ no\ leaves\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
+
+## Model (m3): RGR as response variable 
+
+$$ RGR\sim treatment*fixer*Canopy\ nitrogen\ content + initial\ height\ + random(1|specie)$$
+
+
+# Run Models
+
+# Results
+

@@ -31,7 +31,6 @@ library(ggsci)
 library(knitr)
 ```
 
-
 ```{r}
 #Source maso menos plot
 source("/home/ecamo19/documents/projects/shade_house_exp/codes/masomenos_plot.R")
