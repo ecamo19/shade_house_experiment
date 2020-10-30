@@ -12,7 +12,7 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 					   group = !! tvar, colour = !! color ), data = data)+
 		geom_point(position = position_dodge(width=0.5))+
 		geom_line(linetype = "dashed", position=position_dodge(width=0.5))+
-		theme_bw() +
+		theme_classic() +
 		
 		geom_errorbar(aes(
 			ymin = !! lcl,
@@ -31,8 +31,8 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 	    							   "#009E73","#56B4E9",
 	    							   "#0072B2"))+
 		theme_bw() +
-		theme(legend.position = "bottom") + 
-		guides(col = guide_legend(nrow = 3,title.position = "top",))
+		theme(legend.position = "right") + 
+		guides(col = guide_legend(ncol = 1,title.position = "top",))
 	
 	return(plot)
 }
@@ -69,9 +69,9 @@ masomenos_plot_no_lines <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 		scale_colour_manual(values = c("#000000","#F0E442",
 									   "#009E73","#56B4E9",
 									   "#0072B2"))+
-		theme_bw() +
-		theme(legend.position = "bottom") + 
-		guides(col = guide_legend(nrow = 3,title.position = "top",))
+		theme_classic()+
+		theme(legend.position = "right") + 
+		guides(col = guide_legend(ncol = 1,title.position = "top",))
 	
 	return(plot_nolines)
 }
@@ -100,9 +100,9 @@ masomenos_boxplot <- function(data,xvar,yvar,color){
 		#ambientrain_water_nutrients = Dark blue ("#0072B2")
 		scale_colour_manual(values = c("#000000","#F0E442",
 									   "#009E73","#56B4E9","#0072B2"))+
-		theme_bw() +
-		theme(legend.position = "bottom") + 
-		guides(col = guide_legend(nrow = 3,title.position = "top",))
+		theme_classic()+
+		theme(legend.position = "right") + 
+		guides(col = guide_legend(ncol = 1 ,title.position = "top",))
 	
 	return(boxplot)
 }

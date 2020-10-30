@@ -49,6 +49,16 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 data_complete_final <- 
   read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
+
+data_complete_final$treatment <- factor(data_complete_final$treatment,
+					levels = c("Harvestatthebegging",
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
 #Cleaned data
 data_rate_change <- 
     data_complete_final %>% 
@@ -57,6 +67,8 @@ data_rate_change <-
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
   clean_names()
+
+
 
 ```
 
@@ -67,10 +79,11 @@ data_rate_change <-
 ## By fixer-non fixer 
 
 ```{r}
+
 boxplot_total_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer,
                                         yvar = totalbiom, color = treatment) +
-  ylab("Total Biomass") +
-  theme(legend.position = "none") 
+  ylab("Total Biomass") 
+  #theme(legend.position = "none") 
 
 ```
 
@@ -78,35 +91,32 @@ boxplot_total_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer,
 ```{r}
 boxplot_above_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
                   yvar = above_biom , color = treatment) +
-  ylab("Aboveground Biomass") +
-  theme(legend.position = "none") 
+  ylab("Aboveground Biomass") 
+
 ```
 
 ```{r}
 boxplot_below_biom <- masomenos_boxplot(data = data_rate_change, xvar = nfixer,
                                         yvar = below_biom , color = treatment) +
-  ylab("Belowground Biomass") +
-  theme(legend.position = "none") 
+  ylab("Belowground Biomass") 
 ```
 
 ```{r}
 boxplot_rmf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
                   yvar = rmf, color = treatment) +
-  ylab("Root Mass Fraction %") +
-  theme(legend.position = "none") 
+  ylab("Root Mass Fraction %") 
+
 ```
 
 ```{r}
 boxplot_smf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
                   yvar = smf , color = treatment) +
-  ylab("Stem Mass Fraction %") + 
-  theme(legend.position = "none") 
+  ylab("Stem Mass Fraction %") 
 ```
 
 ```{r}
 boxplot_lmf <- masomenos_boxplot(data = data_rate_change, xvar = nfixer, 
                   yvar = lmf, color = treatment) +
-  theme(legend.position = "none") +
   ylab("Leaf mass fraction %")
 ```
 
@@ -116,7 +126,6 @@ boxplot_whole_leaf_weight <- masomenos_boxplot(data = data_rate_change,
                                  xvar = nfixer,
                                  yvar = whole_leaf_dry_weight  , 
                                  color = treatment) +
-  theme(legend.position = "none") +
   ylab("Whole leaf mass")
 
 ```
@@ -127,7 +136,6 @@ boxplot_whole_root_weight <- masomenos_boxplot(data = data_rate_change,
                                  xvar = nfixer,
                                  yvar = root_dry_weight  , 
                                  color = treatment) +
-  theme(legend.position = "none") +
   ylab("Whole root mass")
 
 ```
@@ -138,7 +146,6 @@ boxplot_whole_stem_weight <- masomenos_boxplot(data = data_rate_change,
                                  xvar = nfixer,
                                  yvar = stem_dry_weight  , 
                                  color = treatment) +
-  theme(legend.position = "none") +
   ylab("Whole stem mass")
 
 ```
