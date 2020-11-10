@@ -28,7 +28,7 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color,palette){
 	#ambientrain_water_nutrients = Dark blue ("#0072B2")
 	    scale_colour_manual(values = c("#F0E442",
 	    							   "#009E73","#56B4E9","#0072B2"))+
-		theme_bw() 
+		theme_classic() 
 	
 	return(plot)
 }
