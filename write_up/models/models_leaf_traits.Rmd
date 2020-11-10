@@ -37,10 +37,17 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 # Load data
 ```{r message=FALSE, warning=FALSE}
 
-
 data_complete_final <- 
   read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
+data_complete_final$treatment <- factor(data_complete_final$treatment,
+					levels = c("Harvestatthebegging",
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
 
 #Cleaned data
 data_rate_change <- 
@@ -246,7 +253,7 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
   
-   theme(legend.position = "none" ) + 
+   theme(legend.position = "right" ) + 
   ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
 ```
 

@@ -41,6 +41,16 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 data_complete_final <- 
   read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
 
+
+data_complete_final$treatment <- factor(data_complete_final$treatment,
+					levels = c("Harvestatthebegging",
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
 #Cleaned data
 data_rate_change <- 
     data_complete_final %>% 
