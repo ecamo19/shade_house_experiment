@@ -113,7 +113,7 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
   masomenos_plot(data = data_d13c_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
-   theme(legend.position = "bottom" ) + 
+   theme(legend.position = "none" ) + 
  	ylab("d13C"))
 ```
 
@@ -144,7 +144,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
   masomenos_plot(data = data_sla_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
-   theme(legend.position = "bottom" ) + 
+   theme(legend.position = "none" ) + 
 	ylab("SLA"))
 ```
 
@@ -178,8 +178,8 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
-  
-     theme(legend.position = "bottom" ))
+  	 ylab("Narea") +
+     theme(legend.position = "none" ))
 ```
 
 ## NMass
@@ -212,7 +212,7 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
  	ylab("Nmass") +
-	theme(legend.position = "bottom" ))
+	theme(legend.position = "none" ))
 ```
 
 
@@ -246,7 +246,7 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
   
-   theme(legend.position = "bottom" ) + 
+   theme(legend.position = "none" ) + 
   ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
 ```
 

@@ -30,7 +30,7 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 	    scale_colour_manual(values = c("#000000","#F0E442",
 	    							   "#009E73","#56B4E9",
 	    							   "#0072B2"))+
-		theme_bw() +
+		theme_classic() +
 		theme(legend.position = "right") + 
 		guides(col = guide_legend(ncol = 1,title.position = "top",))
 	
@@ -69,7 +69,7 @@ masomenos_plot_no_lines <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 		scale_colour_manual(values = c("#000000","#F0E442",
 									   "#009E73","#56B4E9",
 									   "#0072B2"))+
-		theme_classic()+
+		theme_classic() +
 		theme(legend.position = "right") + 
 		guides(col = guide_legend(ncol = 1,title.position = "top",))
 	
@@ -100,7 +100,7 @@ masomenos_boxplot <- function(data,xvar,yvar,color){
 		#ambientrain_water_nutrients = Dark blue ("#0072B2")
 		scale_colour_manual(values = c("#000000","#F0E442",
 									   "#009E73","#56B4E9","#0072B2"))+
-		theme_classic()+
+		theme_classic() +
 		theme(legend.position = "right") + 
 		guides(col = guide_legend(ncol = 1 ,title.position = "top",))
 	
