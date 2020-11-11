@@ -109,7 +109,7 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -140,7 +140,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -173,7 +173,7 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -207,7 +207,7 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -239,7 +239,7 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 

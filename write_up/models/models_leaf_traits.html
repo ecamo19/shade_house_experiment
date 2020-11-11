@@ -228,7 +228,7 @@ a.sourceLine {
 <span id="cb8-11"><a href="#cb8-11"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group1 =</span> <span class="kw">factor</span>(group1)) <span class="op">%&gt;%</span></span>
 <span id="cb8-12"><a href="#cb8-12"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group2 =</span> <span class="kw">factor</span>(group2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-13"><a href="#cb8-13"></a><span class="st">    </span><span class="kw">select</span>(group1, group2,nfixer,estimate,se,p_value)  <span class="op">%&gt;%</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>group1 <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="st">    </span><span class="co">#filter(!group1 == &quot;Harvestatthebegging&quot;) %&gt;% </span></span>
 <span id="cb8-15"><a href="#cb8-15"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">p_value =</span> <span class="kw">round</span>(p_value, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-16"><a href="#cb8-16"></a><span class="st">    </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
@@ -251,6 +251,38 @@ a.sourceLine {
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">-0.3955167</td>
+<td align="right">0.3071292</td>
+<td align="right">0.6991696</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-0.9288556</td>
+<td align="right">0.3001333</td>
+<td align="right">0.0199531</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">-0.1991404</td>
+<td align="right">0.3069939</td>
+<td align="right">0.9666232</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-0.7523299</td>
+<td align="right">0.3008255</td>
+<td align="right">0.0965110</td>
+</tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">ambientrain_nutrients</td>
@@ -298,6 +330,38 @@ a.sourceLine {
 <td align="right">-0.5531895</td>
 <td align="right">0.3006566</td>
 <td align="right">0.3551827</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">0.8170672</td>
+<td align="right">0.2432095</td>
+<td align="right">0.0088549</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">0.4365432</td>
+<td align="right">0.2454288</td>
+<td align="right">0.3902259</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">0.8159833</td>
+<td align="right">0.2484486</td>
+<td align="right">0.0112234</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">0.8016648</td>
+<td align="right">0.2426131</td>
+<td align="right">0.0105473</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
@@ -372,7 +436,7 @@ a.sourceLine {
 <span id="cb10-11"><a href="#cb10-11"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group1 =</span> <span class="kw">factor</span>(group1)) <span class="op">%&gt;%</span></span>
 <span id="cb10-12"><a href="#cb10-12"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group2 =</span> <span class="kw">factor</span>(group2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="st">    </span><span class="kw">select</span>(group1, group2,nfixer,estimate,se,p_value)  <span class="op">%&gt;%</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>group1 <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="st">    </span><span class="co">#filter(!group1 == &quot;Harvestatthebegging&quot;) %&gt;% </span></span>
 <span id="cb10-15"><a href="#cb10-15"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">p_value =</span> <span class="kw">round</span>(p_value, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb10-16"><a href="#cb10-16"></a><span class="st">    </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
@@ -395,6 +459,38 @@ a.sourceLine {
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">120.1542291</td>
+<td align="right">13.92065</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">134.3737607</td>
+<td align="right">13.60431</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">152.6865321</td>
+<td align="right">13.91563</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">125.0368580</td>
+<td align="right">13.63337</td>
+<td align="right">0.0000000</td>
+</tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">ambientrain_nutrients</td>
@@ -442,6 +538,38 @@ a.sourceLine {
 <td align="right">-27.6496740</td>
 <td align="right">13.62610</td>
 <td align="right">0.2578206</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">87.4035642</td>
+<td align="right">11.01947</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">90.5942106</td>
+<td align="right">11.11198</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">93.8412301</td>
+<td align="right">11.25687</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">89.8369370</td>
+<td align="right">10.99449</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
@@ -518,7 +646,7 @@ a.sourceLine {
 <span id="cb12-13"><a href="#cb12-13"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group1 =</span> <span class="kw">factor</span>(group1)) <span class="op">%&gt;%</span></span>
 <span id="cb12-14"><a href="#cb12-14"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group2 =</span> <span class="kw">factor</span>(group2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb12-15"><a href="#cb12-15"></a><span class="st">    </span><span class="kw">select</span>(group1, group2,nfixer,estimate,se,p_value)  <span class="op">%&gt;%</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>group1 <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="st">    </span><span class="co">#filter(!group1 == &quot;Harvestatthebegging&quot;) %&gt;% </span></span>
 <span id="cb12-17"><a href="#cb12-17"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">p_value =</span> <span class="kw">round</span>(p_value, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb12-18"><a href="#cb12-18"></a><span class="st">    </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
@@ -541,6 +669,38 @@ a.sourceLine {
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">-0.9883567</td>
+<td align="right">0.1528662</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-1.0742552</td>
+<td align="right">0.1493768</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">-1.1464745</td>
+<td align="right">0.1527880</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-0.9080204</td>
+<td align="right">0.1497436</td>
+<td align="right">0.0000001</td>
+</tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">ambientrain_nutrients</td>
@@ -588,6 +748,38 @@ a.sourceLine {
 <td align="right">0.2384541</td>
 <td align="right">0.1496558</td>
 <td align="right">0.5042593</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">0.0977074</td>
+<td align="right">0.1210900</td>
+<td align="right">0.9281120</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">-0.1496329</td>
+<td align="right">0.1222721</td>
+<td align="right">0.7375670</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">0.0981287</td>
+<td align="right">0.1236983</td>
+<td align="right">0.9321712</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">-0.0374887</td>
+<td align="right">0.1207735</td>
+<td align="right">0.9979616</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
@@ -664,7 +856,7 @@ a.sourceLine {
 <span id="cb14-13"><a href="#cb14-13"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group1 =</span> <span class="kw">factor</span>(group1)) <span class="op">%&gt;%</span></span>
 <span id="cb14-14"><a href="#cb14-14"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group2 =</span> <span class="kw">factor</span>(group2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb14-15"><a href="#cb14-15"></a><span class="st">    </span><span class="kw">select</span>(group1, group2,nfixer,estimate,se,p_value)  <span class="op">%&gt;%</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>group1 <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-16"><a href="#cb14-16"></a><span class="st">    </span><span class="co">#filter(!group1 == &quot;Harvestatthebegging&quot;) %&gt;% </span></span>
 <span id="cb14-17"><a href="#cb14-17"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">p_value =</span> <span class="kw">round</span>(p_value, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb14-18"><a href="#cb14-18"></a><span class="st">    </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
@@ -687,6 +879,38 @@ a.sourceLine {
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">-2.3933494</td>
+<td align="right">1.528410</td>
+<td align="right">0.5218203</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-1.5840351</td>
+<td align="right">1.493465</td>
+<td align="right">0.8262303</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">3.0338800</td>
+<td align="right">1.527547</td>
+<td align="right">0.2784011</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-0.1695994</td>
+<td align="right">1.497303</td>
+<td align="right">0.9999624</td>
+</tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">ambientrain_nutrients</td>
@@ -734,6 +958,38 @@ a.sourceLine {
 <td align="right">-3.2034794</td>
 <td align="right">1.496397</td>
 <td align="right">0.2091474</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">11.1276010</td>
+<td align="right">1.210998</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">8.2209367</td>
+<td align="right">1.223413</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">11.4758217</td>
+<td align="right">1.237080</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">9.7437646</td>
+<td align="right">1.207681</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
@@ -808,17 +1064,17 @@ a.sourceLine {
 <span id="cb16-11"><a href="#cb16-11"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group1 =</span> <span class="kw">factor</span>(group1)) <span class="op">%&gt;%</span></span>
 <span id="cb16-12"><a href="#cb16-12"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">group2 =</span> <span class="kw">factor</span>(group2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb16-13"><a href="#cb16-13"></a><span class="st">    </span><span class="kw">select</span>(group1, group2,nfixer,estimate,se,p_value)  <span class="op">%&gt;%</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>group1 <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="st">    </span><span class="co">#filter(!group1 == &quot;Harvestatthebegging&quot;) %&gt;% </span></span>
 <span id="cb16-15"><a href="#cb16-15"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">p_value =</span> <span class="kw">round</span>(p_value, <span class="dv">20</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb16-16"><a href="#cb16-16"></a><span class="st">    </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
 <colgroup>
 <col width="24%"></col>
-<col width="31%"></col>
+<col width="30%"></col>
+<col width="9%"></col>
+<col width="14%"></col>
+<col width="9%"></col>
 <col width="10%"></col>
-<col width="13%"></col>
-<col width="10%"></col>
-<col width="11%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -831,6 +1087,38 @@ a.sourceLine {
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">-59.9623761</td>
+<td align="right">6.119134</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-93.0702606</td>
+<td align="right">5.982481</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">-56.8619082</td>
+<td align="right">6.120011</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">-102.3095655</td>
+<td align="right">5.988745</td>
+<td align="right">0.0000000</td>
+</tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">ambientrain_nutrients</td>
@@ -878,6 +1166,38 @@ a.sourceLine {
 <td align="right">-45.4476573</td>
 <td align="right">5.986629</td>
 <td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">-7.8199985</td>
+<td align="right">4.832539</td>
+<td align="right">0.4884366</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">-25.9053444</td>
+<td align="right">4.850348</td>
+<td align="right">0.0000037</td>
+</tr>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">-8.7868556</td>
+<td align="right">4.936857</td>
+<td align="right">0.3895569</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">-23.1617601</td>
+<td align="right">4.827345</td>
+<td align="right">0.0000407</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
