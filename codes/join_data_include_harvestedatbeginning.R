@@ -2,7 +2,8 @@
 
 #This script join all the data sets with the objective of adding the 
 # harvested at the beginning treatment to the data
-
+# 
+# This code creates the data file called data_for_biomass_leaftraits_models.csv
 
 # Packages ----------------------------------------------------------------
 
@@ -20,7 +21,7 @@ library(textshape)
 # Biomass data ------------------------------------------------------------
 
 data_biomass <- 
-	read.csv("/home/ecamo19/documents/projects/shade_house_exp/raw_data/mass_fractions/6_plant_dry_weights_data.csv", header = T)
+	read.csv("/home/ecamo19/documents/projects/shade_house_exp/old_stuff/raw_data/mass_fractions/6_plant_dry_weights_data.csv", header = T)
 
 
 #Clean total biomass
@@ -61,7 +62,7 @@ data_totalbiom <-
 
 # Leaf trait data ---------------------------------------------------------
 
-data_traits <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/raw_data/aboveground_data/2_leaf_trait_data.csv", header = T) 
+data_traits <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/2_leaf_trait_data.csv", header = T) 
 
 # Clean leaf traits data
 data_leaf_traits <- 
@@ -72,7 +73,7 @@ data_leaf_traits <-
 
 # Isotopes data -----------------------------------------------------------
 
-data_isotopes <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/raw_data/aboveground_data/4_isotopes_data.csv", 
+data_isotopes <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/4_isotopes_data.csv", 
 						  header = T) 
 
 # Clean Isotopes data
@@ -84,7 +85,7 @@ data_nitrogen_carbon_d13c <-
 
 # Initial height data -----------------------------------------------------
 
-data_initheight <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/raw_data/aboveground_data/data_heights.csv", 
+data_initheight <- read.csv("/home/ecamo19/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/data_heights.csv", 
 						  header = T) 
 
 #Clean initial height data
@@ -155,7 +156,8 @@ data_complete_final <-
 					 perc_n,perc_c,ratio_c_n,N_g,N_mg)) %>% 
 	mutate(nfixer = ifelse(spcode == "ec" |
 						   	spcode == "dr" |
-						   	spcode == "gs","fixer", "nonfixer")) %>% 
+						   	spcode == "gs","fixer", "nonfixer")) %>%
+	dplyr::select(id,spcode,treatment,family,nfixer,everything()) %>% 
 	
 	drop_na()
 
@@ -171,6 +173,9 @@ data_complete_final$treatment <- factor(data_complete_final$treatment,
 							   "ambientrain_water_nutrients"
 							   )
 					)
+
+# Save file as .csv  ------------------------------------------------------
+#write.csv(data_complete_final,"~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv")
 
 
 
