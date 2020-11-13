@@ -72,6 +72,57 @@ data_rate_change <-
 
 ```
 
+# Mean data 
+
+## Biomass variables
+
+```{r message=FALSE, warning=FALSE}
+
+summary_mean_biomass <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		   rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
+		   stem_dry_weight,totalbiom,above_biom,below_biom) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_biomass[,3:ncol(summary_mean_biomass)] <-
+	round(summary_mean_biomass[,3:ncol(summary_mean_biomass)],3) 
+
+kable(summary_mean_biomass)
+```
+
+
+## Ecophys 
+
+## Leaf trait data
+
+```{r}
+summary_mean_leaftraits <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		   !c(
+		   rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
+		   stem_dry_weight,totalbiom,above_biom,below_biom,
+		   cn,la,init_height,ldmc)
+		   ) %>%
+	
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_leaftraits[,3:ncol(summary_mean_leaftraits)] <-
+	round(summary_mean_leaftraits[,3:ncol(summary_mean_leaftraits)],3) 
+
+kable(summary_mean_leaftraits)
+
+```
+
 
 
 # Boxplots: Biomass variables 
@@ -150,7 +201,7 @@ boxplot_whole_stem_weight <- masomenos_boxplot(data = data_rate_change,
 
 ```
 
-```{r}
+```{r, fig.height = 8, fig.width = 20}
 (masomenosplot_boxplots <- plot_grid(
   boxplot_total_biom,boxplot_above_biom,boxplot_below_biom,
   boxplot_rmf,boxplot_smf,boxplot_lmf,
@@ -260,7 +311,7 @@ boxplot_whole_leaf_weight_spcode <- masomenos_boxplot(data = data_rate_change,
 
 
 
-```{r}
+```{r fig.height = 8, fig.width = 20}
 (masomenosplot_boxplots_spcode <- plot_grid(
   boxplot_total_biom_spcode,boxplot_above_biom_spcode,boxplot_below_biom_spcode,
   boxplot_rmf_spcode,boxplot_smf_spcode,boxplot_lmf_spcode,
