@@ -157,7 +157,8 @@ data_complete_final <-
 	mutate(nfixer = ifelse(spcode == "ec" |
 						   	spcode == "dr" |
 						   	spcode == "gs","fixer", "nonfixer")) %>%
-	dplyr::select(id,spcode,treatment,family,nfixer,everything()) %>% 
+	dplyr::select(id,spcode,treatment,family,nfixer,init_height,
+				  everything()) %>% 
 	
 	drop_na()
 
