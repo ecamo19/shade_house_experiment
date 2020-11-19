@@ -165,17 +165,26 @@ a.sourceLine {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>data_complete_final &lt;-<span class="st"> </span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw">read.csv</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv&quot;</span>, <span class="dt">header =</span> T)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#Cleaned data</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>data_rate_change &lt;-<span class="st"> </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="st">  </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="st">    </span>data_complete_final <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="st">    </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="st">    </span><span class="co">#Order the columns</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,init_height,</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                  <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="st">    </span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">biomass_no_leaves =</span> totalbiom <span class="op">-</span><span class="st"> </span>whole_leaf_dry_weight )</span></code></pre></div>
+<span id="cb2-4"><a href="#cb2-4"></a>data_complete_final<span class="op">$</span>treatment &lt;-<span class="st"> </span><span class="kw">factor</span>(data_complete_final<span class="op">$</span>treatment,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Harvestatthebegging&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6"></a>                               <span class="st">&quot;ambientrain&quot;</span>, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>                               <span class="st">&quot;ambientrain_nutrients&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8"></a>                               <span class="st">&quot;ambientrain_water&quot;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>                               <span class="st">&quot;ambientrain_water_nutrients&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>                               )</span>
+<span id="cb2-11"><a href="#cb2-11"></a>                    )</span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#Cleaned data</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>data_rate_change &lt;-<span class="st"> </span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="st">  </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="st">    </span>data_complete_final <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="st">    </span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="st">    </span><span class="co">#Order the columns</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,init_height,</span>
+<span id="cb2-21"><a href="#cb2-21"></a>                  <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="st">    </span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">biomass_no_leaves =</span> totalbiom <span class="op">-</span><span class="st"> </span>whole_leaf_dry_weight )</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Load RGR data</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>data_rgr &lt;-<span class="st"> </span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="st">    </span><span class="kw">read.csv</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv&quot;</span>)</span>
