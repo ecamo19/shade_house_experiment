@@ -111,7 +111,7 @@ data_totalbiom_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -143,7 +143,7 @@ data_above_biom_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -177,7 +177,7 @@ data_below_biom_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
@@ -208,7 +208,7 @@ data_rmf_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -241,7 +241,7 @@ data_smf_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -273,7 +273,7 @@ data_lmf_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -288,7 +288,6 @@ data_lmf_plot <-
 ```
 
 ## Root Dry weight
-
 
 ```{r}
 data_root_dry_weight_plot <- 
@@ -305,7 +304,7 @@ data_root_dry_weight_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -338,7 +337,7 @@ data_stem_dry_weight_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -371,7 +370,7 @@ data_leaf_dry_weight_plot <-
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    filter(!group1 == "Harvestatthebegging") %>% 
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
