@@ -1,0 +1,156 @@
+---
+title: "Models for Absolute and Relative Growth Rate "
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 5 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+```{r}
+#Source maso menos plot
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+data_rgr_agr <- 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv", header = T) %>% 
+	 clean_names() 
+
+
+data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
+					levels = c(
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
+#Clean data
+data_rgr_agr_clean <- 
+    data_rgr_agr %>% 
+    
+    #Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,rgr,agr)
+ 
+  
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_rgr_agr_clean)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rgr_agr_clean)[7:8]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+## Relative Growth Rate
+```{r message=FALSE, warning=FALSE}
+data_rgr_plot <- 
+  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$rgr,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_rgr <- 
+  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL, n_treat = 4) +
+  theme(legend.position = "right") + ylab("Relative Growth Rate"))
+```
+
+## Absolute Growth Rate
+
+```{r message=FALSE, warning=FALSE}
+data_agr_plot <- 
+  emmip(mixed_models$agr, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$agr,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_agr_biom <- 
+  masomenos_plot_no_lines(data = data_agr_plot ,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "right") + ylab("Absolute Growth Rate"))
+```
+
