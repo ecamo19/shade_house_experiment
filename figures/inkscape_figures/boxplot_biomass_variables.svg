@@ -2870,17 +2870,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.83000003"
-     inkscape:cx="446.69943"
-     inkscape:cy="787.68248"
+     inkscape:zoom="1.1737973"
+     inkscape:cx="255.20143"
+     inkscape:cy="682.70599"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="744"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="675"
+     inkscape:window-height="734"
+     inkscape:window-x="685"
+     inkscape:window-y="4"
      inkscape:window-maximized="0"
      showguides="true" />
   <metadata
@@ -2891,7 +2891,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -14003,6 +14003,241 @@
            x="26.105915"
            y="170.2685"><tspan
              style="font-size:3.94625px;stroke-width:0.264583">    Non Fixer</tspan></tspan></text>
+    </g>
+    <g
+       id="g17518"
+       transform="translate(3.9580585,-20.456678)">
+      <g
+         id="g17516">
+        <g
+           id="g17514">
+          <text
+             transform="scale(0.91658768,1.0910031)"
+             style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17387"
+             x="109.17028"
+             y="186.74858"><tspan
+               x="109.17028"
+               sodipodi:role="line"
+               id="tspan17385"
+               y="186.74858"
+               style="stroke-width:0.105875">Treatments</tspan></text>
+          <path
+             d="m 105.87401,205.12122 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+             style="fill:#56b4e9;fill-opacity:1;fill-rule:nonzero;stroke:#56b4e9;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17390" />
+          <path
+             d="m 105.39268,205.12122 h 1.34211"
+             style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17392" />
+          <path
+             d="m 105.39268,205.12122 h 1.34211"
+             style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17394" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,107.17586,205.79508)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:219.207;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17400"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan>Ambient Rain plus water</tspan></tspan></text>
+          <path
+             d="m 105.87401,205.12122 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+             style="fill:#56b4e9;fill-opacity:1;fill-rule:nonzero;stroke:#56b4e9;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17402" />
+          <path
+             d="m 105.39268,205.12122 h 1.34211"
+             style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17404" />
+          <path
+             d="m 105.39268,205.12122 h 1.34211"
+             style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17406" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,107.17586,205.79508)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:219.207;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17412"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan>Ambient Rain plus water</tspan></tspan></text>
+          <path
+             d="m 78.921313,210.67263 c 0,-0.1236 0.0854,-0.22525 0.190206,-0.22525 0.103836,0 0.189235,0.10165 0.189235,0.22525 0,0.12475 -0.0854,0.2264 -0.189235,0.2264 -0.104807,0 -0.190206,-0.10165 -0.190206,-0.2264"
+             style="fill:#009e73;fill-opacity:1;fill-rule:nonzero;stroke:#009e73;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17414" />
+          <path
+             d="m 78.439979,210.67263 h 1.34211"
+             style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17416" />
+          <path
+             d="m 78.439979,210.67263 h 1.34211"
+             style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17418" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,80.152209,211.291)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:264.289;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17424"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan
+                 style="font-size:16.6601px">Ambient Rain plus nutrients</tspan></tspan></text>
+          <path
+             d="m 78.921313,210.67263 c 0,-0.1236 0.0854,-0.22525 0.190206,-0.22525 0.103836,0 0.189235,0.10165 0.189235,0.22525 0,0.12475 -0.0854,0.2264 -0.189235,0.2264 -0.104807,0 -0.190206,-0.10165 -0.190206,-0.2264"
+             style="fill:#009e73;fill-opacity:1;fill-rule:nonzero;stroke:#009e73;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17426" />
+          <path
+             d="M 78.439977,210.67263 H 79.78209"
+             style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17428" />
+          <path
+             d="M 78.439977,210.67263 H 79.78209"
+             style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17430" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,80.152209,211.291)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:264.289;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17436"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan
+                 style="font-size:16.6601px">Ambient Rain plus nutrients</tspan></tspan></text>
+          <text
+             transform="matrix(0.91658768,0,0,1.0910031,-26.262928,58.865073)"
+             style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:36.3326;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17442"
+             x="116.02642"
+             y="134.67458"
+             xml:space="preserve"><tspan
+               x="116.02642"
+               y="134.67458"><tspan
+                 style="stroke-width:0.105875">Harvested at the beggining </tspan></tspan></text>
+          <path
+             d="m 78.920871,205.06155 c 0,-0.1236 0.0854,-0.22525 0.1902,-0.22525 0.10384,0 0.18924,0.10165 0.18924,0.22525 0,0.12475 -0.0854,0.2264 -0.18924,0.2264 -0.1048,0 -0.1902,-0.10165 -0.1902,-0.2264"
+             style="fill:#000000;fill-opacity:0.98;fill-rule:nonzero;stroke:#000000;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17444" />
+          <path
+             d="m 78.439531,205.06155 h 1.34211"
+             style="fill:#000000;fill-opacity:0.98;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17446" />
+          <path
+             d="m 78.439533,205.06156 h 1.342112"
+             style="fill:#000000;fill-opacity:0.98;stroke:#000000;stroke-width:0.113;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17448" />
+          <text
+             transform="matrix(0.91658768,0,0,1.0910031,-26.262928,58.865073)"
+             style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:36.3326;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17454"
+             x="116.02642"
+             y="134.67458"
+             xml:space="preserve"><tspan
+               x="116.02642"
+               y="134.67458"><tspan
+                 style="stroke-width:0.105875">Harvested at the beggining </tspan></tspan></text>
+          <path
+             d="m 78.920869,205.06156 c 0,-0.1236 0.0854,-0.22525 0.190205,-0.22525 0.103837,0 0.189235,0.10165 0.189235,0.22525 0,0.12475 -0.0854,0.2264 -0.189235,0.2264 -0.104807,0 -0.190205,-0.10165 -0.190205,-0.2264"
+             style="fill:#000000;fill-opacity:0.98;fill-rule:nonzero;stroke:#000000;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17456" />
+          <path
+             d="m 78.439533,205.06156 h 1.342112"
+             style="fill:#000000;fill-opacity:0.98;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17458" />
+          <path
+             d="m 78.439533,205.06156 h 1.342112"
+             style="fill:#000000;fill-opacity:0.98;stroke:#000000;stroke-width:0.113;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17460" />
+          <text
+             transform="scale(0.91658768,1.0910031)"
+             style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17464"
+             x="87.292747"
+             y="191.0392"><tspan
+               id="tspan17462"
+               x="87.292747"
+               y="191.0392"
+               sodipodi:role="line"
+               style="stroke-width:0.105875">Ambient Rain</tspan></text>
+          <path
+             d="m 78.921307,207.80515 c 0,-0.1236 0.0854,-0.22525 0.19021,-0.22525 0.10383,0 0.18923,0.10165 0.18923,0.22525 0,0.12475 -0.0854,0.2264 -0.18923,0.2264 -0.10481,0 -0.19021,-0.10165 -0.19021,-0.2264"
+             style="fill:#f0e442;fill-opacity:1;fill-rule:nonzero;stroke:#f0e442;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17466" />
+          <path
+             d="m 78.439977,207.80515 h 1.34211"
+             style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17468" />
+          <path
+             d="m 78.439977,207.80515 h 1.34211"
+             style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17470" />
+          <text
+             transform="scale(0.91658768,1.0910031)"
+             style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17474"
+             x="87.292747"
+             y="191.0392"><tspan
+               id="tspan17472"
+               x="87.292747"
+               y="191.0392"
+               sodipodi:role="line"
+               style="stroke-width:0.105875">Ambient Rain</tspan></text>
+          <path
+             d="m 78.921307,207.80515 c 0,-0.1236 0.0854,-0.22525 0.19021,-0.22525 0.10383,0 0.18923,0.10165 0.18923,0.22525 0,0.12475 -0.0854,0.2264 -0.18923,0.2264 -0.10481,0 -0.19021,-0.10165 -0.19021,-0.2264"
+             style="fill:#f0e442;fill-opacity:1;fill-rule:nonzero;stroke:#f0e442;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17476" />
+          <path
+             d="m 78.439977,207.80515 h 1.34211"
+             style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17478" />
+          <path
+             d="m 78.439977,207.80515 h 1.34211"
+             style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17480" />
+          <path
+             d="m 105.87431,207.76269 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+             style="fill:#0072b2;fill-opacity:1;fill-rule:nonzero;stroke:#0072b2;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17482" />
+          <path
+             d="m 105.39298,207.76269 h 1.34114"
+             style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17484" />
+          <path
+             d="m 105.39298,207.76269 h 1.34114"
+             style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17486" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,107.20685,208.42408)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:246.886;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17496"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan
+                 style="font-size:16.6601px">Ambient Rain plus water and </tspan></tspan><tspan
+               x="0"
+               y="20.825126"><tspan
+                 style="font-size:16.6601px">nutrients</tspan></tspan></text>
+          <path
+             d="m 105.87431,207.76269 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+             style="fill:#0072b2;fill-opacity:1;fill-rule:nonzero;stroke:#0072b2;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17498" />
+          <path
+             d="m 105.39298,207.76269 h 1.34114"
+             style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+             id="path17500" />
+          <path
+             d="m 105.39298,207.76269 h 1.34114"
+             style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path17502" />
+          <text
+             transform="matrix(0.09704357,0,0,0.11550978,107.20685,208.42408)"
+             style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:246.886;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             id="text17512"
+             xml:space="preserve"><tspan
+               x="0"
+               y="0"><tspan
+                 style="font-size:16.6601px">Ambient Rain plus water and </tspan></tspan><tspan
+               x="0"
+               y="20.825126"><tspan
+                 style="font-size:16.6601px">nutrients</tspan></tspan></text>
+        </g>
+      </g>
     </g>
   </g>
 </svg>
