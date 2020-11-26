@@ -23,24 +23,17 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 library(knitr)
 library(janitor)
 library(ggpubr)
-library(nlme)
-library(car)
-library(emmeans)
-library(lme4)
-library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
-library(ggeffects)
 
 ```
 
 
-```{r}
-#Source maso menos plots
-#Load plot function to keep same format to all plots
+```{r message=FALSE, warning=FALSE}
+#Load function to calculate percentage differences
 
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/perc_difference_funtions_calculator.R")
 ```
 
 
@@ -68,8 +61,6 @@ data_rate_change <-
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
   clean_names()
-
-
 
 ```
 
@@ -101,23 +92,63 @@ data_ecophys_growth$treatment <- factor(data_ecophys_growth$treatment,
 
 ## Biomass variables
 
+### Mass fractions
+
 ```{r message=FALSE, warning=FALSE}
 
-summary_mean_biomass <-  
+summary_mean_mass_fractions <-  
+	data_rate_change %>% 
+	select(family,treatment,nfixer,
+		   rmf,smf,lmf) %>%
+		
+	group_by(treatment,nfixer) %>% 
+	filter(!treatment == "Harvestatthebegging" ) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer) 
+	
+
+### Round the numbers
+summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)] <-
+	round(summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)],3) 
+
+kable(summary_mean_mass_fractions)
+```
+
+### Dry weights
+```{r}
+summary_mean_dry_weights <-  
 	data_rate_change %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
-		   stem_dry_weight,totalbiom,above_biom,below_biom) %>% 
+		   whole_leaf_dry_weight,root_dry_weight,stem_dry_weight) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, funs(mean)) %>% 
 	arrange(nfixer)
 
 ### Round the numbers
-summary_mean_biomass[,3:ncol(summary_mean_biomass)] <-
-	round(summary_mean_biomass[,3:ncol(summary_mean_biomass)],3) 
+summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
+	round(summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)],3) 
 
-kable(summary_mean_biomass)
+kable(summary_mean_dry_weights)
+```
+
+
+```{r}
+summary_mean_biomass <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		    totalbiom,above_biom,below_biom) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
+	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
+
+kable(summary_mean_biomass )
+
 ```
 
 ## Growth 

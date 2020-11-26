@@ -140,7 +140,10 @@ a.sourceLine {
 <ul>
 <li><a href="#load-packages-and-data"><span class="toc-section-number">1</span> Load packages and data</a></li>
 <li><a href="#mean-data"><span class="toc-section-number">2</span> Mean data</a><ul>
-<li><a href="#biomass-variables"><span class="toc-section-number">2.1</span> Biomass variables</a></li>
+<li><a href="#biomass-variables"><span class="toc-section-number">2.1</span> Biomass variables</a><ul>
+<li><a href="#mass-fractions"><span class="toc-section-number">2.1.1</span> Mass fractions</a></li>
+<li><a href="#dry-weights"><span class="toc-section-number">2.1.2</span> Dry weights</a></li>
+</ul></li>
 <li><a href="#growth"><span class="toc-section-number">2.2</span> Growth</a></li>
 <li><a href="#ecophysiology-traits"><span class="toc-section-number">2.3</span> Ecophysiology traits</a></li>
 <li><a href="#leaf-traits"><span class="toc-section-number">2.4</span> Leaf traits</a></li>
@@ -154,19 +157,12 @@ a.sourceLine {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(knitr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(janitor)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(ggpubr)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(nlme)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(car)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(emmeans)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">library</span>(lme4)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">library</span>(cowplot)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw">library</span>(ggsci)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">library</span>(knitr)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="kw">library</span>(ggeffects)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#Source maso menos plots</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#Load plot function to keep same format to all plots</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">source</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R&quot;</span>)</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(ggsci)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">library</span>(knitr)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#Load function to calculate percentage differences</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">source</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/perc_difference_funtions_calculator.R&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Load Biomass data</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>data_complete_final &lt;-<span class="st"> </span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">read.csv</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv&quot;</span>, <span class="dt">header =</span> T)</span>
@@ -209,35 +205,25 @@ a.sourceLine {
 <h1><span class="header-section-number">2</span> Mean data</h1>
 <div id="biomass-variables" class="section level2">
 <h2><span class="header-section-number">2.1</span> Biomass variables</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>summary_mean_biomass &lt;-<span class="st">  </span></span>
+<div id="mass-fractions" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Mass fractions</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>summary_mean_mass_fractions &lt;-<span class="st">  </span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="st">    </span>data_rate_change <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>           rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>           stem_dry_weight,totalbiom,above_biom,below_biom) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">    </span><span class="kw">select</span>(family,treatment,nfixer,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>           rmf,smf,lmf) <span class="op">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">        </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span>treatment <span class="op">==</span><span class="st"> &quot;Harvestatthebegging&quot;</span> ) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">### Round the numbers</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>summary_mean_biomass[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_biomass)] &lt;-</span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_biomass[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_biomass)],<span class="dv">3</span>) </span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="kw">kable</span>(summary_mean_biomass)</span></code></pre></div>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer) </span>
+<span id="cb5-10"><a href="#cb5-10"></a>    </span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">### Round the numbers</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>summary_mean_mass_fractions[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_mass_fractions)] &lt;-</span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_mass_fractions[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_mass_fractions)],<span class="dv">3</span>) </span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="kw">kable</span>(summary_mean_mass_fractions)</span></code></pre></div>
 <table>
-<colgroup>
-<col width="19%"></col>
-<col width="6%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="4%"></col>
-<col width="15%"></col>
-<col width="11%"></col>
-<col width="11%"></col>
-<col width="6%"></col>
-<col width="7%"></col>
-<col width="7%"></col>
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">treatment</th>
@@ -245,9 +231,186 @@ a.sourceLine {
 <th align="right">rmf</th>
 <th align="right">smf</th>
 <th align="right">lmf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">49.320</td>
+<td align="right">21.055</td>
+<td align="right">29.625</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">53.801</td>
+<td align="right">20.122</td>
+<td align="right">26.077</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">53.512</td>
+<td align="right">20.802</td>
+<td align="right">25.686</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">47.389</td>
+<td align="right">24.126</td>
+<td align="right">28.485</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">50.140</td>
+<td align="right">19.127</td>
+<td align="right">30.732</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">48.464</td>
+<td align="right">18.104</td>
+<td align="right">33.432</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">48.258</td>
+<td align="right">20.653</td>
+<td align="right">31.090</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">48.159</td>
+<td align="right">18.962</td>
+<td align="right">32.879</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dry-weights" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Dry weights</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>summary_mean_dry_weights &lt;-<span class="st">  </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">    </span>data_rate_change <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>           whole_leaf_dry_weight,root_dry_weight,stem_dry_weight) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">### Round the numbers</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>summary_mean_dry_weights[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_dry_weights)] &lt;-</span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_dry_weights[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_dry_weights)],<span class="dv">3</span>) </span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="kw">kable</span>(summary_mean_dry_weights)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">treatment</th>
+<th align="left">nfixer</th>
 <th align="right">whole_leaf_dry_weight</th>
 <th align="right">root_dry_weight</th>
 <th align="right">stem_dry_weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Harvestatthebegging</td>
+<td align="left">fixer</td>
+<td align="right">0.401</td>
+<td align="right">0.661</td>
+<td align="right">0.245</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain</td>
+<td align="left">fixer</td>
+<td align="right">2.333</td>
+<td align="right">4.211</td>
+<td align="right">1.720</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">3.267</td>
+<td align="right">7.533</td>
+<td align="right">2.691</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water</td>
+<td align="left">fixer</td>
+<td align="right">2.677</td>
+<td align="right">5.777</td>
+<td align="right">2.219</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">fixer</td>
+<td align="right">4.043</td>
+<td align="right">6.654</td>
+<td align="right">3.353</td>
+</tr>
+<tr class="even">
+<td align="left">Harvestatthebegging</td>
+<td align="left">nonfixer</td>
+<td align="right">0.744</td>
+<td align="right">0.488</td>
+<td align="right">0.392</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">nonfixer</td>
+<td align="right">1.765</td>
+<td align="right">2.711</td>
+<td align="right">1.276</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">2.537</td>
+<td align="right">4.007</td>
+<td align="right">1.453</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_water</td>
+<td align="left">nonfixer</td>
+<td align="right">2.056</td>
+<td align="right">3.137</td>
+<td align="right">1.677</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">nonfixer</td>
+<td align="right">2.654</td>
+<td align="right">3.749</td>
+<td align="right">1.722</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>summary_mean_biomass &lt;-<span class="st">  </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">    </span>data_rate_change <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>            totalbiom,above_biom,below_biom) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
+<span id="cb7-9"><a href="#cb7-9"></a></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">### Round the numbers</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>summary_mean_biomass [,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_biomass)] &lt;-</span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_biomass [,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_biomass)],<span class="dv">3</span>) </span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="kw">kable</span>(summary_mean_biomass )</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">treatment</th>
+<th align="left">nfixer</th>
 <th align="right">totalbiom</th>
 <th align="right">above_biom</th>
 <th align="right">below_biom</th>
@@ -257,12 +420,6 @@ a.sourceLine {
 <tr class="odd">
 <td align="left">Harvestatthebegging</td>
 <td align="left">fixer</td>
-<td align="right">40.708</td>
-<td align="right">20.326</td>
-<td align="right">38.966</td>
-<td align="right">0.401</td>
-<td align="right">0.661</td>
-<td align="right">0.245</td>
 <td align="right">1.307</td>
 <td align="right">0.635</td>
 <td align="right">0.407</td>
@@ -270,12 +427,6 @@ a.sourceLine {
 <tr class="even">
 <td align="left">ambientrain</td>
 <td align="left">fixer</td>
-<td align="right">49.320</td>
-<td align="right">21.055</td>
-<td align="right">29.625</td>
-<td align="right">2.333</td>
-<td align="right">4.211</td>
-<td align="right">1.720</td>
 <td align="right">8.264</td>
 <td align="right">2.017</td>
 <td align="right">0.493</td>
@@ -283,12 +434,6 @@ a.sourceLine {
 <tr class="odd">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">fixer</td>
-<td align="right">53.801</td>
-<td align="right">20.122</td>
-<td align="right">26.077</td>
-<td align="right">3.267</td>
-<td align="right">7.533</td>
-<td align="right">2.691</td>
 <td align="right">13.491</td>
 <td align="right">2.952</td>
 <td align="right">0.538</td>
@@ -296,12 +441,6 @@ a.sourceLine {
 <tr class="even">
 <td align="left">ambientrain_water</td>
 <td align="left">fixer</td>
-<td align="right">53.512</td>
-<td align="right">20.802</td>
-<td align="right">25.686</td>
-<td align="right">2.677</td>
-<td align="right">5.777</td>
-<td align="right">2.219</td>
 <td align="right">10.673</td>
 <td align="right">2.476</td>
 <td align="right">0.535</td>
@@ -309,12 +448,6 @@ a.sourceLine {
 <tr class="odd">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">fixer</td>
-<td align="right">47.389</td>
-<td align="right">24.126</td>
-<td align="right">28.485</td>
-<td align="right">4.043</td>
-<td align="right">6.654</td>
-<td align="right">3.353</td>
 <td align="right">14.049</td>
 <td align="right">3.638</td>
 <td align="right">0.474</td>
@@ -322,12 +455,6 @@ a.sourceLine {
 <tr class="even">
 <td align="left">Harvestatthebegging</td>
 <td align="left">nonfixer</td>
-<td align="right">34.876</td>
-<td align="right">21.973</td>
-<td align="right">43.151</td>
-<td align="right">0.744</td>
-<td align="right">0.488</td>
-<td align="right">0.392</td>
 <td align="right">1.624</td>
 <td align="right">0.824</td>
 <td align="right">0.349</td>
@@ -335,12 +462,6 @@ a.sourceLine {
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">nonfixer</td>
-<td align="right">50.140</td>
-<td align="right">19.127</td>
-<td align="right">30.732</td>
-<td align="right">1.765</td>
-<td align="right">2.711</td>
-<td align="right">1.276</td>
 <td align="right">5.753</td>
 <td align="right">1.584</td>
 <td align="right">0.501</td>
@@ -348,12 +469,6 @@ a.sourceLine {
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">nonfixer</td>
-<td align="right">48.464</td>
-<td align="right">18.104</td>
-<td align="right">33.432</td>
-<td align="right">2.537</td>
-<td align="right">4.007</td>
-<td align="right">1.453</td>
 <td align="right">7.998</td>
 <td align="right">1.788</td>
 <td align="right">0.485</td>
@@ -361,12 +476,6 @@ a.sourceLine {
 <tr class="odd">
 <td align="left">ambientrain_water</td>
 <td align="left">nonfixer</td>
-<td align="right">48.258</td>
-<td align="right">20.653</td>
-<td align="right">31.090</td>
-<td align="right">2.056</td>
-<td align="right">3.137</td>
-<td align="right">1.677</td>
 <td align="right">6.870</td>
 <td align="right">1.988</td>
 <td align="right">0.483</td>
@@ -374,12 +483,6 @@ a.sourceLine {
 <tr class="even">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">nonfixer</td>
-<td align="right">48.159</td>
-<td align="right">18.962</td>
-<td align="right">32.879</td>
-<td align="right">2.654</td>
-<td align="right">3.749</td>
-<td align="right">1.722</td>
 <td align="right">8.125</td>
 <td align="right">2.051</td>
 <td align="right">0.482</td>
@@ -387,22 +490,23 @@ a.sourceLine {
 </tbody>
 </table>
 </div>
+</div>
 <div id="growth" class="section level2">
 <h2><span class="header-section-number">2.2</span> Growth</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>summary_mean_growth &lt;-<span class="st">  </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>           rgr,agr) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
-<span id="cb6-9"><a href="#cb6-9"></a></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">### Round the numbers</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a>summary_mean_growth[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-</span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_growth[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>],<span class="dv">3</span>) </span>
-<span id="cb6-13"><a href="#cb6-13"></a></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="kw">kable</span>(summary_mean_growth)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>summary_mean_growth &lt;-<span class="st">  </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>           rgr,agr) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
+<span id="cb8-9"><a href="#cb8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">### Round the numbers</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>summary_mean_growth[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-</span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_growth[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>],<span class="dv">3</span>) </span>
+<span id="cb8-13"><a href="#cb8-13"></a></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="kw">kable</span>(summary_mean_growth)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -466,20 +570,20 @@ a.sourceLine {
 </div>
 <div id="ecophysiology-traits" class="section level2">
 <h2><span class="header-section-number">2.3</span> Ecophysiology traits</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>summary_mean_ecophys &lt;-<span class="st">  </span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>           amax,wue,gs) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
-<span id="cb7-9"><a href="#cb7-9"></a></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">### Round the numbers</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a>summary_mean_ecophys[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>] &lt;-</span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_ecophys[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>],<span class="dv">3</span>) </span>
-<span id="cb7-13"><a href="#cb7-13"></a></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="kw">kable</span>(summary_mean_ecophys)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>summary_mean_ecophys &lt;-<span class="st">  </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>           amax,wue,gs) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">### Round the numbers</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>summary_mean_ecophys[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>] &lt;-</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_ecophys[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>],<span class="dv">3</span>) </span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="kw">kable</span>(summary_mean_ecophys)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -552,25 +656,25 @@ a.sourceLine {
 </div>
 <div id="leaf-traits" class="section level2">
 <h2><span class="header-section-number">2.4</span> Leaf traits</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>summary_mean_leaftraits &lt;-<span class="st">  </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">    </span>data_rate_change <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>           <span class="op">!</span><span class="kw">c</span>(</span>
-<span id="cb8-5"><a href="#cb8-5"></a>           rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>           stem_dry_weight,totalbiom,above_biom,below_biom,</span>
-<span id="cb8-7"><a href="#cb8-7"></a>           cn,la,init_height,ldmc)</span>
-<span id="cb8-8"><a href="#cb8-8"></a>           ) <span class="op">%&gt;%</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="st">    </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
-<span id="cb8-14"><a href="#cb8-14"></a></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">### Round the numbers</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a>summary_mean_leaftraits[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_leaftraits)] &lt;-</span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_leaftraits[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_leaftraits)],<span class="dv">3</span>) </span>
-<span id="cb8-18"><a href="#cb8-18"></a></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="kw">kable</span>(summary_mean_leaftraits)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>summary_mean_leaftraits &lt;-<span class="st">  </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">    </span>data_rate_change <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>           <span class="op">!</span><span class="kw">c</span>(</span>
+<span id="cb10-5"><a href="#cb10-5"></a>           rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>           stem_dry_weight,totalbiom,above_biom,below_biom,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>           cn,la,init_height,ldmc)</span>
+<span id="cb10-8"><a href="#cb10-8"></a>           ) <span class="op">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="st">    </span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="st">    </span><span class="kw">arrange</span>(nfixer)</span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">### Round the numbers</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>summary_mean_leaftraits[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_leaftraits)] &lt;-</span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="st">    </span><span class="kw">round</span>(summary_mean_leaftraits[,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(summary_mean_leaftraits)],<span class="dv">3</span>) </span>
+<span id="cb10-18"><a href="#cb10-18"></a></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="kw">kable</span>(summary_mean_leaftraits)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
