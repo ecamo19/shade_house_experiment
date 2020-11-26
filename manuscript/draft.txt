@@ -1,61 +1,54 @@
-﻿
-Here we examine the effects of water and nutrient addition on biomass gain and 
-leaf trait of eight species from the tropical dry forest of Costa Rica. We used 
-three fixers and five non fixers species. We hypothesized that water and/or 
-nutrient addition will cause that plants shift their leaf traits in order to 
-uptake the new resourses available, which will lead to a biomass gain. (ref) 
 
-We addressed the following questions: 
+Here we examine the effects of water and nutrient addition on biomass gain and leaf trait of eight species from the tropical dry forest of Costa Rica. We used three fixers and five non fixers species. We hypothesized that water and/or nutrient addition will cause plants to shift their leaf traits in order to uptake the new resources available, which will lead to a biomass gain. (ref)
 
-(Q1) How biomass and leaf traits shift with the addition of water and nutrients? 
+We addressed the following questions:
 
-(Q2) Does the shift in leaf traits correlate with plant biomass the gain?    
+(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance.
+(Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?
+   
 
-For (Q1) we predict.... 
+For (Q1) we predict....
 
 
-(Q1) How biomass and leaf traits shift with the addition of water and nutrients?  
+(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance.
+
 Total Biomass
 
-For the fixers species,plant total biomass increased significantly to the 
-addition of water, nutrients and both (F and p-values). The addition of water 
-increased 29% the total biomass compared to the ambient treatment. While the 
-addition of nutrients increased the total biomass 63% and the addition of both, 
-water and nutrients, increased the total biomass in 70% compared to the 
-ambient rain treatment.
+For the fixers species,plant total biomass increased significantly to the addition of water, nutrients and both (F and p-values). The addition of water increased 29% the total biomass compared to the ambient treatment. While the addition of nutrients increased the total biomass 63% and the addition of both, water and nutrients, increased the total biomass in 70% compared to the ambient rain treatment.
 
-For non-fixers species, only the nutrients and the nutrients plus water 
-treatments increased significantly the total biomass. In the case of the 
-nutrients treatment, this treatment increased 39% the total biomass while 
-the addition of both increased 41%. The addition of water had no significant 
-effect on the total biomass. 
+For non-fixers species, only the  nutrients and nutrients plus water treatments increased significantly the total biomass. In the case of the nutrients treatment, this increased 39% the total biomass while the addition of both, increased 41%. The addition of water had no significant effect on the total biomass.
 
-+ Biomass partition: Above and belowground biomass 
+Above and belowground biomass
 
-Aboveground biomass for fixers increased significantly when nutrients and 
-nutrients plus water were added compared to the ambient rain treatment. 
-Aboveground biomass increased 46% when nutrients were added and 80% when 
-nutrients plus water were added. For non-fixers, aboveground biomass only 
-increased significantly compared to the ambient rain in the nutrients plus 
-water treatment. We found that belowground for fixers and non-fixers did not 
-responded to the addition of water and/or nutrients (Fig). 
+Aboveground biomass for fixers increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. Aboveground biomass increased 46% when nutrients were added and 80% when nutrients plus water were added. For non-fixers, aboveground biomass only increased significantly compared to the ambient rain in the nutrients plus water treatment. 
 
-+ Biomass partition: root, stem and leaf biomass 
+We found that belowground biomass for fixers and non-fixers did not respond significantly to the addition of water and/or nutrients (Fig).
 
-Fixer’s root mass responded significantly to all treatments. Nutrient addition 
-increased root mass 78% compared to the ambient rain treatment while water 
-increased 37% and nutrients plus water increased it 58%. For non fixers, only 
-the addition of nutrients increased significantly root biomass in 47%.
+Biomass partition: root, stem and leaf biomass
 
-Stem mass for fixers increased significantly 13% in the plus nutrients 
-treatment and 34% in the nutrients plus water treatment. Non fixer’s stem mass 
-did not change significantly in any of the treatments. 
+Fixer’s root mass increased significantly in all treatments. Nutrient addition increased root mass 78% compared to the ambient rain treatment while water increased it 37% and nutrients plus water increased it 58%. For non fixers, only the addition of nutrients increased significantly root biomass in 47%.
 
-Leaf mass increased significantly for fixers and non-fixers in the nutrient and 
-nutrients plus water treatments when compared to the ambient rain treatment. 
-For fixers, the addition of nutrients increased 40% and the addition of 
-nutrients plus water increased 73%. For non-fixers the addition of nutrients 
-increased 43%  whilst the addition of water and nutrients increased it 50%. 
+Stem mass for fixers increased significantly 13% in the plus nutrients treatment and 34% in the nutrients plus water treatment. Non fixer’s stem mass did not change significantly in any of the treatments.
 
-Biomass partition: root, stem and leaf mass fractions Supplementary??? 
+Total leaf mass increased significantly for fixers and non-fixers in the nutrient and nutrients plus water treatments when compared to the ambient rain treatment.For fixers, the addition of nutrients increased 40% and the addition of nutrients plus water increased 73%. For non-fixers the addition of nutrients increased 43%  whilst the addition of water and nutrients increased it 50%.
+Biomass partition: root, stem and leaf mass fractions Supplementary???
+
+
+Absolute and relative growth rates 
+
+The plus nutrients and plus nutrients and water treatments increased 61% and 77% the absolute growth rate, respectively and 57% the relative growth rates in both treatments for fixer species (f values pvalue) while for non fixer species, the only the addition of nutrients increased significantly the relative growth rate (f values pvalue) 
+
+
+Ecophysiology Traits
+
+For fixer species, we found that the addition of nutrients decreased Amax by 15% (f values pvalue). The addition of water increased Amax and stomatal conductance by 14% (f values pvalue) and 35% (f values pvalue) and decreased WUEi by 30% (f values pvalue). Finally the addition of nutrients and water decreased WUEi  by 31% (f values pvalue).
+
+For non fixer species, none of the treatments had effect over the Amax but the plus water and plus nutrients and water treatments increased the stomatal conductance 132% and 123% and decreased WUEi 50% and 52%, respectively  (f values pvalue).
+
+Leaf Traits
+
+
+
+From the five traits measured, only Canopy Nitrogen content NMass responded to the treatments. Canopy Nitrogen Content, this increased for fixers 45% when nutrients were added and 60% when nutrients and water were added. While for non fixers this trait increased 81% and 71% respectively. In the case of Nmass, this trait decreased 18% when water was added for the fixer species. 
+(Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?
 
