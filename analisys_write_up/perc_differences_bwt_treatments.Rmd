@@ -117,11 +117,12 @@ kable(summary_mean_biomass )
 summary_mean_dry_weights <-  
 	data_rate_change %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   whole_leaf_dry_weight,root_dry_weight,stem_dry_weight) %>% 
+		   root_dry_weight,stem_dry_weight,whole_leaf_dry_weight) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
+	summarise_if(is.numeric, mean) %>% 
 	arrange(nfixer)
+	
 
 ### Round the numbers
 summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
