@@ -5,25 +5,49 @@ library(docstring)
 # Function RGR ------------------------------------------------------------
 
 perc_diff <- 
-	function(treatment_to_compare, treatment_reference = 'ambientrain' ){
+	function(trait,
+			 treatment_reference = "ambientrain") {
+		
 	#' This funtion calculates the percentage difference
 	#' between 2 values 
 	#' ((y2 - y1)/ y1)*100
 	
 	#Select the treatment that you want use as reference, the
 	#default is ambient rain treatment
-	treatment_reference <- trait[treatment == treatment_reference]
 	
-	#Calculate rgr
-	perc_diff <- ( treatment_to_compare - treatment_reference
-				   / treatment_reference) * 100
+	trait_value_reference <-
+		filter(treatment ==  "ambientrain")
+	
+	#trait_value <- trait[treatment_reference !=  "ambientrain"] 
+	
+	#Calculate <- function(x) ((x-y)/y)*100
+	
+	perc_diff <- 
+		trait 
+		#(trait_value_reference ) 
+		 #/trait_value_reference) * 100
+	
 	return(perc_diff)
 }
 
 
 
 
+# Prueba 2 ----------------------------------------------------------------
 
+
+rgr <- function(rmf, treatment){
+	#' This funtion calculates the Relative growth rate 
+	#' (log(Final Height) - log(Inital height)) /
+	#'           time final - time initial  
+	
+	#Select the first measure
+	initial_heigth <- rmf[treatment == "ambientrain"]
+	
+	#Calculate rgr
+	rgr <- rmf - initial_heigth
+	return(rgr)
+}
 
 
 
