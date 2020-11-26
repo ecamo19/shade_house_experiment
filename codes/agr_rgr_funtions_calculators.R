@@ -9,7 +9,7 @@ rgr <- function(height, days){
 	#' (log(Final Height) - log(Inital height)) /
 	#'           time final - time initial  
 	
-	#Select the first mesaure
+	#Select the first measure
 	initial_heigth <- height[days == 0]
 	
 	#Calculate rgr
