@@ -92,6 +92,44 @@ data_ecophys_growth$treatment <- factor(data_ecophys_growth$treatment,
 
 ## Biomass variables
 
+### Total, Above and Belowground Biomass
+
+```{r}
+summary_mean_biomass <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		    totalbiom,above_biom,below_biom) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, mean) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
+	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
+
+kable(summary_mean_biomass )
+
+```
+
+### Dry weights
+```{r}
+summary_mean_dry_weights <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		   whole_leaf_dry_weight,root_dry_weight,stem_dry_weight) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
+	round(summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)],3) 
+
+kable(summary_mean_dry_weights)
+```
+
 ### Mass fractions
 
 ```{r message=FALSE, warning=FALSE}
@@ -114,42 +152,8 @@ summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)] <-
 kable(summary_mean_mass_fractions)
 ```
 
-### Dry weights
-```{r}
-summary_mean_dry_weights <-  
-	data_rate_change %>% 
-	select(id,spcode,family,treatment,nfixer,
-		   whole_leaf_dry_weight,root_dry_weight,stem_dry_weight) %>% 
-	column_to_rownames("id") %>% 
-	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer)
-
-### Round the numbers
-summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
-	round(summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)],3) 
-
-kable(summary_mean_dry_weights)
-```
 
 
-```{r}
-summary_mean_biomass <-  
-	data_rate_change %>% 
-	select(id,spcode,family,treatment,nfixer,
-		    totalbiom,above_biom,below_biom) %>% 
-	column_to_rownames("id") %>% 
-	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer)
-
-### Round the numbers
-summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
-	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
-
-kable(summary_mean_biomass )
-
-```
 
 ## Growth 
 ```{r}
