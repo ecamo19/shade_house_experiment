@@ -154,14 +154,12 @@ kable(summary_mean_mass_fractions)
 ```
 
 
-
-
 ## Growth 
 ```{r}
 summary_mean_growth <-  
 	data_ecophys_growth %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   rgr,agr) %>% 
+		   agr,rgr) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, funs(mean)) %>% 
@@ -181,7 +179,7 @@ kable(summary_mean_growth)
 summary_mean_ecophys <-  
 	data_ecophys_growth %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   amax,wue,gs) %>% 
+		   amax,gs,wue) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, funs(mean)) %>% 

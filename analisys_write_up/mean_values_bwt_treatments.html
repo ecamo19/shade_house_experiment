@@ -501,7 +501,7 @@ a.sourceLine {
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>summary_mean_growth &lt;-<span class="st">  </span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>           rgr,agr) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>           agr,rgr) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-5"><a href="#cb8-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-6"><a href="#cb8-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -517,58 +517,58 @@ a.sourceLine {
 <tr class="header">
 <th align="left">treatment</th>
 <th align="left">nfixer</th>
-<th align="right">rgr</th>
 <th align="right">agr</th>
+<th align="right">rgr</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">fixer</td>
-<td align="right">0.007</td>
 <td align="right">0.159</td>
+<td align="right">0.007</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">fixer</td>
-<td align="right">0.011</td>
 <td align="right">0.257</td>
+<td align="right">0.011</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain_water</td>
 <td align="left">fixer</td>
-<td align="right">0.009</td>
 <td align="right">0.189</td>
+<td align="right">0.009</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">fixer</td>
-<td align="right">0.011</td>
 <td align="right">0.282</td>
+<td align="right">0.011</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">nonFixer</td>
-<td align="right">0.004</td>
 <td align="right">0.056</td>
+<td align="right">0.004</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">nonFixer</td>
-<td align="right">0.005</td>
 <td align="right">0.079</td>
+<td align="right">0.005</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain_water</td>
 <td align="left">nonFixer</td>
-<td align="right">0.003</td>
 <td align="right">0.062</td>
+<td align="right">0.003</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">nonFixer</td>
-<td align="right">0.005</td>
 <td align="right">0.074</td>
+<td align="right">0.005</td>
 </tr>
 </tbody>
 </table>
@@ -578,7 +578,7 @@ a.sourceLine {
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>summary_mean_ecophys &lt;-<span class="st">  </span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="st">    </span>data_ecophys_growth <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="st">    </span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>           amax,wue,gs) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>           amax,gs,wue) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-5"><a href="#cb9-5"></a><span class="st">    </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-6"><a href="#cb9-6"></a><span class="st">    </span><span class="kw">group_by</span>(treatment,nfixer) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-7"><a href="#cb9-7"></a><span class="st">    </span><span class="kw">summarise_if</span>(is.numeric, <span class="kw">funs</span>(mean)) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -595,8 +595,8 @@ a.sourceLine {
 <th align="left">treatment</th>
 <th align="left">nfixer</th>
 <th align="right">amax</th>
-<th align="right">wue</th>
 <th align="right">gs</th>
+<th align="right">wue</th>
 </tr>
 </thead>
 <tbody>
@@ -604,57 +604,57 @@ a.sourceLine {
 <td align="left">ambientrain</td>
 <td align="left">fixer</td>
 <td align="right">14.982</td>
-<td align="right">5.313</td>
 <td align="right">0.236</td>
+<td align="right">5.313</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">fixer</td>
 <td align="right">12.657</td>
-<td align="right">4.982</td>
 <td align="right">0.165</td>
+<td align="right">4.982</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain_water</td>
 <td align="left">fixer</td>
 <td align="right">17.175</td>
-<td align="right">3.735</td>
 <td align="right">0.319</td>
+<td align="right">3.735</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">fixer</td>
 <td align="right">15.372</td>
-<td align="right">3.694</td>
 <td align="right">0.290</td>
+<td align="right">3.694</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
 <td align="left">nonFixer</td>
 <td align="right">5.663</td>
-<td align="right">2.923</td>
 <td align="right">0.126</td>
+<td align="right">2.923</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
 <td align="left">nonFixer</td>
 <td align="right">5.945</td>
-<td align="right">2.756</td>
 <td align="right">0.134</td>
+<td align="right">2.756</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain_water</td>
 <td align="left">nonFixer</td>
 <td align="right">6.182</td>
-<td align="right">1.446</td>
 <td align="right">0.293</td>
+<td align="right">1.446</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_water_nutrients</td>
 <td align="left">nonFixer</td>
 <td align="right">5.698</td>
-<td align="right">1.401</td>
 <td align="right">0.281</td>
+<td align="right">1.401</td>
 </tr>
 </tbody>
 </table>
