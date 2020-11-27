@@ -162,7 +162,26 @@ PC1_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC1", "treatment"))
                       geom_line()+
                       ylab("AGR")+
                       xlab("PC1")+ 
-                      theme_pubr()+
+                      theme_classic()+
+                      scale_color_manual(values= cbbPalette,
+                                        labels=c("ambient", "nutrients", 
+                                                  "water", "nutrients + water")
+                                        ) +
+                      geom_line(size=1))
+
+
+```
+
+```{r}
+cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
+
+PC2_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC2", "treatment"))
+
+(PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
+                      geom_line()+
+                      ylab("AGR")+
+                      xlab("PC2")+ 
+                      theme_classic()+
                       scale_color_manual(values= cbbPalette,
                                         labels=c("ambient", "nutrients", 
                                                   "water", "nutrients + water")
@@ -170,5 +189,6 @@ PC1_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC1", "treatment"))
                       geom_line(size=2))
 
 
+```
 ```
 
