@@ -1,0 +1,174 @@
+---
+title: "PCA analysis"
+author: "Leland Werden"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 7 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 2
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+require(vegan)
+require(knitr)
+require(ggpubr)
+library(ggeffects)
+library(emmeans)
+library(lme4)
+library(MuMIn)
+library(performance)
+library(DHARMa)
+library(car)
+library(janitor)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load and Clean Data
+
+```{r}
+finalTrait_dat <- read.table("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+```
+
+```{r}
+
+allTrait <-  
+    finalTrait_dat %>%
+    dplyr::select(spcode, treatment, nfixer, init_height, totalbiom, above_biom,
+                  whole_leaf_dry_weight, stem_dry_weight, amax, gs, wue, 
+                  d13c, sla_cm2_g, totalleafmass_Nmass, rgr, agr)
+
+
+# Scale data
+allTrait_scaled <- allTrait
+allTrait_scaled[,c(9:14)] <- scale(allTrait_scaled[,c(9:14)])
+```
+
+
+
+# PCA 
+
+```{r}
+PCAfinalTraits <- princomp(allTrait_scaled[,c(9:14)])
+```
+
+```{r}
+#Extract loadings
+PCAfinalTraits$loadings 
+```
+
+```{r}
+PCAscores <- scores(PCAfinalTraits)
+```
+
+
+
+# Data for PCA regression 
+```{r}
+allTrait_scaled_forReg <- allTrait
+```
+
+## Pull out PC axes and add to trait/growth data frame
+```{r}
+allTrait_scaled_forReg$PC1 <- PCAscores[,1]
+allTrait_scaled_forReg$PC2 <- PCAscores[,2]
+allTrait_scaled_forReg$PC3 <- PCAscores[,3]
+```
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+# Perform regression 
+
+__Do PCs predict AGR?__
+```{r}
+ 
+# fit treatment/nfixer interactions separately
+PCmod_agr_bothPC<- lmer(agr ~ treatment * PC1 +
+                              nfixer * PC1 +
+                              treatment * PC2 +
+                              nfixer * PC2 +
+                              init_height + (1|spcode), 
+                        data = allTrait_scaled_forReg)
+
+```
+
+```{r}
+# fit three-way interaction
+PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
+                                      treatment * nfixer* PC2 +
+                                      init_height + (1|spcode),
+                                data = allTrait_scaled_forReg)
+```
+
+## Model comparision 
+```{r}
+# check two-way vs. three-way interaction models (shows that two-way is way better, more negative AICc -- include in methods)
+AICc(PCmod_agr_bothPC, PCmod_agr_bothPC_3xItxn)
+```
+
+## Check Model assumptions 
+
+```{r}
+#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+# Results
+
+```{r}
+# model R2
+r2(PCmod_agr_bothPC)
+```
+
+```{r message=FALSE, warning=FALSE}
+# ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
+Anova(PCmod_agr_bothPC, type = "III") %>% 
+  kable()
+```
+
+
+```{r}
+# pull out PCA loadings again
+PCAfinalTraits$loadings
+```
+# Plot
+
+```{r}
+# compare slopes of lines for treatment X PC1 iteraction
+emtrends(PCmod_agr_bothPC, pairwise ~ treatment, var = "PC1")
+
+```
+
+
+
+```{r}
+# plot that shit
+cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
+
+PC1_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC1", "treatment"))
+
+(PC1_AGR_fig <- ggplot(PC1_predict, aes(x, predicted, colour = group)) + 
+                      geom_line()+
+                      ylab("AGR")+
+                      xlab("PC1")+ 
+                      theme_pubr()+
+                      scale_color_manual(values= cbbPalette,
+                                        labels=c("ambient", "nutrients", 
+                                                  "water", "nutrients + water")
+                                        ) +
+                      geom_line(size=2))
+
+
+```
+
