@@ -21,7 +21,7 @@ library(textshape)
 # Biomass data ------------------------------------------------------------
 
 data_biomass <- 
-	read.csv("~/documents/projects/shade_house_exp/old_stuff/raw_data/mass_fractions/6_plant_dry_weights_data.csv", header = T)
+	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data//6_plant_dry_weights_data.csv", header = T)
 
 
 #Clean total biomass
@@ -35,10 +35,10 @@ data_totalbiom <-
 	
 	# % Above ground biomass
 	mutate(above_biom = 
-		   	(stem_dry_weight + whole_leaf_dry_weight / total_biomass)) %>% 
+		   	(stem_dry_weight + whole_leaf_dry_weight)) %>% 
 	
 	# % Below ground biomass
-	mutate(below_biom = (root_dry_weight/ total_biomass)) %>% 
+	mutate(below_biom = (root_dry_weight)) %>% 
 	
 	#Delete Harvested at the beginning treatment 
 	filter( !treatment %in% 'Harvestatthebegging') %>% 
@@ -55,15 +55,15 @@ data_totalbiom <-
 # Data ecophys ------------------------------------------------------------
 
 data_ecophys <- 
-	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/3_physiology_data.csv", header = T) %>% 
 	clean_names() %>% 
-	dplyr::select(- c(init_height,family))
+	dplyr::select(- c(family))
 
 
 
 # Leaf trait data ---------------------------------------------------------
 
-data_traits <- read.csv("~/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/2_leaf_trait_data.csv", header = T) 
+data_traits <- read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/2_leaf_trait_data.csv", header = T) 
 
 # Clean leaf traits data
 data_leaf_traits <- 
@@ -78,7 +78,7 @@ data_leaf_traits <-
 
 # Isotopes data -----------------------------------------------------------
 
-data_isotopes <- read.csv("~/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/4_isotopes_data.csv", 
+data_isotopes <- read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/4_isotopes_data.csv", 
 						  header = T) 
 
 # Clean Isotopes data
@@ -97,7 +97,7 @@ data_nitrogen_carbon_d13c <-
 
 # Initial height data -----------------------------------------------------
 
-data_initheight <- read.csv("~/documents/projects/shade_house_exp/old_stuff/raw_data/aboveground_data/data_heights.csv", 
+data_initheight <- read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/data_heights.csv", 
 						  header = T) 
 
 #Clean initial height data
@@ -120,7 +120,7 @@ data_complete <-
 	#Add leaf carbon and nitrogen 
 	right_join(., data_nitrogen_carbon_d13c , by = c("id", "spcode"))  %>% 
 	dplyr::select(-c(treatment.y)) %>% 
-	rename(treatment = treatment.x) %>% 
+	rename(treatment = treatment.x)  %>% 
 	
 	#Add plant initial height
 	right_join(., data_initheight , by = c("id", "spcode")) %>% 
@@ -132,7 +132,7 @@ data_complete <-
 	right_join(., data_ecophys , by = c("id", "spcode")) %>% 
 	dplyr::select(-c(treatment.y)) %>% 
 	rename(treatment = treatment.x) %>% 
-	clean_names() %>%
+	clean_names() %>% 
 		
 	#I deleted 	leaf_density and leaf thickness because this data was not 
 	#available for harvested at beginning plants
@@ -197,7 +197,7 @@ data_complete_final$treatment <- factor(data_complete_final$treatment,
 					)
 
 # Save file as .csv  ------------------------------------------------------
-#write.csv(data_complete_final,"~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_rda_leland.csv")
+#write.csv(data_complete_final,"~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv")
 
 
 
