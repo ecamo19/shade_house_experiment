@@ -120,7 +120,7 @@ data_totalbiom_plot <-
 ```{r}
 (plot_totalbiom <- 
   masomenos_plot_no_lines(data = data_totalbiom_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Total Biomass"))
 ```
@@ -154,7 +154,7 @@ data_above_biom_plot <-
 ```{r}
 (plot_above_biom <- 
   masomenos_plot_no_lines(data = data_above_biom_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Aboveground Biomass"))
 ```
@@ -187,7 +187,7 @@ data_below_biom_plot <-
 ```{r}
 (plot_below_biom <- 
   masomenos_plot_no_lines(data = data_below_biom_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Belowground Biomass"))
 ```
@@ -217,7 +217,7 @@ data_rmf_plot <-
 ```{r}
 (plot_rmf <- 
   masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
     theme(legend.position = "none") + 
     ylab("RMF plus CI's"))
@@ -250,7 +250,7 @@ data_smf_plot <-
 ```{r}
 (plot_smf <- 
   masomenos_plot_no_lines(data = data_smf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right")  +
   ylab("SMF plus CI's'"))
@@ -281,7 +281,7 @@ data_lmf_plot <-
 ```{r}
 (plot_lmf <- 
   masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + 
   ylab("Leaf mass fraction plus CI's"))
@@ -312,7 +312,7 @@ data_root_dry_weight_plot <-
 ```{r}
 (plot_root_dry_weight <- 
   masomenos_plot_no_lines(data = data_root_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + 
   ylab("Root Dry Weight plus CI's"))
@@ -346,7 +346,7 @@ data_stem_dry_weight_plot <-
 ```{r}
 (plot_stem_dry_weight <- 
   masomenos_plot_no_lines(data = data_stem_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "none") + 
   ylab("Stem Dry Weight plus CI's"))
@@ -378,7 +378,7 @@ data_leaf_dry_weight_plot <-
 ```{r}
 (plot_leaf_dry_weight <- 
   masomenos_plot_no_lines(data = data_leaf_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, color = treatment,n_treat = 5,
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + 
   ylab("Leaf Dry Weight plus CI's"))
