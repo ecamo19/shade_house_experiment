@@ -26,6 +26,7 @@ library(performance)
 library(DHARMa)
 library(car)
 library(janitor)
+library(factoextra)
 ```
 
 ```{r setup, include=FALSE}
@@ -69,6 +70,10 @@ PCAfinalTraits$loadings
 PCAscores <- scores(PCAfinalTraits)
 ```
 
+```{r}
+
+fviz_pca(PCAfinalTraits)
+```
 
 
 # Data for PCA regression 
