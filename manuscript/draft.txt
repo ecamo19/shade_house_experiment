@@ -1,4 +1,18 @@
+Title: Water, nutrients, or both?  Effects of multiple belowground resources on early seedling growth, physiology, and symbionts in eight species of tropical dry forest trees 
+Erick Calderón-Morales, Leland K.Werden, Chris M. Smith-Martin,  Bonnie G. Waring, Roberto Cordero-Solorzano, and Jennifer S. Powers 
+Introduction 
+Plants require multiple belowground resources including water and a variety of nutrients. Differences in both how plants acquire these resources and how they respond to variability in the availability of soil-borne resources contribute to niche differentiation and the maintenance of diversity (Levine and HilleRisLambers 2009, Holste et al. 2011).  Because the seedling stage is a vulnerable time in trees’ life histories during which populations suffer elevated mortality (Ribbens et al. 1994), many studies have evaluated how water and nutrients affect seedling growth rates (Yavitt 199?,Baraloto et al. 2006), allocation to roots versus shoots (Burslem et al. 1996, Canham et al. 1996), physiological process rates (Graciano et al. 2005), and relationships with symbionts such as mycorrhizae and nitrogen fixing bacteria in Fabaceae (Birhane et al. 2015).  These studies typically find that responses to multiple belowground resources are often species-specific and also may depend upon whether above- or belowground organs are considered (Freschet et al. 2013).  Thus, we still lack a general framework for understanding the joint effects of belowground resources on seedling performance, particularly in environments with large seasonal or temporal variability in soil moisture and nutrient availability (Lodge et al. 1994), such as seasonally dry tropical forests. 
+ DESCRIBE THE TYPES OF RESPONSES… (Table 1). 
 
+
+Paragraph 2 introduce TDF..  
+ 
+Seedling growth in TDF is strongly constrained by water availability and is typically restricted to the wet season (Gerhardt 1993, Maza-Villalobos et al. 2013).  However, studies have also shown that TDF seedlings respond positively to increased nutrient availability (Huante et al. 1995a, Huante et al. 1995b, Ceccon et al. 2003).  Surprisingly, few studies have investigated how nutrients and soil water jointly affect tropical dry forest tree seedlings.  There are a number of possible responses to increased water and nutrients, from additive, synergistic, antagonistic, or no response. 
+* SYNERGISTIC if plant didn't respond to each resource individually, but does respond to them added together, OR if LRR for both resources together is outside the 95% CI for an individual resource 
+ 
+*** what does it mean if the resources are not balanced?  Can a plant take advantage of added water or nutrients, if it does not have the other resource? 
+
+Paragraph 3 Goals and Specific Objectives 
 Here we examine the effects of water and nutrient addition on biomass gain and leaf trait of eight species from the tropical dry forest of Costa Rica. We used three fixers and five non fixers species. We hypothesized that water and/or nutrient addition will cause plants to shift their leaf traits in order to uptake the new resources available, which will lead to a biomass gain. (ref)
 
 We addressed the following questions:
@@ -8,6 +22,56 @@ We addressed the following questions:
    
 
 For (Q1) we predict....
+We used a diverse sample of tropical dry forest tree species from different functional groups in a seedling pot experiment to answer the following questions: 1) how do biomass allocation and functional traits change during seedling development, 2)  
+how do added water and/or nutrients affect growth, physiology, water use efficiency, functional traits, and relationships with symbionts, and are these responses additive, antagonistic or synergistic, and 3) which traits are correlated, and does this vary among species?  We predicted that  
+ 
+Methods 
+Study site and species 
+Our experiment took place between June to November, 2015, in a shade house located at the Estacion Experimental Forestal Horizontes, Area de Conservación Guanacaste, Costa Rica (10°420 46″ N, 85°350 44″). Rainfall is highly seasonal, with a dry period of 5-6 months. Mean annual precipitation at nearby Sector Santa Rosa is 1729 mm and mean temperature is 25 C (Becknell and Powers 2014), although Horizontes likely has lower rainfall than Santa Rosa (Gutiérrez-Leitón 2013). Our study occurred during one of the driest years on record (Cooley et al. 2019), wherein rainy season rainfall was less than X of average due to the very strong El Niño Southern Oscillation (ENSO) event of 2015; thus we considered ambient rainfall as a drought.  We used 8 species that belong to 5 different families: Enterolobium cyclocarpum, Gliricidia sepium, Hymenea courbaril, Dalbergia retusa, Swietenia macrophylla, Simarouba glauca, Tabebuia ochraceae and Pachira quinata (Table 2). Collectively, these species represent the full range of functional trait variation that defines different tropical dry forest plant functional types in ecosystem simulation models (Xu et al 2016), including nitrogen (N) fixing and non-N fixing legume species.  
+Seed germination, growing conditions  
+The shade house was covered with a 50% shade cloth. All the seeds sown directly into pots containing a soil mixture of 2 parts of locally collected soil and 1 part sand. To improve germination rates, we applied two different treatments to the seeds. Enterolobium seeds were subject to water baths alternating from boiling to cold water for 30 seconds for breaking the seed coat. All other species were soaked in water overnight.  
+Seeds were sown directly into pots in early June, 2015.  Following germination and establishment, pots were thinned to one seedling per pot.  All plants received supplemental water when needed.  After ~12 weeks, an initial harvest of four individuals per species was made (see Methods below).  Watering and/or fertilizer treatments on the remaining seedlings were started two days later, and were imposed for 12 weeks (N = 4 plants per species per treatment) prior to harvest.   
+
+Watering and fertilization treatments 
+At 12 weeks, plants were randomly assigned to one of four treatments: control (no additions), nutrient addition, water addition, water + nutrient addition.  Water additions consisted of 500 mL added every two weeks.  The nutrient addition treatment consisted of a commercial fertilizer containing NPK and complete micronutrients.  Nutrient addition rates were corresponded to 150 kg N ha-1 yr-1, prorated to the duration of the experiment (3 months). Fertilizer was dissolved in water and added to the surface soil in the pots every two weeks in 20 mL doses with a syringe. 
+Soil moisture 
+Soil moisture readings were taken in all pots immediately prior to watering treatments and then ~1 day following watering, and these measurements were repeated six equally spaced times during the growing season after the treatments began. This allowed us to quantify the magnitude of the watering effect on soil moisture, and also allowed us to know whether elevated soil moisture in the watered pots persisted beyond two weeks. These measurements were made with a SM150 Soil Moisture Sensor (Delta-T Devices, Ltd, Cambridge, England).  
+
+Height measurements and harvest 
+Biomass and Growth 
+Height was measured every two weeks in all the individuals 
+
+Leaf Traits
+We measured resource-acquisition and hydraulic traits related to how plants acquire carbon and use water in all the individuals. Prior harvesting the plants, we measured maximum photosynthetic capacity  at 1200 par (Amax; μmol CO2 m−2 s−), stomatal conductance (gs; mmol m−2 s−1)) and instantaneous water use efficiency (WUE; μmol CO2 mmol H2O−1) with a LCi portable photosynthesis system (ADC Bioscientific Ltd. Hoddesdon, UK). 
+After the gas exchange measurements we harvested the plants and divided them into leaves and stems, them the roots were carefully extracted and washed from the pots. All roots, stems and leaves were dried at ~60° C for 48 h and weight. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+Statistical analysis 
+ 
+We first compared seedlings in the initial harvest at ~12 weeks to seedlings from the control treatments (i.e. no added water or nutrients) harvested at ~24 weeks. We used two factor analyses of variance (ANOVAs) with harvest date (early or late in the growing season) and species as the main effects, and total dry biomass, relative allocation to roots, stems and leaves, specific leaf area, foliar N concentrations, and foliar 13C (as an integrated metric of water use efficiency) as response variables.  This allowed us to interpret any changes in seedling allocation or traits after we imposed the watering and fertilization treatments within the context of developmental changes over the growing season.  Next, to understand how  
+ 
+ANOVA and log ratio analysis….  
+ 
+Finally, we calculated pairwise Spearman’s rank correlation coefficients to investigate correlations among growth, functional traits, and physiological variables.  We calculated these for legumes and non-legume taxa separately, as numerous studies have suggested that the direction and magnitude of trait correlations differ between legumes and non-legumes (Powers and Tiffin, 2010; Pineda-Garcia et al 2016, Adams et al 2016). 
+
+
+
+
+
+
+
+
+
+Results
 
 
 (Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance.
@@ -23,6 +87,9 @@ Above and belowground biomass
 Aboveground biomass for fixers increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. Aboveground biomass increased 46% when nutrients were added and 80% when nutrients plus water were added. For non-fixers, aboveground biomass only increased significantly compared to the ambient rain in the nutrients plus water treatment. 
 
 We found that belowground biomass for fixers and non-fixers did not respond significantly to the addition of water and/or nutrients (Fig).
+
+
+
 
 Biomass partition: root, stem and leaf biomass
 
@@ -47,8 +114,11 @@ For non fixer species, none of the treatments had effect over the Amax but the p
 
 Leaf Traits
 
+From the five traits measured, only Canopy Nitrogen content NMass responded to the treatments. Canopy Nitrogen Content, increased for fixers 45% when nutrients were added and 60% when nutrients and water were added. While for non fixers this same trait increased 81% and 71% respectively. In the case of Nmass, this trait decreased 18% when water was added for the fixer species. 
 
-
-From the five traits measured, only Canopy Nitrogen content NMass responded to the treatments. Canopy Nitrogen Content, this increased for fixers 45% when nutrients were added and 60% when nutrients and water were added. While for non fixers this trait increased 81% and 71% respectively. In the case of Nmass, this trait decreased 18% when water was added for the fixer species. 
 (Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?
+PCA
+The first PCA axis accounted for 38% of total variation and showed strong loadings on Amax, WUE,Canopy Nitrogen content. The second PCA accounted for 21.9% of total Variation with Stomatal conductance having the strongest loading (Table #) How do we know that our PCs are orthogonal?
+PCA Regression
+We found that a significant interaction between treatments and the PC1 (f value, pvalue).
 
