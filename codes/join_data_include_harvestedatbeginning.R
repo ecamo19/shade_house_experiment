@@ -35,10 +35,10 @@ data_totalbiom <-
 	
 	# % Above ground biomass
 	mutate(above_biom = 
-		   	(stem_dry_weight + whole_leaf_dry_weight / total_biomass)) %>% 
+		   	(stem_dry_weight + whole_leaf_dry_weight)) %>% 
 	
 	# % Below ground biomass
-	mutate(below_biom = (root_dry_weight/ total_biomass)) %>% 
+	mutate(below_biom = (root_dry_weight)) %>% 
 	
 	# Calculate mass fractions
 	mutate(rmf = (root_dry_weight / total_biomass)*100) %>% 
