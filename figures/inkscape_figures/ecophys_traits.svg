@@ -7,7 +7,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="ecophys.svg"
+   sodipodi:docname="ecophys_traits.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    id="svg8"
    version="1.1"
@@ -100,16 +100,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.1112127"
-     inkscape:cx="545.62673"
-     inkscape:cy="104.57631"
+     inkscape:cx="478.04394"
+     inkscape:cy="425.12898"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1366"
-     inkscape:window-height="744"
+     inkscape:window-height="768"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="150"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -1055,7 +1055,7 @@
        style="line-height:0;font-family:sans-serif;font-size:1.41111111px;word-spacing:0px;letter-spacing:0.52916667px;white-space:pre;shape-inside:url(#rect11628);" />
     <g
        id="g11844"
-       transform="translate(-6.3500003,10.054167)">
+       transform="translate(-5.4828826,3.408159)">
       <g
          id="g975"
          transform="matrix(0.09704357,0,0,-0.11550978,89.440189,85.274466)">
