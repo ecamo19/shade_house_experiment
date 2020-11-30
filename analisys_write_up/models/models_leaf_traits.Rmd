@@ -115,6 +115,22 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 
 ```
 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
+
 ```{r}
 (plot_d13c <- 
   masomenos_plot(data = data_d13c_plot,xvar = xvar, yvar = yvar, 
@@ -145,6 +161,22 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
     kable()
 
 ```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 
 ```{r}
 (plot_sla <- 
@@ -180,6 +212,20 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
 
 ```
 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
 ```{r}
 (plot_narea <- 
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
@@ -213,6 +259,23 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 
 ```
 
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
+
 ```{r}
 (plot_nmass <- 
   masomenos_plot(data = data_nmass_plot,xvar = xvar, yvar = yvar, 
@@ -244,6 +307,21 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
     kable()
 
 ```
+
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
 
 
 ```{r}

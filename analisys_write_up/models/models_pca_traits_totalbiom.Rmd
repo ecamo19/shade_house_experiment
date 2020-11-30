@@ -131,10 +131,20 @@ plotQQunif(simulationOutput)
 
 # Results
 
+### AIC, Rm2 and Rc2
+
 ```{r}
+
 # model R2
 r2(PCmod_agr_bothPC)
+
+#AIC model
+AIC(PCmod_agr_bothPC)
+
 ```
+
+
+
 
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 

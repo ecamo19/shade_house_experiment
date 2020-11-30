@@ -95,35 +95,6 @@ mixed_models <-  vars %>%
 
 # Results
 
-## Relative Growth Rate
-```{r message=FALSE, warning=FALSE}
-data_rgr_plot <- 
-  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = TRUE)$data 
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$rgr,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-
-```{r}
-(plot_rgr <- 
-  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
-                 ucl = UCL, lcl = LCL, n_treat = 4) +
-  theme(legend.position = "right") + ylab("Relative Growth Rate"))
-```
-
 ## Absolute Growth Rate
 
 ```{r message=FALSE, warning=FALSE}
@@ -146,6 +117,21 @@ data_agr_plot <-
 ```
 
 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r}
 (plot_agr_biom <- 
   masomenos_plot_no_lines(data = data_agr_plot ,xvar = xvar, yvar = yvar, 
@@ -153,4 +139,51 @@ data_agr_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Absolute Growth Rate"))
 ```
+
+
+
+## Relative Growth Rate
+```{r message=FALSE, warning=FALSE}
+data_rgr_plot <- 
+  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$rgr,
+    					  pairwise ~ treatment | nfixer,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
+```{r}
+(plot_rgr <- 
+  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,
+                 ucl = UCL, lcl = LCL, n_treat = 4) +
+  theme(legend.position = "right") + ylab("Relative Growth Rate"))
+```
+
+
 

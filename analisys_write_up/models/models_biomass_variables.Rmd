@@ -96,6 +96,7 @@ mixed_models <-  vars %>%
 # Results
 
 ## Total Biomasss
+
 ```{r message=FALSE, warning=FALSE}
 data_totalbiom_plot <- 
   emmip(mixed_models$totalbiom, treatment ~ nfixer, CIs = TRUE)$data 
@@ -117,6 +118,21 @@ data_totalbiom_plot <-
 ```
 
 
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
+
 ```{r}
 (plot_totalbiom <- 
   masomenos_plot_no_lines(data = data_totalbiom_plot,xvar = xvar, yvar = yvar, 
@@ -124,6 +140,9 @@ data_totalbiom_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Total Biomass"))
 ```
+
+
+
 
 ## Aboveground Biomass
 
@@ -151,6 +170,20 @@ data_above_biom_plot <-
 ```
 
 
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r}
 (plot_above_biom <- 
   masomenos_plot_no_lines(data = data_above_biom_plot,xvar = xvar, yvar = yvar, 
@@ -158,6 +191,9 @@ data_above_biom_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Aboveground Biomass"))
 ```
+
+
+
 
 ## Belowground Biomass
 
@@ -183,6 +219,22 @@ data_below_biom_plot <-
 
 
 ```
+
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
 
 ```{r}
 (plot_below_biom <- 
@@ -212,6 +264,20 @@ data_rmf_plot <-
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
 
 
 ```{r}
@@ -247,6 +313,20 @@ data_smf_plot <-
 ```
 
 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
 ```{r}
 (plot_smf <- 
   masomenos_plot_no_lines(data = data_smf_plot,xvar = xvar, yvar = yvar, 
@@ -278,6 +358,22 @@ data_lmf_plot <-
     kable()
 ```
 
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r}
 (plot_lmf <- 
   masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
@@ -308,6 +404,21 @@ data_root_dry_weight_plot <-
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
 
 ```{r}
 (plot_root_dry_weight <- 
@@ -343,6 +454,20 @@ data_stem_dry_weight_plot <-
 ```
 
 
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r}
 (plot_stem_dry_weight <- 
   masomenos_plot_no_lines(data = data_stem_dry_weight_plot,xvar = xvar, yvar = yvar, 
@@ -374,6 +499,22 @@ data_leaf_dry_weight_plot <-
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 
 ```{r}
 (plot_leaf_dry_weight <- 

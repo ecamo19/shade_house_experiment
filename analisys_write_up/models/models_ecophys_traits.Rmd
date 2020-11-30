@@ -107,6 +107,22 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 
 ```
 
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r message=FALSE, warning=FALSE}
 (plot_amax <- 
   masomenos_plot(data = data_amax_plot,xvar = xvar, yvar = yvar, 
@@ -140,6 +156,21 @@ data_gs_plot <- emmip(mixed_models$gs, treatment ~ nfixer, CIs = TRUE)$data
 
 ```
 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
 ```{r message=FALSE, warning=FALSE}
 (plot_gs <- 
   masomenos_plot(data = data_gs_plot,xvar = xvar, yvar = yvar, 
@@ -171,6 +202,23 @@ data_wue_plot <- emmip(mixed_models$wue, treatment ~ nfixer, CIs = TRUE)$data
     kable()
 
 ```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(model)
+
+#AIC model
+AIC(model)
+
+```
+
+
+
+
 ```{r message=FALSE, warning=FALSE}
 (plot_wue <- 
   masomenos_plot(data = data_wue_plot,xvar = xvar, yvar = yvar, 
