@@ -10,7 +10,7 @@ output:
     theme: cayman   
     toc: yes
     number_sections: True
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -29,6 +29,7 @@ library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
+library(performance)
 ```
 
 ```{r}
@@ -121,12 +122,13 @@ data_totalbiom_plot <-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$totalbiom)
+
 
 # model R2
-r2(model)
+r2(mixed_models$totalbiom)
 
-#AIC model
-AIC(model)
 
 ```
 
@@ -173,12 +175,13 @@ data_above_biom_plot <-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$above_biom)
 
 # model R2
-r2(model)
+r2(mixed_models$above_biom)
 
-#AIC model
-AIC(model)
+
 
 ```
 
@@ -225,12 +228,13 @@ data_below_biom_plot <-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$below_biom)
+
 
 # model R2
-r2(model)
+r2(mixed_models$below_biom)
 
-#AIC model
-AIC(model)
 
 ```
 
@@ -270,11 +274,13 @@ data_rmf_plot <-
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$rmf)
+
+# model R2
+r2(mixed_models$rmf)
+
+
 
 ```
 
@@ -317,12 +323,13 @@ data_smf_plot <-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$smf)
+
 
 # model R2
-r2(model)
+r2(mixed_models$smf)
 
-#AIC model
-AIC(model)
 
 ```
 
@@ -364,12 +371,11 @@ data_lmf_plot <-
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$lmf)
 
+# model R2
+r2(mixed_models$lmf)
 ```
 
 
@@ -410,12 +416,11 @@ data_root_dry_weight_plot <-
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$root_dry_weight)
 
+# model R2
+r2(mixed_models$root_dry_weight)
 ```
 
 
@@ -458,11 +463,13 @@ data_stem_dry_weight_plot <-
 
 ```{r}
 
-# model R2
-r2(model)
 
 #AIC model
-AIC(model)
+AIC(mixed_models$stem_dry_weight)
+
+# model R2
+r2(mixed_models$stem_dry_weight)
+
 
 ```
 
@@ -504,16 +511,13 @@ data_leaf_dry_weight_plot <-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$whole_leaf_dry_weight)
 
 # model R2
-r2(model)
-
-#AIC model
-AIC(model)
+r2(mixed_models$whole_leaf_dry_weight)
 
 ```
-
-
 
 
 ```{r}
