@@ -19,7 +19,6 @@ We addressed the following questions:
 
 (Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance.
 (Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?
-   
 
 For (Q1) we predict....
 We used a diverse sample of tropical dry forest tree species from different functional groups in a seedling pot experiment to answer the following questions: 1) how do biomass allocation and functional traits change during seedling development, 2)  
@@ -36,39 +35,25 @@ Watering and fertilization treatments
 At 12 weeks, plants were randomly assigned to one of four treatments: control (no additions), nutrient addition, water addition, water + nutrient addition.  Water additions consisted of 500 mL added every two weeks.  The nutrient addition treatment consisted of a commercial fertilizer containing NPK and complete micronutrients.  Nutrient addition rates were corresponded to 150 kg N ha-1 yr-1, prorated to the duration of the experiment (3 months). Fertilizer was dissolved in water and added to the surface soil in the pots every two weeks in 20 mL doses with a syringe. 
 Soil moisture 
 Soil moisture readings were taken in all pots immediately prior to watering treatments and then ~1 day following watering, and these measurements were repeated six equally spaced times during the growing season after the treatments began. This allowed us to quantify the magnitude of the watering effect on soil moisture, and also allowed us to know whether elevated soil moisture in the watered pots persisted beyond two weeks. These measurements were made with a SM150 Soil Moisture Sensor (Delta-T Devices, Ltd, Cambridge, England).  
-
-Height measurements and harvest 
-Biomass and Growth 
-Height was measured every two weeks in all the individuals 
-
-Leaf Traits
+Gas exchange measurements
 We measured resource-acquisition and hydraulic traits related to how plants acquire carbon and use water in all the individuals. Prior harvesting the plants, we measured maximum photosynthetic capacity  at 1200 par (Amax; μmol CO2 m−2 s−), stomatal conductance (gs; mmol m−2 s−1)) and instantaneous water use efficiency (WUE; μmol CO2 mmol H2O−1) with a LCi portable photosynthesis system (ADC Bioscientific Ltd. Hoddesdon, UK). 
-After the gas exchange measurements we harvested the plants and divided them into leaves and stems, them the roots were carefully extracted and washed from the pots. All roots, stems and leaves were dried at ~60° C for 48 h and weight. 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+For SLA, leaf area-based nitrogen concentration and  leaf mass-based nitrogen concentration one leaf per plant was scanned and dried at ~60° C for 48 h and weighed. 
 
- 
-Statistical analysis 
- 
-We first compared seedlings in the initial harvest at ~12 weeks to seedlings from the control treatments (i.e. no added water or nutrients) harvested at ~24 weeks. We used two factor analyses of variance (ANOVAs) with harvest date (early or late in the growing season) and species as the main effects, and total dry biomass, relative allocation to roots, stems and leaves, specific leaf area, foliar N concentrations, and foliar 13C (as an integrated metric of water use efficiency) as response variables.  This allowed us to interpret any changes in seedling allocation or traits after we imposed the watering and fertilization treatments within the context of developmental changes over the growing season.  Next, to understand how  
- 
-ANOVA and log ratio analysis….  
- 
-Finally, we calculated pairwise Spearman’s rank correlation coefficients to investigate correlations among growth, functional traits, and physiological variables.  We calculated these for legumes and non-legume taxa separately, as numerous studies have suggested that the direction and magnitude of trait correlations differ between legumes and non-legumes (Powers and Tiffin, 2010; Pineda-Garcia et al 2016, Adams et al 2016). 
+SLA was calculated as Leaf area divided by Leaf weight.    
+This same leaf, after measuring SLA, was ground to fine powder for Leaf Nitrogen concentration and their stable isotope Delta 13 C quantifications. Delta 13C was measured on a PDZ Europa ANCA-GSL elemental analyzer interfaced to a PDZ Europa 20–20 isotope ratio mass spectrometer (Sercon, Cheshire, UK) at the Stable Isotope Facility at the University of California, Davis. We then calculate leaf mass-based nitrogen concentration and leaf area-based nitrogen concentration by dividing Leaf nitrogen concentration by its dry weight and leaf area respectively. 
 
 
 
 
-
-
-
+Canopy nitrogen content. 
+Biomass and Growth 
+Height was measured every two weeks in all the individuals with the goal of calculating the Relative and Absolute growth rate of each plant. We calculated RGR as (log(Hf) - log(Hi))/(t2-t1) and AGR as (Hf) - Hi)/(t2-t1) where Hi is the initial height of the plant and Hf is the final height of the plant.
+After the gas exchange measurements, we harvested the plants for biomass quantification. First,  we divided the plants into leaves and stems, then the roots were carefully extracted and washed from the pots. All roots, stems and leaves were dried at ~60° C for 48 h and weight. 
+Data analysis 
+We calculated these for legumes and non-legume taxa separately, as numerous studies have suggested that the direction and magnitude of trait correlations differ between legumes and non-legumes (Powers and Tiffin, 2010; Pineda-Garcia et al 2016, Adams et al 2016). 
+For answering What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance, we used a mixed model approach  with interaction effect between treatment and fixer category (Fixer- non fixer) as the main effects, initial height as covariate to control for the differences in height between plants and species as a random effect.  Total dry biomass, root, stem and leaves dry weights, above and belowground biomass, RGR, AGR, specific leaf area, Nmass, Narea, Canopy Nitrogen content ,and foliar 13C (as an integrated metric of water use efficiency) were used as  response variables.  
+This allowed us to interpret any changes in seedling allocation or traits after we imposed the watering and fertilization treatments within the context of developmental changes over the growing season.  
+Next, to understand  how does increased nutrient or water availability influence water- and nutrient-use traits?
 
 
 Results
@@ -82,14 +67,14 @@ For the fixers species,plant total biomass increased significantly to the additi
 
 For non-fixers species, only the  nutrients and nutrients plus water treatments increased significantly the total biomass. In the case of the nutrients treatment, this increased 39% the total biomass while the addition of both, increased 41%. The addition of water had no significant effect on the total biomass.
 
+
+
+
 Above and belowground biomass
 
-Aboveground biomass for fixers increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. Aboveground biomass increased 46% when nutrients were added and 80% when nutrients plus water were added. For non-fixers, aboveground biomass only increased significantly compared to the ambient rain in the nutrients plus water treatment. 
+Aboveground biomass for fixers and non-fixer increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. In the case of the fixer species, aboveground biomass increased 47% when nutrients were added and 82% when nutrients plus water were added. For non-fixers, aboveground biomass increased 31% when nutrients were added and 44% when nutrients and water were added. 
 
-We found that belowground biomass for fixers and non-fixers did not respond significantly to the addition of water and/or nutrients (Fig).
-
-
-
+We found that belowground biomass increased significantly in all treatments for fixer species. The addition of nutrients increased 79%, the addition of water increased it 37% and the addition of both, increased 58%. While for non fixer species, only the addition of nutrients had an effect over the belowground biomass. which increased belowground biomass by 48%. 
 
 Biomass partition: root, stem and leaf biomass
 
@@ -101,12 +86,13 @@ Total leaf mass increased significantly for fixers and non-fixers in the nutrien
 Biomass partition: root, stem and leaf mass fractions Supplementary???
 
 
+
 Absolute and relative growth rates 
 
 The plus nutrients and plus nutrients and water treatments increased 61% and 77% the absolute growth rate, respectively and 57% the relative growth rates in both treatments for fixer species (f values pvalue) while for non fixer species, the only the addition of nutrients increased significantly the relative growth rate (f values pvalue) 
 
 
-Ecophysiology Traits
+Gas exchange 
 
 For fixer species, we found that the addition of nutrients decreased Amax by 15% (f values pvalue). The addition of water increased Amax and stomatal conductance by 14% (f values pvalue) and 35% (f values pvalue) and decreased WUEi by 30% (f values pvalue). Finally the addition of nutrients and water decreased WUEi  by 31% (f values pvalue).
 
@@ -116,8 +102,10 @@ Leaf Traits
 
 From the five traits measured, only Canopy Nitrogen content NMass responded to the treatments. Canopy Nitrogen Content, increased for fixers 45% when nutrients were added and 60% when nutrients and water were added. While for non fixers this same trait increased 81% and 71% respectively. In the case of Nmass, this trait decreased 18% when water was added for the fixer species. 
 
+
+
 (Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?
-PCA
+PCA    
 The first PCA axis accounted for 38% of total variation and showed strong loadings on Amax, WUE,Canopy Nitrogen content. The second PCA accounted for 21.9% of total Variation with Stomatal conductance having the strongest loading (Table #) How do we know that our PCs are orthogonal?
 PCA Regression
 We found that a significant interaction between treatments and the PC1 (f value, pvalue).
