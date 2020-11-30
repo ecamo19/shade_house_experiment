@@ -10,7 +10,7 @@ output:
     theme: cayman   
     toc: yes
     number_sections: True
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -97,6 +97,12 @@ mixed_models <-  vars %>%
 
 ## Absolute Growth Rate
 
+### Anova
+```{r}
+Anova(mixed_models$agr, type = "III")
+```
+
+
 ```{r message=FALSE, warning=FALSE}
 data_agr_plot <- 
   emmip(mixed_models$agr, treatment ~ nfixer, CIs = TRUE)$data 
@@ -117,16 +123,14 @@ data_agr_plot <-
 ```
 
 
-
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$agr)
 
 # model R2
-r2(model)
-
-#AIC model
-AIC(model)
+r2(mixed_models$agr)
 
 ```
 
@@ -143,6 +147,14 @@ AIC(model)
 
 
 ## Relative Growth Rate
+
+### Anova
+```{r}
+Anova(mixed_models$rgr, type = "III")
+```
+
+
+
 ```{r message=FALSE, warning=FALSE}
 data_rgr_plot <- 
   emmip(mixed_models$rgr, treatment ~ nfixer, CIs = TRUE)$data 
@@ -163,18 +175,18 @@ data_rgr_plot <-
 ```
 
 
+
+
 ### AIC, Rm2 and Rc2
 
 ```{r}
+#AIC model
+AIC(mixed_models$rgr)
 
 # model R2
-r2(model)
-
-#AIC model
-AIC(model)
+r2(mixed_models$rgr)
 
 ```
-
 
 
 ```{r}
