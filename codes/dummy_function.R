@@ -3,4 +3,4 @@ perc_difference <- function(inicial,cambio){
 	return(perc_diff)
 }
 
-perc_difference(inicial = 21.722, cambio = 37.209)
+perc_difference(inicial =  	2.711, cambio = 4.007)
