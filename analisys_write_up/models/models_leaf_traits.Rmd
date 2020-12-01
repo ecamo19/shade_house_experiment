@@ -10,7 +10,7 @@ output:
     theme: cayman   
     toc: yes
     number_sections: True
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 
@@ -26,6 +26,7 @@ library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
+library(performance)
 ```
 
 
@@ -95,6 +96,12 @@ mixed_models <-  vars %>%
 # Results
 
 ## d13c
+
+```{r}
+Anova(mixed_models$d13c, type = "III" )
+```
+
+
 ```{r}
 data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 
@@ -120,15 +127,13 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$d13c)
+
+# model R2
+r2(mixed_models$d13c)
 
 ```
-
-
 
 
 ```{r}
@@ -141,6 +146,12 @@ AIC(model)
 ```
 
 ## SLA
+
+
+```{r}
+Anova(mixed_models$sla_cm2_g, type = "III" )
+```
+
 
 ```{r}
 data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$data
@@ -167,15 +178,13 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$sla_cm2_g)
+
+# model R2
+r2(mixed_models$sla_cm2_g)
 
 ```
-
-
 
 
 ```{r}
@@ -188,6 +197,11 @@ AIC(model)
 ```
 
 ## NArea
+
+```{r}
+Anova(mixed_models$narea_g_m2, type = "III" )
+```
+
 
 ```{r}
 data_narea_plot <- emmip(mixed_models$narea_g_m2, 
@@ -217,11 +231,12 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$narea_g_m2)
+
+# model R2
+r2(mixed_models$narea_g_m2)
+
 
 ```
 
@@ -236,6 +251,11 @@ AIC(model)
 ```
 
 ## NMass
+
+```{r}
+Anova(mixed_models$nmass_mg_g, type = "III" )
+```
+
 
 ```{r}
 data_nmass_plot <- emmip(mixed_models$nmass_mg_g, 
@@ -265,15 +285,14 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$nmass_mg_g)
+
+# model R2
+r2(mixed_models$nmass_mg_g)
+
 
 ```
-
-
 
 
 ```{r}
@@ -288,6 +307,12 @@ AIC(model)
 
 
 ## Canopy Nitrogen Content
+
+```{r}
+Anova(mixed_models$totalleafmass_nmass, type = "III" )
+```
+
+
 ```{r}
 data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer, CIs = TRUE)$data
 
@@ -314,11 +339,11 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
 
 ```{r}
 
-# model R2
-r2(model)
-
 #AIC model
-AIC(model)
+AIC(mixed_models$totalleafmass_nmass)
+
+# model R2
+r2(mixed_models$totalleafmass_nmass)
 
 ```
 
