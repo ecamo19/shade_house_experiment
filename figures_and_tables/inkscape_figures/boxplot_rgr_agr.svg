@@ -17,6 +17,12 @@
   <defs
      id="defs2">
     <rect
+       x="29.706126"
+       y="16.21169"
+       width="9.1833363"
+       height="6.3261387"
+       id="rect26204" />
+    <rect
        x="68.118971"
        y="94.779735"
        width="15.939441"
@@ -450,6 +456,18 @@
        width="7.9843755"
        height="5.8447022"
        id="rect6514-5" />
+    <rect
+       x="29.706125"
+       y="16.211691"
+       width="9.1833363"
+       height="6.3261385"
+       id="rect26204-4" />
+    <rect
+       x="29.706125"
+       y="16.211691"
+       width="9.1833363"
+       height="6.3261385"
+       id="rect26217" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -458,9 +476,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="402.94691"
-     inkscape:cy="192.77642"
+     inkscape:zoom="5.6"
+     inkscape:cx="483.70843"
+     inkscape:cy="108.85872"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -1461,5 +1479,20 @@
                style="font-size:1.76389px">A</tspan></tspan></text>
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       id="text26202"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect26204);"
+       transform="translate(3.6079327,4.9166505)"><tspan
+         x="29.707031"
+         y="16.852413"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">A</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text26202-8"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect26204-4);"
+       transform="translate(85.465997,4.9168183)"><tspan
+         x="29.707031"
+         y="16.852413"><tspan>B</tspan></tspan></text>
   </g>
 </svg>

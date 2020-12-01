@@ -15,7 +15,14 @@
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    sodipodi:docname="boxplot_mass_fractions_variables.svg">
   <defs
-     id="defs12045" />
+     id="defs12045">
+    <rect
+       x="1.479209"
+       y="40.180271"
+       width="11.044251"
+       height="8.3158222"
+       id="rect20358" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -23,17 +30,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="721.76882"
-     inkscape:cy="241.46792"
+     inkscape:zoom="1.4"
+     inkscape:cx="388.82397"
+     inkscape:cy="110.14746"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="675"
-     inkscape:window-height="734"
-     inkscape:window-x="685"
-     inkscape:window-y="154"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="150"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata12048">
@@ -43,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1739,5 +1746,41 @@
          x="26.105915"
          y="174.78526"><tspan
            style="font-size:3.77983px">A</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text20356"
+       style="line-height:0;font-family:sans-serif;font-size:1.41111111px;word-spacing:0px;letter-spacing:0.52916667px;white-space:pre;shape-inside:url(#rect20358);" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;line-height:0;font-family:sans-serif;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;stroke-width:0.264583"
+       x="5.9105487"
+       y="57.668678"
+       id="text20364"><tspan
+         id="tspan20362"
+         x="5.9105487"
+         y="57.668678"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;line-height:0;font-family:sans-serif;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;stroke-width:0.264583"
+       x="76.435043"
+       y="57.668232"
+       id="text20364-1"><tspan
+         id="tspan20362-5"
+         x="76.435043"
+         y="57.668232"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">B</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;line-height:0;font-family:sans-serif;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;stroke-width:0.264583"
+       x="144.88112"
+       y="57.668232"
+       id="text20364-9"
+       inkscape:transform-center-x="1.443693"
+       inkscape:transform-center-y="-1.1044222"><tspan
+         id="tspan20362-8"
+         x="144.88112"
+         y="57.668232"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">C</tspan></text>
   </g>
 </svg>

@@ -17,6 +17,12 @@
   <defs
      id="defs2">
     <rect
+       x="34.33384"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748705"
+       id="rect49430" />
+    <rect
        x="40.077574"
        y="192.77188"
        width="38.123362"
@@ -1120,6 +1126,54 @@
        width="31.127613"
        height="10.717726"
        id="rect10857-4" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49430-4" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49443" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49430-47" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49443-6" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49430-1" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49443-7" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49430-9" />
+    <rect
+       x="34.333839"
+       y="47.446827"
+       width="3.6766498"
+       height="2.5748706"
+       id="rect49443-62" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1128,17 +1182,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="546.71033"
-     inkscape:cy="680.74994"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="261.7361"
+     inkscape:cy="609.27447"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="675"
-     inkscape:window-height="734"
-     inkscape:window-x="685"
-     inkscape:window-y="4"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="150"
      inkscape:window-maximized="0"
      inkscape:snap-page="true" />
   <metadata
@@ -5036,5 +5090,41 @@
         </g>
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       id="text49428"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49430);"
+       transform="translate(0.89681103,1.0720365)"><tspan
+         x="34.333984"
+         y="48.088741"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">A</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text49428-4"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49430-4);"
+       transform="translate(0.89695781,65.091989)"><tspan
+         x="34.333984"
+         y="48.088741"><tspan>C</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text49428-3"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49430-47);"
+       transform="translate(76.531811,65.09149)"><tspan
+         x="34.333984"
+         y="48.088741"><tspan>D</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text49428-5"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49430-1);"
+       transform="translate(75.929928,1.0724901)"><tspan
+         x="34.333984"
+         y="48.088741"><tspan>B</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text49428-1"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.46944px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.529167px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49430-9);"
+       transform="translate(0.89695781,119.59149)"><tspan
+         x="34.333984"
+         y="48.088741"><tspan>E</tspan></tspan></text>
   </g>
 </svg>
