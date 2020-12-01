@@ -1,162 +1,94 @@
-Title: Water, nutrients, or both? Effects of multiple belowground resources on early seedling growth, physiology, and symbionts in eight species of tropical dry forest trees  
+Target journal: Oecologia 
+The length of articles should not exceed 10 printed pages (equivalent to approximately 35 submitted pages)
+Title: Water, nutrients, or both? Effects of multiple belowground resources on early seedling growth, physiology, and symbionts in eight species of tropical dry forest trees 
+Erick Calderón-Morales, Leland K. Werden, Chris M. Smith-Martin, Bonnie G. Waring, Roberto Cordero-Solorzano, and Jennifer S. Powers 
+Abstract (250 words)
+Key words: (5 words)
 
-Erick Calderón-Morales, Leland K.Werden, Chris M. Smith-Martin, Bonnie G. Waring, Roberto Cordero-Solorzano, and Jennifer S. Powers  
 
-Introduction  
 
-Plants require multiple belowground resources including water and a variety of nutrients. Differences in both how plants acquire these resources and how they respond to variability in the availability of soil-borne resources contribute to niche differentiation and the maintenance of diversity (Levine and HilleRisLambers 2009, Holste et al. 2011).  Because the seedling stage is a vulnerable time in trees’ life histories during which populations suffer elevated mortality (Ribbens et al. 1994), many studies have evaluated how water and nutrients affect seedling growth rates (Yavitt 199?,Baraloto et al. 2006), allocation to roots versus shoots (Burslem et al. 1996, Canham et al. 1996), physiological process rates (Graciano et al. 2005), and relationships with symbionts such as mycorrhizae and nitrogen fixing bacteria in Fabaceae (Birhane et al. 2015).  These studies typically find that responses to multiple belowground resources are often species-specific and also may depend upon whether above- or belowground organs are considered (Freschet et al. 2013).  Thus, we still lack a general framework for understanding the joint effects of belowground resources on seedling performance, particularly in environments with large seasonal or temporal variability in soil moisture and nutrient availability (Lodge et al. 1994), such as seasonally dry tropical forests.  
 
- DESCRIBE THE TYPES OF RESPONSES… (Table 1).  
 
-Paragraph 2 introduce TDF..   
 
-Seedling growth in TDF is strongly constrained by water availability and is typically restricted to the wet season (Gerhardt 1993, Maza-Villalobos et al. 2013).  However, studies have also shown that TDF seedlings respond positively to increased nutrient availability (Huante et al. 1995a, Huante et al. 1995b, Ceccon et al. 2003).  Surprisingly, few studies have investigated how nutrients and soil water jointly affect tropical dry forest tree seedlings.  There are a number of possible responses to increased water and nutrients, from additive, synergistic, antagonistic, or no response.  
 
-* SYNERGISTIC if plant didn't respond to each resource individually, but does respond to them added together, OR if LRR for both resources together is outside the 95% CI for an individual resource  
 
-*** what does it mean if the resources are not balanced?  Can a plant take advantage of added water or nutrients, if it does not have the other resource?  
 
-Paragraph 3 Goals and Specific Objectives  
+Introduction 
+Plants require multiple belowground resources including water and a variety of nutrients. Differences in both how plants acquire these resources and how they respond to variability in the availability of soil-borne resources contribute to niche differentiation and the maintenance of diversity (Levine and HilleRisLambers 2009, Holste et al. 2011).  Because the seedling stage is a vulnerable time in trees’ life histories during which populations suffer elevated mortality (Ribbens et al. 1994), many studies have evaluated how water and nutrients affect seedling growth rates (Yavitt 199?,Baraloto et al. 2006), allocation to roots versus shoots (Burslem et al. 1996, Canham et al. 1996), physiological process rates (Graciano et al. 2005), and relationships with symbionts such as mycorrhizae and nitrogen fixing bacteria in Fabaceae (Birhane et al. 2015).  These studies typically find that responses to multiple belowground resources are often species-specific and also may depend upon whether above- or belowground organs are considered (Freschet et al. 2013).  Thus, we still lack a general framework for understanding the joint effects of belowground resources on seedling performance, particularly in environments with large seasonal or temporal variability in soil moisture and nutrient availability (Lodge et al. 1994), such as seasonally dry tropical forests. 
+ DESCRIBE THE TYPES OF RESPONSES… (Table 1). 
+Paragraph 2 introduce TDF..  
+Seedling growth in TDF is strongly constrained by water availability and is typically restricted to the wet season (Gerhardt 1993, Maza-Villalobos et al. 2013).  However, studies have also shown that TDF seedlings respond positively to increased nutrient availability (Huante et al. 1995a, Huante et al. 1995b, Ceccon et al. 2003).  Surprisingly, few studies have investigated how nutrients and soil water jointly affect tropical dry forest tree seedlings.  There are a number of possible responses to increased water and nutrients, from additive, synergistic, antagonistic, or no response. 
+* SYNERGISTIC if plant didn't respond to each resource individually, but does respond to them added together, OR if LRR for both resources together is outside the 95% CI for an individual resource 
+*** what does it mean if the resources are not balanced?  Can a plant take advantage of added water or nutrients, if it does not have the other resource? 
+Paragraph 3 Goals and Specific Objectives 
+The early phases of TDF seedling growth are still not well understood. It is not clear how: 1) biomass allocation and functional traits change during seedling development; 2)  added water and/or nutrients affect growth, physiology, water use efficiency, and functional traits, and are these responses additive, antagonistic or synergistic, and 3) which traits are correlated, and does this vary among species?   To addresses these unknowns, here we examine the effects of water and nutrient addition on biomass gain and leaf trait of eight species from the tropical dry forest of Costa Rica. We used a diverse sample of tropical dry forest nitrogen-fixing legume and non-fixing tree species from different functional groups in a shade house experiment to answer the following questions: (Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest nitrogen-fixer and non-fixer seedling biomass allocation? (Q2) How does increased nutrient and/or water availability influence nitrogen-fixer and non-fixer seedling water- and nutrient-use traits? (Q3) Are shifts in nitrogen-fixer and non-fixer seedling traits in response to increased water and/or nutrient addition associated with differences in seedling-level growth rates?  We hypothesized that water and/or nutrient addition will cause plants to shift their leaf traits in order to uptake the new resources available, which will lead to a biomass gain. (ref)…
 
-Here we examine the effects of water and nutrient addition on biomass gain and leaf trait of eight species from the tropical dry forest of Costa Rica. We used three fixers and five non fixers species. We hypothesized that water and/or nutrient addition will cause plants to shift their leaf traits in order to uptake the new resources available, which will lead to a biomass gain. (ref) 
 
- 
 
- 
 
- 
+For (Q1) we predict....
+Materials and methods 
+Study site and species 
+Our experiment took place between June to November, 2015, in a shade house located at the Estacion Experimental Forestal Horizontes, Area de Conservación Guanacaste, Costa Rica (10°420 46″ N, 85°350 44″). Rainfall is highly seasonal, with a dry period of 5-6 months. Mean annual precipitation at nearby Sector Santa Rosa is 1729 mm and mean temperature is 25 C (Becknell and Powers 2014), although Horizontes likely has lower rainfall than Santa Rosa (Gutiérrez-Leitón 2013). Our study occurred during one of the driest years on record (Cooley et al. 2019), wherein rainy season rainfall was less than X of average due to the very strong El Niño Southern Oscillation (ENSO) event of 2015; thus we considered ambient rainfall as a drought.  We used 8 species that belong to 5 different families: Enterolobium cyclocarpum, Gliricidia sepium, Hymenea courbaril, Dalbergia retusa, Swietenia macrophylla, Simarouba glauca, Tabebuia ochraceae and Pachira quinata (Table 2). Collectively, these species represent the full range of functional trait variation that defines different tropical dry forest plant functional types in ecosystem simulation models (Xu et al 2016), including nitrogen (N) fixing and non-N fixing legume species.  
 
- 
+Seed germination, growing conditions  
+The shade house was covered with a 50% shade cloth. We planted all the seeds directly into x size pots containing a soil mixture of 2 parts of locally collected soil and 1 part sand. To accelerate germination, germination, we applied two different treatments to the seeds. E. cyclocarpum seeds were subject to a scarification treatment consisting of alternating 30 sec. water baths from boiling to cold water  to beak the the seed coat. We soaked the seeds from all other species in water overnight. We planted the seeds directly into pots in early June, 2015.  Following germination and  x weeks of initial growth, we thinned pots to one seedling per pot.      Before we started the treatments, all plants received supplemental water when needed.  . After the initial harvest (see methods below), we assigned watering and/or fertilizer treatments on the remaining seedlings. 
+two days later, and were imposed for 12 weeks (N = 4 plants per species per treatment) prior to harvest.   
 
-We used a diverse sample of tropical dry forest tree species from different functional groups in a seedling pot experiment to answer the following questions:  
+Watering and fertilization treatments 
+At 12 weeks, we randomly assigned plants to one of four treatments: control (no additions), nutrient addition, water addition, and water + nutrient addition.  Water additions consisted of 500 mL added every two weeks.  The nutrient addition treatment consisted of a commercial fertilizer containing NPK and complete micronutrients.  Nutrient addition rates corresponded to 150 kg N ha-1 yr-1, prorated to the duration of the experiment (3 months). For the nutrient addition treatment, we dissolved the fertilizer in water and added it to the surface soil in the pots every two weeks in 20 mL doses with a syringe. 
+For the water addition treatment, we add XX amount of water to the pots every two weeks?  We measured soil moisture with a SM150 Soil Moisture Sensor (Delta-T Devices, Ltd, Cambridge, England)in all pots immediately prior to applying the watering treatments and then ~1 day following watering. We also repeated soil moisture measurements atsix equally spaced times  throughout the experiment after the treatments began. This allowed us to quantify the magnitude of the watering effect on soil moisture and also allowed us to determine whether elevated soil moisture in the watered pots persisted beyond two weeks. 
 
-(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling biomass allocation. 
+Functional trait measurements
+We measured resource-acquisition and hydraulic traits related to carbon and water acquisition and use for each individual seedling (N = ZZ at the end of the experiment). Prior to harvesting the plants, we measured maximum photosynthetic capacity at 1200 par (Amax; μmol CO2 m−2 s−), stomatal conductance (gs; mmol m−2 s−1) and instantaneous water use efficiency (WUE; μmol CO2 mmol H2O−1) with a LCi portable photosynthesis system (ADC Bioscientific Ltd. Hoddesdon, UK).     
+For specific leaf area (SLA), leaf area-based nitrogen concentration, and leaf mass-based nitrogen concentration we scanned one leaf per plant (including the petiole), dried at ~60 °C for >48 h, and weighed. We calculated SLA by dividing leaf area by leaf weight. After measuring SLA, we ground this same leaf to fine powder and wrapped into tin capsules to quantify leaf nitrogen concentration and the stable isotope of δ13C. δ13C was measured on a PDZ Europa ANCA-GSL elemental analyzer interfaced to a PDZ Europa 20–20 isotope ratio mass spectrometer (Sercon, Cheshire, UK) at the Stable Isotope Facility at the University of California, Davis. We then calculated leaf mass-based nitrogen (Nmass) and leaf area-based nitrogen (Narea) concentrations by dividing leaf nitrogen concentration by its dry weight and leaf area respectively. We also calculated “canopy nitrogen content” for each individual seedling by multiplying leaf mass-based nitrogen concentration by the total mass of all leaves for a seedling at the end of the experiment. 
 
-(Q2) How does increased nutrient and/or water availability influence seedling water- and nutrient-use traits? 
+Biomass and Growth 
+After ~12 weeks, we conducted an initial harvest of four individuals per species. After growing for three months, we conducted the final harvest of all the remaining seedlings. For both harvests, first, we cut the shoot level with the soil and divided it into leaves and stems, then we carefully extracted the roots from the pot and were and washed them to remove all the soil. We then dried all roots, stems, and leaves at ~60° C for >48 h and then weighed them. 
+After the initial harvest, we measured the height of each individual every two weeks to calculate absolute growth rate in terms of height growth rate of each plant. 
+We calculated absolute growth rate (AGR) as:
+AGR=Hf-Hit2-t1
+Where Hi is the initial height of the plant and Hf is the final height of the plant, and t2 – t1 is the number of days between the initial and final harvest.
 
-(Q3) Are shifts in seedling traits in response to increased water and/or nutrient addition associated with differences in seedling-level growth rates?  
+Data analysis 
+To determine is there were differences between N-fixers and non-fixes separetly, we conducted all calculations on these to groups separately. ,  To determine how the addition of water and/or nutrients affected plant biomass allocation (Q1), we built linear mixed models  (gaussian error distribution) with treatment (ambient rain, ambient rain plus water, ambient rain plus nutrients, ambient rain plus water and nutrients) and N-fixer category (fixer- vs. non-fixer) and their interaction as the main effects, initial height as a covariate to control for the differences in height between plants, and species as a random effect. To determine how treatments affected individual plant biomass allocation and growth, we used total plant biomass (leaves + stems + roots), belowground biomass (roots), aboveground biomass (leaves + stems ), leaves, stems, or roots separately, and AGR as response variables. For all models, we performed likelihood ratio chi-squared (χ2) tests on type-III ANOVAs to detect significant model terms (to account for the unbalanced seedlings within treatments; car package), then used Tukey’s HSD post-hoc tests to detect differences between groups (emmeans package). For each linear model we also determined marginal (R2m; fixed effects) and conditional (R2c; fixed and random effects) R2 values (performance package; Nakagawa and Schielzeth 2013).
+Then, to investigate how water and/or nutrient addition influenced seedling functional traits (Q2) we used the same mixed modeling approach as above, instead using Amax, gs, and WUE, SLA, Nmass, Narea, canopy nitrogen content, foliar δ13C (as an integrated metric of water use efficiency), as response variables. This allowed us to interpret any changes in seedling traits after we imposed the watering and fertilization treatments within the context of developmental changes over the growing season.  
+Finally, to determine if shifts in seedling traits across nutrient and/or water addition treatments were related with differences in seedling growth rates among treatments (Q3), we used the same mixed model framework as above, this time adding principal components axes to integrate across all seedling-level functional traits. First, we performed a principal components analysis to reduce data dimensionality to two principal components axes (hereafter, PC1 and PC2) using scaled and centered functional trait data for each individual seedling (Amax, WUE, gs, SLA, canopy nitrogen content, and foliar δ13C). Using Nmass or Narea in place of canopy nitrogen content in this analysis produced the same overall results. Then, we built a linear mixed model (gaussian error distribution) to determine how seedling-level functional traits (PC1 and PC2), treatment, fixer-category, and the two-way interactions between treatment, fixer category, and PCs (predictors) influenced seedling-level absolute growth rates (response). Full model: absolute height growth rate ~ treatment * PC1 +  fixer category * PC1 + treatment * PC2 +  nfixer * PC2 + initial seedling height + species [random effect]). Last, we assessed the strength of relationships between functional traits (PCs) and seedling absolute growth rate in each treatment in the presence of significant interaction terms (i.e., treatment X PC1). If the slope of the relationship between PC1 and a treatment was steeper we interpreted this as evidence that overall shifts in seedling-level traits within a treatment were correlated with higher seedling growth rates. We visualized these relationships by plotting interaction plots for the full model (emmeans package).
+** still needed: text on model checking, statement that all analyses were conducted in R 3….. 
 
-For (Q1) we predict.... 
+Results
+Shifts in biomass with the addition of water and/or nutrients 
+For the N-fixing species, total plant biomass increased significantly with the addition of water and/or nutrients(F and p-values). The addition of water increased total biomass by 29% on average compared to the ambient treatment. While the addition of nutrients increased the total biomass 63% and the addition of both, water and nutrients, increased the total biomass by 70%. For non-fixer species, the nutrients and nutrients plus water treatments increased total biomass on average, but the addition of water alone had no significant effect on the total biomass. When nutrients were added to non-fixer seedlings, total biomass increased on average 39%, while the addition of both water and nutrients and water increased total biomass by only 41%, indicating that most of the increase in biomass was due to nutrients and not water. 
+Aboveground biomass for N-fixers and non-fixers increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. In the case of the fixer species, aboveground biomass increased 47% when nutrients were added and 82% when nutrients plus water were added, which indicates that N-fixers respond to both water and nutrient addition. For non-fixers, aboveground biomass increased 31% when nutrients were added and 44% when nutrients and water were added, indicating that non-fixers respond more to nutrient addition than to water. We found that belowground biomass increased significantly in all treatments for N-fixer species, however, the response to nutrients was much greater than to water. The addition of nutrients increased by 79%, the addition of water increased it 37%, and the addition of both, increased by 58%, compared to the controls. This findings show that N-fixers allocate more biomass to roots when they only receive additional nutrients than when they receive both water and nutrients. While for non-fixer species, only the addition of nutrients  affected the belowground biomass, which increased belowground biomass by 48% compared to the controls. 
+Biomass partition: root, stem, and leaf biomass
+N-Fixer’s root mass increased significantly in all treatments. Nutrient addition increased root mass 78% compared to the ambient rain treatment while water increased it 37% and nutrients plus water increased it 58%. For non fixers, only the addition of nutrients increased significantly root biomass in 47%.
+Stem mass for fixers increased significantly 13% in the plus nutrients treatment and 34% in the nutrients plus water treatment. Non fixer’s stem mass did not change significantly in any of the treatments.
+Total leaf mass increased significantly for fixers and non-fixers in the nutrient and nutrients plus water treatments when compared to the ambient rain treatment.For fixers, the addition of nutrients increased 40% and the addition of nutrients plus water increased 73%. For non-fixers the addition of nutrients increased 43%  whilst the addition of water and nutrients increased it 50%.
+Biomass partition: root, stem and leaf mass fractions Supplementary???
+Absolute growth rates 
+N-fixers responded both to the addition of nutrients and water whereas the non-fixers responded to only nutrients. The nutrient addition  and nutrients plus water treatments increased by 61% and 77% the absolute growth rates respectively of N-fixers and 57% the relative growth rates in both treatments for fixer species (f values pvalue). While for nonfixers, only the addition of nutrients increased significantly their relative growth rate (f values pvalue) by XX%
 
-1) how do biomass allocation and functional traits change during seedling development, 2)   
 
-how do added water and/or nutrients affect growth, physiology, water use efficiency, functional traits, and relationships with symbionts, and are these responses additive, antagonistic or synergistic, and 3) which traits are correlated, and does this vary among species?  We predicted that   
 
-Methods  
+Gas exchange 
+For N-fixers, we found that the addition of nutrients decreased Amax by 15%  (f values pvalue). The addition of water increased Amax by 14% (f values pvalue) and stomatal conductance by 35% (f values pvalue) and decreased WUEi by 30% (f values pvalue). Finally, the addition of nutrients and water decreased WUEi  by 31% (f values pvalue).
+For non-fixers, none of the treatments had an effect over the Amax but the plus water and plus nutrients and water treatments increased the stomatal conductance 132% and 123% and decreased WUEi 50% and 52%, respectively  (f values pvalue).
 
-Study site and species  
+Leaf Traits
+From the five traits measured, only cCanopy nNitrogen content and NMass responded individually to the treatments. Canopy nNitrogen cContent, increased for fixers by 45% when nutrients were added and 60% when nutrients and water were added. While for non-fixers this same trait increased by 81% with the addition of nutrients and by 71%  with the addition of both nutrients and water. In the case of Nmass, this trait decreased by 18% when water was added for the N-fixers. 
 
-Our experiment took place between June to November, 2015, in a shade house located at the Estacion Experimental Forestal Horizontes, Area de Conservación Guanacaste, Costa Rica (10°420 46″ N, 85°350 44″). Rainfall is highly seasonal, with a dry period of 5-6 months. Mean annual precipitation at nearby Sector Santa Rosa is 1729 mm and mean temperature is 25 C (Becknell and Powers 2014), although Horizontes likely has lower rainfall than Santa Rosa (Gutiérrez-Leitón 2013). Our study occurred during one of the driest years on record (Cooley et al. 2019), wherein rainy season rainfall was less than X of average due to the very strong El Niño Southern Oscillation (ENSO) event of 2015; thus we considered ambient rainfall as a drought.  We used 8 species that belong to 5 different families: Enterolobium cyclocarpum, Gliricidia sepium, Hymenea courbaril, Dalbergia retusa, Swietenia macrophylla, Simarouba glauca, Tabebuia ochraceae and Pachira quinata (Table 2). Collectively, these species represent the full range of functional trait variation that defines different tropical dry forest plant functional types in ecosystem simulation models (Xu et al 2016), including nitrogen (N) fixing and non-N fixing legume species.   
+Results from Principal Component Analysis
+The first PC axis accounted for 38% of total variation and showed strong loadings on Amax, WUE, and canopy nitrogen content. The second PC accounted for 21.9% of total variation with gs having the strongest loading (Table #) We found a significant interaction between treatment and PC1 (χ2 df = 3 = 29.2; , P < 0.001), indicating that shifts in seedling-level trait values treatments may have differentially influenced seedling growth rates among treatments. Compared to the ambient treatment, PC1 had a much stronger relationship with seedling growth rates (steeper slope) in both the nutrient (~15-fold stronger effect; t = -3.62; P = 0.003) and water + nutrient addition treatments (~16-fold stronger effect; t = -4.13; P < 0.001). The relationships between PC1 and growth rates in the ambient and water treatments (t = -0.22; P =  0.99) and the nutrient and nutrient + water treatments (t =  -0.37; P = 0.98) were equivalent.
+Discussion
+The key findings from our study are…
+Conclusions
 
-Seed germination, growing conditions   
+Acknowledgements
+References 
+Tables 
+Figure legends 
+Figures
 
-The shade house was covered with a 50% shade cloth. All the seeds sown directly into pots containing a soil mixture of 2 parts of locally collected soil and 1 part sand. To improve germination rates, we applied two different treatments to the seeds. Enterolobium seeds were subject to water baths alternating from boiling to cold water for 30 seconds for breaking the seed coat. All other species were soaked in water overnight. 
-
- Seeds were sown directly into pots in early June, 2015.  Following germination and establishment, pots were thinned to one seedling per pot.  All plants received supplemental water when needed.  After ~12 weeks, an initial harvest of four individuals per species was made (see Methods below). Watering and/or fertilizer treatments on the remaining seedlings were started  
-
- 
-
- 
-
-two days later, and were imposed for 12 weeks (N = 4 plants per species per treatment) prior to harvest.    
-
-Watering and fertilization treatments  
-
-At 12 weeks, plants were randomly assigned to one of four treatments: control (no additions), nutrient addition, water addition, water + nutrient addition.  Water additions consisted of 500 mL added every two weeks.  The nutrient addition treatment consisted of a commercial fertilizer containing NPK and complete micronutrients.  Nutrient addition rates were corresponded to 150 kg N ha-1 yr-1, prorated to the duration of the experiment (3 months). Fertilizer was dissolved in water and added to the surface soil in the pots every two weeks in 20 mL doses with a syringe. Soil moisture readings were taken in all pots immediately prior to watering treatments and then ~1 day following watering, and these measurements were repeated six equally spaced times during the growing season after the treatments began. This allowed us to quantify the magnitude of the watering effect on soil moisture, and also allowed us to know whether elevated soil moisture in the watered pots persisted beyond two weeks. These measurements were made with a SM150 Soil Moisture Sensor (Delta-T Devices, Ltd, Cambridge, England).   
-
-Functional trait measurements 
-
-We measured resource-acquisition and hydraulic traits related to how carbon and water acquisition and use for each individual seedling (N = ZZ at the end of the experiment). Prior harvesting the plants, we measured maximum photosynthetic capacity at 1200 par (Amax; μmol CO2 m−2 s−), stomatal conductance (gs; mmol m−2 s−1) and instantaneous water use efficiency (WUE; μmol CO2 mmol H2O−1) with a LCi portable photosynthesis system (ADC Bioscientific Ltd. Hoddesdon, UK).      
-
-For specific leaf area (SLA), leaf area-based nitrogen concentration and leaf mass-based nitrogen concentration one leaf per plant was scanned and dried at ~60 °C for 48 h and weighed. SLA was calculated by dividing leaf area by leaf weight. After measuring SLA, this same leaf was ground to fine powder and wrapped into tin capsules to quantify leaf nitrogen concentration and the stable isotope of δ13C. δ13C was measured on a PDZ Europa ANCA-GSL elemental analyzer interfaced to a PDZ Europa 20–20 isotope ratio mass spectrometer (Sercon, Cheshire, UK) at the Stable Isotope Facility at the University of California, Davis. We then calculated leaf mass-based nitrogen (Nmass) and leaf area-based nitrogen (Narea) concentrations by dividing leaf nitrogen concentration by its dry weight and leaf area respectively. We also calculated “canopy nitrogen content” for each individual seedling by multiplying leaf mass-based nitrogen concentration by the total mass of all leaves for a seedling at the end of the experiment.  
-
-Biomass and Growth  
-
-Height was measured every two weeks on each  individual seedling to calculate absolute growth rate in terms of height  growth rate of each plant. We calculated RGR as (log(Hf) - log(Hi))/(t2-t1) and AGR as (Hf) - Hi)/(t2-t1) where Hi is the initial height of the plant and Hf is the final height of the plant. 
-
-After the gas exchange measurements, we harvested each individual seedling  for biomass quantification. First, we divided the plants into leaves and stems, then the roots were carefully extracted and washed from the pots. All roots, stems, and leaves were dried at ~60° C for 48 h then weighed.  
-
- 
-
- 
-
- 
-
- 
-
-Data analysis  
-
-We calculated these for legumes and non-legume taxa separately, as numerous studies have suggested that the direction and magnitude of trait correlations differ between legumes and non-legumes (Powers and Tiffin, 2010; Pineda-Garcia et al 2016, Adams et al 2016).  
-
-To address determine how the addition of water and/or nutrients affected plant biomass allocation (Q1), we built linear  mixed models  (gaussian error distribution) with treatment (ambient rain, ambient rain plus water, ambient rain plus nutrients, ambient rain plus water and nutrients) and fixer category (fixer- vs. non-fixer) and their interaction as the main effects, initial height as a covariate to control for the differences in height between plants, and species as a random effect. To determine how treatments affected individual plant biomass allocation and growth we used total plant biomass (leaves + stems + roots), belowground biomass (roots), aboveground biomass (stems and leaves), leaves, stems, or roots separately, and AGR as response variables. For all models we performed likelihood ratio chi-squared (χ2) tests on type-III ANOVAs to detect significant model terms (to account for the unbalanced seedlings within treatments; car package), then used Tukey’s HSD post-hoc tests to detect differences between groups (emmeans package). For each linear model we also determined marginal (R2m; fixed effects) and conditional (R2c; fixed and random effects) R2 values (performance package; Nakagawa and Schielzeth 2013). 
-
-Then, to investigate how water and/or nutrient addition influenced seedling functional traits (Q2) we used the same mixed modeling approach as above, instead using Amax, gs, and WUE, SLA, Nmass, Narea, canopy nitrogen content, foliar δ13C (as an integrated metric of water use efficiency), as response variables. This allowed us to interpret any changes in seedling traits after we imposed the watering and fertilization treatments within the context of developmental changes over the growing season.   
-
-Finally, to determine if shifts in seedling traits across nutrient and/or water addition treatments were related with differences in seedling growth rates among treatments (Q3) we used the same mixed model framework as above, this time adding principal components axes to integrate across all seedling-level functional traits. First, we performed a principal components analysis to reduce data dimensionality to two principal components axes (hereafter, PC1 and PC2) using scaled and centered functional trait data for each individual seedling (Amax, WUE, gs, SLA, canopy nitrogen content, and foliar δ13C). Using Nmass or Narea in place of canopy nitrogen content in this analysis produced the same overall results. Then, we built a linear mixed model (gaussian error distribution) to determine how seedling-level functional traits (PC1 and PC2), treatment, fixer-category, and the two-way interactions between treatment, fixer category, and PCs (predictors) influenced seedling-level absolute growth rates (response). Full model: absolute height growth rate ~ treatment * PC1 +  fixer category * PC1 + treatment * PC2 +  nfixer * PC2 + initial seedling height + species [random effect]). Last, we assessed the strength of relationships between functional traits (PCs) and seedling absolute growth rate in each treatment in the presence of significant interaction terms (i.e., treatment X PC1). If the slope of the relationship between PC1 and a treatment was steeper we interpreted this as evidence that overall shifts in seedling-level traits within a treatment were correlated with higher seedling growth rates. We visualized these relationships by plotting interaction plots for the full model (emmeans package). 
-
-** still needed: text on model checking, statement that all analyses were conducted in R 3…..  
-
- 
-
- 
-
- 
-
-Results 
-
-(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. 
-
-Shifts in biomass with the addition of water and/or nutrients  
-
-For the nitrogen-fixing species, total plant biomass increased significantly with the  addition of water, nutrients and both (F and p-values). The addition of water increased total biomass by 29% on average compared to the ambient treatment. While the addition of nutrients increased the total biomass 63% and the addition of both, water and nutrients, increased the total biomass in 70% compared to the ambient rain treatment. For non-fixer species, the nutrients and nutrients plus water treatments increased total biomass on average, but the addition of water alone had no significant effect on the total biomass. When nutrients were added to non-fixer seedlings , total biomass increased 39% on average, while the addition of both water and nutrients and water increased total biomass by 41%.  
-
-Aboveground biomass for fixers and non-fixers increased significantly when nutrients and nutrients plus water were added compared to the ambient rain treatment. In the case of the fixer species, aboveground biomass increased 47% when nutrients were added and 82% when nutrients plus water were added. For non-fixers, aboveground biomass increased 31% when nutrients were added and 44% when nutrients and water were added.  
-
-We found that belowground biomass increased significantly in all treatments for fixer species. The addition of nutrients increased 79%, the addition of water increased it 37% and the addition of both, increased 58%. While for non fixer species, only the addition of nutrients had an effect over the belowground biomass. which increased belowground biomass by 48%.  
-
-Biomass partition: root, stem and leaf biomass 
-
-Fixer’s root mass increased significantly in all treatments. Nutrient addition increased root mass 78% compared to the ambient rain treatment while water increased it 37% and nutrients plus water increased it 58%. For non fixers, only the addition of nutrients increased significantly root biomass in 47%. 
-
-Stem mass for fixers increased significantly 13% in the plus nutrients treatment and 34% in the nutrients plus water treatment. Non fixer’s stem mass did not change significantly in any of the treatments. 
-
-Total leaf mass increased significantly for fixers and non-fixers in the nutrient and nutrients plus water treatments when compared to the ambient rain treatment.For fixers, the addition of nutrients increased 40% and the addition of nutrients plus water increased 73%. For non-fixers the addition of nutrients increased 43%  whilst the addition of water and nutrients increased it 50%. 
-
-Biomass partition: root, stem and leaf mass fractions Supplementary??? 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-    Absolute and relative growth rates  
-
-The plus nutrients and plus nutrients and water treatments increased 61% and 77% the absolute growth rate, respectively and 57% the relative growth rates in both treatments for fixer species (f values pvalue) while for non fixer species, the only the addition of nutrients increased significantly the relative growth rate (f values pvalue)  
-
-(Q2) How does increased nutrient or water availability influence water- and nutrient-use traits? 
-
-    Gas exchange  
-
-For fixer species, we found that the addition of nutrients decreased Amax by 15%  (f values pvalue). The addition of water increased Amax and stomatal conductance by 14% (f values pvalue) and 35% (f values pvalue) and decreased WUEi by 30% (f values pvalue). Finally the addition of nutrients and water decreased WUEi  by 31% (f values pvalue). 
-
-For non fixer species, none of the treatments had effect over the Amax but the plus water and plus nutrients and water treatments increased the stomatal conductance 132% and 123% and decreased WUEi 50% and 52%, respectively  (f values pvalue). 
-
-    Leaf Traits 
-
-From the five traits measured, only cCanopy nNitrogen content and NMass responded individually to the treatments. Canopy nNitrogen cContent, increased for fixers 45% when nutrients were added and 60% when nutrients and water were added. While for non fixers this same trait increased 81% and 71% respectively. In the case of Nmass, this trait decreased 18% when water was added for the fixer species.  
-
-(Q3) 
-
-The first PC axis accounted for 38% of total variation and showed strong loadings on Amax, WUE, and canopy nitrogen content. The second PC accounted for 21.9% of total variation with gs having the strongest loading (Table #) How do we know that our PCs are orthogonal? We found a significant interaction between treatment and PC1 (χ2 df = 3 = 29.2; , P < 0.001), indicating that shifts in seedling-level trait values treatments may have differentially influenced seedling growth rates among treatments. Compared to the ambient treatment, PC1 had a much stronger relationship with seedling growth rates (steeper slope) in both the nutrient (~15-fold stronger effect; t = -3.62; P = 0.003) and water + nutrient addition treatments (~16-fold stronger effect; t = -4.13; P < 0.001). The relationships between PC1 and growth rates in the ambient and water treatments (t = -0.22; P =  0.99) and the nutrient and nutrient + water treatments (t =  -0.37; P = 0.98) were equivalent. 
-
- 
 
  
 
