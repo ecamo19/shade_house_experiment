@@ -73,8 +73,6 @@ kable(summary_means)
 
 # Boxplots: By fixer-non fixer 
 
-## Mycorrhizal colonization
-
 
 ```{r}
 
@@ -100,11 +98,9 @@ kable(summary_means)
  
 ```
 
-## By Spcode
+## Boxplots: By spcode
 ```{r}
-
-
-(boxplot_percentage <- 
+(boxplot_percentage_sp <- 
 	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
 					  xvar = spcode,
                       yvar = percentage, 
@@ -116,7 +112,7 @@ kable(summary_means)
 
 ```{r message=FALSE, warning=FALSE}
 
-(boxplot_percentage_log <- 
+(boxplot_percentage_log_sp <- 
 	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
 					  xvar = spcode,
                       yvar = log_perc, 
