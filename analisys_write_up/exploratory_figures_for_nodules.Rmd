@@ -70,9 +70,6 @@ kable(summary_means)
 
 
 # Boxplots
-```{r}
-colnames(data_nodules_cleaned)
-```
 
 ## Number of root nodulation
 
@@ -84,18 +81,56 @@ colnames(data_nodules_cleaned)
                       yvar = number_of_root_nodulation, 
 					  color = treatment,
 					  n_treat = 4 ) +
-	ylab("Mycorrhizal Colonization"))
+	ylab("Number of root nodulation"))
 ```
 
-## nodule_count_lab
+## Nodule Count in the Lab
 
+```{r}
+(boxplot_nodule_count_lab <- 
+	masomenos_boxplot(data = data_nodules_cleaned,
+					  xvar = spcode,
+                      yvar = nodule_count_lab, 
+					  color = treatment,
+					  n_treat = 4 ) +
+ 	ylab("Nodule Count in the Lab"))
+```
 
-## nodule_mass_in_the_lab
+## Nodule Mass in the lab
+```{r}
+(boxplot_nodule_mass_in_the_lab <- 
+	masomenos_boxplot(data = data_nodules_cleaned,
+					  xvar = spcode,
+                      yvar = nodule_mass_in_the_lab, 
+					  color = treatment,
+					  n_treat = 4 ) +
+ 	ylab("Nodule Mass in the lab"))
 
-## average_nodule_weight
+```
 
-## estimated_nodule_mass_per_plant
+## Average Nodule Weight
+```{r}
+(boxplot_average_nodule_weight <- 
+	masomenos_boxplot(data = data_nodules_cleaned,
+					  xvar = spcode,
+                      yvar = average_nodule_weight, 
+					  color = treatment,
+					  n_treat = 4 ) +
+ 	ylab("Average Nodule Weight"))
 
+```
+
+## Estimated Nodule Mass per plant
+
+```{r}
+(boxplot_estimated_nodule_mass_per_plant <- 
+	masomenos_boxplot(data = data_nodules_cleaned,
+					  xvar = spcode,
+                      yvar = estimated_nodule_mass_per_plant, 
+					  color = treatment,
+					  n_treat = 4 ) +
+ 	ylab("Estimated Nodule Mass per plant"))
+```
 
 
 
