@@ -9,7 +9,6 @@ data_nodules <-
 	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/1_nodule_data.csv", header = T) %>%
 	clean_names()
 
-str(data_nodules)
 
 # Transform to factor spcode,id and treatment -------------------------
 
@@ -38,10 +37,13 @@ data_nodules$treatment <-
 
 # Clean data --------------------------------------------------------------
 
-#data__cleaned <- 
+data_nodules_cleaned <-
 	data_nodules %>%
 	
 	select(id,spcode,treatment, everything())
 	
 	#Group data this is done because there are 2 sub samples per 
 	#plant so what I am doing is get the mean of the sub-samples
+
+str(data_nodules_cleaned)
+
