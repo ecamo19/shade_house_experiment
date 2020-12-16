@@ -1,5 +1,5 @@
 ---
-title: 'Exploratory analisys: Mycorrhizal colonization'
+title: 'Exploratory analisys: Nodules'
 author: "Mas o menos Lab"
 date: "2020"
 output: 
@@ -12,7 +12,6 @@ output:
     number_sections: true
     toc_depth: 3
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, comment = "")
@@ -45,79 +44,58 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 
 ```{r}
 #source cleaned data
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_mycorrhizal_colonization.R")
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_nodules.R")
 ```
 
 
 # Mean data 
 
-## Mycorrhizal colonization
+## Nodules
 
 ```{r message=FALSE, warning=FALSE}
 
 summary_means <- 
-	data_mycorrhizal_colonization_cleaned %>% 
-	group_by(treatment,nfixer) %>%
-	#log only the values greather than 0
-	mutate(log_perc = if_else(percentage > 0, log(percentage),0)) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer) 
+	data_nodules_cleaned %>% 
+	group_by(spcode,treatment) %>%
+	 
+	summarise_if(is.numeric, funs(mean)) 
+	#arrange(nfixer) 
 
 ### Round the numbers
-summary_means[,5:ncol(summary_means)] <-
-	round(summary_means[,5:ncol(summary_means)],3) 
+summary_means[,3:ncol(summary_means)] <-
+	round(summary_means[,3:ncol(summary_means)],3) 
 
 kable(summary_means)
 ```
 
 
-# Boxplots: By fixer-non fixer 
+# Boxplots
+```{r}
+colnames(data_nodules_cleaned)
+```
 
+## Number of root nodulation
 
 ```{r}
 
-(boxplot_percentage <- 
-	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
-					  xvar = nfixer,
-                      yvar = percentage, 
-					  color = treatment,
-					  n_treat = 4 ) +
-	ylab("Mycorrhizal Colonization") )
- 
-```
-
-```{r message=FALSE, warning=FALSE}
-
-(boxplot_percentage_log <- 
-	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
-					  xvar = nfixer,
-                      yvar = log_perc, 
-					  color = treatment,
-					  n_treat = 4 ) +
-	ylab("Mycorrhizal Colonization log(Percentage)") )
- 
-```
-
-## Boxplots: By spcode
-```{r}
-(boxplot_percentage_sp <- 
-	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
+(boxplot_number_of_root_nodulation <- 
+	masomenos_boxplot(data = data_nodules_cleaned,
 					  xvar = spcode,
-                      yvar = percentage, 
+                      yvar = number_of_root_nodulation, 
 					  color = treatment,
 					  n_treat = 4 ) +
 	ylab("Mycorrhizal Colonization"))
-
 ```
 
-```{r message=FALSE, warning=FALSE}
+## nodule_count_lab
 
-(boxplot_percentage_log_sp <- 
-	masomenos_boxplot(data = data_mycorrhizal_colonization_cleaned,
-					  xvar = spcode,
-                      yvar = log_perc, 
-					  color = treatment,
-					  n_treat = 4 ) +
-	ylab("Mycorrhizal Colonization") )
-```
+
+## nodule_mass_in_the_lab
+
+## average_nodule_weight
+
+## estimated_nodule_mass_per_plant
+
+
+
 
