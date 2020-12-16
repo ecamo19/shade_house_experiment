@@ -64,8 +64,8 @@ summary_means <-
 	arrange(nfixer) 
 
 ### Round the numbers
-summary_means[,5:ncol(summary_means)] <-
-	round(summary_means[,5:ncol(summary_means)],3) 
+summary_means[,4:ncol(summary_means)] <-
+	round(summary_means[,4:ncol(summary_means)],3) 
 
 kable(summary_means)
 ```
