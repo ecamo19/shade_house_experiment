@@ -44,7 +44,7 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 ```
 
 ```{r}
-#source cleaned data
+#source cleaned data micorrhyzal colonization
 source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_mycorrhizal_colonization.R")
 ```
 
