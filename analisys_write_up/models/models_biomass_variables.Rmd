@@ -30,6 +30,7 @@ library(tidyverse)
 library(ggsci)
 library(knitr)
 library(performance)
+library(glmmTMB) #for beta regression
 ```
 
 ```{r}
@@ -60,7 +61,9 @@ data_rate_change <-
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
   clean_names() 
-  
+
+data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
+data_rate_change$spcode <- as.factor(data_rate_change$spcode)
 ```
 
 
@@ -267,6 +270,7 @@ r2(mixed_models$below_biom)
   theme(legend.position = "right") + ylab("Belowground Biomass"))
 ```
 
+
 ## Root Mass Fraction 
 
 
@@ -423,6 +427,7 @@ r2(mixed_models$lmf)
   ylab("Leaf mass fraction plus CI's"))
 ```
 
+
 ## Root Dry weight
 
 ```{r}
@@ -461,6 +466,15 @@ AIC(mixed_models$root_dry_weight)
 # model R2
 r2(mixed_models$root_dry_weight)
 ```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -575,4 +589,8 @@ r2(mixed_models$whole_leaf_dry_weight)
   theme(legend.position = "right") + 
   ylab("Leaf Dry Weight plus CI's"))
 ```
+
+
+
+
 
