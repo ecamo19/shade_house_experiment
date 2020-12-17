@@ -1,7 +1,5 @@
-
 # Load packages -----------------------------------------------------------
 library(tidyverse)
-
 
 # Load Biomass data -------------------------------------------------------
 data_mycorrhizal_colonization <- 
@@ -15,7 +13,7 @@ data_mycorrhizal_colonization_cleaned <-
 	
 	#There are some values greater that 100%. Values greater than 100% were
 	#treated as 100%
-	mutate(percentage = if_else(percentage > 100, 100, percentage)) %>% 
+	mutate(percentage_upto_100 = if_else(percentage > 100, 100, percentage)) %>% 
 	
 	#Create nfixer column
 	mutate(nfixer = ifelse(spcode == "ec" |
@@ -31,13 +29,14 @@ data_mycorrhizal_colonization_cleaned <-
 	 
 	#log only the values greater than 0
 	mutate(log_perc = if_else(percentage > 0, log(percentage),0)) %>% 
+	mutate(log_perc_upto_100 = 
+		   	if_else(percentage_upto_100  > 0, log(percentage_upto_100 ),0)) %>%
 	
+
 	#Create a value for every single plant
 	summarise_if(is.numeric, funs(mean))  %>% 
 	
-	arrange(nfixer)
-	
-
+	arrange(nfixer) 
 
 # Transform to factor class spcode,family and treatment -------------------
 
@@ -70,3 +69,5 @@ data_mycorrhizal_colonization_cleaned$treatment <-
 		   )
 	)
 
+# Remove uncleaned data set -----------------------------------------------
+rm(data_mycorrhizal_colonization)
