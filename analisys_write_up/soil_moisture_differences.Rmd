@@ -1,0 +1,91 @@
+---
+title: 'Soil Moisture between treatments'
+author: "Mas o menos Lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 15
+    fig_height: 10
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+
+```{r}
+#Source maso menos plots
+#Load plot function to keep same format to all plots
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_soil_moisture.R")
+```
+
+```{r message=FALSE, warning=FALSE}
+
+summary_soil_moisture <-  
+	data_soil_moisture_cleaned %>% 
+	group_by(treatment,nfixer,date_day_month,sm_measured ) %>% 
+	summarise(mean_sm = mean(soil_moisture),
+			  sd_sm   = sd(soil_moisture)) %>% 
+	arrange(nfixer) %>% 
+	arrange(date_day_month) 
+	
+
+### Round the numbers
+summary_soil_moisture[,5:ncol(summary_soil_moisture)] <-
+	round(summary_soil_moisture[,5:ncol(summary_soil_moisture)],2) 
+
+kable(summary_soil_moisture)
+```
+
+
+# Boxplots
+
+
+```{r, fig.width = 15, fig.height=10}
+
+ggplot(data = data_soil_moisture_cleaned,
+	   aes(x = date_day_month, y = soil_moisture,  
+	   	   colour = sm_measured)) +
+	facet_wrap(~treatment,nrow = 4, scales = "free_y") +
+	geom_boxplot(position = position_dodge( width=.8)) +
+	theme_classic()
+	#theme(legend.position = "bottom")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
