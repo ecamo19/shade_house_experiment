@@ -7,10 +7,9 @@ output:
     fig_width: 15
     fig_height: 10
     highlight: pygments
-    theme: cayman   
-    toc: yes
+    theme: cayman
     number_sections: true
-    toc_depth: 3
+    
 ---
 
 
@@ -36,7 +35,7 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_soil_moisture.R")
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval = F}
 
 summary_soil_moisture <-  
 	data_soil_moisture_cleaned %>% 
@@ -55,21 +54,71 @@ kable(summary_soil_moisture)
 ```
 
 
-# Boxplots
+# Boxplot
+
+```{r}
+# Change labels names
+data_soil_moisture_cleaned$treatment <- 
+	factor(data_soil_moisture_cleaned$treatment, 
+		   labels = c("Ambient Rain",
+		"Ambient Rain plus Nutrients",
+		"Ambient Rain plus Water",
+		"Ambient Rain plus Nutrients and Water"))
+
+data_soil_moisture_cleaned$date_day_month <- 
+	factor(data_soil_moisture_cleaned$date_day_month, 
+		   labels = c("31-Aug",
+		   			"19-Sep",
+					"4-Oct",
+					"17-Oct",
+					"31-Oct",
+					"15-Nov"))
+data_soil_moisture_cleaned$sm_measured <- 
+	factor(data_soil_moisture_cleaned$sm_measured, 
+		   labels = c(
+					"Before Watering",
+					"After Watering"
+					))
+
+```
 
 
-```{r, fig.width = 15, fig.height=10}
+```{r fig.width = 20, fig.height=15}
 
 ggplot(data = data_soil_moisture_cleaned,
 	   aes(x = date_day_month, y = soil_moisture,  
 	   	   colour = sm_measured)) +
 	facet_wrap(~treatment,nrow = 4, scales = "free_y") +
+	
+	#Adjust boxplots side by side
 	geom_boxplot(position = position_dodge( width=.8)) +
-	theme_classic()
-	#theme(legend.position = "bottom")
+	theme_bw()+
+	
+	#Define colors
+	scale_colour_manual(values = c("#F0E442","#0072B2"))+
+	xlab("Date") + ylab("Soil Moisture %") +
+	
+	#Delete lines around facet labels
+	theme(strip.background = element_rect(
+     color="white", fill="white"),
+     
+     #Font size
+     axis.text=element_text(size = 18),
+     axis.title=element_text(size = 18,face="bold"),
+     strip.text.x = element_text(size = 18,face="bold"),
+     
+     # Legend position and size
+     legend.position = "bottom",
+     legend.title = element_text(size = 18),
+     legend.text = element_text(size = 18)) +
+	 guides(col = guide_legend(ncol = 1,
+	 						  title.position = "left",
+	 						  title.hjust = .59,
+	 						  title = "Soil Moisture Measuared:")
+	 	   )
+
 
 ```
-
 
 
 
