@@ -63,7 +63,7 @@ data_soil_moisture_cleaned <-
 data_soil_moisture_cleaned$sm_measured <- 
 	recode(data_soil_moisture_cleaned$sm_measured,
 		   `sm_before_watering` = "before_watering",
-		   `sm_after_watering` = "sm_after_watering"
+		   `sm_after_watering`  = "after_watering"
 	)
 
 
@@ -77,6 +77,27 @@ data_soil_moisture_cleaned$treatment <-
 			   	"ambientrain_water_nutrients"
 			   )
 		)
+
+data_soil_moisture_cleaned$date_day_month <-
+	factor(data_soil_moisture_cleaned$date_day_month,
+		   levels = c(
+		   	"31_08", 
+		   	"19_09",
+		   	"4_10",
+		   	"17_10",
+		   	"31_10",
+		   	"15_11"
+		   )
+	)
+
+data_soil_moisture_cleaned$sm_measured <-
+	factor(data_soil_moisture_cleaned$sm_measured,
+		   levels = c(
+		   	"before_watering", 
+		   	"after_watering"
+		   )
+	)
+
 	
 str(data_soil_moisture_cleaned)
 
