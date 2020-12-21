@@ -70,12 +70,13 @@ data_rate_change <-
   clean_names()
 
 
-
+data_rate_change %>% 
+	filter(!treatment %in% "Harvestatthebegging") %>% 
+    count()
 ```
 
 
-
-
+O
 ```{r}
 
 # Load ecophysiology and growth data
@@ -93,7 +94,8 @@ data_ecophys_growth$treatment <- factor(data_ecophys_growth$treatment,
 							   "ambientrain_water_nutrients"
 							   )
 					)
-
+data_ecophys_growth %>% 
+	count()
 ```
 
 

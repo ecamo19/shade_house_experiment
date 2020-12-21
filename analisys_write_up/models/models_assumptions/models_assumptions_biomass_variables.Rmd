@@ -1,0 +1,230 @@
+---
+title: "Models for biomass variables"
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 5 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(tidyverse)
+library(performance)
+library(DHARMa)
+```
+
+```{r}
+#Source maso menos plot
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+data_complete_final <- 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+
+
+data_complete_final$treatment <- factor(data_complete_final$treatment,
+					levels = c("Harvestatthebegging",
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
+#Cleaned data
+data_rate_change <- 
+    data_complete_final %>% 
+    
+    #Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+  clean_names() 
+
+data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
+data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_rate_change)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rate_change)[7:ncol(data_rate_change)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Model assumptions
+
+## Total Biomasss
+
+### Model performance
+
+```{r}
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+
+## Aboveground Biomass
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+#AIC model
+AIC(mixed_models$above_biom)
+
+# model R2
+r2(mixed_models$above_biom)
+
+
+
+```
+
+
+## Belowground Biomass
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+#AIC model
+AIC(mixed_models$below_biom)
+
+
+# model R2
+r2(mixed_models$below_biom)
+
+
+```
+
+
+## Root Mass Fraction 
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+#AIC model
+AIC(mixed_models$rmf)
+
+# model R2
+r2(mixed_models$rmf)
+
+
+```
+
+
+## Stem Mass fraction
+
+### AIC, Rm2 and Rc2
+
+```{r}
+#AIC model
+AIC(mixed_models$smf)
+
+
+# model R2
+r2(mixed_models$smf)
+
+
+```
+
+## Leaf Mass fraction
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+#AIC model
+AIC(mixed_models$lmf)
+
+# model R2
+r2(mixed_models$lmf)
+```
+
+
+## Root Dry weight
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+#AIC model
+AIC(mixed_models$root_dry_weight)
+
+# model R2
+r2(mixed_models$root_dry_weight)
+```
+
+
+## Stem Dry weight
+### AIC, Rm2 and Rc2
+
+```{r}
+#AIC model
+AIC(mixed_models$stem_dry_weight)
+
+# model R2
+r2(mixed_models$stem_dry_weight)
+```
+
+
+
+## Leaf Dry weight
+
+### AIC, Rm2 and Rc2
+
+```{r}
+#AIC model
+AIC(mixed_models$whole_leaf_dry_weight)
+
+# model R2
+r2(mixed_models$whole_leaf_dry_weight)
+
+```

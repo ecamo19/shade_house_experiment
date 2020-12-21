@@ -1,0 +1,134 @@
+---
+title: "PCA analysis"
+author: "Leland Werden"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 7 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: true
+    toc_depth: 2
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+require(vegan)
+require(knitr)
+require(ggpubr)
+library(ggeffects)
+library(emmeans)
+library(lme4)
+library(MuMIn)
+library(performance)
+library(DHARMa)
+library(car)
+library(janitor)
+library(factoextra)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load and Clean Data
+
+```{r}
+finalTrait_dat <- read.table("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+```
+
+```{r}
+
+allTrait <-  
+    finalTrait_dat %>%
+    dplyr::select(spcode, treatment, nfixer, init_height, totalbiom, above_biom,
+                  whole_leaf_dry_weight, stem_dry_weight, amax, gs, wue, 
+                  d13c, sla_cm2_g, totalleafmass_Nmass, rgr, agr)
+
+
+# Scale data
+allTrait_scaled <- allTrait
+allTrait_scaled[,c(9:14)] <- scale(allTrait_scaled[,c(9:14)])
+```
+
+
+# PCA 
+
+```{r}
+PCAfinalTraits <- princomp(allTrait_scaled[,c(9:14)])
+```
+
+```{r}
+#Extract loadings
+PCAfinalTraits$loadings 
+```
+
+```{r}
+PCAscores <- scores(PCAfinalTraits)
+```
+
+```{r}
+
+fviz_pca(PCAfinalTraits)
+```
+
+
+# Data for PCA regression 
+```{r}
+allTrait_scaled_forReg <- allTrait
+```
+
+## Pull out PC axes and add to trait/growth data frame
+```{r}
+allTrait_scaled_forReg$PC1 <- PCAscores[,1]
+allTrait_scaled_forReg$PC2 <- PCAscores[,2]
+allTrait_scaled_forReg$PC3 <- PCAscores[,3]
+```
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+# Perform regression 
+
+__Do PCs predict AGR?__
+```{r}
+ 
+# fit treatment/nfixer interactions separately
+PCmod_agr_bothPC<- lmer(agr ~ treatment * PC1 +
+                              nfixer * PC1 +
+                              treatment * PC2 +
+                              nfixer * PC2 +
+                              init_height + (1|spcode), 
+                        data = allTrait_scaled_forReg)
+
+```
+
+```{r}
+# fit three-way interaction
+PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
+                                      treatment * nfixer* PC2 +
+                                      init_height + (1|spcode),
+                                data = allTrait_scaled_forReg)
+```
+
+## Model comparison 
+```{r}
+#USE PERFORMACE PACKAGE
+```
+
+
+## Check Model assumptions 
+```{r}
+#USE PERFORMACE PACKAGE
+```
+
+```{r}
+#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+
