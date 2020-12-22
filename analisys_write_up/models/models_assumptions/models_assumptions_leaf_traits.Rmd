@@ -1,11 +1,11 @@
 ---
-title: "Models assumptions for biomass variables"
-author: "Mas o menos lab"
+title: "Models for leaf traits"
+author: "Mas o menos Lab"
 date: "2020"
 output: 
  prettydoc::html_pretty:
-    fig_width: 8
-    fig_height: 5 
+    fig_width: 15
+    fig_height: 10 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -20,25 +20,29 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 # Load packages and data
 ```{r message=FALSE, warning=FALSE}
 library(janitor)
+library(ggpubr)
 library(nlme)
 library(car)
 library(emmeans)
 library(lme4)
+library(cowplot)
 library(tidyverse)
+library(ggsci)
+library(knitr)
 library(performance)
-library(DHARMa)
 ```
 
+
 ```{r}
-#Source maso menos plot
+#Source mas o menos plot
 source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
 ```
 
-
+# Load data
 ```{r message=FALSE, warning=FALSE}
+
 data_complete_final <- 
   read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
-
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
 					levels = c("Harvestatthebegging",
@@ -51,17 +55,15 @@ data_complete_final$treatment <- factor(data_complete_final$treatment,
 
 #Cleaned data
 data_rate_change <- 
+  
     data_complete_final %>% 
     
-    #Order the columns  
+	#Order the columns
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
   clean_names() 
-
-data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
-data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+  
 ```
-
 
 # Model used 
 
@@ -81,7 +83,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[7:ncol(data_rate_change)]
+vars <- names(data_rate_change)[18:ncol(data_rate_change)]
 ```
 
 ```{r}
@@ -93,9 +95,29 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Model assumptions
+# Results
 
-## Total Biomasss
+## d13c
+
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+## SLA
 
 ```{r}
 # Model performance
@@ -117,7 +139,7 @@ plotQQunif(simulationOutput)
 ```
 
 
-## Aboveground Biomass
+## NArea
 
 ```{r}
 # Model performance
@@ -139,52 +161,7 @@ plotQQunif(simulationOutput)
 ```
 
 
-## Belowground Biomass
-
-```{r}
-# Model performance
-
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
-
-check_model(mixed_models$)
-
-```
-
-
-```{r}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
-```
-
-## Root Mass Fraction 
-
-```{r}
-# Model performance
-
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
-
-check_model(mixed_models$)
-
-```
-
-
-```{r}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
-```
-
-
-## Stem Mass fraction
+## NMass
 
 ```{r}
 # Model performance
@@ -205,8 +182,8 @@ simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
 plotQQunif(simulationOutput) 
 ```
 
+## Canopy Nitrogen Content
 
-## Leaf Mass fraction
 ```{r}
 # Model performance
 
@@ -216,72 +193,6 @@ model_performance(mixed_models$)
 check_model(mixed_models$)
 
 ```
-
-
-```{r}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
-```
-
-
-## Root Dry weight
-```{r}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
-
-check_model(mixed_models$)
-
-```
-
-
-```{r}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
-```
-
-## Stem Dry weight
-
-```{r}
-# Model performance
-
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
-
-check_model(mixed_models$)
-
-```
-
-
-```{r}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
-```
-
-## Leaf Dry weight
-
-```{r}
-# Model performance
-
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
-
-check_model(mixed_models$)
-
-```
-
 
 ```{r}
 #check model assumptions with DHARMa 

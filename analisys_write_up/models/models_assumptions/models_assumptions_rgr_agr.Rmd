@@ -1,0 +1,137 @@
+---
+title: "Models for Absolute and Relative Growth Rate "
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 5 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+```{r}
+#Source maso menos plot
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+data_rgr_agr <- 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv", header = T) %>% 
+	 clean_names() 
+
+
+data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
+					levels = c(
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
+#Clean data
+data_rgr_agr_clean <- 
+    data_rgr_agr %>% 
+    
+    #Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,rgr,agr)
+ 
+  
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_rgr_agr_clean)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rgr_agr_clean)[7:8]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+## Absolute Growth Rate
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+## Relative Growth Rate
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```

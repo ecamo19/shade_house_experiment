@@ -1,0 +1,153 @@
+---
+title: "Models assumptions for ecophysiology traits"
+author: "Mas o menos Lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 9
+    fig_height: 6 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+library(performance)
+```
+
+```{r}
+#Source maso menos plot
+source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot2.R")
+```
+
+# Load data
+```{r}
+
+data_ecophys_traits <- 
+  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+  clean_names()  
+
+data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
+					levels = c(
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
+
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+mixed_models_formula = function(response) {
+  
+  #'this function takes each response variable and join it to the formula
+  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
+  
+  lmer(as.formula(formula), data = data_ecophys_traits)
+}
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_ecophys_traits)[6:(ncol(data_ecophys_traits)-1)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r message=FALSE, warning=FALSE}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Results
+
+## Amax
+
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+
+## gs
+
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```
+
+## WUE
+
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
+
+```
+
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+plotQQunif(simulationOutput) 
+```

@@ -13,6 +13,9 @@ output:
     toc_depth: 2
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
 
 # Load packages and data
 ```{r message=FALSE, warning=FALSE}
@@ -96,20 +99,14 @@ mixed_models <-  vars %>%
 # Results
 
 ## d13c
-
-```{r}
-Anova(mixed_models$d13c, type = "III" )
-```
-
-
 ```{r}
 data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$d13c,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
+                          pairwise ~ treatment | nfixer,
+                          type = "response", 
+                          adjust ="tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
@@ -119,22 +116,7 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-
 ```
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$d13c)
-
-# model R2
-r2(mixed_models$d13c)
-
-```
-
 
 ```{r}
 (plot_d13c <- 
@@ -142,25 +124,18 @@ r2(mixed_models$d13c)
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
    theme(legend.position = "none" ) + 
- 	ylab("d13C"))
+    ylab("d13C"))
 ```
 
 ## SLA
-
-
-```{r}
-Anova(mixed_models$sla_cm2_g, type = "III" )
-```
-
-
 ```{r}
 data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$sla_cm2_g,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
+                          pairwise ~ treatment | nfixer,
+                          type = "response", 
+                          adjust ="tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
@@ -170,22 +145,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-
 ```
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$sla_cm2_g)
-
-# model R2
-r2(mixed_models$sla_cm2_g)
-
-```
-
 
 ```{r}
 (plot_sla <- 
@@ -193,26 +153,20 @@ r2(mixed_models$sla_cm2_g)
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
    theme(legend.position = "none" ) + 
-	ylab("SLA"))
+    ylab("SLA"))
 ```
 
 ## NArea
-
-```{r}
-Anova(mixed_models$narea_g_m2, type = "III" )
-```
-
-
 ```{r}
 data_narea_plot <- emmip(mixed_models$narea_g_m2, 
-						 treatment ~ nfixer, CIs = TRUE)$data
+                         treatment ~ nfixer, CIs = TRUE)$data
 
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$narea_g_m2,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
+                          pairwise ~ treatment | nfixer,
+                          type = "response", 
+                          adjust ="tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
@@ -222,40 +176,19 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-
-
 ```
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$narea_g_m2)
-
-# model R2
-r2(mixed_models$narea_g_m2)
-
-
-```
-
 
 ```{r}
 (plot_narea <- 
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
-  	 ylab("Narea") +
+     ylab("Narea") +
      theme(legend.position = "none" ))
 ```
 
+
 ## NMass
-
-```{r}
-Anova(mixed_models$nmass_mg_g, type = "III" )
-```
-
 
 ```{r}
 data_nmass_plot <- emmip(mixed_models$nmass_mg_g, 
@@ -264,9 +197,9 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$nmass_mg_g,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
+                          pairwise ~ treatment | nfixer,
+                          type = "response", 
+                          adjust ="tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
@@ -276,51 +209,28 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-
 ```
-
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$nmass_mg_g)
-
-# model R2
-r2(mixed_models$nmass_mg_g)
-
-
-```
-
 
 ```{r}
 (plot_nmass <- 
   masomenos_plot(data = data_nmass_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
- 	ylab("Nmass") +
-	theme(legend.position = "none" ))
+    ylab("Nmass") +
+    theme(legend.position = "none" ))
 ```
-
 
 
 ## Canopy Nitrogen Content
-
-```{r}
-Anova(mixed_models$totalleafmass_nmass, type = "III" )
-```
-
 
 ```{r}
 data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer, CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$totalleafmass_nmass,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
+                          pairwise ~ treatment | nfixer,
+                          type = "response", 
+                          adjust ="tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
@@ -330,24 +240,7 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-
 ```
-
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$totalleafmass_nmass)
-
-# model R2
-r2(mixed_models$totalleafmass_nmass)
-
-```
-
-
 
 ```{r}
 (plot_totalleafmass_nmass <- 
@@ -358,5 +251,7 @@ r2(mixed_models$totalleafmass_nmass)
   
    theme(legend.position = "right" ) + 
   ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
+
+
 ```
 

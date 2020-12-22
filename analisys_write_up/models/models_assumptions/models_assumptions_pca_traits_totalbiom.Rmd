@@ -12,6 +12,10 @@ output:
     number_sections: true
     toc_depth: 2
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -29,9 +33,7 @@ library(janitor)
 library(factoextra)
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
-```
+
 
 # Load and Clean Data
 
@@ -87,29 +89,41 @@ allTrait_scaled_forReg$PC2 <- PCAscores[,2]
 allTrait_scaled_forReg$PC3 <- PCAscores[,3]
 ```
 
-# Model used 
+# Models created 
 
-$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+## Two-way interaction
+$$1)\ response\sim treatment*PC +\ fixer*PC\ + initial\ height\ + random(1|specie)$$
 
-# Perform regression 
+## Three-way interaction
+$$2)\ response\sim treatment*fixer*PC + initial\ height\ + random(1|specie)$$
+
+# Perform regressions
 
 __Do PCs predict AGR?__
 ```{r}
  
 # fit treatment/nfixer interactions separately
-PCmod_agr_bothPC<- lmer(agr ~ treatment * PC1 +
-                              nfixer * PC1 +
-                              treatment * PC2 +
-                              nfixer * PC2 +
-                              init_height + (1|spcode), 
-                        data = allTrait_scaled_forReg)
+m1_agr_2_way_interac <- lmer(agr ~ treatment * PC1 +
+                     nfixer * PC1 +
+                     
+                     #PC2
+                     treatment * PC2 +
+                     nfixer * PC2 +
+                     
+                     #Covariate and random effect         
+                     init_height + (1|spcode), 
+                data = allTrait_scaled_forReg)
 
 ```
 
 ```{r}
 # fit three-way interaction
-PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
+m2_agr_3_way_interac <- lmer(agr ~ treatment * nfixer* PC1+
+                                      
+                                      #Three way interactions
                                       treatment * nfixer* PC2 +
+                                    
+                                      #Covariate and random effect 
                                       init_height + (1|spcode),
                                 data = allTrait_scaled_forReg)
 ```
@@ -122,11 +136,21 @@ PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
 
 ## Check Model assumptions 
 ```{r}
-#USE PERFORMACE PACKAGE
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted 
+# as “the proportion of the variance explained by the grouping structure in the
+# population”
+model_performance(mixed_models$)
+
+check_model(mixed_models$)
 ```
 
+
 ```{r}
-#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
 simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
 plotQQunif(simulationOutput) 
 ```
