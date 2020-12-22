@@ -27,7 +27,7 @@ library(emmeans)
 library(lme4)
 library(cowplot)
 library(tidyverse)
-library(ggsci)
+library(DHARMa)
 library(knitr)
 library(performance)
 ```
@@ -91,63 +91,63 @@ mixed_models <-  vars %>%
 
 ## Amax
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$amax)
 
-check_model(mixed_models$)
+check_model(mixed_models$amax)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$amax)
+plotQQunif(mixed_models$amax) 
 ```
 
 
 ## gs
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$gs)
 
-check_model(mixed_models$)
+check_model(mixed_models$gs)
 
 ```
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$gs)
+plotQQunif(mixed_models$gs) 
 ```
 
 ## WUE
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$wue)
 
-check_model(mixed_models$)
+check_model(mixed_models$wue)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$wue)
+plotQQunif(mixed_models$wue) 
 ```

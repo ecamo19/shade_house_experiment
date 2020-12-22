@@ -30,6 +30,7 @@ library(tidyverse)
 library(ggsci)
 library(knitr)
 library(performance)
+library(DHARMa)
 ```
 
 
@@ -99,105 +100,105 @@ mixed_models <-  vars %>%
 
 ## d13c
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$d13c)
 
-check_model(mixed_models$)
+check_model(mixed_models$d13c)
 
 ```
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$d13c)
+plotQQunif(mixed_models$d13c) 
 ```
 
 ## SLA
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$sla_cm2_g)
 
-check_model(mixed_models$)
+check_model(mixed_models$sla_cm2_g)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$sla_cm2_g)
+plotQQunif(mixed_models$sla_cm2_g) 
 ```
 
 
 ## NArea
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$narea_g_m2)
 
-check_model(mixed_models$)
+check_model(mixed_models$narea_g_m2)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$narea_g_m2)
+plotQQunif(mixed_models$narea_g_m2) 
 ```
 
 
 ## NMass
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$nmass_mg_g)
 
-check_model(mixed_models$)
+check_model(mixed_models$nmass_mg_g)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$nmass_mg_g)
+plotQQunif(mixed_models$nmass_mg_g) 
 ```
 
 ## Canopy Nitrogen Content
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$totalleafmass_nmass)
 
-check_model(mixed_models$)
+check_model(mixed_models$totalleafmass_nmass)
 
 ```
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalleafmass_nmass)
+plotQQunif(mixed_models$totalleafmass_nmass) 
 ```

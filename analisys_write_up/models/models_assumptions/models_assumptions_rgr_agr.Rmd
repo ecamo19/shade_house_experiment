@@ -29,6 +29,8 @@ library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
+library(performance)
+library(DHARMa)
 ```
 
 ```{r}
@@ -96,42 +98,42 @@ mixed_models <-  vars %>%
 # Results
 
 ## Absolute Growth Rate
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center',fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$agr)
 
-check_model(mixed_models$)
+check_model(mixed_models$agr)
 
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$agr)
+plotQQunif(mixed_models$agr) 
 ```
 
 ## Relative Growth Rate
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$rgr)
 
-check_model(mixed_models$)
+check_model(mixed_models$rgr)
 
 ```
 
 
 
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$rgr)
+plotQQunif(mixed_models$rgr) 
 ```

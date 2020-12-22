@@ -29,6 +29,7 @@ library(MuMIn)
 library(performance)
 library(DHARMa)
 library(car)
+library(gridExtra)
 library(janitor)
 library(factoextra)
 ```
@@ -71,8 +72,7 @@ PCAfinalTraits$loadings
 PCAscores <- scores(PCAfinalTraits)
 ```
 
-```{r}
-
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 fviz_pca(PCAfinalTraits)
 ```
 
@@ -101,7 +101,7 @@ $$2)\ response\sim treatment*fixer*PC + initial\ height\ + random(1|specie)$$
 
 __Do PCs predict AGR?__
 ```{r}
- 
+
 # fit treatment/nfixer interactions separately
 m1_agr_2_way_interac <- lmer(agr ~ treatment * PC1 +
                      nfixer * PC1 +
@@ -129,30 +129,37 @@ m2_agr_3_way_interac <- lmer(agr ~ treatment * nfixer* PC1+
 ```
 
 ## Model comparison 
-```{r}
-#USE PERFORMACE PACKAGE
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+compare_performance(m1_agr_2_way_interac,m2_agr_3_way_interac) 
 ```
 
+```{r}
+compare_performance(m1_agr_2_way_interac,m2_agr_3_way_interac,rank = TRUE) 
+```
 
 ## Check Model assumptions 
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted 
 # as “the proportion of the variance explained by the grouping structure in the
 # population”
-model_performance(mixed_models$)
+model_performance(m1_agr_2_way_interac)
+check_model(m1_agr_2_way_interac, panel = T, 
+            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq")) 
+```
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
+check_model(m1_agr_2_way_interac, panel = T, check = "vif" ) 
 
-check_model(mixed_models$)
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = m1_agr_2_way_interac)
+plotQQunif(m1_agr_2_way_interac) 
 ```
 
 

@@ -97,196 +97,196 @@ mixed_models <-  vars %>%
 
 ## Total Biomasss
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(mixed_models$totalbiom)
 
-check_model(mixed_models$)
+check_model(mixed_models$totalbiom)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalbiom)
+plotQQunif(mixed_models$totalbiom) 
 ```
 
 
 ## Aboveground Biomass
 
-```{r}
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+# ICC provides information on the explained variance and can be interpreted 
+# as “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(mixed_models$above_biom)
 
-check_model(mixed_models$)
+check_model(mixed_models$above_biom)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$above_biom)
+plotQQunif(mixed_models$above_biom) 
 ```
 
 
 ## Belowground Biomass
 
-```{r}
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
 
-
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$below_biom)
 
-check_model(mixed_models$)
+check_model(mixed_models$below_biom)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$below_biom)
+plotQQunif(mixed_models$below_biom) 
 ```
 
 ## Root Mass Fraction 
 
-```{r}
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
 
-
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$rmf)
 
-check_model(mixed_models$)
+check_model(mixed_models$rmf)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$rmf)
+plotQQunif(mixed_models$rmf) 
 ```
 
 
 ## Stem Mass fraction
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$smf)
 
-check_model(mixed_models$)
+check_model(mixed_models$smf)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$smf)
+plotQQunif(mixed_models$smf) 
 ```
 
 
 ## Leaf Mass fraction
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$lmf)
 
-check_model(mixed_models$)
+check_model(mixed_models$lmf)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$lmf)
+plotQQunif(mixed_models$lmf) 
 ```
 
 
 ## Root Dry weight
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$root_dry_weight)
 
-check_model(mixed_models$)
+check_model(mixed_models$root_dry_weight)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$root_dry_weight)
+plotQQunif(mixed_models$root_dry_weight) 
 ```
 
 ## Stem Dry weight
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
-
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$stem_dry_weight)
 
-check_model(mixed_models$)
+check_model(mixed_models$stem_dry_weight)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
+plotQQunif(mixed_models$stem_dry_weight) 
 ```
 
 ## Leaf Dry weight
 
-```{r}
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
 
-
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$)
+model_performance(mixed_models$whole_leaf_dry_weight)
 
-check_model(mixed_models$)
+check_model(mixed_models$whole_leaf_dry_weight)
 
 ```
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
-plotQQunif(simulationOutput) 
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$whole_leaf_dry_weight)
+plotQQunif(mixed_models$whole_leaf_dry_weight) 
 ```
