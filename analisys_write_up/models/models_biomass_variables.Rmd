@@ -60,7 +60,9 @@ data_rate_change <-
     #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  clean_names() 
+	clean_names() %>% 
+	filter(!treatment == "Harvestatthebegging")
+	
 
 data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
 data_rate_change$spcode <- as.factor(data_rate_change$spcode)
