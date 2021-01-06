@@ -109,11 +109,6 @@ mixed_models <-  vars %>%
 Anova(mixed_models$totalbiom, type = "III")
 ```
 
-```{r}
-summary(mixed_models$totalbiom)
-```
-
-
 ```{r message=FALSE, warning=FALSE}
 data_totalbiom_plot <- 
   emmip(mixed_models$totalbiom, treatment ~ nfixer, CIs = TRUE)$data 
