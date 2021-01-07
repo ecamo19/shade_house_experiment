@@ -99,6 +99,15 @@ mixed_models <-  vars %>%
 # Results
 
 ## d13c
+
+### ANOVA
+
+```{r}
+Anova(mixed_models$d13c, type = "III")
+```
+
+
+
 ```{r}
 data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 
@@ -128,6 +137,15 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
 ```
 
 ## SLA
+
+### ANOVA
+
+```{r}
+Anova(mixed_models$sla_cm2_g, type = "III")
+```
+
+
+
 ```{r}
 data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$data
 
@@ -157,6 +175,14 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
 ```
 
 ## NArea
+
+### ANOVA
+
+```{r}
+Anova(mixed_models$narea_g_m2, type = "III")
+```
+
+
 ```{r}
 data_narea_plot <- emmip(mixed_models$narea_g_m2, 
                          treatment ~ nfixer, CIs = TRUE)$data
@@ -190,6 +216,13 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
 
 ## NMass
 
+### ANOVA
+
+```{r}
+Anova(mixed_models$nmass_mg_g, type = "III")
+```
+
+
 ```{r}
 data_nmass_plot <- emmip(mixed_models$nmass_mg_g, 
                          treatment ~ nfixer, 
@@ -222,6 +255,14 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 
 
 ## Canopy Nitrogen Content
+
+### ANOVA
+
+```{r}
+Anova(mixed_models$totalleafmass_nmass, type = "III")
+```
+
+
 
 ```{r}
 data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer, CIs = TRUE)$data

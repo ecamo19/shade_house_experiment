@@ -123,18 +123,6 @@ data_agr_plot <-
 ```
 
 
-### AIC, Rm2 and Rc2
-
-```{r}
-#AIC model
-AIC(mixed_models$agr)
-
-# model R2
-r2(mixed_models$agr)
-
-```
-
-
 
 ```{r}
 (plot_agr_biom <- 
@@ -172,20 +160,6 @@ data_rgr_plot <-
     select(group1, group2,nfixer,estimate,se,p_value)  %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
-```
-
-
-
-
-### AIC, Rm2 and Rc2
-
-```{r}
-#AIC model
-AIC(mixed_models$rgr)
-
-# model R2
-r2(mixed_models$rgr)
-
 ```
 
 

@@ -121,20 +121,6 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 
 
 
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$amax)
-
-# model R2
-r2(mixed_models$amax)
-
-
-```
-
-
 
 ```{r message=FALSE, warning=FALSE}
 (plot_amax <- 
@@ -176,19 +162,6 @@ data_gs_plot <- emmip(mixed_models$gs, treatment ~ nfixer, CIs = TRUE)$data
 
 ```
 
-
-### AIC, Rm2 and Rc2
-
-```{r}
-
-#AIC model
-AIC(mixed_models$gs)
-
-# model R2
-r2(mixed_models$gs)
-
-
-```
 
 
 ```{r message=FALSE, warning=FALSE}
