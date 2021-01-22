@@ -12,10 +12,16 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="boxplot_agr.svg">
   <defs
      id="defs2">
+    <rect
+       x="70.613595"
+       y="56.302816"
+       width="0.48864652"
+       height="3.7088308"
+       id="rect570" />
     <rect
        x="29.706126"
        y="16.21169"
@@ -476,9 +482,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="500.87974"
-     inkscape:cy="94.978589"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="476.4491"
+     inkscape:cy="256.98629"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -508,86 +514,118 @@
        xml:space="preserve"
        id="text5821"
        style="line-height:1.05;font-family:sans-serif;font-size:1.41111111px;word-spacing:0px;letter-spacing:0.52916667px;white-space:pre;shape-inside:url(#rect5823);" />
-    <text
-       transform="scale(0.91658768,1.0910031)"
-       style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
-       id="text17387"
-       x="111.84506"
-       y="74.020264"><tspan
-         x="111.84506"
-         sodipodi:role="line"
-         id="tspan17385"
-         y="74.020264"
-         style="stroke-width:0.105875">Treatments</tspan></text>
-    <path
-       d="m 108.75656,82.704753 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
-       style="fill:#56b4e9;fill-opacity:1;fill-rule:nonzero;stroke:#56b4e9;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-       id="path17390" />
-    <path
-       d="m 108.27523,82.704753 h 1.34211"
-       style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
-       id="path17392" />
-    <text
-       transform="matrix(0.09704357,0,0,0.11550978,110.05841,83.378613)"
-       style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:219.207;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text17400"
-       xml:space="preserve"><tspan
-         x="0"
-         y="0"><tspan>Ambient Rain plus water</tspan></tspan></text>
-    <path
-       d="m 81.803857,85.38883 c 0,-0.1236 0.0854,-0.22525 0.190206,-0.22525 0.103836,0 0.189235,0.10165 0.189235,0.22525 0,0.12475 -0.0854,0.2264 -0.189235,0.2264 -0.104807,0 -0.190206,-0.10165 -0.190206,-0.2264"
-       style="fill:#009e73;fill-opacity:1;fill-rule:nonzero;stroke:#009e73;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-       id="path17414" />
-    <path
-       d="m 81.322523,85.38883 h 1.34211"
-       style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
-       id="path17416" />
-    <text
-       transform="matrix(0.09704357,0,0,0.11550978,83.034753,86.0072)"
-       style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:264.289;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text17424"
-       xml:space="preserve"><tspan
-         x="0"
-         y="0"><tspan
-           style="font-size:16.6601px">Ambient Rain plus nutrients</tspan></tspan></text>
-    <text
-       transform="scale(0.91658768,1.0910031)"
-       style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
-       id="text17464"
-       x="90.437614"
-       y="76.423431"><tspan
-         id="tspan17462"
-         x="90.437614"
-         y="76.423431"
-         sodipodi:role="line"
-         style="stroke-width:0.105875">Ambient Rain</tspan></text>
-    <path
-       d="m 81.803851,82.758995 c 0,-0.1236 0.0854,-0.22525 0.19021,-0.22525 0.10383,0 0.18923,0.10165 0.18923,0.22525 0,0.12475 -0.0854,0.2264 -0.18923,0.2264 -0.10481,0 -0.19021,-0.10165 -0.19021,-0.2264"
-       style="fill:#f0e442;fill-opacity:1;fill-rule:nonzero;stroke:#f0e442;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-       id="path17466" />
-    <path
-       d="m 81.322521,82.758995 h 1.34211"
-       style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
-       id="path17468" />
-    <path
-       d="m 108.75686,85.346223 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
-       style="fill:#0072b2;fill-opacity:1;fill-rule:nonzero;stroke:#0072b2;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-       id="path17482" />
-    <path
-       d="m 108.27553,85.346223 h 1.34114"
-       style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
-       id="path17484" />
-    <text
-       transform="matrix(0.09704357,0,0,0.11550978,110.0894,86.007613)"
-       style="font-variant:normal;font-weight:normal;font-size:16.6601px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:246.886;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text17496"
-       xml:space="preserve"><tspan
-         x="0"
-         y="0"><tspan
-           style="font-size:16.6601px">Ambient Rain plus water and </tspan></tspan><tspan
-         x="0"
-         y="20.825126"><tspan
-           style="font-size:16.6601px">nutrients</tspan></tspan></text>
+    <g
+       id="g774"
+       transform="translate(0,-1.5875)">
+      <g
+         id="g679"
+         transform="translate(-7.9375007,4.7625002)">
+        <g
+           id="g647">
+          <text
+             transform="scale(0.91658768,1.0910031)"
+             style="font-variant:normal;font-weight:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+             id="text17387"
+             x="118.77296"
+             y="74.020264"><tspan
+               x="118.77296"
+               sodipodi:role="line"
+               id="tspan17385"
+               y="74.020264"
+               style="font-size:2.46944px;stroke-width:0.105875">Treatments</tspan></text>
+          <g
+             id="g583"
+             transform="translate(8.4666671)">
+            <path
+               d="m 108.75656,82.704753 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+               style="fill:#56b4e9;fill-opacity:1;fill-rule:nonzero;stroke:#56b4e9;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+               id="path17390" />
+            <path
+               d="m 108.27523,82.704753 h 1.34211"
+               style="fill:none;stroke:#56b4e9;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+               id="path17392" />
+            <text
+               transform="matrix(0.09704357,0,0,0.11550978,110.05841,83.378613)"
+               style="font-variant:normal;font-weight:normal;font-size:23.3242px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:317.306;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="text17400"
+               xml:space="preserve"><tspan
+                 x="0"
+                 y="0"><tspan
+                   style="font-size:23.3242px">Ambient Rain plus water</tspan></tspan></text>
+          </g>
+          <g
+             id="g616"
+             transform="translate(-1.0583333)">
+            <path
+               d="m 81.803857,85.38883 c 0,-0.1236 0.0854,-0.22525 0.190206,-0.22525 0.103836,0 0.189235,0.10165 0.189235,0.22525 0,0.12475 -0.0854,0.2264 -0.189235,0.2264 -0.104807,0 -0.190206,-0.10165 -0.190206,-0.2264"
+               style="fill:#009e73;fill-opacity:1;fill-rule:nonzero;stroke:#009e73;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+               id="path17414" />
+            <path
+               d="m 81.322523,85.38883 h 1.34211"
+               style="fill:none;stroke:#009e73;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+               id="path17416" />
+            <text
+               transform="matrix(0.09704357,0,0,0.11550978,83.034753,86.0072)"
+               style="font-variant:normal;font-weight:normal;font-size:23.3242px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:329.803;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="text17424"
+               xml:space="preserve"><tspan
+                 x="0"
+                 y="0"><tspan
+                   style="font-size:23.3242px">Ambient Rain plus nutrients</tspan></tspan></text>
+          </g>
+          <g
+             id="g609"
+             transform="translate(-1.041)">
+            <text
+               transform="scale(0.91658768,1.0910031)"
+               style="font-variant:normal;font-weight:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.105875"
+               id="text17464"
+               x="90.437614"
+               y="76.423431"><tspan
+                 id="tspan17462"
+                 x="90.437614"
+                 y="76.423431"
+                 sodipodi:role="line"
+                 style="font-size:2.46944px;stroke-width:0.105875">Ambient Rain</tspan></text>
+            <path
+               d="m 81.803851,82.758995 c 0,-0.1236 0.0854,-0.22525 0.19021,-0.22525 0.10383,0 0.18923,0.10165 0.18923,0.22525 0,0.12475 -0.0854,0.2264 -0.18923,0.2264 -0.10481,0 -0.19021,-0.10165 -0.19021,-0.2264"
+               style="fill:#f0e442;fill-opacity:1;fill-rule:nonzero;stroke:#f0e442;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+               id="path17466" />
+            <path
+               d="m 81.305,82.758995 h 1.34211"
+               style="fill:none;stroke:#f0e442;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+               id="path17468" />
+          </g>
+          <g
+             id="g603"
+             transform="translate(8.4666671)">
+            <g
+               id="g592">
+              <g
+                 id="g587">
+                <path
+                   d="m 108.75686,85.346223 c 0,-0.1236 0.0854,-0.22525 0.18924,-0.22525 0.1048,0 0.1902,0.10165 0.1902,0.22525 0,0.12475 -0.0854,0.2264 -0.1902,0.2264 -0.10384,0 -0.18924,-0.10165 -0.18924,-0.2264"
+                   style="fill:#0072b2;fill-opacity:1;fill-rule:nonzero;stroke:#0072b2;stroke-width:0.0751711;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                   id="path17482" />
+                <path
+                   d="m 108.27553,85.346223 h 1.34114"
+                   style="fill:none;stroke:#0072b2;stroke-width:0.113286;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:0.452086, 0.452086;stroke-dashoffset:0;stroke-opacity:1"
+                   id="path17484" />
+              </g>
+            </g>
+            <text
+               transform="matrix(0.09704357,0,0,0.11550978,110.0894,86.007613)"
+               style="font-variant:normal;font-weight:normal;font-size:23.3242px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:469.963;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="text17496"
+               xml:space="preserve"><tspan
+                 x="0"
+                 y="0"><tspan
+                   style="font-size:23.3242px">Ambient Rain plus water and </tspan><tspan
+                   style="font-size:23.3242px">nutrients</tspan></tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
     <path
        d="M 82.646283,48.156491 V 38.124966"
        style="fill:none;stroke:#f0e442;stroke-width:0.134663;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -757,57 +795,57 @@
        style="fill:none;stroke:#000000;stroke-width:0.134663;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
        id="path5404" />
     <text
-       style="font-variant:normal;font-weight:normal;font-size:1.41111px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:7.84655;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       style="font-variant:normal;font-weight:normal;font-size:2.13275px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:7.84655;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5414"
        x="26.351864"
        y="70.664368"
-       transform="matrix(0.99049008,0,0,0.99442757,47.570165,2.2021203)"
+       transform="matrix(0.99049008,0,0,0.99442757,47.232041,2.5011641)"
        xml:space="preserve"><tspan
          x="26.351864"
          y="70.664368"><tspan
-           style="font-size:1.41111px;stroke-width:0.12681">0</tspan></tspan></text>
+           style="font-size:2.13275px;stroke-width:0.12681">0</tspan></tspan></text>
     <text
-       style="font-variant:normal;font-weight:normal;font-size:1.41111px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:5.50058;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       style="font-variant:normal;font-weight:normal;font-size:2.13275px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:5.50058;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5418"
        x="26.351864"
        y="59.946381"
-       transform="matrix(0.99049008,0,0,0.99442757,46.489437,2.2381824)"
+       transform="matrix(0.99049008,0,0,0.99442757,45.402789,2.433811)"
        xml:space="preserve"><tspan
          x="26.351864"
          y="59.946381"><tspan
-           style="font-size:1.41111px;stroke-width:0.12681">0.1</tspan></tspan></text>
+           style="font-size:2.13275px;stroke-width:0.12681">0.1</tspan></tspan></text>
     <text
-       style="font-variant:normal;font-weight:normal;font-size:1.41111px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:6.01139;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       style="font-variant:normal;font-weight:normal;font-size:2.13275px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:6.01139;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5422"
        x="26.351864"
        y="49.228397"
-       transform="matrix(0.99049008,0,0,0.99442757,46.489437,2.1166667)"
+       transform="matrix(0.99049008,0,0,0.99442757,45.402789,2.3273551)"
        xml:space="preserve"><tspan
          x="26.351864"
          y="49.228397"><tspan
-           style="font-size:1.41111px;stroke-width:0.12681">0.2</tspan></tspan></text>
+           style="font-size:2.13275px;stroke-width:0.12681">0.2</tspan></tspan></text>
     <text
-       style="font-variant:normal;font-weight:normal;font-size:1.41111px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:4.35555;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       style="font-variant:normal;font-weight:normal;font-size:2.13275px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:4.35555;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5426"
        x="26.351864"
        y="38.510414"
-       transform="matrix(0.99049008,0,0,0.99442757,46.489437,2.2239566)"
+       transform="matrix(0.99049008,0,0,0.99442757,45.402789,2.5192404)"
        xml:space="preserve"><tspan
          x="26.351864"
          y="38.510414"><tspan
-           style="font-size:1.41111px;stroke-width:0.12681">0.3</tspan></tspan></text>
+           style="font-size:2.13275px;stroke-width:0.12681">0.3</tspan></tspan></text>
     <text
-       style="font-variant:normal;font-weight:normal;font-size:1.41112px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:6.44667;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       style="font-variant:normal;font-weight:normal;font-size:2.13275px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:6.44667;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5430"
        x="26.319235"
        y="27.689804"
-       transform="matrix(0.99048703,0,0,0.99443059,46.522285,2.2430303)"
+       transform="matrix(0.99048703,0,0,0.99443059,45.436141,2.67759)"
        xml:space="preserve"><tspan
          x="26.319235"
          y="27.689804"><tspan
-           style="font-size:1.41112px;stroke-width:0.12681">0</tspan><tspan
-           style="font-size:1.41112px;stroke-width:0.12681">.</tspan><tspan
-           style="font-size:1.41112px;stroke-width:0.12681">4</tspan></tspan></text>
+           style="font-size:2.13275px;stroke-width:0.12681">0</tspan><tspan
+           style="font-size:2.13275px;stroke-width:0.12681">.</tspan><tspan
+           style="font-size:2.13275px;stroke-width:0.12681">4</tspan></tspan></text>
     <path
        d="m 74.875158,71.979948 h 0.344155"
        style="fill:none;stroke:#333333;stroke-width:0.134663;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -841,43 +879,43 @@
        style="fill:none;stroke:#333333;stroke-width:0.134663;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
        id="path5470" />
     <text
-       transform="matrix(0,-0.99442757,0.99049008,0,46.201707,2.1403371)"
-       style="font-variant:normal;font-weight:normal;font-size:1.76389px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:24.0515;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       transform="matrix(0,-0.99442757,0.99049008,0,43.937756,8.4893087)"
+       style="font-variant:normal;font-weight:normal;font-size:2.84367px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:38.1068;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5506"
        x="-54.370541"
        y="25.623972"
        xml:space="preserve"><tspan
          x="-54.370541"
          y="25.623972"><tspan
-           style="font-size:1.76389px;stroke-width:0.12681">Absolute Growth Rate</tspan></tspan></text>
+           style="font-size:2.84367px;stroke-width:0.12681">Absolute Growth Rate</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.94625px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:84.6703;stroke-width:0.264583;image-rendering:pixelated"
+       style="font-size:6.314px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:84.6703;stroke-width:0.264583;image-rendering:pixelated"
        x="26.105915"
        y="165.33568"
        id="text766-2-6-3-3"
-       transform="matrix(0.4557749,0,0,0.43835174,76.820878,1.3629467)"><tspan
+       transform="matrix(0.4557749,0,0,0.43835174,74.175043,1.3629467)"><tspan
          x="26.105915"
          y="165.33568"><tspan
-           style="font-size:3.94625px;stroke-width:0.264583">    
+           style="font-size:6.314px;stroke-width:0.264583">    
 </tspan></tspan><tspan
          x="26.105915"
-         y="170.2685"><tspan
-           style="font-size:3.94625px;stroke-width:0.264583">    Fixer</tspan></tspan></text>
+         y="173.22818"><tspan
+           style="font-size:6.314px;stroke-width:0.264583">    Fixer</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.94625px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:84.6703;stroke-width:0.264583;image-rendering:pixelated"
+       style="font-size:6.314px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:84.6703;stroke-width:0.264583;image-rendering:pixelated"
        x="26.105915"
        y="165.33568"
        id="text766-2-6-3-6-2"
-       transform="matrix(0.4557749,0,0,0.43835174,104.41049,1.3624845)"><tspan
+       transform="matrix(0.4557749,0,0,0.43835174,100.7063,1.3624845)"><tspan
          x="26.105915"
          y="165.33568"><tspan
-           style="font-size:3.94625px;stroke-width:0.264583">    
+           style="font-size:6.314px;stroke-width:0.264583">    
 </tspan></tspan><tspan
          x="26.105915"
-         y="170.2685"><tspan
-           style="font-size:3.94625px;stroke-width:0.264583">    Non Fixer</tspan></tspan></text>
+         y="173.22818"><tspan
+           style="font-size:6.314px;stroke-width:0.264583">    Non Fixer</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text5754-97"
@@ -955,10 +993,25 @@
        x="50.335979"
        y="12.454003"
        id="text13429"
-       transform="translate(75.643468,11.108913)"><tspan
+       transform="translate(69.798464,14.346958)"><tspan
          x="50.335979"
          y="12.454003"><tspan
            style="font-size:1.76389px">Treatment:nfixe</tspan><tspan
            style="font-size:1.76389px">r ***  </tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text568"
+       style="line-height:0;font-family:sans-serif;font-size:2.46944444px;word-spacing:0px;letter-spacing:0.52916667px;white-space:pre;shape-inside:url(#rect570);" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.46944px;line-height:0;font-family:sans-serif;letter-spacing:0.529167px;word-spacing:0px;stroke-width:0.264583"
+       x="81.322525"
+       y="82.758987"
+       id="text576"><tspan
+         sodipodi:role="line"
+         id="tspan574"
+         x="81.322525"
+         y="82.758987"
+         style="stroke-width:0.264583"></tspan></text>
   </g>
 </svg>
