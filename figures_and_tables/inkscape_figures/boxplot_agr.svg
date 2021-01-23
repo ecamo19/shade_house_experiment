@@ -482,17 +482,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="476.4491"
-     inkscape:cy="256.98629"
+     inkscape:zoom="1.979899"
+     inkscape:cx="386.99338"
+     inkscape:cy="202.94554"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="675"
-     inkscape:window-height="734"
-     inkscape:window-x="685"
-     inkscape:window-y="4"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -881,15 +881,15 @@
        style="fill:none;stroke:#333333;stroke-width:0.134663;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
        id="path5470" />
     <text
-       transform="matrix(0,-0.99442757,0.99049008,0,43.937756,8.4893087)"
-       style="font-variant:normal;font-weight:normal;font-size:2.84367px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:38.1068;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
+       transform="matrix(0,-0.99442757,0.99049008,0,43.513537,16.0296)"
+       style="font-variant:normal;font-weight:normal;font-size:2.84367px;font-family:sans-serif;-inkscape-font-specification:sans-serif;writing-mode:lr-tb;white-space:pre;inline-size:76.9097;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12681"
        id="text5506"
        x="-54.370541"
        y="25.623972"
        xml:space="preserve"><tspan
          x="-54.370541"
          y="25.623972"><tspan
-           style="font-size:2.84367px;stroke-width:0.12681">Absolute Growth Rate</tspan></tspan></text>
+           style="font-size:2.84367px;stroke-width:0.12681">Absolute Growth Rate (cm/day)</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:6.314px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:84.6703;stroke-width:0.264583;image-rendering:pixelated"
