@@ -35,13 +35,13 @@ library(glmmTMB) #for beta regression
 
 ```{r}
 #Source maso menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
 data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
@@ -188,11 +188,11 @@ Anova(mixed_models$below_biom, type = "III")
 
 ```{r message=FALSE, warning=FALSE}
 data_below_biom_plot <- 
-  emmip(mixed_models$below_biom, treatment ~ nfixer, CIs = TRUE)$data 
+  emmip(mixed_models$below_biom, ~treatment, CIs = TRUE)$data 
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$below_biom,
-    					  pairwise ~ treatment | nfixer,
+    					  pairwise ~ treatment,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
   
@@ -200,7 +200,7 @@ data_below_biom_plot <-
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    select(group1, group2,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -220,7 +220,6 @@ data_below_biom_plot <-
 
 
 ## Root Mass Fraction 
-
 
 ```{r}
 Anova(mixed_models$rmf, type = "III")
