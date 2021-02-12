@@ -33,7 +33,7 @@ library(knitr)
 ```{r message=FALSE, warning=FALSE}
 #Load function to calculate percentage differences
 
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/perc_difference_funtions_calculator.R")
+#source("~/Documents/projects/shade_house_exp/exploratory_figures_and_models/codes/perc_d#ifference_funtions_calculator.R")
 ```
 
 
@@ -41,7 +41,7 @@ source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/code
 
 #Load Biomass data
 data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
@@ -65,13 +65,11 @@ data_rate_change <-
 ```
 
 
-
-
 ```{r}
 
 # Load ecophysiology and growth data
 data_ecophys_growth <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv", header = T) %>%
+  read.csv("~/Documents/projects/shade_house_experiment/data/finalDat.csv", header = T) %>%
 	clean_names() %>% 
 	select(id,spcode,family,treatment,nfixer,amax, wue, gs, rgr,agr)
 
@@ -94,11 +92,33 @@ data_ecophys_growth$treatment <- factor(data_ecophys_growth$treatment,
 
 ### Total, Above and Belowground Biomass
 
+#### Belowground
+
+__Interaction was not significant__
+```{r}
+
+summary_mean_root_biomass <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,below_biom) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment) %>% 
+	summarise_if(is.numeric, mean) %>% 
+	arrange(treatment)
+
+### Round the numbers
+summary_mean_root_biomass[,2] <-
+	round(summary_mean_root_biomass[,2],3) 
+
+kable(summary_mean_root_biomass)
+```
+
+
+
 ```{r}
 summary_mean_biomass <-  
 	data_rate_change %>% 
 	select(id,spcode,family,treatment,nfixer,
-		    totalbiom,above_biom,below_biom) %>% 
+		    totalbiom,above_biom) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, mean) %>% 
@@ -108,16 +128,17 @@ summary_mean_biomass <-
 summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
 	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
 
-kable(summary_mean_biomass )
-
+kable(summary_mean_biomass)
 ```
 
 ### Dry weights
+
+__Interaction was significant__
 ```{r}
 summary_mean_dry_weights <-  
 	data_rate_change %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   root_dry_weight,stem_dry_weight,whole_leaf_dry_weight) %>% 
+		   stem_dry_weight,whole_leaf_dry_weight) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, mean) %>% 
@@ -131,27 +152,6 @@ summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
 kable(summary_mean_dry_weights)
 ```
 
-### Mass fractions
-
-```{r message=FALSE, warning=FALSE}
-
-summary_mean_mass_fractions <-  
-	data_rate_change %>% 
-	select(family,treatment,nfixer,
-		   rmf,smf,lmf) %>%
-		
-	group_by(treatment,nfixer) %>% 
-	filter(!treatment == "Harvestatthebegging" ) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer) 
-	
-
-### Round the numbers
-summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)] <-
-	round(summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)],3) 
-
-kable(summary_mean_mass_fractions)
-```
 
 
 ## Growth 
@@ -192,7 +192,6 @@ summary_mean_ecophys[,3:5] <-
 kable(summary_mean_ecophys)
 ```
 
-
 ## Leaf traits
 
 ```{r}
@@ -216,5 +215,27 @@ summary_mean_leaftraits[,3:ncol(summary_mean_leaftraits)] <-
 
 kable(summary_mean_leaftraits)
 
+```
+
+### Mass fractions
+
+```{r message=FALSE, warning=FALSE}
+
+summary_mean_mass_fractions <-  
+	data_rate_change %>% 
+	select(family,treatment,nfixer,
+		   rmf,smf,lmf) %>%
+		
+	group_by(treatment,nfixer) %>% 
+	filter(!treatment == "Harvestatthebegging" ) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer) 
+	
+
+### Round the numbers
+summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)] <-
+	round(summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)],3) 
+
+kable(summary_mean_mass_fractions)
 ```
 
