@@ -176,21 +176,62 @@ kable(summary_mean_growth)
 ## Ecophysiology traits 
 
 ```{r}
+
 summary_mean_ecophys <-  
 	data_ecophys_growth %>% 
 	select(id,spcode,family,treatment,nfixer,
-		   amax,gs,wue) %>% 
+		   amax) %>% 
 	column_to_rownames("id") %>% 
 	group_by(treatment,nfixer) %>% 
 	summarise_if(is.numeric, funs(mean)) %>% 
 	arrange(nfixer)
 
 ### Round the numbers
-summary_mean_ecophys[,3:5] <-
-	round(summary_mean_ecophys[,3:5],3) 
+summary_mean_ecophys[,3] <-
+	round(summary_mean_ecophys[,3],3) 
 
 kable(summary_mean_ecophys)
 ```
+
+
+#### gs and WUE by treatment
+```{r}
+summary_mean_ecophys_treatment <-  
+	data_ecophys_growth %>% 
+	select(id,spcode,family,treatment,gs,wue) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment) %>% 
+	summarise_if(is.numeric, funs(mean)) 
+	
+
+### Round the numbers
+summary_mean_ecophys_treatment[,2:3] <-
+	round(summary_mean_ecophys_treatment[,2:3],3) 
+
+kable(summary_mean_ecophys_treatment)
+
+```
+
+
+#### gs and WUE by nfixer
+
+```{r}
+summary_mean_ecophys_nfixer <-  
+	data_ecophys_growth %>% 
+	select(id,spcode,family,nfixer,gs,wue) %>% 
+	column_to_rownames("id") %>% 
+	group_by(nfixer) %>% 
+	summarise_if(is.numeric, funs(mean)) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_ecophys_nfixer[,2:3] <-
+	round(summary_mean_ecophys_nfixer[,2:3],3) 
+
+kable(summary_mean_ecophys_nfixer)
+
+```
+
 
 ## Leaf traits
 
