@@ -35,14 +35,14 @@ library(performance)
 
 ```{r}
 #Source mas o menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment//codes/masomenos_plot.R")
 ```
 
 # Load data
 ```{r message=FALSE, warning=FALSE}
 
 data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
 					levels = c("Harvestatthebegging",
@@ -84,7 +84,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[18:ncol(data_rate_change)]
+vars <- names(data_rate_change)[18:(ncol(data_rate_change)-1)]
 ```
 
 ```{r}
@@ -109,7 +109,8 @@ Anova(mixed_models$d13c, type = "III")
 
 
 ```{r}
-data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
+data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, 
+						CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$d13c,
@@ -121,7 +122,7 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, CIs = TRUE)$data
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -147,7 +148,8 @@ Anova(mixed_models$sla_cm2_g, type = "III")
 
 
 ```{r}
-data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$data
+data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, 
+					   CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$sla_cm2_g,
@@ -159,7 +161,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, CIs = TRUE)$d
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -198,7 +200,7 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -238,7 +240,7 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -254,21 +256,63 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 ```
 
 
-## Canopy Nitrogen Content
-
-### ANOVA
+## Canopy Nitrogen Content (this moved was droped) 
+```{r}
+#Anova(mixed_models$totalleafmass_nmass, type = "III")
+```
 
 ```{r}
-Anova(mixed_models$totalleafmass_nmass, type = "III")
+#data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer,
+#CIs = TRUE)$data
+
+# Get by group comparitions
+#    as.data.frame(emmeans(mixed_models$totalleafmass_nmass,
+#                          pairwise ~ treatment | nfixer,
+#                          type = "response", 
+#                          adjust ="tukey")$contrast) %>% 
+  
+#    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+#    clean_names() %>% 
+#    mutate(group1 = factor(group1)) %>%
+#    mutate(group2 = factor(group2)) %>% 
+#    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+#	 filter(!group1 == "Harvestatthebegging") %>% 
+#    mutate(p_value = round(p_value, 20)) %>% 
+#    kable()
+```
+
+```{r}
+#(plot_totalleafmass_nmass <- 
+#  masomenos_plot(data = data_leafmass_nmass_plot,
+#                 xvar = xvar, yvar = yvar, 
+#                 tvar = tvar, color = treatment,
+#                 ucl = UCL, lcl = LCL) +
+  
+#   theme(legend.position = "right" ) + 
+#  ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
 ```
 
 
+## sqrt Canopy Nitrogen Content  
+```{r}
+totalleafmass_nmass_sqrt <- 
+	lmer(sqrt(totalleafmass_nmass) ~  treatment * nfixer +
+								 	init_height + 
+								 	(1|spcode), 
+								 data = data_rate_change)
+```
+
 
 ```{r}
-data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer, CIs = TRUE)$data
+Anova(totalleafmass_nmass_sqrt, type = "III")
+```
+
+```{r}
+data_leafmass_nmass_plot_sqrt <- emmip(totalleafmass_nmass_sqrt, 
+									   treatment ~ nfixer, CIs = TRUE)$data
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$totalleafmass_nmass,
+    as.data.frame(emmeans(totalleafmass_nmass_sqrt,
                           pairwise ~ treatment | nfixer,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
@@ -277,22 +321,25 @@ data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ 
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
 
 ```{r}
-(plot_totalleafmass_nmass <- 
-  masomenos_plot(data = data_leafmass_nmass_plot,
+(plot_totalleafmass_nmass_sqrt <- 
+  masomenos_plot(data = data_leafmass_nmass_plot_sqrt,
                  xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
                  ucl = UCL, lcl = LCL) +
   
    theme(legend.position = "right" ) + 
-  ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
+  ylab("sqrt(Canopy Nitrogen Content (Total leaf mass * nmass))"))
 
 
 ```
+
+
+
 
