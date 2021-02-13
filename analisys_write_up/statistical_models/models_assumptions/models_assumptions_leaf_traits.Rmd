@@ -4,8 +4,6 @@ author: "Mas o menos Lab"
 date: "2020"
 output: 
  prettydoc::html_pretty:
-    fig_width: 15
-    fig_height: 10 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -25,25 +23,25 @@ library(nlme)
 library(car)
 library(emmeans)
 library(lme4)
-library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
 library(performance)
 library(DHARMa)
+library(MASS)
 ```
 
 
 ```{r}
 #Source mas o menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 # Load data
 ```{r message=FALSE, warning=FALSE}
 
 data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
 					levels = c("Harvestatthebegging",
@@ -100,10 +98,13 @@ mixed_models <-  vars %>%
 
 ## d13c
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
 model_performance(mixed_models$d13c)
 
 check_model(mixed_models$d13c)
@@ -120,10 +121,13 @@ plotQQunif(mixed_models$d13c)
 
 ## SLA
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
 model_performance(mixed_models$sla_cm2_g)
 
 check_model(mixed_models$sla_cm2_g)
@@ -131,7 +135,7 @@ check_model(mixed_models$sla_cm2_g)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -142,10 +146,13 @@ plotQQunif(mixed_models$sla_cm2_g)
 
 ## NArea
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
 model_performance(mixed_models$narea_g_m2)
 
 check_model(mixed_models$narea_g_m2)
@@ -153,7 +160,7 @@ check_model(mixed_models$narea_g_m2)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -164,10 +171,13 @@ plotQQunif(mixed_models$narea_g_m2)
 
 ## NMass
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
 model_performance(mixed_models$nmass_mg_g)
 
 check_model(mixed_models$nmass_mg_g)
@@ -175,7 +185,7 @@ check_model(mixed_models$nmass_mg_g)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -185,20 +195,64 @@ plotQQunif(mixed_models$nmass_mg_g)
 
 ## Canopy Nitrogen Content
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 # Model performance
 
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
 model_performance(mixed_models$totalleafmass_nmass)
 
 check_model(mixed_models$totalleafmass_nmass)
 
 ```
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
 simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalleafmass_nmass)
 plotQQunif(mixed_models$totalleafmass_nmass) 
 ```
+
+
+### BoxCox tranformation for Canopy Nitrogen Content
+
+```{r}
+boxcox(lm(totalleafmass_nmass ~  treatment * nfixer + init_height, 
+		data = data_rate_change  ))
+```
+
+
+```{r}
+totalleafmass_nmass_sqrt <- lmer(sqrt(totalleafmass_nmass) ~  treatment * nfixer +
+								 	init_height + 
+								 	(1|spcode), 
+								 data = data_rate_change)
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
+model_performance(totalleafmass_nmass_sqrt)
+
+check_model(totalleafmass_nmass_sqrt)
+
+
+```
+
+```{r}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- 
+	simulateResiduals(fittedModel = totalleafmass_nmass_sqrt)
+
+plotQQunif(totalleafmass_nmass_sqrt) 
+```
+
