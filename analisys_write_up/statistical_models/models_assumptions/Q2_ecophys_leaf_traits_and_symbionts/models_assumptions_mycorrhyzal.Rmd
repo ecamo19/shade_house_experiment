@@ -1,5 +1,5 @@
 ---
-title: "Models assumptions for biomass variables"
+title: "Models assumptions for Mycorrhyzal colonization"
 author: "Mas o menos lab"
 date: "2020"
 output: 
@@ -17,85 +17,48 @@ output:
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
 
-# Load packages and data
+# Load packages and data 
+
 ```{r message=FALSE, warning=FALSE}
+library(knitr)
 library(janitor)
+library(ggpubr)
 library(nlme)
 library(car)
 library(emmeans)
 library(lme4)
 library(tidyverse)
+library(knitr)
 library(performance)
 library(DHARMa)
 ```
 
 ```{r}
-#Source maso menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+#Source maso menos plots
+#Load plot function to keep same format to all plots
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
-
 
 ```{r message=FALSE, warning=FALSE}
-data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
-
-
-data_complete_final$treatment <- factor(data_complete_final$treatment,
-					levels = c("Harvestatthebegging",
-							   "ambientrain", 
-							   "ambientrain_nutrients",
-							   "ambientrain_water",
-							   "ambientrain_water_nutrients"
-							   )
-					)
-
-#Cleaned data
-data_rate_change <- 
-    data_complete_final %>% 
-    
-    #Order the columns  
-    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
-                  everything()) %>% 
-  clean_names() 
-
-data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
-data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+#source cleaned data micorrhyzal colonization
+source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_mycorrhizal_colonization.R")
 ```
 
 
-# Model used 
+# Model Formula: Mycorrhyzal colonization as response variable 
 
-$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+$$Mycorrhyzal\ colonization\sim treatment*fixer +\ random(1|specie)$$
+
+
+# Checking Model assumptions
+
+## Percentage of mycorryzal colonization
 
 ```{r}
-mixed_models_formula = function(response) {
-  
-  #'this function takes each response variable and join it to the formula
-  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
-  
-  lmer(as.formula(formula), data = data_rate_change)
-}
+m1 <- lmer(percentage ~ treatment * nfixer  + (1|spcode), 
+		   data = data_mycorrhizal_colonization_cleaned)
+
 ```
-
-# Run Models
-
-```{r}
-#Takes response variable's names 
-vars <- names(data_rate_change)[7:ncol(data_rate_change)]
-```
-
-```{r}
-vars <- purrr::set_names(vars)
-```
-
-```{r}
-mixed_models <-  vars %>%
-     map(mixed_models_formula)
-```
-
-# Model assumptions
-
-## Total Biomasss
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
@@ -103,9 +66,9 @@ mixed_models <-  vars %>%
 # ICC provides information on the explained variance and can be interpreted as:
 # “the proportion of the variance explained by the grouping structure in the 
 # population”
-model_performance(mixed_models$totalbiom)
+model_performance(m1)
 
-check_model(mixed_models$totalbiom)
+check_model(m1)
 
 ```
 
@@ -114,12 +77,18 @@ check_model(mixed_models$totalbiom)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalbiom)
-plotQQunif(mixed_models$totalbiom) 
+simulationOutput <- simulateResiduals(fittedModel = m1)
+plotQQunif(m1) 
 ```
 
 
-## Aboveground Biomass
+## log Percentage of mycorryzal colonization 
+  
+```{r}
+m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode), 
+		   data = data_mycorrhizal_colonization_cleaned)
+```
+
 
 ```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
@@ -127,9 +96,9 @@ plotQQunif(mixed_models$totalbiom)
 # ICC provides information on the explained variance and can be interpreted 
 # as “the proportion of the variance explained by the grouping structure in the 
 # population”
-model_performance(mixed_models$above_biom)
+model_performance(m1_log)
 
-check_model(mixed_models$above_biom)
+check_model(m1_log)
 
 ```
 
@@ -138,41 +107,28 @@ check_model(mixed_models$above_biom)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$above_biom)
-plotQQunif(mixed_models$above_biom) 
+simulationOutput <- simulateResiduals(m1_log)
+plotQQunif(m1_log) 
 ```
 
 
-## Belowground Biomass
+## Mycorrhyzal colonization up to 100%
+
+```{r}
+m1_upto_100 <- lmer(percentage_upto_100 ~ treatment * nfixer  + (1|spcode), 
+		   data = data_mycorrhizal_colonization_cleaned)
+
+Anova(m1_upto_100, type = "III")
+```
+
 
 ```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$below_biom)
+model_performance(m1_upto_100)
 
-check_model(mixed_models$below_biom)
-
-```
-
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$below_biom)
-plotQQunif(mixed_models$below_biom) 
-```
-
-## Root Mass Fraction 
-
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$rmf)
-
-check_model(mixed_models$rmf)
+check_model(m1_upto_100)
 
 ```
 
@@ -181,41 +137,26 @@ check_model(mixed_models$rmf)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$rmf)
-plotQQunif(mixed_models$rmf) 
+simulationOutput <- simulateResiduals(fittedModel = m1_upto_100)
+plotQQunif(m1_upto_100) 
 ```
 
+## log Mycorrhyzal colonization up to 100% 
 
-## Stem Mass fraction
+```{r}
+m1_log_upto_100 <- lmer(log_perc_upto_100 ~ treatment * nfixer  + (1|spcode), 
+		   data = data_mycorrhizal_colonization_cleaned)
+Anova(m1_log_upto_100, type = "III")
+```
+
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$smf)
+model_performance(m1_log_upto_100)
 
-check_model(mixed_models$smf)
-
-```
-
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$smf)
-plotQQunif(mixed_models$smf) 
-```
-
-
-## Leaf Mass fraction
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$lmf)
-
-check_model(mixed_models$lmf)
+check_model(m1_log_upto_100)
 
 ```
 
@@ -224,69 +165,7 @@ check_model(mixed_models$lmf)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$lmf)
-plotQQunif(mixed_models$lmf) 
+simulationOutput <- simulateResiduals(m1_log_upto_100)
+plotQQunif(m1_log_upto_100) 
 ```
 
-
-## Root Dry weight
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$root_dry_weight)
-
-check_model(mixed_models$root_dry_weight)
-
-```
-
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$root_dry_weight)
-plotQQunif(mixed_models$root_dry_weight) 
-```
-
-## Stem Dry weight
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$stem_dry_weight)
-
-check_model(mixed_models$stem_dry_weight)
-
-```
-
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
-plotQQunif(mixed_models$stem_dry_weight) 
-```
-
-## Leaf Dry weight
-
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$whole_leaf_dry_weight)
-
-check_model(mixed_models$whole_leaf_dry_weight)
-
-```
-
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$whole_leaf_dry_weight)
-plotQQunif(mixed_models$whole_leaf_dry_weight) 
-```
