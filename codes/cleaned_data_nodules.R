@@ -6,7 +6,7 @@ library(janitor)
 # Load Biomass data -------------------------------------------------------
 
 data_nodules <- 
-	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/1_nodule_data.csv", header = T) %>%
+	read.csv("~/Documents/projects/shade_house_experiment/data/raw_data/1_nodule_data.csv", header = T) %>%
 	clean_names()
 
 
