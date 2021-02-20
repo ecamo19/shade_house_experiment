@@ -43,30 +43,11 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_mycorrhizal_colonization.R")
 ```
 
-
-# Models
-
 ## Model Formula: Mycorrhyzal colonization as response variable 
 
-$$Mycorrhyzal\ colonization\sim treatment*fixer +\ random(1|specie)$$
+$$log(Mycorrhyzal\ colonization)\sim treatment*fixer +\ random(1|specie)$$
 
-## Run Models
-
-```{r}
-m1 <- lmer(percentage ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
-
-Anova(m1, type = "III")
-```
-
-```{r}
-m1_upto_100 <- lmer(percentage_upto_100 ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
-
-Anova(m1_upto_100, type = "III")
-```
-
-
+## Run Model
 
 ```{r}
 m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode), 
@@ -76,9 +57,5 @@ Anova(m1_log, type = "III")
 
 
 
-```{r}
-m1_log_upto_100 <- lmer(log_perc_upto_100 ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
-Anova(m1_log_upto_100, type = "III")
-```
+
 

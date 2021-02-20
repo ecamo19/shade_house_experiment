@@ -185,41 +185,13 @@ a.sourceLine {
 <h1><span class="header-section-number">2</span> Models</h1>
 <div id="model-formula-mycorrhyzal-colonization-as-response-variable" class="section level2">
 <h2><span class="header-section-number">2.1</span> Model Formula: Mycorrhyzal colonization as response variable</h2>
-<p><span class="math display">\[Mycorrhyzal\ colonization\sim treatment*fixer +\ random(1|specie)\]</span></p>
+<p><span class="math display">\[log(Mycorrhyzal\ colonization)\sim treatment*fixer +\ random(1|specie)\]</span></p>
 </div>
 <div id="run-models" class="section level2">
 <h2><span class="header-section-number">2.2</span> Run Models</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(percentage <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>m1_log &lt;-<span class="st"> </span><span class="kw">lmer</span>(log_perc <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
 <span id="cb4-2"><a href="#cb4-2"></a>           <span class="dt">data =</span> data_mycorrhizal_colonization_cleaned)</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">Anova</span>(m1, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
-
-Response: percentage
-                  Chisq Df Pr(&gt;Chisq)  
-(Intercept)      4.0138  1    0.04513 *
-treatment        1.1599  3    0.76263  
-nfixer           1.7467  1    0.18629  
-treatment:nfixer 1.6435  3    0.64958  
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>m1_upto_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(percentage_upto_<span class="dv">100</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
-<span id="cb6-2"><a href="#cb6-2"></a>           <span class="dt">data =</span> data_mycorrhizal_colonization_cleaned)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">Anova</span>(m1_upto_<span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
-
-Response: percentage_upto_100
-                  Chisq Df Pr(&gt;Chisq)   
-(Intercept)      9.5709  1   0.001977 **
-treatment        3.0184  3   0.388793   
-nfixer           0.2372  1   0.626202   
-treatment:nfixer 0.7826  3   0.853623   
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>m1_log &lt;-<span class="st"> </span><span class="kw">lmer</span>(log_perc <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
-<span id="cb8-2"><a href="#cb8-2"></a>           <span class="dt">data =</span> data_mycorrhizal_colonization_cleaned)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">Anova</span>(m1_log, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">Anova</span>(m1_log, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
 <pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
 
 Response: log_perc
@@ -228,19 +200,6 @@ Response: log_perc
 treatment         4.7692  3     0.1895    
 nfixer            0.4900  1     0.4839    
 treatment:nfixer  1.0729  3     0.7836    
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>m1_log_upto_<span class="dv">100</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(log_perc_upto_<span class="dv">100</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
-<span id="cb10-2"><a href="#cb10-2"></a>           <span class="dt">data =</span> data_mycorrhizal_colonization_cleaned)</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">Anova</span>(m1_log_upto_<span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
-
-Response: log_perc_upto_100
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      27.4473  1  1.614e-07 ***
-treatment         4.8985  3     0.1794    
-nfixer            0.3582  1     0.5495    
-treatment:nfixer  1.1929  3     0.7547    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
