@@ -40,7 +40,7 @@ data_nodules$treatment <-
 data_nodules_cleaned <-
 	data_nodules %>%
 	
-	select(id,spcode,treatment, everything())
+	dplyr::select(id,spcode,treatment, everything())
 	
 	#Group data this is done because there are 2 sub samples per 
 	#plant so what I am doing is get the mean of the sub-samples

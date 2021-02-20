@@ -1,0 +1,205 @@
+---
+title: "Models assumptions for Nodules in nfixer species"
+author: "Mas o menos lab"
+date: "2020"
+output: 
+ prettydoc::html_pretty:
+    fig_width: 8
+    fig_height: 5 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: True
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+# Load packages and data 
+
+```{r message=FALSE, warning=FALSE}
+library(knitr)
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(lme4)
+library(tidyverse)
+library(knitr)
+library(performance)
+library(DHARMa)
+library(MASS)
+```
+
+```{r}
+#Source maso menos plots
+#Load plot function to keep same format to all plots
+
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
+```
+
+```{r}
+#source cleaned data
+source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R")
+```
+
+
+
+
+
+# Checking Model assumptions
+
+# Model Formula:  
+
+$$response \sim treatment*specie$$
+
+## Number of root nodulation
+
+```{r}
+m1 <- lm(number_of_root_nodulation ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m1, type = "III")
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m1)
+check_model(m1)
+
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = m1)
+plotQQunif(m1) 
+```
+
+
+```{r}
+#In rlm(), points are not treated equally. The weight of each point would be 
+#adjusted in an iterative process. rlm() is less sensitive to outliers, 
+#as outliers will get reduced weight. 
+
+m1_2 <- rlm(number_of_root_nodulation ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m1_2, type = "III")
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m1_2)
+check_model(m1_2)
+
+```
+
+## Average Nodule Weight model
+
+
+```{r}
+m2 <- lm(average_nodule_weight ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m2, type = "III")
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m2)
+check_model(m2)
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = m2)
+plotQQunif(m2) 
+```
+
+```{r}
+m2_1 <- rlm(log(average_nodule_weight) ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m2_1, type = "III")
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m2_1)
+check_model(m2_1)
+```
+
+
+## Estimated Nodule Mass per plant model
+
+```{r}
+m3 <- lm(estimated_nodule_mass_per_plant ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m3, type = "III")
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m3)
+check_model(m3)
+
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = m3)
+plotQQunif(m3) 
+```
+
+
+```{r}
+m3_1 <- rlm(estimated_nodule_mass_per_plant ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+
+Anova(m3_1, type = "III")
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as:
+# “the proportion of the variance explained by the grouping structure in the 
+# population”
+model_performance(m3_1)
+check_model(m3_1)
+
+```
+
