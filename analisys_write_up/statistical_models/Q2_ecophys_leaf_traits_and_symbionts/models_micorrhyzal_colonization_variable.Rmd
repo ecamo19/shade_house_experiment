@@ -17,7 +17,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
 
-
 # Load packages and data 
 
 ```{r message=FALSE, warning=FALSE}
@@ -36,12 +35,12 @@ library(knitr)
 #Source maso menos plots
 #Load plot function to keep same format to all plots
 
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 ```{r message=FALSE, warning=FALSE}
 #source cleaned data micorrhyzal colonization
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_mycorrhizal_colonization.R")
+source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_mycorrhizal_colonization.R")
 ```
 
 

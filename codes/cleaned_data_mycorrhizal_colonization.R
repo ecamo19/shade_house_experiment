@@ -3,7 +3,7 @@ library(tidyverse)
 
 # Load Biomass data -------------------------------------------------------
 data_mycorrhizal_colonization <- 
-	read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/raw_data/2_micorryzhal_colonization_data.csv", header = T)
+	read.csv("~/Documents/projects/shade_house_experiment/data/raw_data/2_micorryzhal_colonization_data.csv", header = T)
 
 # Clean data --------------------------------------------------------------
 
