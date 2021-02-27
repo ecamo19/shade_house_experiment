@@ -33,17 +33,17 @@ library(knitr)
 
 ```{r}
 #Source maso menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment//codes/masomenos_plot.R")
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
-data_rgr_agr <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv", header = T) %>% 
+data_agr <- 
+  read.csv("~/Documents/projects/shade_house_experiment//data/finalDat.csv", header = T) %>% 
 	 clean_names() 
 
 
-data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
+data_agr$treatment <- factor(data_agr$treatment,
 					levels = c(
 							   "ambientrain", 
 							   "ambientrain_nutrients",
@@ -53,8 +53,8 @@ data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
 					)
 
 #Clean data
-data_rgr_agr_clean <- 
-    data_rgr_agr %>% 
+data_agr_clean <- 
+    data_agr %>% 
     
     #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,rgr,agr)
@@ -73,7 +73,7 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  lmer(as.formula(formula), data = data_rgr_agr_clean)
+  lmer(as.formula(formula), data = data_agr_clean)
 }
 ```
 
@@ -81,7 +81,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rgr_agr_clean)[7:8]
+vars <- names(data_agr_clean)[7:8]
 ```
 
 ```{r}
@@ -131,8 +131,6 @@ data_agr_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Absolute Growth Rate"))
 ```
-
-
 
 ## Relative Growth Rate
 
