@@ -1,5 +1,5 @@
 ---
-title: 'Exploratory analisys: Nodules'
+title: 'Model for number of nodules'
 author: "Mas o menos Lab"
 date: "2020"
 output: 
@@ -22,16 +22,13 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 library(knitr)
 library(janitor)
 library(ggpubr)
-library(nlme)
 library(car)
 library(emmeans)
-library(lme4)
-library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
-library(ggeffects)
-
+library(multcomp)
+library(arm)
 ```
 
 
@@ -39,11 +36,112 @@ library(ggeffects)
 #Source maso menos plots
 #Load plot function to keep same format to all plots
 
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 ```{r}
 #source cleaned data
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/cleaned_data_nodules.R")
+source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R")
 ```
+
+```{r}
+#Delete unused variables
+data_nodules_cleaned <- 
+    data_nodules_cleaned %>% 
+    dplyr::select(-c("nodule_count_lab","average_nodule_weight",
+                     "nodule_mass_in_the_lab","average_nodule_weight",
+                     "estimated_nodule_mass_per_plant"))
+    
+```
+
+
+
+
+# Model Used
+```{r}
+mod_nud_numb <- lm(number_of_root_nodulation ~ treatment * spcode, 
+           data = data_nodules_cleaned)
+
+Anova(mod_nud_numb, type = "III")
+```
+
+
+
+```{r message=FALSE, warning=FALSE}
+data_nodule_number <- 
+  emmip(mod_nud_numb, treatment ~ spcode, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mod_nud_numb,
+    					  pairwise ~ treatment | spcode,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    dplyr::select(group1,group2, spcode, estimate, se,p_value) %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+```{r}
+(boxplot_number_of_root_nodulation <- 
+    masomenos_boxplot(data = data_nodules_cleaned,
+                      xvar = spcode,
+                      yvar = number_of_root_nodulation, 
+                      color = treatment,
+                      n_treat = 4 ) +
+    ylab("Number of root nodulation"))
+```
+
+
+# GLM model
+
+```{r}
+boxcox( glm(number_of_root_nodulation ~ treatment * spcode, 
+            data =  data_nodules_cleaned) )
+```
+__NO TRANSFORMATION NEED IT__
+
+
+
+```{r}
+r_norm_model <- rlm(number_of_root_nodulation ~ treatment * spcode,
+                 data =  data_nodules_cleaned)
+```
+
+```{r}
+norm_model <- lm(number_of_root_nodulation ~ treatment * spcode,
+                 data =  data_nodules_cleaned)
+```
+
+
+```{r}
+poisson_model <- glm(number_of_root_nodulation ~ treatment * spcode, 
+                     family = poisson, data =  data_nodules_cleaned )
+```
+
+
+```{r}
+Anova(norm_model, type = "III")
+```
+
+```{r}
+# Get by group comparitions
+    as.data.frame(emmeans(r_norm_model,
+    					  pairwise ~ treatment | spcode,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    dplyr::select(group1, group2, spcode, estimate, se, p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
 

@@ -48,8 +48,6 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 
 
 
-
-
 # Checking Model assumptions
 
 # Model Formula:  
@@ -58,7 +56,9 @@ $$response \sim treatment*specie$$
 
 ## Number of root nodulation
 
+
 ```{r}
+
 m1 <- lm(number_of_root_nodulation ~ treatment * spcode, 
 		   data = data_nodules_cleaned)
 
@@ -76,6 +76,12 @@ check_model(m1)
 
 ```
 
+
+```{r}
+check_outliers(m1, method = c("cook", "pareto"))
+```
+
+
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
@@ -84,28 +90,6 @@ simulationOutput <- simulateResiduals(fittedModel = m1)
 plotQQunif(m1) 
 ```
 
-
-```{r}
-#In rlm(), points are not treated equally. The weight of each point would be 
-#adjusted in an iterative process. rlm() is less sensitive to outliers, 
-#as outliers will get reduced weight. 
-
-m1_2 <- rlm(number_of_root_nodulation ~ treatment * spcode, 
-		   data = data_nodules_cleaned)
-
-Anova(m1_2, type = "III")
-```
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as:
-# “the proportion of the variance explained by the grouping structure in the 
-# population”
-model_performance(m1_2)
-check_model(m1_2)
-
-```
 
 ## Average Nodule Weight model
 
