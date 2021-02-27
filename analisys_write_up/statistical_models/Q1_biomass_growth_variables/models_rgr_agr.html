@@ -178,13 +178,13 @@ a.sourceLine {
 <span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(ggsci)</span>
 <span id="cb1-10"><a href="#cb1-10"></a><span class="kw">library</span>(knitr)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#Source maso menos plot</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">source</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>data_rgr_agr &lt;-<span class="st"> </span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">read.csv</span>(<span class="st">&quot;~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/finalDat.csv&quot;</span>, <span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">source</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment//codes/masomenos_plot.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>data_agr &lt;-<span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">read.csv</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment//data/finalDat.csv&quot;</span>, <span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="st">     </span><span class="kw">clean_names</span>() </span>
 <span id="cb3-4"><a href="#cb3-4"></a></span>
 <span id="cb3-5"><a href="#cb3-5"></a></span>
-<span id="cb3-6"><a href="#cb3-6"></a>data_rgr_agr<span class="op">$</span>treatment &lt;-<span class="st"> </span><span class="kw">factor</span>(data_rgr_agr<span class="op">$</span>treatment,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>data_agr<span class="op">$</span>treatment &lt;-<span class="st"> </span><span class="kw">factor</span>(data_agr<span class="op">$</span>treatment,</span>
 <span id="cb3-7"><a href="#cb3-7"></a>                    <span class="dt">levels =</span> <span class="kw">c</span>(</span>
 <span id="cb3-8"><a href="#cb3-8"></a>                               <span class="st">&quot;ambientrain&quot;</span>, </span>
 <span id="cb3-9"><a href="#cb3-9"></a>                               <span class="st">&quot;ambientrain_nutrients&quot;</span>,</span>
@@ -194,8 +194,8 @@ a.sourceLine {
 <span id="cb3-13"><a href="#cb3-13"></a>                    )</span>
 <span id="cb3-14"><a href="#cb3-14"></a></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">#Clean data</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>data_rgr_agr_clean &lt;-<span class="st"> </span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="st">    </span>data_rgr_agr <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>data_agr_clean &lt;-<span class="st"> </span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="st">    </span>data_agr <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="st">    </span></span>
 <span id="cb3-19"><a href="#cb3-19"></a><span class="st">    </span><span class="co">#Order the columns  </span></span>
 <span id="cb3-20"><a href="#cb3-20"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(id,spcode,family,treatment,nfixer,init_height,rgr,agr)</span></code></pre></div>
@@ -208,13 +208,13 @@ a.sourceLine {
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="co">#&#39;this function takes each response variable and join it to the formula</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>  formula =<span class="st"> </span><span class="kw">paste</span>(response, <span class="st">&quot; ~ treatment * nfixer + init_height + (1|spcode)&quot;</span>)</span>
 <span id="cb4-5"><a href="#cb4-5"></a>  </span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="kw">lmer</span>(<span class="kw">as.formula</span>(formula), <span class="dt">data =</span> data_rgr_agr_clean)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="kw">lmer</span>(<span class="kw">as.formula</span>(formula), <span class="dt">data =</span> data_agr_clean)</span>
 <span id="cb4-7"><a href="#cb4-7"></a>}</span></code></pre></div>
 </div>
 <div id="run-models" class="section level1">
 <h1><span class="header-section-number">3</span> Run Models</h1>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#Takes response variable&#39;s names </span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>vars &lt;-<span class="st"> </span><span class="kw">names</span>(data_rgr_agr_clean)[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>]</span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2"></a>vars &lt;-<span class="st"> </span><span class="kw">names</span>(data_agr_clean)[<span class="dv">7</span><span class="op">:</span><span class="dv">8</span>]</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>vars &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">set_names</span>(vars)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>mixed_models &lt;-<span class="st">  </span>vars <span class="op">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">     </span><span class="kw">map</span>(mixed_models_formula)</span></code></pre></div>
