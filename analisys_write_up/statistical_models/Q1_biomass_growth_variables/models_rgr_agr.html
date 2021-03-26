@@ -225,16 +225,16 @@ a.sourceLine {
 <h2><span class="header-section-number">4.1</span> Absolute Growth Rate</h2>
 <div id="anova" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Anova</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>agr, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>agr, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: agr
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      12.1398  1  0.0004936 ***
-treatment        69.2908  3  6.055e-15 ***
-nfixer            4.8478  1  0.0276817 *  
-init_height       0.8694  1  0.3511116    
-treatment:nfixer 29.4626  3  1.790e-06 ***
+                       F Df  Df.res    Pr(&gt;F)    
+(Intercept)      11.9677  1   9.071  0.007083 ** 
+treatment        23.0886  3 102.381 1.703e-11 ***
+nfixer            4.8475  1   6.530  0.066315 .  
+init_height       0.8027  1  97.058  0.372498    
+treatment:nfixer  9.8162  3 102.125 9.543e-06 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>data_agr_plot &lt;-<span class="st"> </span></span>
@@ -383,16 +383,16 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <h2><span class="header-section-number">4.2</span> Relative Growth Rate</h2>
 <div id="anova-1" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Anova</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>rgr, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>rgr, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: rgr
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      38.9805  1  4.281e-10 ***
-treatment        39.1939  3  1.579e-08 ***
-nfixer            3.9269  1    0.04752 *  
-init_height      28.9050  1  7.602e-08 ***
-treatment:nfixer  9.4880  3    0.02346 *  
+                       F Df  Df.res    Pr(&gt;F)    
+(Intercept)      38.6090  1   8.458 0.0002029 ***
+treatment        13.0617  3 102.306 2.741e-07 ***
+nfixer            3.9268  1   6.398 0.0918364 .  
+init_height      27.0891  1 103.371 9.913e-07 ***
+treatment:nfixer  3.1612  3 102.098 0.0278318 *  
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>data_rgr_plot &lt;-<span class="st"> </span></span>

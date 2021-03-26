@@ -153,10 +153,9 @@ a.sourceLine {
 <div id="TOC" class="toc">
 <div class="toc-box">
 <ul>
-<li><a href="#load-packages-and-data"><span class="toc-section-number">1</span> Load packages and data</a></li>
-<li><a href="#models"><span class="toc-section-number">2</span> Models</a><ul>
-<li><a href="#model-formula-mycorrhyzal-colonization-as-response-variable"><span class="toc-section-number">2.1</span> Model Formula: Mycorrhyzal colonization as response variable</a></li>
-<li><a href="#run-models"><span class="toc-section-number">2.2</span> Run Models</a></li>
+<li><a href="#load-packages-and-data"><span class="toc-section-number">1</span> Load packages and data</a><ul>
+<li><a href="#model-formula-mycorrhyzal-colonization-as-response-variable"><span class="toc-section-number">1.1</span> Model Formula: Mycorrhyzal colonization as response variable</a></li>
+<li><a href="#run-model"><span class="toc-section-number">1.2</span> Run Model</a></li>
 </ul></li>
 </ul>
 </div>
@@ -180,26 +179,23 @@ a.sourceLine {
 <span id="cb2-4"><a href="#cb2-4"></a><span class="kw">source</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#source cleaned data micorrhyzal colonization</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">source</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/codes/cleaned_data_mycorrhizal_colonization.R&quot;</span>)</span></code></pre></div>
-</div>
-<div id="models" class="section level1">
-<h1><span class="header-section-number">2</span> Models</h1>
 <div id="model-formula-mycorrhyzal-colonization-as-response-variable" class="section level2">
-<h2><span class="header-section-number">2.1</span> Model Formula: Mycorrhyzal colonization as response variable</h2>
+<h2><span class="header-section-number">1.1</span> Model Formula: Mycorrhyzal colonization as response variable</h2>
 <p><span class="math display">\[log(Mycorrhyzal\ colonization)\sim treatment*fixer +\ random(1|specie)\]</span></p>
 </div>
-<div id="run-models" class="section level2">
-<h2><span class="header-section-number">2.2</span> Run Models</h2>
+<div id="run-model" class="section level2">
+<h2><span class="header-section-number">1.2</span> Run Model</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>m1_log &lt;-<span class="st"> </span><span class="kw">lmer</span>(log_perc <span class="op">~</span><span class="st"> </span>treatment <span class="op">*</span><span class="st"> </span>nfixer  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>spcode), </span>
 <span id="cb4-2"><a href="#cb4-2"></a>           <span class="dt">data =</span> data_mycorrhizal_colonization_cleaned)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">Anova</span>(m1_log, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">Anova</span>(m1_log, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: log_perc
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      25.8979  1    3.6e-07 ***
-treatment         4.7692  3     0.1895    
-nfixer            0.4900  1     0.4839    
-treatment:nfixer  1.0729  3     0.7836    
+                       F Df Df.res    Pr(&gt;F)    
+(Intercept)      25.8979  1 18.275 7.321e-05 ***
+treatment         1.5897  3 98.000    0.1968    
+nfixer            0.4900  1 18.275    0.4927    
+treatment:nfixer  0.3576  3 98.024    0.7837    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>

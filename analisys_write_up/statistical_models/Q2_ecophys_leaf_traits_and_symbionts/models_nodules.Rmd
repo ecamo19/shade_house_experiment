@@ -62,7 +62,7 @@ data_nodules_cleaned <-
 mod_nud_numb <- lm(number_of_root_nodulation ~ treatment * spcode, 
            data = data_nodules_cleaned)
 
-Anova(mod_nud_numb, type = "III")
+Anova(mod_nud_numb, type = "III",test="F")
 ```
 
 
@@ -124,7 +124,7 @@ poisson_model <- glm(number_of_root_nodulation ~ treatment * spcode,
 
 
 ```{r}
-Anova(norm_model, type = "III")
+Anova(norm_model, type = "III",test="F")
 ```
 
 ```{r}

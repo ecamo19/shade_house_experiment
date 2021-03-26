@@ -52,7 +52,7 @@ $$log(Mycorrhyzal\ colonization)\sim treatment*fixer +\ random(1|specie)$$
 ```{r}
 m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode), 
 		   data = data_mycorrhizal_colonization_cleaned)
-Anova(m1_log, type = "III")
+Anova(m1_log, type = "III",test="F")
 ```
 
 

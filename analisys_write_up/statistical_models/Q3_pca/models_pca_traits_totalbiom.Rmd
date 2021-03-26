@@ -38,7 +38,7 @@ library(factoextra)
 # Load and Clean Data
 
 ```{r}
-finalTrait_dat <- read.table("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+finalTrait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
 ```
 
 ```{r}
@@ -150,7 +150,7 @@ AIC(PCmod_agr_bothPC)
 
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(PCmod_agr_bothPC, type = "III") %>% 
+Anova(PCmod_agr_bothPC, type = "III",test="F") %>% 
   kable()
 ```
 

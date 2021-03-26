@@ -223,16 +223,16 @@ a.sourceLine {
 <h2><span class="header-section-number">5.1</span> Amax</h2>
 <div id="anova" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Anova</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>amax, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>amax, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: amax
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      38.2147  1  6.337e-10 ***
-treatment        38.9521  3  1.777e-08 ***
-nfixer            7.9693  1   0.004758 ** 
-init_height       5.5554  1   0.018424 *  
-treatment:nfixer 22.1532  3  6.062e-05 ***
+                       F Df  Df.res    Pr(&gt;F)    
+(Intercept)      38.0894  1   7.370 0.0003729 ***
+treatment        12.9763  3 102.174  3.01e-07 ***
+nfixer            7.9692  1   6.202 0.0291755 *  
+init_height       5.3512  1 107.997 0.0226019 *  
+treatment:nfixer  7.3837  3 102.053 0.0001585 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>data_amax_plot &lt;-<span class="st"> </span><span class="kw">emmip</span>(mixed_models<span class="op">$</span>amax, treatment <span class="op">~</span><span class="st"> </span>nfixer, <span class="dt">CIs =</span> <span class="ot">TRUE</span>)<span class="op">$</span>data </span>
@@ -382,16 +382,16 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <h2><span class="header-section-number">5.2</span> gs</h2>
 <div id="anova-1" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Anova</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>gs, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>gs, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: gs
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      24.3909  1  7.864e-07 ***
-treatment        16.6489  3  0.0008345 ***
-nfixer            6.4009  1  0.0114062 *  
-init_height       1.0148  1  0.3137519    
-treatment:nfixer  5.0939  3  0.1650458    
+                       F Df  Df.res    Pr(&gt;F)    
+(Intercept)      22.8315  1  15.214 0.0002349 ***
+treatment         5.5349  3 103.354 0.0014549 ** 
+nfixer            6.3961  1  18.189 0.0208896 *  
+init_height       0.8571  1  10.438 0.3754681    
+treatment:nfixer  1.6952  3 102.823 0.1726982    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="gs-plot-by-treatment" class="section level4">
@@ -535,16 +535,16 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <h2><span class="header-section-number">5.3</span> WUE</h2>
 <div id="anova-2" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Anova</h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>wue, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>)</span></code></pre></div>
-<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">Anova</span>(mixed_models<span class="op">$</span>wue, <span class="dt">type =</span> <span class="st">&quot;III&quot;</span>,<span class="dt">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Analysis of Deviance Table (Type III Wald F tests with Kenward-Roger df)
 
 Response: wue
-                   Chisq Df Pr(&gt;Chisq)    
-(Intercept)      42.8090  1  6.035e-11 ***
-treatment        14.4397  3   0.002364 ** 
-nfixer            5.9868  1   0.014414 *  
-init_height       2.6074  1   0.106369    
-treatment:nfixer  0.0236  3   0.999041    
+                       F Df  Df.res    Pr(&gt;F)    
+(Intercept)      40.7682  1  12.067 3.391e-05 ***
+treatment         4.7960  3 102.790  0.003619 ** 
+nfixer            5.9854  1   7.764  0.041038 *  
+init_height       2.2387  1  46.160  0.141404    
+treatment:nfixer  0.0079  3 102.308  0.999034    
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="treatment" class="section level4">

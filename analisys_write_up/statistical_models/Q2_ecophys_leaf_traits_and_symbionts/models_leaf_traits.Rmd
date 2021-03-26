@@ -103,7 +103,7 @@ mixed_models <-  vars %>%
 ### ANOVA
 
 ```{r}
-Anova(mixed_models$d13c, type = "III")
+Anova(mixed_models$d13c, type = "III",test="F")
 ```
 
 
@@ -142,7 +142,7 @@ data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer,
 ### ANOVA
 
 ```{r}
-Anova(mixed_models$sla_cm2_g, type = "III")
+Anova(mixed_models$sla_cm2_g, type = "III",test="F")
 ```
 
 
@@ -181,7 +181,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer,
 ### ANOVA
 
 ```{r}
-Anova(mixed_models$narea_g_m2, type = "III")
+Anova(mixed_models$narea_g_m2, type = "III",test="F")
 ```
 
 
@@ -221,7 +221,7 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
 ### ANOVA
 
 ```{r}
-Anova(mixed_models$nmass_mg_g, type = "III")
+Anova(mixed_models$nmass_mg_g, type = "III",test="F")
 ```
 
 
@@ -304,7 +304,7 @@ totalleafmass_nmass_sqrt <-
 
 
 ```{r}
-Anova(totalleafmass_nmass_sqrt, type = "III")
+Anova(totalleafmass_nmass_sqrt, type = "III",test="F")
 ```
 
 ```{r}

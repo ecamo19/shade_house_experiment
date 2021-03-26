@@ -95,7 +95,7 @@ mixed_models <-  vars %>%
 
 ```{r}
 
-Anova(mixed_models$amax, type = "III")
+Anova(mixed_models$amax, type = "III",test="F")
 ```
 
 
@@ -138,7 +138,7 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 ### Anova
 
 ```{r}
-Anova(mixed_models$gs, type = "III")
+Anova(mixed_models$gs, type = "III",test="F")
 ```
 
 
@@ -212,7 +212,7 @@ data_gs_plot_nfixer <-
 ### Anova
 
 ```{r}
-Anova(mixed_models$wue, type = "III")
+Anova(mixed_models$wue, type = "III",test="F")
 ```
 
 

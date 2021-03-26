@@ -106,7 +106,9 @@ mixed_models <-  vars %>%
 ### Anova
 
 ```{r}
-Anova(mixed_models$totalbiom, type = "III")
+#Anova(Vc1, type="III", test="F") 
+#anova.lme(Vc1, type = "marginal", adjustSigma = F) 
+Anova(mixed_models$totalbiom, type = "III",test="F")
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -145,7 +147,7 @@ data_totalbiom_plot <-
 ## Aboveground Biomass
 
 ```{r}
-Anova(mixed_models$above_biom, type = "III")
+Anova(mixed_models$above_biom, type = "III",test="F")
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -182,7 +184,7 @@ data_above_biom_plot <-
 
 
 ```{r}
-Anova(mixed_models$below_biom, type = "III")
+Anova(mixed_models$below_biom, type = "III",test="F")
 ```
 
 
@@ -260,7 +262,7 @@ data_rmf_plot <-
 
 
 ```{r}
-Anova(mixed_models$smf, type = "III")
+Anova(mixed_models$smf, type = "III",test="F")
 ```
 
 ```{r}
@@ -297,7 +299,7 @@ data_smf_plot <-
 
 
 ```{r}
-Anova(mixed_models$lmf, type = "III")
+Anova(mixed_models$lmf, type = "III",test="F")
 ```
 
 ```{r}
@@ -334,7 +336,7 @@ data_lmf_plot <-
 ## Root Dry weight
 
 ```{r}
-Anova(mixed_models$root_dry_weight, type = "III")
+Anova(mixed_models$root_dry_weight, type = "III",test="F")
 ```
 
 
@@ -371,7 +373,7 @@ data_root_dry_weight_plot <-
 ## Stem Dry weight
 
 ```{r}
-Anova(mixed_models$stem_dry_weight, type = "III")
+Anova(mixed_models$stem_dry_weight, type = "III",test="F")
 ```
 
 ```{r}
@@ -409,7 +411,7 @@ data_stem_dry_weight_plot <-
 
 
 ```{r}
-Anova(mixed_models$whole_leaf_dry_weight, type = "III")
+Anova(mixed_models$whole_leaf_dry_weight, type = "III",test="F")
 ```
 
 ```{r}

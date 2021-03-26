@@ -99,7 +99,7 @@ mixed_models <-  vars %>%
 
 ### Anova
 ```{r}
-Anova(mixed_models$agr, type = "III")
+Anova(mixed_models$agr, type = "III",test="F")
 ```
 
 
@@ -136,7 +136,7 @@ data_agr_plot <-
 
 ### Anova
 ```{r}
-Anova(mixed_models$rgr, type = "III")
+Anova(mixed_models$rgr, type = "III",test="F")
 ```
 
 
