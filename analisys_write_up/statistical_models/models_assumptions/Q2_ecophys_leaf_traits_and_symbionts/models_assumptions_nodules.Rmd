@@ -52,17 +52,17 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 
 # Model Formula:  
 
-$$response \sim treatment*specie$$
+$$response \sim treatment*specie + initial\ height$$
 
 ## Number of root nodulation
 
 
 ```{r}
 
-m1 <- lm(number_of_root_nodulation ~ treatment * spcode, 
+m1 <- lm(number_of_root_nodulation ~ treatment * spcode + init_height, 
 		   data = data_nodules_cleaned)
 
-Anova(m1, type = "III")
+Anova(m1, type = "III", test = "F")
 ```
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}

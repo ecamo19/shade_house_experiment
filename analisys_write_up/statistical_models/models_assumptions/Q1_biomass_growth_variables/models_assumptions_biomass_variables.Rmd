@@ -31,13 +31,13 @@ library(DHARMa)
 
 ```{r}
 #Source maso menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
 data_complete_final <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_for_biomass_leaftraits_models.csv", header = T)
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
@@ -164,6 +164,50 @@ simulationOutput <- simulateResiduals(fittedModel = mixed_models$below_biom)
 plotQQunif(mixed_models$below_biom) 
 ```
 
+
+
+## Stem Dry weight
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$stem_dry_weight)
+
+check_model(mixed_models$stem_dry_weight)
+
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
+plotQQunif(mixed_models$stem_dry_weight) 
+```
+
+## Leaf Dry weight
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
+model_performance(mixed_models$whole_leaf_dry_weight)
+
+check_model(mixed_models$whole_leaf_dry_weight)
+
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = mixed_models$whole_leaf_dry_weight)
+plotQQunif(mixed_models$whole_leaf_dry_weight) 
+```
+
 ## Root Mass Fraction 
 
 ```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
@@ -229,64 +273,9 @@ plotQQunif(mixed_models$lmf)
 ```
 
 
-## Root Dry weight
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$root_dry_weight)
-
-check_model(mixed_models$root_dry_weight)
-
-```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$root_dry_weight)
-plotQQunif(mixed_models$root_dry_weight) 
-```
-
-## Stem Dry weight
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$stem_dry_weight)
-
-check_model(mixed_models$stem_dry_weight)
-
-```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
-plotQQunif(mixed_models$stem_dry_weight) 
-```
-
-## Leaf Dry weight
-
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
-model_performance(mixed_models$whole_leaf_dry_weight)
-
-check_model(mixed_models$whole_leaf_dry_weight)
-
-```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$whole_leaf_dry_weight)
-plotQQunif(mixed_models$whole_leaf_dry_weight) 
-```

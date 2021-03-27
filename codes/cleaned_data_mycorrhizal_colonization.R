@@ -9,7 +9,7 @@ data_mycorrhizal_colonization <-
 
 data_mycorrhizal_colonization_cleaned <- 
 	data_mycorrhizal_colonization %>% 
-	select(-family) %>% 
+	dplyr::select(-family) %>% 
 	
 	#There are some values greater that 100%. Values greater than 100% were
 	#treated as 100%
@@ -21,7 +21,7 @@ data_mycorrhizal_colonization_cleaned <-
 						   	spcode == "gs","fixer", "nonfixer")) %>% 
 	
 	#Order the columns
-	select(id,spcode,treatment,nfixer, everything()) %>% 
+	dplyr::select(id,spcode,treatment,nfixer, everything()) %>% 
 	
 	#Group data this is done because there are 2 sub samples per 
 	#plant so what I am doing is get the mean of the sub-samples

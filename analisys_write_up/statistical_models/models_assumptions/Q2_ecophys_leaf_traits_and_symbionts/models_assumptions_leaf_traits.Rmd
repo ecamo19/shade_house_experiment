@@ -166,7 +166,48 @@ check_model(mixed_models$narea_g_m2)
 
 simulationOutput <- simulateResiduals(fittedModel = mixed_models$narea_g_m2)
 plotQQunif(mixed_models$narea_g_m2) 
+
 ```
+
+
+### BoxCox tranformation for Narea
+
+```{r}
+boxcox(lm(narea_g_m2 ~  treatment * nfixer + init_height, 
+		data = data_rate_change  ))
+```
+### Boxcox model
+
+```{r}
+narea_1_sqrt <- lmer((1/sqrt(totalleafmass_nmass)) ~  treatment * nfixer +
+								 	init_height + 
+								 	(1|spcode), 
+								 data = data_rate_change)
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted as 
+#“the proportion of the variance explained by the grouping structure in the 
+#population”
+
+model_performance(narea_1_sqrt)
+
+check_model(narea_1_sqrt)
+
+```
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulationOutput <- simulateResiduals(fittedModel = narea_1_sqrt)
+plotQQunif(narea_1_sqrt) 
+```
+
 
 
 ## NMass

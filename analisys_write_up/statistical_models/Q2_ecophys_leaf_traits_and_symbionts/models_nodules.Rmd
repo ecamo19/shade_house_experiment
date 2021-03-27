@@ -59,8 +59,9 @@ data_nodules_cleaned <-
 
 # Model Used
 ```{r}
-mod_nud_numb <- lm(number_of_root_nodulation ~ treatment * spcode, 
-           data = data_nodules_cleaned)
+mod_nud_numb <- lm(number_of_root_nodulation ~ treatment * spcode + init_height, 
+		   data = data_nodules_cleaned)
+
 
 Anova(mod_nud_numb, type = "III",test="F")
 ```
@@ -96,52 +97,14 @@ data_nodule_number <-
 ```
 
 
-# GLM model
-
-```{r}
-boxcox( glm(number_of_root_nodulation ~ treatment * spcode, 
-            data =  data_nodules_cleaned) )
-```
-__NO TRANSFORMATION NEED IT__
 
 
 
-```{r}
-r_norm_model <- rlm(number_of_root_nodulation ~ treatment * spcode,
-                 data =  data_nodules_cleaned)
-```
-
-```{r}
-norm_model <- lm(number_of_root_nodulation ~ treatment * spcode,
-                 data =  data_nodules_cleaned)
-```
 
 
-```{r}
-poisson_model <- glm(number_of_root_nodulation ~ treatment * spcode, 
-                     family = poisson, data =  data_nodules_cleaned )
-```
 
 
-```{r}
-Anova(norm_model, type = "III",test="F")
-```
 
-```{r}
-# Get by group comparitions
-    as.data.frame(emmeans(r_norm_model,
-    					  pairwise ~ treatment | spcode,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2, spcode, estimate, se, p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
 
 
 

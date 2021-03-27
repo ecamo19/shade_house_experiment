@@ -34,14 +34,14 @@ library(performance)
 
 ```{r}
 #Source maso menos plot
-source("~/documents/projects/shade_house_exp/exploratory_figures_and_models/codes/masomenos_plot2.R")
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot2.R")
 ```
 
 # Load data
 ```{r}
 
 data_ecophys_traits <- 
-  read.csv("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_ecophys_models.csv", header = T) %>% 
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", header = T) %>% 
   clean_names()  
 
 data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
