@@ -72,68 +72,84 @@ all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)])
 # PCA 
 
 ```{r}
-PCAfinalTraits <- princomp(all_trait_scaled[,c(9:15)])
+pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
 ```
 
 ```{r}
 #Extract loadings
-PCAfinalTraits$loadings 
+pca_final_traits$loadings 
 ```
 
 ```{r}
-PCAscores <- scores(PCAfinalTraits)
+pca_scores <- scores(pca_final_traits)
 ```
 
 ```{r}
 
-fviz_pca(PCAfinalTraits)
+fviz_pca(pca_final_traits)
 ```
-
 
 # Data for PCA regression 
 ```{r}
-allTrait_scaled_forReg <- all_trait
+all_trait_scaled_for_reg <- all_trait
 ```
 
 ## Pull out PC axes and add to trait/growth data frame
 ```{r}
-allTrait_scaled_forReg$PC1 <- PCAscores[,1]
-allTrait_scaled_forReg$PC2 <- PCAscores[,2]
-allTrait_scaled_forReg$PC3 <- PCAscores[,3]
+all_trait_scaled_for_reg$PC1 <- pca_scores[,1]
+all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
+all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
 ```
 
 # Model used 
 
 $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
-# Perform regression 
+# Perform regression models
 
-__Do PCs predict AGR?__
+## Do PCs predict AGR? Two-Way interaction
+
 ```{r}
- 
 # fit treatment/nfixer interactions separately
-PCmod_agr_bothPC<- lmer(agr ~ treatment * PC1 +
-                              nfixer * PC1 +
+pca_mod_agr_1 <- lmer(agr ~   treatment * PC1 +
                               treatment * PC2 +
+                              treatment * PC3 +
+   
+                        #NFixer interaction
+                              nfixer * PC1 +
                               nfixer * PC2 +
-                              init_height + (1|spcode), 
-                        data = allTrait_scaled_forReg)
-
+                              nfixer * PC3 +
+                        
+                        #Random part
+                        init_height + (1|spcode), 
+                        data = all_trait_scaled_for_reg)
 ```
+
+
+## Do PCs predict AGR? Three-Way interaction
+
 
 ```{r}
 # fit three-way interaction
-PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
-                                      treatment * nfixer* PC2 +
-                                      init_height + (1|spcode),
-                                data = allTrait_scaled_forReg)
+pca_mod_agr_2 <- lmer(agr ~ treatment * nfixer* PC1 +
+                            treatment * nfixer* PC2 +
+                            treatment * nfixer* PC3 +
+                            
+                            #Random part
+                            init_height + (1|spcode),
+                          data = all_trait_scaled_for_reg)
 ```
 
-## Model comparision 
+## Model comparision and selection
 
 ```{r}
-# check two-way vs. three-way interaction models (shows that two-way is way better, more negative AICc -- include in methods)
-AICc(PCmod_agr_bothPC, PCmod_agr_bothPC_3xItxn)
+# check two-way vs. three-way interaction models 
+#(shows that two-way is way better, more negative AICc -- include in methods)
+compare_performance(pca_mod_agr_1, pca_mod_agr_2)
+```
+
+```{r}
+anova(pca_mod_agr_1, pca_mod_agr_2)
 ```
 
 ## Check Model assumptions 
@@ -142,6 +158,9 @@ AICc(PCmod_agr_bothPC, PCmod_agr_bothPC_3xItxn)
 #check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
 simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
 plotQQunif(simulationOutput) 
+```
+```{r}
+check_model(model)
 ```
 
 # Results
