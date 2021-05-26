@@ -38,21 +38,33 @@ library(factoextra)
 # Load and Clean Data
 
 ```{r}
-finalTrait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+colnames(final_trait_dat)
 ```
 
 ```{r}
 
-allTrait <-  
-    finalTrait_dat %>%
-    dplyr::select(spcode, treatment, nfixer, init_height, totalbiom, above_biom,
-                  whole_leaf_dry_weight, stem_dry_weight, amax, gs, wue, 
-                  d13c, sla_cm2_g, totalleafmass_Nmass, rgr, agr)
+# Select variables that are going to be used in the model
+all_trait <-  
+    final_trait_dat %>%
+    dplyr::select(spcode, treatment, nfixer, init_height, 
+                  
+                  #Performance measures
+                  totalbiom, above_biom,rgr, agr, 
+                  
+                  #physiology traits
+                  amax, gs, wue,
+                  
+                  #Leaf traits
+                  Narea_g_m2,Nmass_mg_g,d13c, sla_cm2_g)
 
 
-# Scale data
-allTrait_scaled <- allTrait
-allTrait_scaled[,c(9:14)] <- scale(allTrait_scaled[,c(9:14)])
+
+#Generate a copy of the original data
+all_trait_scaled <- all_trait
+
+# Scale data traits
+all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)])
 ```
 
 
@@ -60,7 +72,7 @@ allTrait_scaled[,c(9:14)] <- scale(allTrait_scaled[,c(9:14)])
 # PCA 
 
 ```{r}
-PCAfinalTraits <- princomp(allTrait_scaled[,c(9:14)])
+PCAfinalTraits <- princomp(all_trait_scaled[,c(9:15)])
 ```
 
 ```{r}
@@ -80,7 +92,7 @@ fviz_pca(PCAfinalTraits)
 
 # Data for PCA regression 
 ```{r}
-allTrait_scaled_forReg <- allTrait
+allTrait_scaled_forReg <- all_trait
 ```
 
 ## Pull out PC axes and add to trait/growth data frame
@@ -118,6 +130,7 @@ PCmod_agr_bothPC_3xItxn <- lmer(agr ~ treatment * nfixer* PC1+
 ```
 
 ## Model comparision 
+
 ```{r}
 # check two-way vs. three-way interaction models (shows that two-way is way better, more negative AICc -- include in methods)
 AICc(PCmod_agr_bothPC, PCmod_agr_bothPC_3xItxn)
@@ -204,7 +217,6 @@ PC2_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC2", "treatment"))
                                                   "water", "nutrients + water")
                                         ) +
                       geom_line(size=2))
-
 
 ```
 ```
