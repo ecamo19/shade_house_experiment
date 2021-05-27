@@ -80,14 +80,70 @@ pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
 pca_final_traits$loadings 
 ```
 
-```{r}
-pca_scores <- scores(pca_final_traits)
-```
 
 ```{r}
-
-fviz_pca(pca_final_traits)
+# pull out PCA loadings again
+pca_final_traits$loadings
 ```
+
+## PC1 vrs PC2
+
+```{r}
+fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
+                
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  theme_minimal() + scale_color_brewer(palette="Set1")
+```
+### Biplot interpretation
+[PCA interpretation](https://wilkelab.org/SDS375/slides/dimension-reduction-1.html#18)
+
+## PC1 vrs PC3
+
+```{r}
+fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
+                
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  theme_minimal() + scale_color_brewer(palette="Set1")
+```
+
+## PC2 vrs PC3
+```{r}
+fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
+                
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  theme_minimal() + scale_color_brewer(palette="Set1")
+```
+
 
 # Data for PCA regression 
 ```{r}
@@ -95,6 +151,12 @@ all_trait_scaled_for_reg <- all_trait
 ```
 
 ## Pull out PC axes and add to trait/growth data frame
+
+```{r}
+pca_scores <- scores(pca_final_traits)
+```
+
+
 ```{r}
 all_trait_scaled_for_reg$PC1 <- pca_scores[,1]
 all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
@@ -105,9 +167,10 @@ all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
 
 $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
-# Perform regression models
+# Perform regression models with AGR
 
-## Do PCs predict AGR? Two-Way interaction
+
+## Do PCs predict AGR? Two-Way interaction model
 
 ```{r}
 # fit treatment/nfixer interactions separately
@@ -126,8 +189,7 @@ pca_mod_agr_1 <- lmer(agr ~   treatment * PC1 +
 ```
 
 
-## Do PCs predict AGR? Three-Way interaction
-
+## Do PCs predict AGR? Three-Way interaction model
 
 ```{r}
 # fit three-way interaction
@@ -153,49 +215,43 @@ anova(pca_mod_agr_1, pca_mod_agr_2)
 ```
 
 ## Check Model assumptions 
-
-```{r}
+```{r,fig.width= 10, fig.height=10}
 #check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
-simulationOutput <- simulateResiduals(fittedModel = PCmod_agr_bothPC)
+simulationOutput <- simulateResiduals(fittedModel = pca_mod_agr_1)
 plotQQunif(simulationOutput) 
 ```
-```{r}
-check_model(model)
+```{r message=FALSE, warning=FALSE, fig.width= 18, fig.height=10}
+check_model(pca_mod_agr_1)
 ```
 
-# Results
+
 
 ### AIC, Rm2 and Rc2
 
 ```{r}
 
 # model R2
-r2(PCmod_agr_bothPC)
+r2(pca_mod_agr_1)
 
 #AIC model
-AIC(PCmod_agr_bothPC)
+AIC(pca_mod_agr_1)
 
 ```
-
-
 
 
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(PCmod_agr_bothPC, type = "III",test="F") %>% 
+Anova(pca_mod_agr_1, type = "III",test="F") %>% 
   kable()
 ```
 
 
-```{r}
-# pull out PCA loadings again
-PCAfinalTraits$loadings
-```
-# Plot
+
+# Plot trens
 
 ```{r}
 # compare slopes of lines for treatment X PC1 iteraction
-emtrends(PCmod_agr_bothPC, pairwise ~ treatment, var = "PC1")
+emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC1")
 
 ```
 
@@ -205,7 +261,7 @@ emtrends(PCmod_agr_bothPC, pairwise ~ treatment, var = "PC1")
 # plot that shit
 cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
 
-PC1_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC1", "treatment"))
+PC1_predict <- ggpredict(pca_mod_agr_1, terms = c("PC1", "treatment"))
 
 (PC1_AGR_fig <- ggplot(PC1_predict, aes(x, predicted, colour = group)) + 
                       geom_line()+
@@ -224,7 +280,7 @@ PC1_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC1", "treatment"))
 ```{r}
 cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
 
-PC2_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC2", "treatment"))
+PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC2", "treatment"))
 
 (PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
                       geom_line()+
@@ -238,5 +294,113 @@ PC2_predict <- ggpredict(PCmod_agr_bothPC, terms = c("PC2", "treatment"))
                       geom_line(size=2))
 
 ```
+```{r}
+cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
+
+PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC3", "treatment"))
+
+(PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
+                      geom_line()+
+                      ylab("AGR")+
+                      xlab("PC3")+ 
+                      theme_classic()+
+                      scale_color_manual(values= cbbPalette,
+                                        labels=c("ambient", "nutrients", 
+                                                  "water", "nutrients + water")
+                                        ) +
+                      geom_line(size=2))
+
 ```
+
+
+# Perform regression models with AGR
+
+### Do PCs predict AGR? Two-Way interaction
+
+```{r}
+# fit treatment/nfixer interactions separately
+pca_mod_totalbiom_1 <- lmer(totalbiom ~   treatment * PC1 +
+                                          treatment * PC2 +
+                                          treatment * PC3 +
+   
+                                          #NFixer interaction
+                                          nfixer * PC1 +
+                                          nfixer * PC2 +
+                                          nfixer * PC3 +
+                        
+                        #Random part
+                        init_height + (1|spcode), 
+                        data = all_trait_scaled_for_reg)
+```
+
+
+### Do PCs predict AGR? Three-Way interaction
+
+
+```{r}
+# fit three-way interaction
+pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
+                                        treatment * nfixer* PC2 +
+                                        treatment * nfixer* PC3 +
+                            
+                            #Random part
+                            init_height + (1|spcode),
+                            data = all_trait_scaled_for_reg)
+```
+
+### Model comparision and selection
+
+```{r}
+# check two-way vs. three-way interaction models 
+#(shows that two-way is way better, more negative AICc -- include in methods)
+compare_performance(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
+```
+
+```{r}
+anova(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
+```
+
+### Check Model assumptions 
+
+```{r}
+#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
+simulationOutput <- simulateResiduals(fittedModel = pca_mod_totalbiom_2)
+plotQQunif(simulationOutput) 
+```
+
+
+```{r}
+check_model(pca_mod_totalbiom_2)
+```
+
+
+### AIC, Rm2 and Rc2
+
+```{r}
+
+# model R2
+r2(pca_mod_totalbiom_2)
+
+#AIC model
+AIC(pca_mod_totalbiom_2)
+
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
+Anova(pca_mod_totalbiom_2, type = "III",test="F") %>% 
+  kable()
+```
+
+
+
+## Plot Total biomass
+```{r}
+# compare slopes of lines for treatment X PC1 iteraction
+emtrends(pca_mod_totalbiom_2, pairwise ~ treatment|nfixer, var = "PC1")
+```
+
+
+
 
