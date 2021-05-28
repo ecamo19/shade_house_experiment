@@ -1,7 +1,7 @@
 ---
-title: "Models for Absolute and Relative Growth Rate "
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling growth and biomass allocation. AGR Model"
 author: "Mas o menos lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -93,11 +93,9 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Results
+# Results Absolute Growth Rate
 
-## Absolute Growth Rate
-
-### Anova
+## Anova
 ```{r}
 Anova(mixed_models$agr, type = "III",test="F")
 ```
@@ -132,41 +130,40 @@ data_agr_plot <-
   theme(legend.position = "right") + ylab("Absolute Growth Rate"))
 ```
 
-## Relative Growth Rate
-
-### Anova
+# Results Relative Growth Rate
+## Anova
 ```{r}
-Anova(mixed_models$rgr, type = "III",test="F")
+#Anova(mixed_models$rgr, type = "III",test="F")
 ```
 
 
 
 ```{r message=FALSE, warning=FALSE}
-data_rgr_plot <- 
-  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = TRUE)$data 
+#data_rgr_plot <- 
+#  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = #TRUE)$data 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$rgr,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
+#    as.data.frame(emmeans(mixed_models$rgr,
+#    					  pairwise ~ treatment | nfixer,
+#    					  type = "response", 
+#    					  adjust ="tukey")$contrast) %>% 
+#  
+#    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+#    clean_names() %>% 
+#    mutate(group1 = factor(group1)) %>%
+#    mutate(group2 = factor(group2)) %>% 
+#    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+#    mutate(p_value = round(p_value, 20)) %>% 
+#    kable()
 ```
 
 
 ```{r}
-(plot_rgr <- 
-  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
-                 ucl = UCL, lcl = LCL, n_treat = 4) +
-  theme(legend.position = "right") + ylab("Relative Growth Rate"))
+#(plot_rgr <- 
+#  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
+#                 tvar = tvar, color = treatment,
+#                 ucl = UCL, lcl = LCL, n_treat = 4) +
+#  theme(legend.position = "right") + ylab("Relative Growth Rate"))
 ```
 
 

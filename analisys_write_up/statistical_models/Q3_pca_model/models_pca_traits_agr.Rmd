@@ -63,8 +63,8 @@ all_trait <-
 #Generate a copy of the original data
 all_trait_scaled <- all_trait
 
-# Scale data traits
-all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)])
+# Scale and center data traits
+all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)],center = TRUE, scale = TRUE)
 ```
 
 
@@ -75,20 +75,22 @@ pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
 ```
 
 ```{r}
+fviz_screeplot(pca_final_traits, addlabels = TRUE, ylim = c(0, 50))
+```
+
+```{r}
 #Extract loadings
 pca_final_traits$loadings 
 ```
 
+
 ## Biplots
 
-```{r}
-# pull out PCA loadings again
-pca_final_traits$loadings
-```
 
 ### PC1 vrs PC2
 
 ```{r}
+
 fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
                 
                 # Add group 
@@ -145,9 +147,16 @@ fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
 ## Biplots interpretation
 [PCA interpretation](https://wilkelab.org/SDS375/slides/dimension-reduction-1.html#18)
 
++ The first 3 PCs explains 83% (47.9,19.4,15.8) of the variability in the data
++ PC1 separates fixers from non-fixers
++ All traits contribute positively to PC1 
 
++ PC1 represents the overall high photosynthetic capacity 
++ PC2 represents the difference between stomatal conductance and SLA
++ PC3 represents the difference between d13c and SLA
 
-# PCA regression 
+# Regression model with PCs as independent variables
+
 ```{r}
 all_trait_scaled_for_reg <- all_trait
 ```
@@ -176,7 +185,8 @@ $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 ```{r}
 # fit treatment/nfixer interactions separately
-pca_mod_agr_1 <- lmer(agr ~   treatment * PC1 +
+pca_mod_agr_1 <- lmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
+                              treatment * PC1 +
                               treatment * PC2 +
                               treatment * PC3 +
    
@@ -209,7 +219,7 @@ pca_mod_agr_2 <- lmer(agr ~ treatment * nfixer* PC1 +
 ```{r}
 # check two-way vs. three-way interaction models 
 #(shows that two-way is way better, more negative AICc -- include in methods)
-compare_performance(pca_mod_agr_1, pca_mod_agr_2)
+compare_performance(pca_mod_agr_1, pca_mod_agr_2,metrics = "all")
 ```
 
 ```{r}
@@ -227,8 +237,6 @@ check_model(pca_mod_agr_1)
 ```
 
 
-
-
 ## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
@@ -236,15 +244,19 @@ Anova(pca_mod_agr_1, type = "III",test="F") %>%
   kable()
 ```
 
+## PCA trends
 
-## Plot trens
+### PC1 trends contrasts
 
 ```{r}
 # compare slopes of lines for treatment X PC1 iteraction
-emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC1")
+# summary(emtrends(model = fit_sat, ~agef, var="SATV"), infer=TRUE)
+#emtrends(pca_mod_agr_1, pairwise ~ treatment|PC1, var = "PC1")
+
+emtrends(pca_mod_agr_1,pairwise ~ treatment, var = "PC1")$contrast  %>% kable()
 ```
 
-
+### PC1 trends plot
 
 ```{r}
 # plot that shit
@@ -266,6 +278,15 @@ PC1_predict <- ggpredict(pca_mod_agr_1, terms = c("PC1", "treatment"))
 
 ```
 
+### PC2 trends contrasts
+
+```{r}
+# compare slopes of lines for treatment X PC1 iteraction
+emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC2")$contrast
+```
+
+### PC2 trends plot
+
 ```{r}
 cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
 
@@ -283,25 +304,7 @@ PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC2", "treatment"))
                       geom_line(size=2))
 
 ```
-```{r}
-cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
-
-PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC3", "treatment"))
-
-(PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
-                      geom_line()+
-                      ylab("AGR")+
-                      xlab("PC3")+ 
-                      theme_classic()+
-                      scale_color_manual(values= cbbPalette,
-                                        labels=c("ambient", "nutrients", 
-                                                  "water", "nutrients + water")
-                                        ) +
-                      geom_line(size=2))
-
-```
-
-
+`
 # Perform regression models with Total Biomass as response variable
 
 ## Do PCs predict total biomass? Two-Way interaction
@@ -325,7 +328,6 @@ pca_mod_totalbiom_1 <- lmer(totalbiom ~   treatment * PC1 +
 
 ## Do PCs predict total biomass? Three-Way interaction
 
-
 ```{r}
 # fit three-way interaction
 pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
@@ -341,7 +343,7 @@ pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
 
 ```{r}
 # check two-way vs. three-way interaction models 
-#(shows that two-way is way better, more negative AICc -- include in methods)
+# (shows that two-way is way better, more negative AICc -- include in methods)
 compare_performance(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
 ```
 
