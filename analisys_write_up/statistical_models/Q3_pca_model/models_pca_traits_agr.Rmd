@@ -1,7 +1,7 @@
 ---
-title: "PCA analysis"
-author: "Leland Werden"
-date: "2020"
+title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species?"
+author: "Main code: Leland Werden, Modified by: Erick Calderon-Morales"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -68,7 +68,6 @@ all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)])
 ```
 
 
-
 # PCA 
 
 ```{r}
@@ -80,13 +79,14 @@ pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
 pca_final_traits$loadings 
 ```
 
+## Biplots
 
 ```{r}
 # pull out PCA loadings again
 pca_final_traits$loadings
 ```
 
-## PC1 vrs PC2
+### PC1 vrs PC2
 
 ```{r}
 fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
@@ -104,10 +104,8 @@ fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
                 repel = TRUE) +
   theme_minimal() + scale_color_brewer(palette="Set1")
 ```
-### Biplot interpretation
-[PCA interpretation](https://wilkelab.org/SDS375/slides/dimension-reduction-1.html#18)
 
-## PC1 vrs PC3
+### PC1 vrs PC3
 
 ```{r}
 fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
@@ -126,7 +124,7 @@ fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
   theme_minimal() + scale_color_brewer(palette="Set1")
 ```
 
-## PC2 vrs PC3
+### PC2 vrs PC3
 ```{r}
 fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
                 
@@ -144,31 +142,35 @@ fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
   theme_minimal() + scale_color_brewer(palette="Set1")
 ```
 
+## Biplots interpretation
+[PCA interpretation](https://wilkelab.org/SDS375/slides/dimension-reduction-1.html#18)
 
-# Data for PCA regression 
+
+
+# PCA regression 
 ```{r}
 all_trait_scaled_for_reg <- all_trait
 ```
 
-## Pull out PC axes and add to trait/growth data frame
 
 ```{r}
+# Pull out PC axes and add to trait/growth data frame
 pca_scores <- scores(pca_final_traits)
 ```
 
-
 ```{r}
+#Extract PCs
 all_trait_scaled_for_reg$PC1 <- pca_scores[,1]
 all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
 all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
 ```
 
-# Model used 
+
+# Model formula used 
 
 $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
-# Perform regression models with AGR
-
+# Perform regression models with AGR as response variable
 
 ## Do PCs predict AGR? Two-Way interaction model
 
@@ -226,19 +228,8 @@ check_model(pca_mod_agr_1)
 
 
 
-### AIC, Rm2 and Rc2
 
-```{r}
-
-# model R2
-r2(pca_mod_agr_1)
-
-#AIC model
-AIC(pca_mod_agr_1)
-
-```
-
-
+## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
 Anova(pca_mod_agr_1, type = "III",test="F") %>% 
@@ -246,13 +237,11 @@ Anova(pca_mod_agr_1, type = "III",test="F") %>%
 ```
 
 
-
-# Plot trens
+## Plot trens
 
 ```{r}
 # compare slopes of lines for treatment X PC1 iteraction
 emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC1")
-
 ```
 
 
@@ -313,9 +302,9 @@ PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC3", "treatment"))
 ```
 
 
-# Perform regression models with AGR
+# Perform regression models with Total Biomass as response variable
 
-### Do PCs predict AGR? Two-Way interaction
+## Do PCs predict total biomass? Two-Way interaction
 
 ```{r}
 # fit treatment/nfixer interactions separately
@@ -334,7 +323,7 @@ pca_mod_totalbiom_1 <- lmer(totalbiom ~   treatment * PC1 +
 ```
 
 
-### Do PCs predict AGR? Three-Way interaction
+## Do PCs predict total biomass? Three-Way interaction
 
 
 ```{r}
@@ -348,7 +337,7 @@ pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
                             data = all_trait_scaled_for_reg)
 ```
 
-### Model comparision and selection
+## Model comparision and selection
 
 ```{r}
 # check two-way vs. three-way interaction models 
@@ -360,7 +349,7 @@ compare_performance(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
 anova(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
 ```
 
-### Check Model assumptions 
+## Check Model assumptions 
 
 ```{r}
 #check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
@@ -374,32 +363,14 @@ check_model(pca_mod_totalbiom_2)
 ```
 
 
-### AIC, Rm2 and Rc2
 
-```{r}
-
-# model R2
-r2(pca_mod_totalbiom_2)
-
-#AIC model
-AIC(pca_mod_totalbiom_2)
-
-```
-
-
+## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
 Anova(pca_mod_totalbiom_2, type = "III",test="F") %>% 
   kable()
 ```
 
-
-
-## Plot Total biomass
-```{r}
-# compare slopes of lines for treatment X PC1 iteraction
-emtrends(pca_mod_totalbiom_2, pairwise ~ treatment|nfixer, var = "PC1")
-```
 
 
 
