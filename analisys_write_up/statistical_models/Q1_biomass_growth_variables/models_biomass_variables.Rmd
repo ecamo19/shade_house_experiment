@@ -1,7 +1,7 @@
 ---
-title: "Models for biomass variables"
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Biomass Variables"
 author: "Mas o menos lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -99,11 +99,9 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Results
+# Results: Dry weights
 
 ## Total Biomasss
-
-### Anova
 
 ```{r}
 #Anova(Vc1, type="III", test="F") 
@@ -140,8 +138,6 @@ data_totalbiom_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Total Biomass"))
 ```
-
-
 
 
 ## Aboveground Biomass
@@ -220,156 +216,6 @@ data_below_biom_plot <-
   theme(legend.position = "right") + ylab("Belowground Biomass"))
 ```
 
-
-## Root Mass Fraction 
-
-```{r}
-Anova(mixed_models$rmf, type = "III")
-```
-
-```{r}
-data_rmf_plot <- 
-  emmip(mixed_models$rmf, treatment ~ nfixer, CIs = TRUE)$data 
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$rmf,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-
-```{r}
-(plot_rmf <- 
-  masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-    theme(legend.position = "none") + 
-    ylab("RMF plus CI's"))
-```
-
-
-
-## Stem Mass fraction
-
-
-```{r}
-Anova(mixed_models$smf, type = "III",test="F")
-```
-
-```{r}
-data_smf_plot <- 
-  emmip(mixed_models$smf, treatment ~ nfixer, CIs = TRUE)$data 
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$smf, 
-                          pairwise ~ treatment | nfixer,
-    					  type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-
-
-```{r}
-(plot_smf <- 
-  masomenos_plot_no_lines(data = data_smf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-  theme(legend.position = "right")  +
-  ylab("SMF plus CI's'"))
-```
-
-## Leaf Mass fraction
-
-
-```{r}
-Anova(mixed_models$lmf, type = "III",test="F")
-```
-
-```{r}
-data_lmf_plot <- 
-  emmip(mixed_models$lmf, treatment ~ nfixer, CIs = TRUE)$data 
-
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$lmf, 
-                          pairwise ~ treatment | nfixer, 
-                          type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-
-```{r}
-(plot_lmf <- 
-  masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-  theme(legend.position = "right") + 
-  ylab("Leaf mass fraction plus CI's"))
-```
-
-
-## Root Dry weight
-
-```{r}
-Anova(mixed_models$root_dry_weight, type = "III",test="F")
-```
-
-
-```{r}
-data_root_dry_weight_plot <- 
-  emmip(mixed_models$root_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
-
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$root_dry_weight, 
-                          pairwise ~ treatment | nfixer, 
-                          type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-```{r}
-(plot_root_dry_weight <- 
-  masomenos_plot_no_lines(data = data_root_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-  theme(legend.position = "right") + 
-  ylab("Root Dry Weight plus CI's"))
-```
-
-
 ## Stem Dry weight
 
 ```{r}
@@ -446,6 +292,116 @@ data_leaf_dry_weight_plot <-
 ```
 
 
+# Results: Mass Fractions
 
+## Root Mass Fraction 
+
+```{r}
+Anova(mixed_models$rmf, type = "III")
+```
+
+```{r message=FALSE, warning=FALSE}
+data_rmf_plot <- 
+  emmip(mixed_models$rmf,~treatment, CIs = TRUE)$data 
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$rmf,
+    					  pairwise ~ treatment,
+    					  type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_rmf <- 
+  masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+    theme(legend.position = "none") + 
+    ylab("RMF plus CI's"))
+```
+
+
+
+## Stem Mass fraction
+
+
+```{r}
+Anova(mixed_models$smf, type = "III",test="F")
+```
+
+```{r}
+data_smf_plot <- 
+  emmip(mixed_models$smf, treatment ~ nfixer, CIs = TRUE)$data 
+
+ #Get by group comparitions
+    as.data.frame(emmeans(mixed_models$smf, 
+                          pairwise ~ treatment | nfixer,
+    					  type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+
+```{r}
+(plot_smf <- 
+  masomenos_plot_no_lines(data = data_smf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "right")  +
+  ylab("SMF plus CI's'"))
+```
+
+## Leaf Mass fraction
+
+```{r}
+Anova(mixed_models$lmf, type = "III",test="F")
+```
+
+```{r message=FALSE, warning=FALSE}
+data_lmf_plot <- 
+  emmip(mixed_models$lmf,  ~ treatment, CIs = TRUE)$data 
+
+
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$lmf, 
+                          pairwise ~ treatment | nfixer, 
+                          type = "response", adjust = "tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(plot_lmf <- 
+  masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "right") + 
+  ylab("Leaf mass fraction plus CI's"))
+```
 
 

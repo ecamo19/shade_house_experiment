@@ -1,7 +1,7 @@
 ---
-title: 'Exploratory analisys:Mean values and Boxplots figures'
+title: '(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Mean values Biomass and Growth'
 author: "Mas o menos Lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 12
@@ -27,13 +27,6 @@ library(tidyverse)
 library(ggsci)
 library(knitr)
 
-```
-
-
-```{r message=FALSE, warning=FALSE}
-#Load function to calculate percentage differences
-
-#source("~/Documents/projects/shade_house_exp/exploratory_figures_and_models/codes/perc_d#ifference_funtions_calculator.R")
 ```
 
 
@@ -86,13 +79,32 @@ data_ecophys_growth$treatment <- factor(data_ecophys_growth$treatment,
 ```
 
 
-# Mean data 
+# Mean values  
 
 ## Biomass variables
 
-### Total, Above and Belowground Biomass
+### Total, Aboveground Biomass
 
-#### Belowground
+
+```{r}
+summary_mean_biomass <-  
+	data_rate_change %>% 
+	select(id,spcode,family,treatment,nfixer,
+		    totalbiom,above_biom) %>% 
+	column_to_rownames("id") %>% 
+	group_by(treatment,nfixer) %>% 
+	summarise_if(is.numeric, mean) %>% 
+	arrange(nfixer)
+
+### Round the numbers
+summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
+	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
+
+kable(summary_mean_biomass)
+```
+
+
+### Belowground
 
 __Interaction was not significant__
 ```{r}
@@ -114,24 +126,8 @@ kable(summary_mean_root_biomass)
 
 
 
-```{r}
-summary_mean_biomass <-  
-	data_rate_change %>% 
-	select(id,spcode,family,treatment,nfixer,
-		    totalbiom,above_biom) %>% 
-	column_to_rownames("id") %>% 
-	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, mean) %>% 
-	arrange(nfixer)
 
-### Round the numbers
-summary_mean_biomass [,3:ncol(summary_mean_biomass)] <-
-	round(summary_mean_biomass [,3:ncol(summary_mean_biomass)],3) 
-
-kable(summary_mean_biomass)
-```
-
-### Dry weights
+## Stem and  whole leaf Dry weights
 
 __Interaction was significant__
 ```{r}
@@ -152,9 +148,7 @@ summary_mean_dry_weights[,3:ncol(summary_mean_dry_weights)] <-
 kable(summary_mean_dry_weights)
 ```
 
-
-
-## Growth 
+## Growth AGR 
 ```{r}
 summary_mean_growth <-  
 	data_ecophys_growth %>% 
@@ -172,93 +166,7 @@ summary_mean_growth[,3:4] <-
 kable(summary_mean_growth)
 ```
 
-
-## Ecophysiology traits 
-
-```{r}
-
-summary_mean_ecophys <-  
-	data_ecophys_growth %>% 
-	select(id,spcode,family,treatment,nfixer,
-		   amax) %>% 
-	column_to_rownames("id") %>% 
-	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer)
-
-### Round the numbers
-summary_mean_ecophys[,3] <-
-	round(summary_mean_ecophys[,3],3) 
-
-kable(summary_mean_ecophys)
-```
-
-
-#### gs and WUE by treatment
-```{r}
-summary_mean_ecophys_treatment <-  
-	data_ecophys_growth %>% 
-	select(id,spcode,family,treatment,gs,wue) %>% 
-	column_to_rownames("id") %>% 
-	group_by(treatment) %>% 
-	summarise_if(is.numeric, funs(mean)) 
-	
-
-### Round the numbers
-summary_mean_ecophys_treatment[,2:3] <-
-	round(summary_mean_ecophys_treatment[,2:3],3) 
-
-kable(summary_mean_ecophys_treatment)
-
-```
-
-
-#### gs and WUE by nfixer
-
-```{r}
-summary_mean_ecophys_nfixer <-  
-	data_ecophys_growth %>% 
-	select(id,spcode,family,nfixer,gs,wue) %>% 
-	column_to_rownames("id") %>% 
-	group_by(nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer)
-
-### Round the numbers
-summary_mean_ecophys_nfixer[,2:3] <-
-	round(summary_mean_ecophys_nfixer[,2:3],3) 
-
-kable(summary_mean_ecophys_nfixer)
-
-```
-
-
-## Leaf traits
-
-```{r}
-summary_mean_leaftraits <-  
-	data_rate_change %>% 
-	select(id,spcode,family,treatment,nfixer,
-		   !c(
-		   rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
-		   stem_dry_weight,totalbiom,above_biom,below_biom,
-		   cn,la,init_height,ldmc)
-		   ) %>%
-	
-	column_to_rownames("id") %>% 
-	group_by(treatment,nfixer) %>% 
-	summarise_if(is.numeric, funs(mean)) %>% 
-	arrange(nfixer)
-
-### Round the numbers
-summary_mean_leaftraits[,3:ncol(summary_mean_leaftraits)] <-
-	round(summary_mean_leaftraits[,3:ncol(summary_mean_leaftraits)],3) 
-
-kable(summary_mean_leaftraits)
-
-```
-
-### Mass fractions
+## Mass fractions
 
 ```{r message=FALSE, warning=FALSE}
 
@@ -279,4 +187,5 @@ summary_mean_mass_fractions[,3:ncol(summary_mean_mass_fractions)] <-
 
 kable(summary_mean_mass_fractions)
 ```
+
 

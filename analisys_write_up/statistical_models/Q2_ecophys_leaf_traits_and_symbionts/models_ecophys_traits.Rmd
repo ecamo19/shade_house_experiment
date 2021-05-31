@@ -1,7 +1,7 @@
 ---
-title: "Models for ecophysiology traits"
+title: "(Q2) How does increased nutrient or water availability influence water- and nutrient-use traits?"
 author: "Mas o menos Lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 9
@@ -91,10 +91,8 @@ mixed_models <-  vars %>%
 
 ## Amax
 
-### Anova
 
 ```{r}
-
 Anova(mixed_models$amax, type = "III",test="F")
 ```
 
@@ -135,18 +133,16 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 
 ## gs
 
-### Anova
-
 ```{r}
 Anova(mixed_models$gs, type = "III",test="F")
 ```
 
 
-#### gs plot by treatment
+
 ```{r message=FALSE, warning=FALSE}
 
 data_gs_plot_treatment <- 
-	emmip(mixed_models$gs, ~treatment, CIs = TRUE)$data 
+	emmip(mixed_models$gs, ~ treatment, CIs = TRUE)$data 
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$gs,
@@ -164,6 +160,11 @@ data_gs_plot_treatment <-
     kable()
 ```
 
+```{r message=FALSE, warning=FALSE}
+data_gs_plot_treatment <- 
+	emmip(mixed_models$gs, ~ nfixer, CIs = TRUE)$data 
+
+```
 
 ```{r message=FALSE, warning=FALSE}
 (plot_gs_treatment <- 
@@ -209,14 +210,14 @@ data_gs_plot_nfixer <-
 
 ## WUE
 
-### Anova
+
 
 ```{r}
 Anova(mixed_models$wue, type = "III",test="F")
 ```
 
 
-#### Treatment 
+
 ```{r message=FALSE, warning=FALSE}
 data_wue_plot_treatment <- emmip(mixed_models$wue, ~treatment , CIs = TRUE)$data 
 
@@ -248,7 +249,7 @@ data_wue_plot_treatment <- emmip(mixed_models$wue, ~treatment , CIs = TRUE)$data
     
   theme(legend.position = "bottom") + ylab("WUE") )
 ```
-#### Nfixer
+
  
 ```{r message=FALSE, warning=FALSE}
 data_wue_plot_nfixer <- emmip(mixed_models$wue, ~ nfixer , CIs = TRUE)$data 
