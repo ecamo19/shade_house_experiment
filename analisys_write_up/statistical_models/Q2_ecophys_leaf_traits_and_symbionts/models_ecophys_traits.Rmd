@@ -211,7 +211,6 @@ data_gs_plot_nfixer <-
 ## WUE
 
 
-
 ```{r}
 Anova(mixed_models$wue, type = "III",test="F")
 ```
@@ -253,21 +252,6 @@ data_wue_plot_treatment <- emmip(mixed_models$wue, ~treatment , CIs = TRUE)$data
  
 ```{r message=FALSE, warning=FALSE}
 data_wue_plot_nfixer <- emmip(mixed_models$wue, ~ nfixer , CIs = TRUE)$data 
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$wue,
-    					  pairwise ~ nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
 
 ```
 

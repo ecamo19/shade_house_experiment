@@ -60,8 +60,10 @@ data_rate_change <-
 	#Order the columns
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  clean_names() 
-  
+	filter(!treatment == "Harvestatthebegging") %>% 
+	clean_names() 
+
+
 ```
 
 # Model used 
@@ -174,12 +176,12 @@ plotQQunif(mixed_models$narea_g_m2)
 
 ```{r}
 boxcox(lm(narea_g_m2 ~  treatment * nfixer + init_height, 
-		data = data_rate_change  ))
+		data = data_rate_change))
 ```
 ### Boxcox model
 
 ```{r}
-narea_1_sqrt <- lmer((1/sqrt(totalleafmass_nmass)) ~  treatment * nfixer +
+narea_1_sqrt <- lmer((1/sqrt(narea_g_m2)) ~  treatment * nfixer +
 								 	init_height + 
 								 	(1|spcode), 
 								 data = data_rate_change)
@@ -195,8 +197,6 @@ narea_1_sqrt <- lmer((1/sqrt(totalleafmass_nmass)) ~  treatment * nfixer +
 
 model_performance(narea_1_sqrt)
 
-check_model(narea_1_sqrt)
-
 ```
 
 
@@ -205,9 +205,8 @@ check_model(narea_1_sqrt)
 #passes all tests so just go with it. 
 
 simulationOutput <- simulateResiduals(fittedModel = narea_1_sqrt)
-plotQQunif(narea_1_sqrt) 
+plot(simulationOutput) 
 ```
-
 
 
 ## NMass
@@ -231,43 +230,18 @@ check_model(mixed_models$nmass_mg_g)
 #passes all tests so just go with it. 
 
 simulationOutput <- simulateResiduals(fittedModel = mixed_models$nmass_mg_g)
-plotQQunif(mixed_models$nmass_mg_g) 
+plot(simulationOutput) 
 ```
 
-## Canopy Nitrogen Content
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as 
-#“the proportion of the variance explained by the grouping structure in the 
-#population”
-
-model_performance(mixed_models$totalleafmass_nmass)
-
-check_model(mixed_models$totalleafmass_nmass)
-
-```
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=12}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
-
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalleafmass_nmass)
-plotQQunif(mixed_models$totalleafmass_nmass) 
-```
-
-
-### BoxCox tranformation for Canopy Nitrogen Content
+### BoxCox tranformation for Nmass
 
 ```{r}
-boxcox(lm(totalleafmass_nmass ~  treatment * nfixer + init_height, 
+boxcox(lm(nmass_mg_g ~  treatment * nfixer + init_height, 
 		data = data_rate_change  ))
 ```
 
-
 ```{r}
-totalleafmass_nmass_sqrt <- lmer(sqrt(totalleafmass_nmass) ~  treatment * nfixer +
+nmass_sqrt <- lmer(sqrt(nmass_mg_g) ~  treatment * nfixer +
 								 	init_height + 
 								 	(1|spcode), 
 								 data = data_rate_change)
@@ -280,9 +254,9 @@ totalleafmass_nmass_sqrt <- lmer(sqrt(totalleafmass_nmass) ~  treatment * nfixer
 #“the proportion of the variance explained by the grouping structure in the 
 #population”
 
-model_performance(totalleafmass_nmass_sqrt)
+model_performance(nmass_sqrt)
 
-check_model(totalleafmass_nmass_sqrt)
+check_model(nmass_sqrt)
 
 
 ```
@@ -292,8 +266,8 @@ check_model(totalleafmass_nmass_sqrt)
 #passes all tests so just go with it. 
 
 simulationOutput <- 
-	simulateResiduals(fittedModel = totalleafmass_nmass_sqrt)
+	simulateResiduals(fittedModel = nmass_sqrt)
 
-plotQQunif(totalleafmass_nmass_sqrt) 
+plot(simulationOutput) 
 ```
 

@@ -1,7 +1,7 @@
 ---
-title: "Models for leaf traits"
+title: "(Q2) How does increased nutrient or water availability influence water- and nutrient-use traits? Leaf traits"
 author: "Mas o menos Lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 15
@@ -61,8 +61,9 @@ data_rate_change <-
 	#Order the columns
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  clean_names() 
-  
+	filter(!treatment == "Harvestatthebegging") %>% 
+	clean_names() 
+
 ```
 
 
@@ -84,7 +85,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[18:(ncol(data_rate_change)-1)]
+vars <- names(data_rate_change)[18:19]
 ```
 
 ```{r}
@@ -100,60 +101,25 @@ mixed_models <-  vars %>%
 
 ## d13c
 
-### ANOVA
-
 ```{r}
 Anova(mixed_models$d13c, type = "III",test="F")
 ```
 
 
-
-```{r}
-data_d13c_plot <- emmip(mixed_models$d13c, treatment ~ nfixer, 
-						CIs = TRUE)$data
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$d13c,
-                          pairwise ~ treatment | nfixer,
-                          type = "response", 
-                          adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-```{r}
-(plot_d13c <- 
-  masomenos_plot(data = data_d13c_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
-                 ucl = UCL, lcl = LCL) +
-   theme(legend.position = "none" ) + 
-    ylab("d13C"))
-```
-
 ## SLA
-
-### ANOVA
-
 ```{r}
 Anova(mixed_models$sla_cm2_g, type = "III",test="F")
 ```
 
 
 
-```{r}
-data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer, 
+```{r message=FALSE, warning=FALSE}
+data_sla_plot <- emmip(mixed_models$sla_cm2_g,  ~ treatment, 
 					   CIs = TRUE)$data
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$sla_cm2_g,
-                          pairwise ~ treatment | nfixer,
+                          pairwise ~ treatment,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
   
@@ -161,8 +127,7 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
+    dplyr::select(group1, group2,estimate,se,p_value)  %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -170,28 +135,34 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g, treatment ~ nfixer,
 ```{r}
 (plot_sla <- 
   masomenos_plot(data = data_sla_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar, 
                  ucl = UCL, lcl = LCL) +
    theme(legend.position = "none" ) + 
     ylab("SLA"))
 ```
 
-## NArea
-
-### ANOVA
+## 1/sqrt(NArea)
 
 ```{r}
-Anova(mixed_models$narea_g_m2, type = "III",test="F")
+narea_1_sqrt <- lmer((1/sqrt(narea_g_m2)) ~  treatment * nfixer +
+								 	init_height + 
+								 	(1|spcode), 
+								 data = data_rate_change)
 ```
 
 
 ```{r}
-data_narea_plot <- emmip(mixed_models$narea_g_m2, 
+Anova(narea_1_sqrt, type = "III",test="F")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+data_narea_plot <- emmip(narea_1_sqrt, 
                          treatment ~ nfixer, CIs = TRUE)$data
 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$narea_g_m2,
+    as.data.frame(emmeans(narea_1_sqrt,
                           pairwise ~ treatment | nfixer,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
@@ -201,7 +172,6 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
     dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -210,29 +180,37 @@ data_narea_plot <- emmip(mixed_models$narea_g_m2,
 (plot_narea <- 
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,
-                 ucl = UCL, lcl = LCL) +
-     ylab("Narea") +
+                 ucl = UCL, lcl = LCL ) +
+     ylab("narea_1_sqrt") +
      theme(legend.position = "none" ))
+
+```
+
+## sqrt(NMass)
+
+```{r}
+nmass_sqrt <- lmer(sqrt(nmass_mg_g) ~  treatment * nfixer +
+								 	init_height + 
+								 	(1|spcode), 
+								 data = data_rate_change)
 ```
 
 
-## NMass
-
-### ANOVA
 
 ```{r}
-Anova(mixed_models$nmass_mg_g, type = "III",test="F")
+Anova(nmass_sqrt, type = "III",test="F")
 ```
 
+### Treatment
 
-```{r}
-data_nmass_plot <- emmip(mixed_models$nmass_mg_g, 
-                         treatment ~ nfixer, 
+```{r message=FALSE, warning=FALSE}
+data_nmass_plot_treatment <- emmip(nmass_sqrt, 
+                          ~ treatment, 
                          CIs = TRUE)$data
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$nmass_mg_g,
-                          pairwise ~ treatment | nfixer,
+    as.data.frame(emmeans(nmass_sqrt,
+                          pairwise ~ treatment,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
   
@@ -240,7 +218,7 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -248,99 +226,29 @@ data_nmass_plot <- emmip(mixed_models$nmass_mg_g,
 
 ```{r}
 (plot_nmass <- 
-  masomenos_plot(data = data_nmass_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+  masomenos_plot(data = data_nmass_plot_treatment,xvar = xvar, yvar = yvar, 
+                 tvar = tvar,
                  ucl = UCL, lcl = LCL) +
     ylab("Nmass") +
     theme(legend.position = "none" ))
 ```
 
+### Nfixer
 
-## Canopy Nitrogen Content (this model was droped) 
-```{r}
-#Anova(mixed_models$totalleafmass_nmass, type = "III")
-```
-
-```{r}
-#data_leafmass_nmass_plot <- emmip(mixed_models$totalleafmass_nmass, treatment ~ nfixer,
-#CIs = TRUE)$data
-
-# Get by group comparitions
-#    as.data.frame(emmeans(mixed_models$totalleafmass_nmass,
-#                          pairwise ~ treatment | nfixer,
-#                          type = "response", 
-#                          adjust ="tukey")$contrast) %>% 
-  
-#    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-#    clean_names() %>% 
-#    mutate(group1 = factor(group1)) %>%
-#    mutate(group2 = factor(group2)) %>% 
-#    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-#	 filter(!group1 == "Harvestatthebegging") %>% 
-#    mutate(p_value = round(p_value, 20)) %>% 
-#    kable()
-```
-
-```{r}
-#(plot_totalleafmass_nmass <- 
-#  masomenos_plot(data = data_leafmass_nmass_plot,
-#                 xvar = xvar, yvar = yvar, 
-#                 tvar = tvar, color = treatment,
-#                 ucl = UCL, lcl = LCL) +
-  
-#   theme(legend.position = "right" ) + 
-#  ylab("Canopy Nitrogen Content (Total leaf mass * nmass)"))
-```
-
-
-## sqrt Canopy Nitrogen Content  (THis model was selected)
-```{r}
-#totalleafmass_nmass_sqrt <- 
-#	lmer(sqrt(totalleafmass_nmass) ~  treatment * nfixer +
-#								 	init_height + 
-#								 	(1|spcode), 
-#								 data = data_rate_change)
+```{r message=FALSE, warning=FALSE}
+data_nmass_plot_nfixer <- emmip(nmass_sqrt, 
+                        ~ nfixer, 
+                         CIs = TRUE)$data
 
 ```
 
-
 ```{r}
-#Anova(totalleafmass_nmass_sqrt, type = "III",test="F")
+(plot_nmass_nfixer <- 
+  masomenos_plot(data = data_nmass_plot_nfixer,
+  				xvar = xvar, yvar = yvar, 
+                 tvar = tvar,
+                 ucl = UCL, lcl = LCL) +
+    ylab("nmass_sqrt") +
+    theme(legend.position = "none" ))
 ```
-
-```{r}
-#data_leafmass_nmass_plot_sqrt <- emmip(totalleafmass_nmass_sqrt, 
-#									   treatment ~ nfixer, CIs = TRUE)$data
-
-# Get by group comparitions
-#    as.data.frame(emmeans(totalleafmass_nmass_sqrt,
-#                          pairwise ~ treatment | nfixer,
-#                          type = "response", 
-#                          adjust ="tukey")$contrast) %>% 
-  
-#    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-#    clean_names() %>% 
-#    mutate(group1 = factor(group1)) %>%
-#    mutate(group2 = factor(group2)) %>% 
-#    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-#    mutate(p_value = round(p_value, 20)) %>% 
-#    kable()
-```
-
-```{r}
-#(plot_totalleafmass_nmass_sqrt <- 
-#  masomenos_plot(data = data_leafmass_nmass_plot_sqrt,
-#                 xvar = xvar, yvar = yvar, 
-#                 tvar = tvar, color = treatment,
-#                 ucl = UCL, lcl = LCL) +
-  
-#   theme(legend.position = "right" ) + 
-#  ylab("sqrt(Canopy Nitrogen Content (Total leaf mass * nmass))"))
-
-
-```
-
-
-
 
