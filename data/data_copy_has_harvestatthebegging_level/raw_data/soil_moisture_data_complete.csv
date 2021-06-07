@@ -1,0 +1,1121 @@
+ID,sppcode,Treatment,Height (cm),Soil moisture meausrements (% water content) before watering,Soil moisture meausrements (% water content) after watering,Date day_month
+1,ec,Harvest at the begging ,18,-,-,31_08
+2,ec,Harvest at the begging ,18,-,-,31_08
+3,ec,Harvest at the begging ,13,-,-,31_08
+4,ec,Harvest at the begging ,22,-,-,31_08
+5,ec,ambient rain,17,31.5,21.9,31_08
+6,ec,ambient rain,25,25.8,25.4,31_08
+7,ec,ambient rain,14,26.5,25.8,31_08
+8,ec,ambient rain,16,29,22.5,31_08
+9,ec,ambient rain + water + nutrients,20.5,30.3,28.8,31_08
+10,ec,ambient rain + water + nutrients,21,32.8,28.8,31_08
+11,ec,ambient rain + water + nutrients,24,25.8,32.4,31_08
+12,ec,ambient rain + water + nutrients,25.5,20.8,28.5,31_08
+13,ec,ambient rain + water,20,27.9,31.2,31_08
+14,ec,ambient rain + water,20,31.4,33.6,31_08
+15,ec,ambient rain + water,23,22.4,25.6,31_08
+16,ec,ambient rain + water,24.5,30,29.0,31_08
+17,ec,ambient rain + nutrients,24.5,34.7,30.3,31_08
+18,ec,ambient rain + nutrients,13.5,28.2,29.0,31_08
+19,ec,ambient rain + nutrients,17,34.5,31.4,31_08
+20,ec,ambient rain + nutrients,22,29,31.8,31_08
+21,hc,Harvest at the begging ,21,-,-,31_08
+22,hc,Harvest at the begging ,36,-,-,31_08
+23,hc,Harvest at the begging ,33,-,-,31_08
+24,hc,Harvest at the begging ,32,-,-,31_08
+25,hc,ambient rain,29,24.5,11.4,31_08
+26,hc,ambient rain,26,26.2,20.0,31_08
+27,hc,ambient rain,32,38.6,32.0,31_08
+28,hc,ambient rain,19,29.2,26.0,31_08
+29,hc,ambient rain + water + nutrients,24,34.6,28.1,31_08
+30,hc,ambient rain + water + nutrients,25,36.7,33.8,31_08
+31,hc,ambient rain + water + nutrients,38,19.6,25.2,31_08
+32,hc,ambient rain + water + nutrients,32,17.2,24.2,31_08
+33,hc,ambient rain + water,32,19.6,32.8,31_08
+34,hc,ambient rain + water,28,37,20.6,31_08
+35,hc,ambient rain + water,26,20,33.4,31_08
+36,hc,ambient rain + water,27,27.4,37.2,31_08
+37,hc,ambient rain + nutrients,28,37.8,20.2,31_08
+38,hc,ambient rain + nutrients,31,24,23.4,31_08
+39,hc,ambient rain + nutrients,29,34.4,31.4,31_08
+40,hc,ambient rain + nutrients,27,31.7,18.3,31_08
+41,sg,Harvest at the begging ,11,-,-,31_08
+42,sg,Harvest at the begging ,9,-,-,31_08
+43,sg,Harvest at the begging ,12,-,-,31_08
+44,sg,Harvest at the begging ,12,-,-,31_08
+45,sg,ambient rain,9.5,29,22.5,31_08
+46,sg,ambient rain,7,43.6,37.4,31_08
+47,sg,ambient rain,8.5,39.2,32.6,31_08
+48,sg,ambient rain,13,31.8,27.4,31_08
+49,sg,ambient rain + water + nutrients,9,30,33.0,31_08
+50,sg,ambient rain + water + nutrients,8,30.6,32.8,31_08
+51,sg,ambient rain + water + nutrients,10,35.1,28.9,31_08
+52,sg,ambient rain + water + nutrients,11.5,29.4,35.6,31_08
+53,sg,ambient rain + water,10,36.2,38.2,31_08
+54,sg,ambient rain + water,7.5,40.6,35.9,31_08
+55,sg,ambient rain + water,11,30.8,33.6,31_08
+56,sg,ambient rain + water,10,27.2,37.8,31_08
+57,sg,ambient rain + nutrients,11,30.4,14.7,31_08
+58,sg,ambient rain + nutrients,6.5,40.6,34.8,31_08
+59,sg,ambient rain + nutrients,8.5,31.1,29.4,31_08
+60,sg,ambient rain + nutrients,11,33.8,27.9,31_08
+61,sm,Harvest at the begging ,15.5,-,-,31_08
+62,sm,Harvest at the begging ,18,-,-,31_08
+63,sm,Harvest at the begging ,22.5,-,-,31_08
+64,sm,Harvest at the begging ,18.5,-,-,31_08
+65,sm,ambient rain,16,36.8,27.8,31_08
+66,sm,ambient rain,20,28.9,27.1,31_08
+67,sm,ambient rain,19.5,39.8,32.2,31_08
+68,sm,ambient rain,23,39.7,34.2,31_08
+69,sm,ambient rain + water + nutrients,16.5,35.6,35.0,31_08
+70,sm,ambient rain + water + nutrients,12.5,41.8,38.2,31_08
+71,sm,ambient rain + water + nutrients,18,30,35.8,31_08
+72,sm,ambient rain + water + nutrients,14,45.4,35.8,31_08
+73,sm,ambient rain + water,14,39.8,33.2,31_08
+74,sm,ambient rain + water,17,26.1,31.7,31_08
+75,sm,ambient rain + water,16,32.8,37.8,31_08
+76,sm,ambient rain + water,20.5,19,28.8,31_08
+77,sm,ambient rain + nutrients,7,33,29.0,31_08
+78,sm,ambient rain + nutrients,19,35.2,31.3,31_08
+79,sm,ambient rain + nutrients,15,24.4,27.0,31_08
+80,sm,ambient rain + nutrients,15.5,16,13.6,31_08
+81,pq,Harvest at the begging ,8,-,-,31_08
+82,pq,Harvest at the begging ,10,-,-,31_08
+83,pq,Harvest at the begging ,11,-,-,31_08
+84,pq,Harvest at the begging ,8.5,-,-,31_08
+85,pq,ambient rain,9,30.2,25.8,31_08
+86,pq,ambient rain,10,30,23.4,31_08
+87,pq,ambient rain,8,37.6,29.5,31_08
+88,pq,ambient rain,9.5,32.2,27.9,31_08
+89,pq,ambient rain + water + nutrients,8.5,31.9,36.0,31_08
+90,pq,ambient rain + water + nutrients,10.5,33,32.6,31_08
+91,pq,ambient rain + water + nutrients,12,20.1,30.7,31_08
+92,pq,ambient rain + water + nutrients,13,38.6,30.4,31_08
+93,pq,ambient rain + water,11.5,31.2,29.3,31_08
+94,pq,ambient rain + water,8,35,25.2,31_08
+95,pq,ambient rain + water,9.5,34.6,44.4,31_08
+96,pq,ambient rain + water,12,31.4,34.0,31_08
+97,pq,ambient rain + nutrients,10.5,38,24.0,31_08
+98,pq,ambient rain + nutrients,7.5,33.3,33.3,31_08
+99,pq,ambient rain + nutrients,7.5,32.8,32.5,31_08
+100,pq,ambient rain + nutrients,9,30.5,27.8,31_08
+101,gs,Harvest at the begging ,16,-,-,31_08
+102,gs,Harvest at the begging ,19.5,-,-,31_08
+103,gs,Harvest at the begging ,23,-,-,31_08
+104,gs,Harvest at the begging ,20.5,-,-,31_08
+105,gs,ambient rain,12.5,27.6,18.6,31_08
+106,gs,ambient rain,13,36.4,24.8,31_08
+107,gs,ambient rain,20,35.8,27.7,31_08
+108,gs,ambient rain,19,28.4,22.0,31_08
+109,gs,ambient rain + water + nutrients,17.5,29,30.0,31_08
+110,gs,ambient rain + water + nutrients,17.5,29,29.4,31_08
+111,gs,ambient rain + water + nutrients,16.5,28.8,28.0,31_08
+112,gs,ambient rain + water + nutrients,14.5,30.9,39.0,31_08
+113,gs,ambient rain + water,15.5,38.1,27.8,31_08
+114,gs,ambient rain + water,16,40.5,35.0,31_08
+115,gs,ambient rain + water,15.5,27.3,28.2,31_08
+116,gs,ambient rain + water,10.5,21.6,27.6,31_08
+117,gs,ambient rain + nutrients,12.5,20.7,14.6,31_08
+118,gs,ambient rain + nutrients,17.5,24.1,13.4,31_08
+119,gs,ambient rain + nutrients,13.5,17.1,8.9,31_08
+120,gs,ambient rain + nutrients,21,18.3,6.4,31_08
+121,dt,Harvest at the begging ,9.5,-,-,31_08
+122,dt,Harvest at the begging ,5.5,-,-,31_08
+123,dt,Harvest at the begging ,9.5,-,-,31_08
+124,dt,Harvest at the begging ,9,-,-,31_08
+125,dt,ambient rain,9.5,38.6,33.3,31_08
+126,dt,ambient rain,11.5,40.2,29.7,31_08
+127,dt,ambient rain,11,38.8,35.4,31_08
+128,dt,ambient rain,11,39.6,31.4,31_08
+129,dt,ambient rain + water + nutrients,11,39.3,39.2,31_08
+130,dt,ambient rain + water + nutrients,8.5,41.4,32.4,31_08
+131,dt,ambient rain + water + nutrients,10,38,28.6,31_08
+132,dt,ambient rain + water + nutrients,12.5,29,32.8,31_08
+133,dt,ambient rain + water,10,37.4,22.3,31_08
+134,dt,ambient rain + water,7,35.8,33.4,31_08
+135,dt,ambient rain + water,9,38.3,28.3,31_08
+136,dt,ambient rain + water,9.5,39.7,27.2,31_08
+137,dt,ambient rain + nutrients,10.5,42.2,29.8,31_08
+138,dt,ambient rain + nutrients,8.5,42.4,29.0,31_08
+139,dt,ambient rain + nutrients,11,34.2,28.9,31_08
+140,dt,ambient rain + nutrients,9.5,31.1,28.2,31_08
+141,to,Harvest at the begging ,4,-,-,31_08
+142,to,Harvest at the begging ,6.5,-,-,31_08
+143,to,Harvest at the begging ,4.5,-,-,31_08
+144,to,Harvest at the begging ,7.5,-,-,31_08
+145,to,ambient rain,5,35.8,28.8,31_08
+146,to,ambient rain,6,42.1,25.1,31_08
+147,to,ambient rain,5,35.2,24.2,31_08
+148,to,ambient rain,3,38.8,35.4,31_08
+149,to,ambient rain + water + nutrients,5,30.8,23.0,31_08
+150,to,ambient rain + water + nutrients,6,39.6,30.0,31_08
+151,to,ambient rain + water + nutrients,4.5,33.4,24.5,31_08
+152,to,ambient rain + water + nutrients,6,34.6,31.0,31_08
+153,to,ambient rain + water,7.5,42,32.1,31_08
+154,to,ambient rain + water,6,36.3,25.0,31_08
+155,to,ambient rain + water,6,31.1,33.5,31_08
+156,to,ambient rain + water,4.5,30.4,26.7,31_08
+157,to,ambient rain + nutrients,4.5,35.4,31.2,31_08
+158,to,ambient rain + nutrients,5,30.2,26.4,31_08
+159,to,ambient rain + nutrients,4.5,30.2,30.8,31_08
+160,to,ambient rain + nutrients,5,32,18.2,31_08
+1,ec,Harvest at the begging ,-,-,-,19_09
+2,ec,Harvest at the begging ,-,-,-,19_09
+3,ec,Harvest at the begging ,-,-,-,19_09
+4,ec,Harvest at the begging ,-,-,-,19_09
+5,ec,ambient rain,22.5,27.4,24.2,19_09
+6,ec,ambient rain,28,24.6,24.1,19_09
+7,ec,ambient rain,17.5,19.6,20.4,19_09
+8,ec,ambient rain,19.5,23.4,21.1,19_09
+9,ec,ambient rain + water + nutrients,22.5,29,44,19_09
+10,ec,ambient rain + water + nutrients,25.5,24.8,41.9,19_09
+11,ec,ambient rain + water + nutrients,26,25.2,37.6,19_09
+12,ec,ambient rain + water + nutrients,30.5,17.6,28.6,19_09
+13,ec,ambient rain + water,22.5,28,46.9,19_09
+14,ec,ambient rain + water,26,25.4,37.1,19_09
+15,ec,ambient rain + water,28,28.8,51,19_09
+16,ec,ambient rain + water,27.5,26.7,37.8,19_09
+17,ec,ambient rain + nutrients,31,8.5,11.5,19_09
+18,ec,ambient rain + nutrients,16,31.6,32.7,19_09
+19,ec,ambient rain + nutrients,23.5,22.8,23.9,19_09
+20,ec,ambient rain + nutrients,28,24.6,26.7,19_09
+21,hc,Harvest at the begging ,-,-,-,19_09
+22,hc,Harvest at the begging ,-,-,-,19_09
+23,hc,Harvest at the begging ,-,-,-,19_09
+24,hc,Harvest at the begging ,-,-,-,19_09
+25,hc,ambient rain,34.5,12.3,11.9,19_09
+26,hc,ambient rain,31,7.9,8.6,19_09
+27,hc,ambient rain,39,20.8,21.4,19_09
+28,hc,ambient rain,25,9.6,9.6,19_09
+29,hc,ambient rain + water + nutrients,25,21.4,41.9,19_09
+30,hc,ambient rain + water + nutrients,27.5,22,44.2,19_09
+31,hc,ambient rain + water + nutrients,41,5.5,24.2,19_09
+32,hc,ambient rain + water + nutrients,36,10.2,23.9,19_09
+33,hc,ambient rain + water,41,12.8,29,19_09
+34,hc,ambient rain + water,28,17,34.2,19_09
+35,hc,ambient rain + water,34,7.8,26.2,19_09
+36,hc,ambient rain + water,32,21,36.4,19_09
+37,hc,ambient rain + nutrients,37,26.2,26.6,19_09
+38,hc,ambient rain + nutrients,39,14.1,15.2,19_09
+39,hc,ambient rain + nutrients,35,19.6,21.4,19_09
+40,hc,ambient rain + nutrients,31,13.8,18.1,19_09
+41,sg,Harvest at the begging ,-,-,-,19_09
+42,sg,Harvest at the begging ,-,-,-,19_09
+43,sg,Harvest at the begging ,-,-,-,19_09
+44,sg,Harvest at the begging ,-,-,-,19_09
+45,sg,ambient rain,10.5,19.6,25.4,19_09
+46,sg,ambient rain,7.5,29.1,28,19_09
+47,sg,ambient rain,9.5,36.4,34.6,19_09
+48,sg,ambient rain,13,27.7,20.6,19_09
+49,sg,ambient rain + water + nutrients,10,25.4,35,19_09
+50,sg,ambient rain + water + nutrients,9.5,33.2,46,19_09
+51,sg,ambient rain + water + nutrients,10.5,33.3,43.8,19_09
+52,sg,ambient rain + water + nutrients,12,31.6,46.8,19_09
+53,sg,ambient rain + water,11.5,36.8,44.5,19_09
+54,sg,ambient rain + water,9,29.2,44.1,19_09
+55,sg,ambient rain + water,11,29,41.3,19_09
+56,sg,ambient rain + water,10.5,33.6,44,19_09
+57,sg,ambient rain + nutrients,12.5,27.2,26.9,19_09
+58,sg,ambient rain + nutrients,8,31.4,36,19_09
+59,sg,ambient rain + nutrients,10,29,30.2,19_09
+60,sg,ambient rain + nutrients,11,31.8,31.1,19_09
+61,sm,Harvest at the begging ,-,-,-,19_09
+62,sm,Harvest at the begging ,-,-,-,19_09
+63,sm,Harvest at the begging ,-,-,-,19_09
+64,sm,Harvest at the begging ,-,-,-,19_09
+65,sm,ambient rain,16,14.2,12.2,19_09
+66,sm,ambient rain,20,23.4,26.7,19_09
+67,sm,ambient rain,20.5,12.6,13.4,19_09
+68,sm,ambient rain,24,12.2,10.8,19_09
+69,sm,ambient rain + water + nutrients,17,11.6,32.6,19_09
+70,sm,ambient rain + water + nutrients,13.5,31.1,48,19_09
+71,sm,ambient rain + water + nutrients,19,10.8,35.5,19_09
+72,sm,ambient rain + water + nutrients,16.5,15.2,37,19_09
+73,sm,ambient rain + water,15.5,10.7,34.2,19_09
+74,sm,ambient rain + water,18,8.6,30.2,19_09
+75,sm,ambient rain + water,18.5,7.3,27.8,19_09
+76,sm,ambient rain + water,21,6.7,26.4,19_09
+77,sm,ambient rain + nutrients,8,26.2,28.8,19_09
+78,sm,ambient rain + nutrients,20,16.2,18.8,19_09
+79,sm,ambient rain + nutrients,16,15.4,21.8,19_09
+80,sm,ambient rain + nutrients,15.5,8.4,13.2,19_09
+81,pq,Harvest at the begging ,-,-,-,19_09
+82,pq,Harvest at the begging ,-,-,-,19_09
+83,pq,Harvest at the begging ,-,-,-,19_09
+84,pq,Harvest at the begging ,-,-,-,19_09
+85,pq,ambient rain,9.5,28.6,28,19_09
+86,pq,ambient rain,11.5,26.6,25,19_09
+87,pq,ambient rain,9,23.8,24.4,19_09
+88,pq,ambient rain,9.5,24.4,25.6,19_09
+89,pq,ambient rain + water + nutrients,11.5,20.7,34.2,19_09
+90,pq,ambient rain + water + nutrients,12.5,22,33.2,19_09
+91,pq,ambient rain + water + nutrients,13.5,18.6,32.6,19_09
+92,pq,ambient rain + water + nutrients,16.5,29.4,44.1,19_09
+93,pq,ambient rain + water,12.5,25.8,38,19_09
+94,pq,ambient rain + water,9.5,23.6,37.4,19_09
+95,pq,ambient rain + water,9.5,31.2,40.6,19_09
+96,pq,ambient rain + water,12,34,47.2,19_09
+97,pq,ambient rain + nutrients,11.5,35,35,19_09
+98,pq,ambient rain + nutrients,7.5,27.4,26,19_09
+99,pq,ambient rain + nutrients,8,28,30.2,19_09
+100,pq,ambient rain + nutrients,12,28.4,28.5,19_09
+101,gs,Harvest at the begging ,-,-,-,19_09
+102,gs,Harvest at the begging ,-,-,-,19_09
+103,gs,Harvest at the begging ,-,-,-,19_09
+104,gs,Harvest at the begging ,-,-,-,19_09
+105,gs,ambient rain,14.5,7.5,6.6,19_09
+106,gs,ambient rain,13.5,24.1,22.2,19_09
+107,gs,ambient rain,22,7,6.5,19_09
+108,gs,ambient rain,19,7.6,6.8,19_09
+109,gs,ambient rain + water + nutrients,22,7.4,29.9,19_09
+110,gs,ambient rain + water + nutrients,21,6.5,30.1,19_09
+111,gs,ambient rain + water + nutrients,19,4.8,29.6,19_09
+112,gs,ambient rain + water + nutrients,18,5.4,30.6,19_09
+113,gs,ambient rain + water,19.5,7.6,28.8,19_09
+114,gs,ambient rain + water,17.5,15.2,35.7,19_09
+115,gs,ambient rain + water,18,5,31.4,19_09
+116,gs,ambient rain + water,12,5,26.6,19_09
+117,gs,ambient rain + nutrients,15,5.2,11.9,19_09
+118,gs,ambient rain + nutrients,21,7,9,19_09
+119,gs,ambient rain + nutrients,16,5.9,10.2,19_09
+120,gs,ambient rain + nutrients,23,6.2,12,19_09
+121,dt,Harvest at the begging ,-,-,-,19_09
+122,dt,Harvest at the begging ,-,-,-,19_09
+123,dt,Harvest at the begging ,-,-,-,19_09
+124,dt,Harvest at the begging ,-,-,-,19_09
+125,dt,ambient rain,11.5,33.7,35.5,19_09
+126,dt,ambient rain,16.5,15.8,14.2,19_09
+127,dt,ambient rain,19,21.6,18.7,19_09
+128,dt,ambient rain,15,37,36.2,19_09
+129,dt,ambient rain + water + nutrients,18.5,26.6,39.6,19_09
+130,dt,ambient rain + water + nutrients,16,27.5,44.4,19_09
+131,dt,ambient rain + water + nutrients,21,22.8,46.6,19_09
+132,dt,ambient rain + water + nutrients,19.5,24.4,41,19_09
+133,dt,ambient rain + water,15,26,44.8,19_09
+134,dt,ambient rain + water,12,19.3,29.9,19_09
+135,dt,ambient rain + water,16.5,25,34.1,19_09
+136,dt,ambient rain + water,14,29.2,45.5,19_09
+137,dt,ambient rain + nutrients,26.5,23.4,23.6,19_09
+138,dt,ambient rain + nutrients,17.5,21,23.5,19_09
+139,dt,ambient rain + nutrients,19.5,19.8,22.6,19_09
+140,dt,ambient rain + nutrients,20,21.2,22.2,19_09
+141,to,Harvest at the begging ,-,-,-,19_09
+142,to,Harvest at the begging ,-,-,-,19_09
+143,to,Harvest at the begging ,-,-,-,19_09
+144,to,Harvest at the begging ,-,-,-,19_09
+145,to,ambient rain,7.5,33.8,33.2,19_09
+146,to,ambient rain,7,29,29.6,19_09
+147,to,ambient rain,6.5,28.4,31,19_09
+148,to,ambient rain,5,35.3,33.8,19_09
+149,to,ambient rain + water + nutrients,8,24.8,37.9,19_09
+150,to,ambient rain + water + nutrients,7.5,32.2,44,19_09
+151,to,ambient rain + water + nutrients,6.5,29.3,40.6,19_09
+152,to,ambient rain + water + nutrients,7.5,29.8,37.2,19_09
+153,to,ambient rain + water,9,32.2,42,19_09
+154,to,ambient rain + water,7,36.1,45.4,19_09
+155,to,ambient rain + water,6.5,31.4,45,19_09
+156,to,ambient rain + water,6.5,26.7,42.8,19_09
+157,to,ambient rain + nutrients,6.5,25.6,27,19_09
+158,to,ambient rain + nutrients,8.5,19.4,23.3,19_09
+159,to,ambient rain + nutrients,7.5,25.3,30,19_09
+160,to,ambient rain + nutrients,8,18.9,21.4,19_09
+1,ec,Harvest at the begging ,-,-,-,4_10
+2,ec,Harvest at the begging ,-,-,-,4_10
+3,ec,Harvest at the begging ,-,-,-,4_10
+4,ec,Harvest at the begging ,-,-,-,4_10
+5,ec,ambient rain,25,22.2,17.4,4_10
+6,ec,ambient rain,33,16.4,11.6,4_10
+7,ec,ambient rain,23,15.2,15.1,4_10
+8,ec,ambient rain,22.5,18.6,13.1,4_10
+9,ec,ambient rain + water + nutrients,29.5,22.2,34.2,4_10
+10,ec,ambient rain + water + nutrients,32.5,19.4,31.4,4_10
+11,ec,ambient rain + water + nutrients,30,10.6,24.5,4_10
+12,ec,ambient rain + water + nutrients,44.5,13.6,28,4_10
+13,ec,ambient rain + water,27,24.1,33.3,4_10
+14,ec,ambient rain + water,35.5,18,30.6,4_10
+15,ec,ambient rain + water,32,26.7,36.9,4_10
+16,ec,ambient rain + water,33,15.4,30.2,4_10
+17,ec,ambient rain + nutrients,43,4.5,7.8,4_10
+18,ec,ambient rain + nutrients,21.5,17.2,17.6,4_10
+19,ec,ambient rain + nutrients,35.5,13,16.6,4_10
+20,ec,ambient rain + nutrients,34.5,16.4,18.5,4_10
+21,hc,Harvest at the begging ,-,-,-,4_10
+22,hc,Harvest at the begging ,-,-,-,4_10
+23,hc,Harvest at the begging ,-,-,-,4_10
+24,hc,Harvest at the begging ,-,-,-,4_10
+25,hc,ambient rain,37.5,12.3,10.8,4_10
+26,hc,ambient rain,35.5,9,7.6,4_10
+27,hc,ambient rain,43.5,18.3,18.6,4_10
+28,hc,ambient rain,29.5,15.2,13,4_10
+29,hc,ambient rain + water + nutrients,28,23.8,40.8,4_10
+30,hc,ambient rain + water + nutrients,29.5,17.4,34.9,4_10
+31,hc,ambient rain + water + nutrients,45,12.6,28,4_10
+32,hc,ambient rain + water + nutrients,40,7.7,31.4,4_10
+33,hc,ambient rain + water,47,13,28.6,4_10
+34,hc,ambient rain + water,36,15.6,32.4,4_10
+35,hc,ambient rain + water,37,13.1,28.2,4_10
+36,hc,ambient rain + water,38.5,17.5,33.9,4_10
+37,hc,ambient rain + nutrients,43.5,17.6,19.2,4_10
+38,hc,ambient rain + nutrients,44,9,12.8,4_10
+39,hc,ambient rain + nutrients,38.5,17.2,19.5,4_10
+40,hc,ambient rain + nutrients,31,20.6,20,4_10
+41,sg,Harvest at the begging ,-,-,-,4_10
+42,sg,Harvest at the begging ,-,-,-,4_10
+43,sg,Harvest at the begging ,-,-,-,4_10
+44,sg,Harvest at the begging ,-,-,-,4_10
+45,sg,ambient rain,11,19.9,16.4,4_10
+46,sg,ambient rain,8,18.6,15.6,4_10
+47,sg,ambient rain,10,30.2,26.6,4_10
+48,sg,ambient rain,13,24,16.4,4_10
+49,sg,ambient rain + water + nutrients,10.5,16.6,35.8,4_10
+50,sg,ambient rain + water + nutrients,11,22.8,35.8,4_10
+51,sg,ambient rain + water + nutrients,11.5,20.4,32.8,4_10
+52,sg,ambient rain + water + nutrients,13,25.4,38,4_10
+53,sg,ambient rain + water,12,29.2,40.8,4_10
+54,sg,ambient rain + water,10,20.9,35.8,4_10
+55,sg,ambient rain + water,11,19.8,29.8,4_10
+56,sg,ambient rain + water,11,19.2,37.2,4_10
+57,sg,ambient rain + nutrients,12.5,20.6,21,4_10
+58,sg,ambient rain + nutrients,9.5,20.8,21.8,4_10
+59,sg,ambient rain + nutrients,11,17.5,18.8,4_10
+60,sg,ambient rain + nutrients,11,17.2,18,4_10
+61,sm,Harvest at the begging ,-,-,-,4_10
+62,sm,Harvest at the begging ,-,-,-,4_10
+63,sm,Harvest at the begging ,-,-,-,4_10
+64,sm,Harvest at the begging ,-,-,-,4_10
+65,sm,ambient rain,16,18.2,16,4_10
+66,sm,ambient rain,21.5,19.2,13.4,4_10
+67,sm,ambient rain,20.5,13.8,12.8,4_10
+68,sm,ambient rain,24,13.6,10.8,4_10
+69,sm,ambient rain + water + nutrients,19.5,10,30.6,4_10
+70,sm,ambient rain + water + nutrients,15.5,18.8,41,4_10
+71,sm,ambient rain + water + nutrients,20,15.6,35.8,4_10
+72,sm,ambient rain + water + nutrients,17.5,14.6,34.9,4_10
+73,sm,ambient rain + water,17,12.4,34.4,4_10
+74,sm,ambient rain + water,18.5,13.2,29.2,4_10
+75,sm,ambient rain + water,19.5,7,29.6,4_10
+76,sm,ambient rain + water,22,6.8,27.2,4_10
+77,sm,ambient rain + nutrients,10,14,17,4_10
+78,sm,ambient rain + nutrients,20.5,13,15.3,4_10
+79,sm,ambient rain + nutrients,16.5,17.4,18.8,4_10
+80,sm,ambient rain + nutrients,16,7.1,10.2,4_10
+81,pq,Harvest at the begging ,-,-,-,4_10
+82,pq,Harvest at the begging ,-,-,-,4_10
+83,pq,Harvest at the begging ,-,-,-,4_10
+84,pq,Harvest at the begging ,-,-,-,4_10
+85,pq,ambient rain,11,20.2,20.4,4_10
+86,pq,ambient rain,15.5,18.2,16.9,4_10
+87,pq,ambient rain,13,21.2,19,4_10
+88,pq,ambient rain,11.5,22.6,18.8,4_10
+89,pq,ambient rain + water + nutrients,14.5,18.8,33.8,4_10
+90,pq,ambient rain + water + nutrients,14.5,19.2,36.1,4_10
+91,pq,ambient rain + water + nutrients,15.5,17,31.2,4_10
+92,pq,ambient rain + water + nutrients,19.5,13.3,32.8,4_10
+93,pq,ambient rain + water,12.5,20.7,29.4,4_10
+94,pq,ambient rain + water,10,19.7,33.2,4_10
+95,pq,ambient rain + water,9.5,28.2,37.2,4_10
+96,pq,ambient rain + water,13.5,32,40.2,4_10
+97,pq,ambient rain + nutrients,13.5,26.2,24.2,4_10
+98,pq,ambient rain + nutrients,7.5,25,24.7,4_10
+99,pq,ambient rain + nutrients,9,22,23.8,4_10
+100,pq,ambient rain + nutrients,13,21.4,21.4,4_10
+101,gs,Harvest at the begging ,-,-,-,4_10
+102,gs,Harvest at the begging ,-,-,-,4_10
+103,gs,Harvest at the begging ,-,-,-,4_10
+104,gs,Harvest at the begging ,-,-,-,4_10
+105,gs,ambient rain,18,8.3,5.2,4_10
+106,gs,ambient rain,14.5,15.7,11.4,4_10
+107,gs,ambient rain,24.5,7.2,5.9,4_10
+108,gs,ambient rain,19.5,18.6,8.2,4_10
+109,gs,ambient rain + water + nutrients,28.5,5,31,4_10
+110,gs,ambient rain + water + nutrients,25,6.4,28.8,4_10
+111,gs,ambient rain + water + nutrients,25.5,5.2,29,4_10
+112,gs,ambient rain + water + nutrients,25,6.1,29.7,4_10
+113,gs,ambient rain + water,24,8.7,30.8,4_10
+114,gs,ambient rain + water,20.5,11.7,30.4,4_10
+115,gs,ambient rain + water,22,8.3,31,4_10
+116,gs,ambient rain + water,14.5,6.2,24.8,4_10
+117,gs,ambient rain + nutrients,17,5.7,8.4,4_10
+118,gs,ambient rain + nutrients,26,4.9,6.8,4_10
+119,gs,ambient rain + nutrients,19,2,4.5,4_10
+120,gs,ambient rain + nutrients,27.5,4.4,8.2,4_10
+121,dt,Harvest at the begging ,-,-,-,4_10
+122,dt,Harvest at the begging ,-,-,-,4_10
+123,dt,Harvest at the begging ,-,-,-,4_10
+124,dt,Harvest at the begging ,-,-,-,4_10
+125,dt,ambient rain,13,28.5,22.4,4_10
+126,dt,ambient rain,21,13,9.8,4_10
+127,dt,ambient rain,28,10.6,6.2,4_10
+128,dt,ambient rain,17,24.4,19.6,4_10
+129,dt,ambient rain + water + nutrients,29.5,8.8,32.9,4_10
+130,dt,ambient rain + water + nutrients,23,7.9,28.1,4_10
+131,dt,ambient rain + water + nutrients,28.5,9.2,31.8,4_10
+132,dt,ambient rain + water + nutrients,27,15,31,4_10
+133,dt,ambient rain + water,22,18.6,32.8,4_10
+134,dt,ambient rain + water,16,7.5,25.6,4_10
+135,dt,ambient rain + water,20.5,10.9,28.8,4_10
+136,dt,ambient rain + water,19.5,14,30.6,4_10
+137,dt,ambient rain + nutrients,30,5.4,8.7,4_10
+138,dt,ambient rain + nutrients,26,6.6,7.4,4_10
+139,dt,ambient rain + nutrients,24,6.8,11.8,4_10
+140,dt,ambient rain + nutrients,28,6.2,9.4,4_10
+141,to,Harvest at the begging ,-,-,-,4_10
+142,to,Harvest at the begging ,-,-,-,4_10
+143,to,Harvest at the begging ,-,-,-,4_10
+144,to,Harvest at the begging ,-,-,-,4_10
+145,to,ambient rain,7.5,24.8,22.6,4_10
+146,to,ambient rain,7,24.3,21.6,4_10
+147,to,ambient rain,6.5,25.3,24.2,4_10
+148,to,ambient rain,6,26,23.7,4_10
+149,to,ambient rain + water + nutrients,9.5,20.3,32,4_10
+150,to,ambient rain + water + nutrients,8,25,38.2,4_10
+151,to,ambient rain + water + nutrients,7.5,21.6,36.3,4_10
+152,to,ambient rain + water + nutrients,8.5,21.9,29.4,4_10
+153,to,ambient rain + water,9,29.2,40.4,4_10
+154,to,ambient rain + water,7,29.2,44.6,4_10
+155,to,ambient rain + water,6.5,22.8,33.6,4_10
+156,to,ambient rain + water,7.5,26.3,35.4,4_10
+157,to,ambient rain + nutrients,6.5,18,18.8,4_10
+158,to,ambient rain + nutrients,9,16.2,18.3,4_10
+159,to,ambient rain + nutrients,8.5,17.6,18.6,4_10
+160,to,ambient rain + nutrients,11.5,16.8,16.2,4_10
+1,ec,Harvest at the begging ,-,-,-,17_10
+2,ec,Harvest at the begging ,-,-,-,17_10
+3,ec,Harvest at the begging ,-,-,-,17_10
+4,ec,Harvest at the begging ,-,-,-,17_10
+5,ec,ambient rain,30.5,33,26.8,17_10
+6,ec,ambient rain,39.5,26.5,24.6,17_10
+7,ec,ambient rain,28,23.7,23.6,17_10
+8,ec,ambient rain,24.5,25.7,24.2,17_10
+9,ec,ambient rain + water + nutrients,35.5,33,46.6,17_10
+10,ec,ambient rain + water + nutrients,40,35.2,40,17_10
+11,ec,ambient rain + water + nutrients,35,27,31.4,17_10
+12,ec,ambient rain + water + nutrients,53.5,24.8,36.4,17_10
+13,ec,ambient rain + water,33,36.5,47.1,17_10
+14,ec,ambient rain + water,44,34.4,36.6,17_10
+15,ec,ambient rain + water,39,34.7,38.9,17_10
+16,ec,ambient rain + water,40.5,34.6,34.2,17_10
+17,ec,ambient rain + nutrients,47.5,25.8,22.5,17_10
+18,ec,ambient rain + nutrients,24,32.4,32.8,17_10
+19,ec,ambient rain + nutrients,42,29.2,29.6,17_10
+20,ec,ambient rain + nutrients,43.5,30.2,29.5,17_10
+21,hc,Harvest at the begging ,-,-,-,17_10
+22,hc,Harvest at the begging ,-,-,-,17_10
+23,hc,Harvest at the begging ,-,-,-,17_10
+24,hc,Harvest at the begging ,-,-,-,17_10
+25,hc,ambient rain,39,29.7,28.6,17_10
+26,hc,ambient rain,36,23.2,22.6,17_10
+27,hc,ambient rain,43.5,36,26.5,17_10
+28,hc,ambient rain,29.5,24.4,22,17_10
+29,hc,ambient rain + water + nutrients,30,30.8,45.5,17_10
+30,hc,ambient rain + water + nutrients,35.5,39,43.4,17_10
+31,hc,ambient rain + water + nutrients,49.5,30.4,38.1,17_10
+32,hc,ambient rain + water + nutrients,40,29.3,40.3,17_10
+33,hc,ambient rain + water,47,33.2,38,17_10
+34,hc,ambient rain + water,39,32.9,43.8,17_10
+35,hc,ambient rain + water,39,30.2,39.8,17_10
+36,hc,ambient rain + water,39,33.2,42.2,17_10
+37,hc,ambient rain + nutrients,46,36.8,36.4,17_10
+38,hc,ambient rain + nutrients,44,28.8,27.6,17_10
+39,hc,ambient rain + nutrients,41,32.6,33.1,17_10
+40,hc,ambient rain + nutrients,31,36.2,34,17_10
+41,sg,Harvest at the begging ,-,-,-,17_10
+42,sg,Harvest at the begging ,-,-,-,17_10
+43,sg,Harvest at the begging ,-,-,-,17_10
+44,sg,Harvest at the begging ,-,-,-,17_10
+45,sg,ambient rain,11,28.4,36.2,17_10
+46,sg,ambient rain,8,41.6,35.8,17_10
+47,sg,ambient rain,10,41,38.4,17_10
+48,sg,ambient rain,13,36.6,35.5,17_10
+49,sg,ambient rain + water + nutrients,11,40.6,41,17_10
+50,sg,ambient rain + water + nutrients,11.5,34.9,45,17_10
+51,sg,ambient rain + water + nutrients,11.5,37.6,38,17_10
+52,sg,ambient rain + water + nutrients,13,38.9,46.9,17_10
+53,sg,ambient rain + water,12,44.6,41.8,17_10
+54,sg,ambient rain + water,10.5,36.4,44,17_10
+55,sg,ambient rain + water,11.5,36.2,39.6,17_10
+56,sg,ambient rain + water,11,39,46.4,17_10
+57,sg,ambient rain + nutrients,12.5,36.9,30.4,17_10
+58,sg,ambient rain + nutrients,9.5,40.7,39.2,17_10
+59,sg,ambient rain + nutrients,12,41.2,39.4,17_10
+60,sg,ambient rain + nutrients,11,38,32.3,17_10
+61,sm,Harvest at the begging ,-,-,-,17_10
+62,sm,Harvest at the begging ,-,-,-,17_10
+63,sm,Harvest at the begging ,-,-,-,17_10
+64,sm,Harvest at the begging ,-,-,-,17_10
+65,sm,ambient rain,16.5,27,25.5,17_10
+66,sm,ambient rain,22,33,33.5,17_10
+67,sm,ambient rain,21.5,27.2,24.8,17_10
+68,sm,ambient rain,24.5,25,23.6,17_10
+69,sm,ambient rain + water + nutrients,20,31,36,17_10
+70,sm,ambient rain + water + nutrients,15.5,39.3,43,17_10
+71,sm,ambient rain + water + nutrients,20,25.2,36.9,17_10
+72,sm,ambient rain + water + nutrients,17.5,37.2,42.6,17_10
+73,sm,ambient rain + water,17,14.4,32.3,17_10
+74,sm,ambient rain + water,19,24.3,41,17_10
+75,sm,ambient rain + water,20,17.8,33,17_10
+76,sm,ambient rain + water,22.5,33.4,36.4,17_10
+77,sm,ambient rain + nutrients,10.5,34.9,34.5,17_10
+78,sm,ambient rain + nutrients,21,37,36.3,17_10
+79,sm,ambient rain + nutrients,16.5,31.3,33.2,17_10
+80,sm,ambient rain + nutrients,16.5,12.6,17.7,17_10
+81,pq,Harvest at the begging ,-,-,-,17_10
+82,pq,Harvest at the begging ,-,-,-,17_10
+83,pq,Harvest at the begging ,-,-,-,17_10
+84,pq,Harvest at the begging ,-,-,-,17_10
+85,pq,ambient rain,11.5,36,33.2,17_10
+86,pq,ambient rain,17,34.8,28.2,17_10
+87,pq,ambient rain,13.5,32.8,34.8,17_10
+88,pq,ambient rain,13,28.2,27,17_10
+89,pq,ambient rain + water + nutrients,15,26.5,41,17_10
+90,pq,ambient rain + water + nutrients,15.5,38.2,45.3,17_10
+91,pq,ambient rain + water + nutrients,20.5,25.4,37.2,17_10
+92,pq,ambient rain + water + nutrients,20,36.3,42,17_10
+93,pq,ambient rain + water,17.5,34.7,42.1,17_10
+94,pq,ambient rain + water,10.5,36,40.2,17_10
+95,pq,ambient rain + water,9.5,35.3,36.4,17_10
+96,pq,ambient rain + water,13.5,43.2,44.2,17_10
+97,pq,ambient rain + nutrients,15.5,39.6,31.6,17_10
+98,pq,ambient rain + nutrients,8,36.4,38.2,17_10
+99,pq,ambient rain + nutrients,10,31.5,29.4,17_10
+100,pq,ambient rain + nutrients,14,34,35,17_10
+101,gs,Harvest at the begging ,-,-,-,17_10
+102,gs,Harvest at the begging ,-,-,-,17_10
+103,gs,Harvest at the begging ,-,-,-,17_10
+104,gs,Harvest at the begging ,-,-,-,17_10
+105,gs,ambient rain,18.5,37.8,31,17_10
+106,gs,ambient rain,15,36.8,33.6,17_10
+107,gs,ambient rain,24.5,30.3,29.6,17_10
+108,gs,ambient rain,20,32.3,32.7,17_10
+109,gs,ambient rain + water + nutrients,29.5,30.4,39,17_10
+110,gs,ambient rain + water + nutrients,26.5,36.2,42.9,17_10
+111,gs,ambient rain + water + nutrients,26,29.6,47.4,17_10
+112,gs,ambient rain + water + nutrients,26.5,26.5,35,17_10
+113,gs,ambient rain + water,25.5,37.7,39.8,17_10
+114,gs,ambient rain + water,22,37.8,40,17_10
+115,gs,ambient rain + water,22,32.6,45.2,17_10
+116,gs,ambient rain + water,15,26.9,35.4,17_10
+117,gs,ambient rain + nutrients,19.5,26,20.6,17_10
+118,gs,ambient rain + nutrients,26.5,32,29.9,17_10
+119,gs,ambient rain + nutrients,20,27.8,26.3,17_10
+120,gs,ambient rain + nutrients,28.5,30.4,29.6,17_10
+121,dt,Harvest at the begging ,-,-,-,17_10
+122,dt,Harvest at the begging ,-,-,-,17_10
+123,dt,Harvest at the begging ,-,-,-,17_10
+124,dt,Harvest at the begging ,-,-,-,17_10
+125,dt,ambient rain,14,40.3,36.4,17_10
+126,dt,ambient rain,24.5,26.8,20.2,17_10
+127,dt,ambient rain,29.5,36,31,17_10
+128,dt,ambient rain,21,39.9,33.8,17_10
+129,dt,ambient rain + water + nutrients,31.5,32.8,47,17_10
+130,dt,ambient rain + water + nutrients,23,33.6,44.2,17_10
+131,dt,ambient rain + water + nutrients,32,32.4,46.1,17_10
+132,dt,ambient rain + water + nutrients,32.5,26.4,44,17_10
+133,dt,ambient rain + water,22,30,42.4,17_10
+134,dt,ambient rain + water,17,26.3,33.6,17_10
+135,dt,ambient rain + water,21.5,32.6,42.2,17_10
+136,dt,ambient rain + water,20.5,29,38,17_10
+137,dt,ambient rain + nutrients,31.5,37.4,37,17_10
+138,dt,ambient rain + nutrients,26.5,37,34.8,17_10
+139,dt,ambient rain + nutrients,25.5,28,32.2,17_10
+140,dt,ambient rain + nutrients,28.5,35.8,31.6,17_10
+141,to,Harvest at the begging ,-,-,-,17_10
+142,to,Harvest at the begging ,-,-,-,17_10
+143,to,Harvest at the begging ,-,-,-,17_10
+144,to,Harvest at the begging ,-,-,-,17_10
+145,to,ambient rain,7.5,34.5,36.8,17_10
+146,to,ambient rain,7,38.3,36,17_10
+147,to,ambient rain,7,37.4,34.4,17_10
+148,to,ambient rain,6,37.8,37.1,17_10
+149,to,ambient rain + water + nutrients,9.5,33.4,40,17_10
+150,to,ambient rain + water + nutrients,8,42.7,45.6,17_10
+151,to,ambient rain + water + nutrients,8,32.8,43.5,17_10
+152,to,ambient rain + water + nutrients,8.5,34.3,38,17_10
+153,to,ambient rain + water,9,35.9,38.4,17_10
+154,to,ambient rain + water,7.5,40,44.4,17_10
+155,to,ambient rain + water,6.5,37.3,39.4,17_10
+156,to,ambient rain + water,8,41.3,43.6,17_10
+157,to,ambient rain + nutrients,6.5,33.2,33.5,17_10
+158,to,ambient rain + nutrients,9,33,30.4,17_10
+159,to,ambient rain + nutrients,9,33.3,32,17_10
+160,to,ambient rain + nutrients,11.5,32.5,31.6,17_10
+1,ec,Harvest at the begging ,-,-,-,31_10
+2,ec,Harvest at the begging ,-,-,-,31_10
+3,ec,Harvest at the begging ,-,-,-,31_10
+4,ec,Harvest at the begging ,-,-,-,31_10
+5,ec,ambient rain,32.5,26.6,27.6,31_10
+6,ec,ambient rain,44,24.4,20.5,31_10
+7,ec,ambient rain,28.5,23.2,23.2,31_10
+8,ec,ambient rain,24.5,24.4,17.2,31_10
+9,ec,ambient rain + water + nutrients,40,32.6,41,31_10
+10,ec,ambient rain + water + nutrients,42,16.9,29.2,31_10
+11,ec,ambient rain + water + nutrients,40,26,36,31_10
+12,ec,ambient rain + water + nutrients,58.5,9.8,25.7,31_10
+13,ec,ambient rain + water,35,30.7,41.2,31_10
+14,ec,ambient rain + water,46,25.4,34.1,31_10
+15,ec,ambient rain + water,41,24.6,36.5,31_10
+16,ec,ambient rain + water,43,28.5,36.8,31_10
+17,ec,ambient rain + nutrients,53,10.4,11.7,31_10
+18,ec,ambient rain + nutrients,30,33.6,30.6,31_10
+19,ec,ambient rain + nutrients,51,12.2,14.3,31_10
+20,ec,ambient rain + nutrients,48.5,15.5,16.7,31_10
+21,hc,Harvest at the begging ,-,-,-,31_10
+22,hc,Harvest at the begging ,-,-,-,31_10
+23,hc,Harvest at the begging ,-,-,-,31_10
+24,hc,Harvest at the begging ,-,-,-,31_10
+25,hc,ambient rain,39,22.4,23.1,31_10
+26,hc,ambient rain,38,19.6,16,31_10
+27,hc,ambient rain,43.5,34.6,35.8,31_10
+28,hc,ambient rain,29.5,20.6,19.1,31_10
+29,hc,ambient rain + water + nutrients,31,33.6,44.8,31_10
+30,hc,ambient rain + water + nutrients,35.5,34.3,43.2,31_10
+31,hc,ambient rain + water + nutrients,52,22.5,30,31_10
+32,hc,ambient rain + water + nutrients,41,24.4,40.6,31_10
+33,hc,ambient rain + water,47,26.4,39.3,31_10
+34,hc,ambient rain + water,39,21.5,32.4,31_10
+35,hc,ambient rain + water,40.5,16.7,32.6,31_10
+36,hc,ambient rain + water,39,32.6,41.6,31_10
+37,hc,ambient rain + nutrients,46,30.5,30.6,31_10
+38,hc,ambient rain + nutrients,45,29.6,28.8,31_10
+39,hc,ambient rain + nutrients,45,27.8,25.4,31_10
+40,hc,ambient rain + nutrients,32.5,22.9,22.2,31_10
+41,sg,Harvest at the begging ,-,-,-,31_10
+42,sg,Harvest at the begging ,-,-,-,31_10
+43,sg,Harvest at the begging ,-,-,-,31_10
+44,sg,Harvest at the begging ,-,-,-,31_10
+45,sg,ambient rain,11,28.8,30.8,31_10
+46,sg,ambient rain,8.5,35.8,37,31_10
+47,sg,ambient rain,10,40.2,38.5,31_10
+48,sg,ambient rain,13,37.1,34.2,31_10
+49,sg,ambient rain + water + nutrients,11.5,34.4,43.1,31_10
+50,sg,ambient rain + water + nutrients,12,42.2,45.4,31_10
+51,sg,ambient rain + water + nutrients,12,34.4,39.4,31_10
+52,sg,ambient rain + water + nutrients,13.5,38.7,43.8,31_10
+53,sg,ambient rain + water,12,37.6,45.1,31_10
+54,sg,ambient rain + water,10.5,38.5,37.8,31_10
+55,sg,ambient rain + water,11.5,34.2,33.3,31_10
+56,sg,ambient rain + water,11,44.9,43,31_10
+57,sg,ambient rain + nutrients,12.5,38.2,36.7,31_10
+58,sg,ambient rain + nutrients,10,37.8,38.6,31_10
+59,sg,ambient rain + nutrients,12,39.8,39.2,31_10
+60,sg,ambient rain + nutrients,11,36.3,31.8,31_10
+61,sm,Harvest at the begging ,-,-,-,31_10
+62,sm,Harvest at the begging ,-,-,-,31_10
+63,sm,Harvest at the begging ,-,-,-,31_10
+64,sm,Harvest at the begging ,-,-,-,31_10
+65,sm,ambient rain,16.5,14.6,14.9,31_10
+66,sm,ambient rain,22,33.8,31.2,31_10
+67,sm,ambient rain,21.5,14,13.6,31_10
+68,sm,ambient rain,25,17.8,14.4,31_10
+69,sm,ambient rain + water + nutrients,21.5,13.8,28.8,31_10
+70,sm,ambient rain + water + nutrients,16,18,34.4,31_10
+71,sm,ambient rain + water + nutrients,21,15.2,34.2,31_10
+72,sm,ambient rain + water + nutrients,18.5,12.4,29.5,31_10
+73,sm,ambient rain + water,18,10.2,25.5,31_10
+74,sm,ambient rain + water,19,18.8,34.3,31_10
+75,sm,ambient rain + water,20.5,10.4,25,31_10
+76,sm,ambient rain + water,23.5,13.4,27.6,31_10
+77,sm,ambient rain + nutrients,11,16.3,18.4,31_10
+78,sm,ambient rain + nutrients,21.5,27.8,25.2,31_10
+79,sm,ambient rain + nutrients,18,17.4,19.2,31_10
+80,sm,ambient rain + nutrients,17.5,7.4,12.4,31_10
+81,pq,Harvest at the begging ,-,-,-,31_10
+82,pq,Harvest at the begging ,-,-,-,31_10
+83,pq,Harvest at the begging ,-,-,-,31_10
+84,pq,Harvest at the begging ,-,-,-,31_10
+85,pq,ambient rain,13.5,34.3,31.7,31_10
+86,pq,ambient rain,17,26.6,24.8,31_10
+87,pq,ambient rain,15.5,28.4,25.4,31_10
+88,pq,ambient rain,14,22.7,20.2,31_10
+89,pq,ambient rain + water + nutrients,15.5,19,32.4,31_10
+90,pq,ambient rain + water + nutrients,16.5,28.4,41.4,31_10
+91,pq,ambient rain + water + nutrients,26.5,13.3,31.9,31_10
+92,pq,ambient rain + water + nutrients,20,30,43.3,31_10
+93,pq,ambient rain + water,18,33.4,40.8,31_10
+94,pq,ambient rain + water,11,27.9,36.5,31_10
+95,pq,ambient rain + water,10.5,32.6,43.4,31_10
+96,pq,ambient rain + water,13.5,40.3,43.4,31_10
+97,pq,ambient rain + nutrients,19.5,28.7,33,31_10
+98,pq,ambient rain + nutrients,9.5,34.4,35.8,31_10
+99,pq,ambient rain + nutrients,11.5,28,27.2,31_10
+100,pq,ambient rain + nutrients,17,23,21.8,31_10
+101,gs,Harvest at the begging ,-,-,-,31_10
+102,gs,Harvest at the begging ,-,-,-,31_10
+103,gs,Harvest at the begging ,-,-,-,31_10
+104,gs,Harvest at the begging ,-,-,-,31_10
+105,gs,ambient rain,19,22.1,18.3,31_10
+106,gs,ambient rain,17,23,20.7,31_10
+107,gs,ambient rain,26,17.2,14.8,31_10
+108,gs,ambient rain,20,17.6,13.4,31_10
+109,gs,ambient rain + water + nutrients,30.5,7.6,28.6,31_10
+110,gs,ambient rain + water + nutrients,31.5,24.3,33.4,31_10
+111,gs,ambient rain + water + nutrients,27.5,9.2,29.4,31_10
+112,gs,ambient rain + water + nutrients,30,8.8,27.7,31_10
+113,gs,ambient rain + water,28.5,16.9,30,31_10
+114,gs,ambient rain + water,23.5,18,35.7,31_10
+115,gs,ambient rain + water,22,12.7,29,31_10
+116,gs,ambient rain + water,16,15.6,30.7,31_10
+117,gs,ambient rain + nutrients,25,7,11.4,31_10
+118,gs,ambient rain + nutrients,28.5,10.6,14,31_10
+119,gs,ambient rain + nutrients,22.5,9,6.9,31_10
+120,gs,ambient rain + nutrients,34,9,10.3,31_10
+121,dt,Harvest at the begging ,-,-,-,31_10
+122,dt,Harvest at the begging ,-,-,-,31_10
+123,dt,Harvest at the begging ,-,-,-,31_10
+124,dt,Harvest at the begging ,-,-,-,31_10
+125,dt,ambient rain,16.5,31.6,30.6,31_10
+126,dt,ambient rain,25,11.8,10.6,31_10
+127,dt,ambient rain,35.5,21,20.4,31_10
+128,dt,ambient rain,30,23.1,21,31_10
+129,dt,ambient rain + water + nutrients,39,15.4,28.4,31_10
+130,dt,ambient rain + water + nutrients,31,12,32.6,31_10
+131,dt,ambient rain + water + nutrients,39.5,23.2,35.4,31_10
+132,dt,ambient rain + water + nutrients,41,9.6,25.4,31_10
+133,dt,ambient rain + water,26,17.6,34.6,31_10
+134,dt,ambient rain + water,23,10.6,26.5,31_10
+135,dt,ambient rain + water,26.5,17.8,31.4,31_10
+136,dt,ambient rain + water,27,12.8,24.1,31_10
+137,dt,ambient rain + nutrients,32,18.6,19.6,31_10
+138,dt,ambient rain + nutrients,28,13,15.8,31_10
+139,dt,ambient rain + nutrients,34,11.9,12,31_10
+140,dt,ambient rain + nutrients,34.5,12.2,14.3,31_10
+141,to,Harvest at the begging ,-,-,-,31_10
+142,to,Harvest at the begging ,-,-,-,31_10
+143,to,Harvest at the begging ,-,-,-,31_10
+144,to,Harvest at the begging ,-,-,-,31_10
+145,to,ambient rain,8,34.3,35.6,31_10
+146,to,ambient rain,7,32.8,31.2,31_10
+147,to,ambient rain,7,34,33.5,31_10
+148,to,ambient rain,6,37.9,35.5,31_10
+149,to,ambient rain + water + nutrients,9.5,28.1,37.8,31_10
+150,to,ambient rain + water + nutrients,8.5,38.3,44.2,31_10
+151,to,ambient rain + water + nutrients,8,29.5,42.4,31_10
+152,to,ambient rain + water + nutrients,9.5,33.2,39.2,31_10
+153,to,ambient rain + water,9,40,41.4,31_10
+154,to,ambient rain + water,8,38.7,42.2,31_10
+155,to,ambient rain + water,7,41.6,39.5,31_10
+156,to,ambient rain + water,8,35.8,45.4,31_10
+157,to,ambient rain + nutrients,7,30.8,30.6,31_10
+158,to,ambient rain + nutrients,9,26.1,25.2,31_10
+159,to,ambient rain + nutrients,9,25.4,23.8,31_10
+160,to,ambient rain + nutrients,11.5,20,20.4,31_10
+1,ec,Harvest at the begging ,-,-,-,15_11
+2,ec,Harvest at the begging ,-,-,-,15_11
+3,ec,Harvest at the begging ,-,-,-,15_11
+4,ec,Harvest at the begging ,-,-,-,15_11
+5,ec,ambient rain,33,25.9,24.4,15_11
+6,ec,ambient rain,44,22.6,18.9,15_11
+7,ec,ambient rain,29,22.4,20.2,15_11
+8,ec,ambient rain,25.5,19.3,13.8,15_11
+9,ec,ambient rain + water + nutrients,41.5,29.8,39.9,15_11
+10,ec,ambient rain + water + nutrients,52,16.5,26.6,15_11
+11,ec,ambient rain + water + nutrients,43.5,17.1,28.2,15_11
+12,ec,ambient rain + water + nutrients,59,9.5,24.2,15_11
+13,ec,ambient rain + water,35.5,31,39,15_11
+14,ec,ambient rain + water,47,25,34.2,15_11
+15,ec,ambient rain + water,41.5,27.2,38,15_11
+16,ec,ambient rain + water,43,24.5,33.4,15_11
+17,ec,ambient rain + nutrients,53,11,13.6,15_11
+18,ec,ambient rain + nutrients,35.5,19.4,19.2,15_11
+19,ec,ambient rain + nutrients,52,11.8,14.7,15_11
+20,ec,ambient rain + nutrients,57.5,13.5,13.6,15_11
+21,hc,Harvest at the begging ,-,-,-,15_11
+22,hc,Harvest at the begging ,-,-,-,15_11
+23,hc,Harvest at the begging ,-,-,-,15_11
+24,hc,Harvest at the begging ,-,-,-,15_11
+25,hc,ambient rain,39,24.8,22.4,15_11
+26,hc,ambient rain,38,20.5,17,15_11
+27,hc,ambient rain,43.5,33.6,30,15_11
+28,hc,ambient rain,29.5,23,21.4,15_11
+29,hc,ambient rain + water + nutrients,33.5,30.4,41.7,15_11
+30,hc,ambient rain + water + nutrients,35.5,28,42.4,15_11
+31,hc,ambient rain + water + nutrients,52,20.9,34.8,15_11
+32,hc,ambient rain + water + nutrients,41,25.2,38,15_11
+33,hc,ambient rain + water,47,25.6,34.8,15_11
+34,hc,ambient rain + water,39,22.1,35.8,15_11
+35,hc,ambient rain + water,41.5,23.2,38.9,15_11
+36,hc,ambient rain + water,39,25.8,41.4,15_11
+37,hc,ambient rain + nutrients,46,29.2,27.2,15_11
+38,hc,ambient rain + nutrients,45,22.8,21.6,15_11
+39,hc,ambient rain + nutrients,45,28.1,27.7,15_11
+40,hc,ambient rain + nutrients,32.5,25,24,15_11
+41,sg,Harvest at the begging ,-,-,-,15_11
+42,sg,Harvest at the begging ,-,-,-,15_11
+43,sg,Harvest at the begging ,-,-,-,15_11
+44,sg,Harvest at the begging ,-,-,-,15_11
+45,sg,ambient rain,11.5,27.3,24,15_11
+46,sg,ambient rain,8.5,31.2,26.4,15_11
+47,sg,ambient rain,10.5,34.2,32.8,15_11
+48,sg,ambient rain,13,35.5,33.6,15_11
+49,sg,ambient rain + water + nutrients,11.5,29.3,43.3,15_11
+50,sg,ambient rain + water + nutrients,12.5,36.6,44.6,15_11
+51,sg,ambient rain + water + nutrients,12,32.2,41.2,15_11
+52,sg,ambient rain + water + nutrients,14,35,44.3,15_11
+53,sg,ambient rain + water,12.5,34.5,41.8,15_11
+54,sg,ambient rain + water,10.5,29.2,41.6,15_11
+55,sg,ambient rain + water,11.5,29,34.6,15_11
+56,sg,ambient rain + water,12,35.2,40.6,15_11
+57,sg,ambient rain + nutrients,13,31.9,28,15_11
+58,sg,ambient rain + nutrients,10.5,34.2,32.4,15_11
+59,sg,ambient rain + nutrients,12,30.2,31,15_11
+60,sg,ambient rain + nutrients,12,28.3,31.3,15_11
+61,sm,Harvest at the begging ,-,-,-,15_11
+62,sm,Harvest at the begging ,-,-,-,15_11
+63,sm,Harvest at the begging ,-,-,-,15_11
+64,sm,Harvest at the begging ,-,-,-,15_11
+65,sm,ambient rain,17,11.5,9.5,15_11
+66,sm,ambient rain,22,29,28.2,15_11
+67,sm,ambient rain,22,20.4,17.8,15_11
+68,sm,ambient rain,25,19,19,15_11
+69,sm,ambient rain + water + nutrients,21.5,14,30.4,15_11
+70,sm,ambient rain + water + nutrients,16.5,16.6,34.8,15_11
+71,sm,ambient rain + water + nutrients,21,11.7,29.8,15_11
+72,sm,ambient rain + water + nutrients,19,11.4,29,15_11
+73,sm,ambient rain + water,18.5,7.2,27.4,15_11
+74,sm,ambient rain + water,19,26.8,41.5,15_11
+75,sm,ambient rain + water,20.5,8.2,29.1,15_11
+76,sm,ambient rain + water,24,17.9,31.1,15_11
+77,sm,ambient rain + nutrients,11.5,13.4,17,15_11
+78,sm,ambient rain + nutrients,22,20,17.6,15_11
+79,sm,ambient rain + nutrients,18,12.1,15,15_11
+80,sm,ambient rain + nutrients,17.5,5.9,8.2,15_11
+81,pq,Harvest at the begging ,-,-,-,15_11
+82,pq,Harvest at the begging ,-,-,-,15_11
+83,pq,Harvest at the begging ,-,-,-,15_11
+84,pq,Harvest at the begging ,-,-,-,15_11
+85,pq,ambient rain,15,31.4,29.5,15_11
+86,pq,ambient rain,18,27.5,23.8,15_11
+87,pq,ambient rain,17,27.6,25.6,15_11
+88,pq,ambient rain,14,22.5,20.6,15_11
+89,pq,ambient rain + water + nutrients,16,24,36,15_11
+90,pq,ambient rain + water + nutrients,17,29.4,40.4,15_11
+91,pq,ambient rain + water + nutrients,28,8.6,26.7,15_11
+92,pq,ambient rain + water + nutrients,20,23.4,35.2,15_11
+93,pq,ambient rain + water,18.5,30,39,15_11
+94,pq,ambient rain + water,11,29.4,38.6,15_11
+95,pq,ambient rain + water,13.5,32.6,43.2,15_11
+96,pq,ambient rain + water,13.5,36.3,42.3,15_11
+97,pq,ambient rain + nutrients,20.5,27,29,15_11
+98,pq,ambient rain + nutrients,14,31.4,31.3,15_11
+99,pq,ambient rain + nutrients,13.5,25.2,23,15_11
+100,pq,ambient rain + nutrients,17.5,23.8,26.2,15_11
+101,gs,Harvest at the begging ,-,-,-,15_11
+102,gs,Harvest at the begging ,-,-,-,15_11
+103,gs,Harvest at the begging ,-,-,-,15_11
+104,gs,Harvest at the begging ,-,-,-,15_11
+105,gs,ambient rain,19,23.1,20.1,15_11
+106,gs,ambient rain,17,23.8,21.4,15_11
+107,gs,ambient rain,26,19.5,16.8,15_11
+108,gs,ambient rain,20,13.2,13.4,15_11
+109,gs,ambient rain + water + nutrients,30.5,6.6,28.6,15_11
+110,gs,ambient rain + water + nutrients,32,14,30.6,15_11
+111,gs,ambient rain + water + nutrients,28,10.6,31,15_11
+112,gs,ambient rain + water + nutrients,30,7,28,15_11
+113,gs,ambient rain + water,28.5,20.4,34.4,15_11
+114,gs,ambient rain + water,24,19.8,39.4,15_11
+115,gs,ambient rain + water,22,12.6,28.1,15_11
+116,gs,ambient rain + water,16,21.4,33.6,15_11
+117,gs,ambient rain + nutrients,25,5.3,11.4,15_11
+118,gs,ambient rain + nutrients,28.5,17.8,19.8,15_11
+119,gs,ambient rain + nutrients,23,4.4,11.2,15_11
+120,gs,ambient rain + nutrients,34,8.6,11.7,15_11
+121,dt,Harvest at the begging ,-,-,-,15_11
+122,dt,Harvest at the begging ,-,-,-,15_11
+123,dt,Harvest at the begging ,-,-,-,15_11
+124,dt,Harvest at the begging ,-,-,-,15_11
+125,dt,ambient rain,16.5,27.4,25.9,15_11
+126,dt,ambient rain,25,15.2,13.2,15_11
+127,dt,ambient rain,36.5,20,22.6,15_11
+128,dt,ambient rain,30.5,21.8,20.4,15_11
+129,dt,ambient rain + water + nutrients,39,8.8,26.8,15_11
+130,dt,ambient rain + water + nutrients,32,8,31.9,15_11
+131,dt,ambient rain + water + nutrients,39.5,10.8,29.1,15_11
+132,dt,ambient rain + water + nutrients,41,7.6,27.2,15_11
+133,dt,ambient rain + water,26,24.8,35.4,15_11
+134,dt,ambient rain + water,24,6.5,31.8,15_11
+135,dt,ambient rain + water,26.5,20,34.2,15_11
+136,dt,ambient rain + water,27,9.7,27.9,15_11
+137,dt,ambient rain + nutrients,32.5,17.8,34.8,15_11
+138,dt,ambient rain + nutrients,28,14.6,15.4,15_11
+139,dt,ambient rain + nutrients,35,10.7,11.4,15_11
+140,dt,ambient rain + nutrients,36,9.4,13.1,15_11
+141,to,Harvest at the begging ,-,-,-,15_11
+142,to,Harvest at the begging ,-,-,-,15_11
+143,to,Harvest at the begging ,-,-,-,15_11
+144,to,Harvest at the begging ,-,-,-,15_11
+145,to,ambient rain,8,30.2,27.4,15_11
+146,to,ambient rain,7,27.8,28.1,15_11
+147,to,ambient rain,7,31.6,30.8,15_11
+148,to,ambient rain,6,33.2,28.4,15_11
+149,to,ambient rain + water + nutrients,9.5,28,35.3,15_11
+150,to,ambient rain + water + nutrients,9,32.8,43.2,15_11
+151,to,ambient rain + water + nutrients,8,29.6,37.6,15_11
+152,to,ambient rain + water + nutrients,9.5,28.8,37.4,15_11
+153,to,ambient rain + water,9,32.6,43,15_11
+154,to,ambient rain + water,8,33.1,41.8,15_11
+155,to,ambient rain + water,7,34.3,41.6,15_11
+156,to,ambient rain + water,8,35.2,44.1,15_11
+157,to,ambient rain + nutrients,7,25.4,23,15_11
+158,to,ambient rain + nutrients,9,20.8,22,15_11
+159,to,ambient rain + nutrients,9,24.2,23.5,15_11
+160,to,ambient rain + nutrients,11.5,23,21.2,15_11
+1,ec,Harvest at the begging ,-,-,-,24_11
+2,ec,Harvest at the begging ,-,-,-,24_11
+3,ec,Harvest at the begging ,-,-,-,24_11
+4,ec,Harvest at the begging ,-,-,-,24_11
+5,ec,ambient rain,34.5,-,-,24_11
+6,ec,ambient rain,45,-,-,24_11
+7,ec,ambient rain,32,-,-,24_11
+8,ec,ambient rain,30.5,-,-,24_11
+9,ec,ambient rain + water + nutrients,41.5,-,-,24_11
+10,ec,ambient rain + water + nutrients,57,-,-,24_11
+11,ec,ambient rain + water + nutrients,46,-,-,24_11
+12,ec,ambient rain + water + nutrients,59.5,-,-,24_11
+13,ec,ambient rain + water,36.5,-,-,24_11
+14,ec,ambient rain + water,47,-,-,24_11
+15,ec,ambient rain + water,41.5,-,-,24_11
+16,ec,ambient rain + water,43,-,-,24_11
+17,ec,ambient rain + nutrients,54,-,-,24_11
+18,ec,ambient rain + nutrients,40.5,-,-,24_11
+19,ec,ambient rain + nutrients,52.5,-,-,24_11
+20,ec,ambient rain + nutrients,63,-,-,24_11
+21,hc,Harvest at the begging ,-,-,-,24_11
+22,hc,Harvest at the begging ,-,-,-,24_11
+23,hc,Harvest at the begging ,-,-,-,24_11
+24,hc,Harvest at the begging ,-,-,-,24_11
+25,hc,ambient rain,39,-,-,24_11
+26,hc,ambient rain,38,-,-,24_11
+27,hc,ambient rain,43.5,-,-,24_11
+28,hc,ambient rain,29.5,-,-,24_11
+29,hc,ambient rain + water + nutrients,33.5,-,-,24_11
+30,hc,ambient rain + water + nutrients,36,-,-,24_11
+31,hc,ambient rain + water + nutrients,52,-,-,24_11
+32,hc,ambient rain + water + nutrients,41,-,-,24_11
+33,hc,ambient rain + water,47,-,-,24_11
+34,hc,ambient rain + water,39,-,-,24_11
+35,hc,ambient rain + water,41.5,-,-,24_11
+36,hc,ambient rain + water,39,-,-,24_11
+37,hc,ambient rain + nutrients,46,-,-,24_11
+38,hc,ambient rain + nutrients,45,-,-,24_11
+39,hc,ambient rain + nutrients,45,-,-,24_11
+40,hc,ambient rain + nutrients,32.5,-,-,24_11
+41,sg,Harvest at the begging ,-,-,-,24_11
+42,sg,Harvest at the begging ,-,-,-,24_11
+43,sg,Harvest at the begging ,-,-,-,24_11
+44,sg,Harvest at the begging ,-,-,-,24_11
+45,sg,ambient rain,11.5,-,-,24_11
+46,sg,ambient rain,8.5,-,-,24_11
+47,sg,ambient rain,10.5,-,-,24_11
+48,sg,ambient rain,13,-,-,24_11
+49,sg,ambient rain + water + nutrients,11.5,-,-,24_11
+50,sg,ambient rain + water + nutrients,13,-,-,24_11
+51,sg,ambient rain + water + nutrients,13,-,-,24_11
+52,sg,ambient rain + water + nutrients,14,-,-,24_11
+53,sg,ambient rain + water,12.5,-,-,24_11
+54,sg,ambient rain + water,10.5,-,-,24_11
+55,sg,ambient rain + water,11.5,-,-,24_11
+56,sg,ambient rain + water,12,-,-,24_11
+57,sg,ambient rain + nutrients,13,-,-,24_11
+58,sg,ambient rain + nutrients,10.5,-,-,24_11
+59,sg,ambient rain + nutrients,12.5,-,-,24_11
+60,sg,ambient rain + nutrients,12,-,-,24_11
+61,sm,Harvest at the begging ,-,-,-,24_11
+62,sm,Harvest at the begging ,-,-,-,24_11
+63,sm,Harvest at the begging ,-,-,-,24_11
+64,sm,Harvest at the begging ,-,-,-,24_11
+65,sm,ambient rain,17,-,-,24_11
+66,sm,ambient rain,22.5,-,-,24_11
+67,sm,ambient rain,22,-,-,24_11
+68,sm,ambient rain,25,-,-,24_11
+69,sm,ambient rain + water + nutrients,21.5,-,-,24_11
+70,sm,ambient rain + water + nutrients,16.5,-,-,24_11
+71,sm,ambient rain + water + nutrients,21,-,-,24_11
+72,sm,ambient rain + water + nutrients,19,-,-,24_11
+73,sm,ambient rain + water,18.5,-,-,24_11
+74,sm,ambient rain + water,19,-,-,24_11
+75,sm,ambient rain + water,20.5,-,-,24_11
+76,sm,ambient rain + water,24.5,-,-,24_11
+77,sm,ambient rain + nutrients,11.5,-,-,24_11
+78,sm,ambient rain + nutrients,22,-,-,24_11
+79,sm,ambient rain + nutrients,18.5,-,-,24_11
+80,sm,ambient rain + nutrients,18,-,-,24_11
+81,pq,Harvest at the begging ,-,-,-,24_11
+82,pq,Harvest at the begging ,-,-,-,24_11
+83,pq,Harvest at the begging ,-,-,-,24_11
+84,pq,Harvest at the begging ,-,-,-,24_11
+85,pq,ambient rain,15.5,-,-,24_11
+86,pq,ambient rain,18,-,-,24_11
+87,pq,ambient rain,17,-,-,24_11
+88,pq,ambient rain,14,-,-,24_11
+89,pq,ambient rain + water + nutrients,16,-,-,24_11
+90,pq,ambient rain + water + nutrients,17,-,-,24_11
+91,pq,ambient rain + water + nutrients,28,-,-,24_11
+92,pq,ambient rain + water + nutrients,20,-,-,24_11
+93,pq,ambient rain + water,18.5,-,-,24_11
+94,pq,ambient rain + water,11,-,-,24_11
+95,pq,ambient rain + water,13.5,-,-,24_11
+96,pq,ambient rain + water,13.5,-,-,24_11
+97,pq,ambient rain + nutrients,21,-,-,24_11
+98,pq,ambient rain + nutrients,16.5,-,-,24_11
+99,pq,ambient rain + nutrients,14.5,-,-,24_11
+100,pq,ambient rain + nutrients,18,-,-,24_11
+101,gs,Harvest at the begging ,-,-,-,24_11
+102,gs,Harvest at the begging ,-,-,-,24_11
+103,gs,Harvest at the begging ,-,-,-,24_11
+104,gs,Harvest at the begging ,-,-,-,24_11
+105,gs,ambient rain,19,-,-,24_11
+106,gs,ambient rain,17,-,-,24_11
+107,gs,ambient rain,26,-,-,24_11
+108,gs,ambient rain,20,-,-,24_11
+109,gs,ambient rain + water + nutrients,30.5,-,-,24_11
+110,gs,ambient rain + water + nutrients,32,-,-,24_11
+111,gs,ambient rain + water + nutrients,28,-,-,24_11
+112,gs,ambient rain + water + nutrients,30,-,-,24_11
+113,gs,ambient rain + water,28.5,-,-,24_11
+114,gs,ambient rain + water,24,-,-,24_11
+115,gs,ambient rain + water,22.5,-,-,24_11
+116,gs,ambient rain + water,16,-,-,24_11
+117,gs,ambient rain + nutrients,25,-,-,24_11
+118,gs,ambient rain + nutrients,28.5,-,-,24_11
+119,gs,ambient rain + nutrients,23,-,-,24_11
+120,gs,ambient rain + nutrients,34.5,-,-,24_11
+121,dt,Harvest at the begging ,-,-,-,24_11
+122,dt,Harvest at the begging ,-,-,-,24_11
+123,dt,Harvest at the begging ,-,-,-,24_11
+124,dt,Harvest at the begging ,-,-,-,24_11
+125,dt,ambient rain,17,-,-,24_11
+126,dt,ambient rain,25,-,-,24_11
+127,dt,ambient rain,38,-,-,24_11
+128,dt,ambient rain,32,-,-,24_11
+129,dt,ambient rain + water + nutrients,39,-,-,24_11
+130,dt,ambient rain + water + nutrients,32.5,-,-,24_11
+131,dt,ambient rain + water + nutrients,39.5,-,-,24_11
+132,dt,ambient rain + water + nutrients,42.5,-,-,24_11
+133,dt,ambient rain + water,26,-,-,24_11
+134,dt,ambient rain + water,24,-,-,24_11
+135,dt,ambient rain + water,26.5,-,-,24_11
+136,dt,ambient rain + water,27,-,-,24_11
+137,dt,ambient rain + nutrients,32.5,-,-,24_11
+138,dt,ambient rain + nutrients,28.5,-,-,24_11
+139,dt,ambient rain + nutrients,41,-,-,24_11
+140,dt,ambient rain + nutrients,39,-,-,24_11
+141,to,Harvest at the begging ,-,-,-,24_11
+142,to,Harvest at the begging ,-,-,-,24_11
+143,to,Harvest at the begging ,-,-,-,24_11
+144,to,Harvest at the begging ,-,-,-,24_11
+145,to,ambient rain,8,-,-,24_11
+146,to,ambient rain,7,-,-,24_11
+147,to,ambient rain,7,-,-,24_11
+148,to,ambient rain,6,-,-,24_11
+149,to,ambient rain + water + nutrients,9.5,-,-,24_11
+150,to,ambient rain + water + nutrients,9,-,-,24_11
+151,to,ambient rain + water + nutrients,8,-,-,24_11
+152,to,ambient rain + water + nutrients,9.5,-,-,24_11
+153,to,ambient rain + water,9,-,-,24_11
+154,to,ambient rain + water,8,-,-,24_11
+155,to,ambient rain + water,7,-,-,24_11
+156,to,ambient rain + water,8,-,-,24_11
+157,to,ambient rain + nutrients,7,-,-,24_11
+158,to,ambient rain + nutrients,9,-,-,24_11
+159,to,ambient rain + nutrients,9,-,-,24_11
+160,to,ambient rain + nutrients,11.5,-,-,24_11

@@ -1,11 +1,11 @@
 ---
-title: "Models assumptions for biomass variables"
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Biomass Variables. Checking assumptions for biomass variables"
 author: "Mas o menos lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
-    fig_width: 8
-    fig_height: 5 
+    fig_width: 20
+    fig_height: 12 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -27,21 +27,27 @@ library(lme4)
 library(tidyverse)
 library(performance)
 library(DHARMa)
+library(MASS)
 ```
+
 
 ```{r}
 #Source maso menos plot
 source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
-
-```{r message=FALSE, warning=FALSE}
+```{r}
 data_complete_final <- 
   read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
-					levels = c("Harvestatthebegging",
+					levels = c(
 							   "ambientrain", 
 							   "ambientrain_nutrients",
 							   "ambientrain_water",
@@ -56,11 +62,15 @@ data_rate_change <-
     #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  clean_names() 
+  	clean_names() 
 
 data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
 data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+
+
+levels(unique(data_rate_change$treatment))
 ```
+
 
 
 # Model used 
@@ -73,37 +83,47 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  lmer(as.formula(formula), data = data_rate_change)
+  glmer(as.formula(formula), family = gaussian(link = "identity"), data = data_rate_change)
 }
+
+
 ```
 
 # Run Models
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[7:ncol(data_rate_change)]
+vars <- names(data_rate_change)[7:15]
 ```
 
 ```{r}
 vars <- purrr::set_names(vars)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Model assumptions
+# Model assumptions for dry weights
 
 ## Total Biomasss
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+__No major problems detected__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as:
 # “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(mixed_models$totalbiom)
+```
+
+
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=12}
+
 
 check_model(mixed_models$totalbiom)
 
@@ -114,23 +134,34 @@ check_model(mixed_models$totalbiom)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$totalbiom)
-plotQQunif(mixed_models$totalbiom) 
+simulation_output_totalbiom <- simulateResiduals(fittedModel = mixed_models$totalbiom)
+plot(simulation_output_totalbiom) 
 ```
 
+```{r}
+testDispersion(simulation_output_totalbiom)
+```
+```{r}
+check_heteroscedasticity(mixed_models$totalbiom)
+```
 
 ## Aboveground Biomass
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+__No major problems detected__
+
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted 
 # as “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(mixed_models$above_biom)
+```
 
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 check_model(mixed_models$above_biom)
-
 ```
 
 
@@ -138,18 +169,33 @@ check_model(mixed_models$above_biom)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$above_biom)
-plotQQunif(mixed_models$above_biom) 
+simulation_output_above_biom <- simulateResiduals(fittedModel = mixed_models$above_biom)
+plot(simulation_output_above_biom) 
+```
+
+
+```{r}
+testDispersion(simulation_output_above_biom)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$above_biom)
 ```
 
 
 ## Belowground Biomass
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+__NEEDS WORK__
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$below_biom)
+```
+
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+
 
 check_model(mixed_models$below_biom)
 
@@ -160,40 +206,66 @@ check_model(mixed_models$below_biom)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$below_biom)
-plotQQunif(mixed_models$below_biom) 
+simulation_output_below_biom <- simulateResiduals(fittedModel = mixed_models$below_biom)
+plot(simulation_output_below_biom) 
+```
+
+```{r}
+testDispersion(simulation_output_below_biom)
 ```
 
 
+```{r}
+check_heteroscedasticity(mixed_models$below_biom)
+```
 
 ## Stem Dry weight
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+__No major problems detected__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$stem_dry_weight)
-
-check_model(mixed_models$stem_dry_weight)
-
 ```
 
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+check_model(mixed_models$stem_dry_weight)
+```
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
-plotQQunif(mixed_models$stem_dry_weight) 
+simulation_output_stem_dry_weight <- simulateResiduals(fittedModel = mixed_models$stem_dry_weight)
+plot(simulation_output_stem_dry_weight) 
 ```
 
-## Leaf Dry weight
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+```{r}
+testDispersion(simulation_output_stem_dry_weight)
+```
+
+
+```{r}
+check_heteroscedasticity(mixed_models$stem_dry_weight)
+```
+
+
+## Leaf Dry weight
+__No major problems detected__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$whole_leaf_dry_weight)
+
+```
+
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 
 check_model(mixed_models$whole_leaf_dry_weight)
 
@@ -204,20 +276,38 @@ check_model(mixed_models$whole_leaf_dry_weight)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$whole_leaf_dry_weight)
-plotQQunif(mixed_models$whole_leaf_dry_weight) 
+simulation_output_whole_leaf_dry_weight <- simulateResiduals(fittedModel =
+															 	mixed_models$whole_leaf_dry_weight)
+plot(simulation_output_whole_leaf_dry_weight) 
 ```
+
+
+```{r}
+testDispersion(simulation_output_whole_leaf_dry_weight)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$whole_leaf_dry_weight)
+```
+
+
+# Model assumptions for Mass Fractions
 
 ## Root Mass Fraction 
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+__NEEDS WORK__
+
+```{r}
+
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$rmf)
+```
 
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 check_model(mixed_models$rmf)
-
 ```
 
 
@@ -225,34 +315,56 @@ check_model(mixed_models$rmf)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$rmf)
-plotQQunif(mixed_models$rmf) 
+simulation_output_rmf <- simulateResiduals(fittedModel = mixed_models$rmf)
+plot(simulation_output_rmf) 
+```
+
+
+```{r}
+testDispersion(simulation_output_rmf)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$rmf)
 ```
 
 
 ## Stem Mass fraction
+__NEEDS WORK__
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$smf)
+```
 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(mixed_models$smf)
-
 ```
 
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
+simulation_output_smf <- simulateResiduals(fittedModel = mixed_models$smf)
+plot(simulation_output_smf) 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$smf)
-plotQQunif(mixed_models$smf) 
 ```
 
 
+```{r}
+testDispersion(simulation_output_smf)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$smf)
+```
+
 ## Leaf Mass fraction
+
+__No major problems detected__
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
@@ -260,7 +372,6 @@ plotQQunif(mixed_models$smf)
 model_performance(mixed_models$lmf)
 
 check_model(mixed_models$lmf)
-
 ```
 
 
@@ -268,12 +379,18 @@ check_model(mixed_models$lmf)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$lmf)
-plotQQunif(mixed_models$lmf) 
+simulation_output_lmf <- simulateResiduals(fittedModel = mixed_models$lmf)
+plot(simulation_output_lmf) 
 ```
 
 
+```{r}
+testDispersion(simulation_output_lmf)
+```
 
+```{r}
+check_heteroscedasticity(mixed_models$lmf)
+```
 
 
 
