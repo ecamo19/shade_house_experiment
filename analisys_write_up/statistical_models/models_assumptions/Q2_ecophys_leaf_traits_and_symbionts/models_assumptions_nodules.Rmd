@@ -1,7 +1,7 @@
 ---
-title: "Models assumptions for Nodules in nfixer species"
+title: "(Q2) How does increased nutrient and/or water availability influence seedling water- and nutrient-use traits and relationships with symbionts?. Checking assumptions for Nodules"
 author: "Mas o menos lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -50,35 +50,32 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 
 # Checking Model assumptions
 
-# Model Formula:  
+# Model Formula
 
 $$response \sim treatment*specie + initial\ height$$
 
-## Number of root nodulation
-
+## Number of nodules
+__No major problems detected__
 
 ```{r}
 
-m1 <- lm(number_of_root_nodulation ~ treatment * spcode + init_height, 
+m1 <- glm(number_of_root_nodulation ~ treatment * spcode + init_height, 
 		   data = data_nodules_cleaned)
 
-Anova(m1, type = "III", test = "F")
 ```
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as:
 # “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(m1)
-check_model(m1)
-
 ```
 
 
-```{r}
-check_outliers(m1, method = c("cook", "pareto"))
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+check_model(m1)
 ```
 
 
@@ -86,29 +83,39 @@ check_outliers(m1, method = c("cook", "pareto"))
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m1)
-plotQQunif(m1) 
+simulation_output_m1_nodules <- simulateResiduals(fittedModel = m1)
+plot(simulation_output_m1_nodules) 
 ```
 
-
-## Average Nodule Weight model
+```{r}
+testDispersion(simulation_output_m1_nodules)
+```
 
 
 ```{r}
-m2 <- lm(average_nodule_weight ~ treatment * spcode, 
-		   data = data_nodules_cleaned)
-
-Anova(m2, type = "III")
+check_heteroscedasticity(m1)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+
+## Average Nodule Weight model
+__Model needs work__
+
+```{r}
+m2 <- glm(average_nodule_weight ~ treatment * spcode, 
+		   data = data_nodules_cleaned)
+```
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as:
 # “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(m2)
+```
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(m2)
 ```
 
@@ -116,36 +123,28 @@ check_model(m2)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m2)
-plotQQunif(m2) 
+simulation_output_m2_nodules <- simulateResiduals(fittedModel = m2)
+plot(simulation_output_m2_nodules) 
 ```
+
 
 ```{r}
-m2_1 <- rlm(log(average_nodule_weight) ~ treatment * spcode, 
-		   data = data_nodules_cleaned)
-
-Anova(m2_1, type = "III")
+testDispersion(simulation_output_m2_nodules)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
-
-# ICC provides information on the explained variance and can be interpreted as:
-# “the proportion of the variance explained by the grouping structure in the 
-# population”
-model_performance(m2_1)
-check_model(m2_1)
+```{r}
+check_heteroscedasticity(m2)
 ```
 
 
 ## Estimated Nodule Mass per plant model
+__Model needs work__
 
 ```{r}
-m3 <- lm(estimated_nodule_mass_per_plant ~ treatment * spcode, 
+m3 <- glm(estimated_nodule_mass_per_plant ~ treatment * spcode, 
 		   data = data_nodules_cleaned)
 
-Anova(m3, type = "III")
 ```
 
 
@@ -164,26 +163,17 @@ check_model(m3)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m3)
-plotQQunif(m3) 
+simulation_output_m3 <- simulateResiduals(fittedModel = m3)
+plot(simulation_output_m3) 
 ```
 
 
 ```{r}
-m3_1 <- rlm(estimated_nodule_mass_per_plant ~ treatment * spcode, 
-		   data = data_nodules_cleaned)
-
-Anova(m3_1, type = "III")
+testDispersion(simulation_output_m3)
 ```
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-# Model performance
 
-# ICC provides information on the explained variance and can be interpreted as:
-# “the proportion of the variance explained by the grouping structure in the 
-# population”
-model_performance(m3_1)
-check_model(m3_1)
-
+```{r}
+check_heteroscedasticity(m3)
 ```
 

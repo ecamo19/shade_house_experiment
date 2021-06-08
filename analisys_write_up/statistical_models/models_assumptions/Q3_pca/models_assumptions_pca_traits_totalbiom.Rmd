@@ -1,7 +1,8 @@
 ---
-title: "PCA analysis"
-author: "Leland Werden"
-date: "2020"
+title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species? Checking assumptions for PCA analysis"
+
+author: "Main code Leland Werden, edited by ECM"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -12,6 +13,7 @@ output:
     number_sections: true
     toc_depth: 2
 ---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
@@ -35,122 +37,110 @@ library(factoextra)
 ```
 
 
-
 # Load and Clean Data
 
 ```{r}
-finalTrait_dat <- read.table("~/documents/projects/shade_house_exp/exploratory_figures_and_models/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+colnames(final_trait_dat)
 ```
 
 ```{r}
 
-allTrait <-  
-    finalTrait_dat %>%
-    dplyr::select(spcode, treatment, nfixer, init_height, totalbiom, above_biom,
-                  whole_leaf_dry_weight, stem_dry_weight, amax, gs, wue, 
-                  d13c, sla_cm2_g, totalleafmass_Nmass, rgr, agr)
+# Select variables that are going to be used in the model
+all_trait <-  
+    final_trait_dat %>%
+    dplyr::select(spcode, treatment, nfixer, init_height, 
+                  
+                  #Performance measures
+                  totalbiom, above_biom,rgr, agr, 
+                  
+                  #physiology traits
+                  amax, gs, wue,
+                  
+                  #Leaf traits
+                  Narea_g_m2,Nmass_mg_g,d13c, sla_cm2_g)
 
 
-# Scale data
-allTrait_scaled <- allTrait
-allTrait_scaled[,c(9:14)] <- scale(allTrait_scaled[,c(9:14)])
+
+#Generate a copy of the original data
+all_trait_scaled <- all_trait
+
+# Scale and center data traits
+all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)],center = TRUE, scale = TRUE)
 ```
 
 
 # PCA 
 
 ```{r}
-PCAfinalTraits <- princomp(allTrait_scaled[,c(9:14)])
+pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
 ```
 
 ```{r}
 #Extract loadings
-PCAfinalTraits$loadings 
+pca_final_traits$loadings 
 ```
 
 ```{r}
-PCAscores <- scores(PCAfinalTraits)
-```
-
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-fviz_pca(PCAfinalTraits)
+# Pull out PC axes and add to trait/growth data frame
+pca_scores <- scores(pca_final_traits)
 ```
 
 
 # Data for PCA regression 
 ```{r}
-allTrait_scaled_forReg <- allTrait
+all_trait_scaled_for_reg <- all_trait
 ```
 
 ## Pull out PC axes and add to trait/growth data frame
 ```{r}
-allTrait_scaled_forReg$PC1 <- PCAscores[,1]
-allTrait_scaled_forReg$PC2 <- PCAscores[,2]
-allTrait_scaled_forReg$PC3 <- PCAscores[,3]
+#Extract PCs
+all_trait_scaled_for_reg$PC1 <- pca_scores[,1]
+all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
+all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
 ```
 
-# Models created 
+# Models 
 
-## Two-way interaction
+__NEEDS MORE WORK__
+## Do PCs predict AGR? Two-Way interaction model
 $$1)\ response\sim treatment*PC +\ fixer*PC\ + initial\ height\ + random(1|specie)$$
 
-## Three-way interaction
-$$2)\ response\sim treatment*fixer*PC + initial\ height\ + random(1|specie)$$
 
-# Perform regressions
-
-__Do PCs predict AGR?__
 ```{r}
-
 # fit treatment/nfixer interactions separately
-m1_agr_2_way_interac <- lmer(agr ~ treatment * PC1 +
-                     nfixer * PC1 +
-                     
-                     #PC2
-                     treatment * PC2 +
-                     nfixer * PC2 +
-                     
-                     #Covariate and random effect         
-                     init_height + (1|spcode), 
-                data = allTrait_scaled_forReg)
-
+pca_mod_agr_1 <- glmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
+                              treatment * PC1 +
+                              treatment * PC2 +
+                              treatment * PC3 +
+   
+                        #NFixer interaction
+                              nfixer * PC1 +
+                              nfixer * PC2 +
+                              nfixer * PC3 +
+                        
+                        #Random part
+                        init_height + (1|spcode), 
+                        data = all_trait_scaled_for_reg)
 ```
+
 
 ```{r}
-# fit three-way interaction
-m2_agr_3_way_interac <- lmer(agr ~ treatment * nfixer* PC1+
-                                      
-                                      #Three way interactions
-                                      treatment * nfixer* PC2 +
-                                    
-                                      #Covariate and random effect 
-                                      init_height + (1|spcode),
-                                data = allTrait_scaled_forReg)
-```
-
-## Model comparison 
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-compare_performance(m1_agr_2_way_interac,m2_agr_3_way_interac) 
-```
-
-```{r}
-compare_performance(m1_agr_2_way_interac,m2_agr_3_way_interac,rank = TRUE) 
-```
-
-## Check Model assumptions 
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted 
 # as “the proportion of the variance explained by the grouping structure in the
 # population”
-model_performance(m1_agr_2_way_interac)
-check_model(m1_agr_2_way_interac, panel = T, 
-            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq")) 
+model_performance(pca_mod_agr_1)
 ```
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
-check_model(m1_agr_2_way_interac, panel = T, check = "vif" ) 
 
+
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
+
+#check_model(pca_mod_agr_1, panel = T, 
+#            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq"))
+
+check_model(pca_mod_agr_1, panel = T) 
 ```
 
 
@@ -158,8 +148,73 @@ check_model(m1_agr_2_way_interac, panel = T, check = "vif" )
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m1_agr_2_way_interac)
-plotQQunif(m1_agr_2_way_interac) 
+simulation_output_two_way_inter <- simulateResiduals(fittedModel = pca_mod_agr_1)
+plot(simulation_output_two_way_inter) 
 ```
+
+```{r}
+testDispersion(simulation_output_two_way_inter)
+```
+
+```{r}
+check_heteroscedasticity(pca_mod_agr_1)
+```
+
+
+
+## Do PCs predict AGR? Three-Way interaction model
+
+__NEEDS MORE WORK__
+
+$$2)\ response\sim treatment*fixer*PC + initial\ height\ + random(1|specie)$$
+
+```{r message=FALSE}
+# fit three-way interaction
+pca_mod_agr_2 <- glmer(agr ~ treatment * nfixer* PC1 +
+                            treatment * nfixer* PC2 +
+                            treatment * nfixer* PC3 +
+                            
+                            #Random part
+                            init_height + (1|spcode),
+                          data = all_trait_scaled_for_reg)
+```
+
+
+
+```{r}
+# Model performance
+
+# ICC provides information on the explained variance and can be interpreted 
+# as “the proportion of the variance explained by the grouping structure in the
+# population”
+model_performance(pca_mod_agr_2)
+```
+
+
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
+
+#check_model(pca_mod_agr_1, panel = T, 
+#            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq"))
+
+check_model(pca_mod_agr_2, panel = T) 
+```
+
+
+```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+#check model assumptions with DHARMa 
+#passes all tests so just go with it. 
+
+simulation_output_three_way_inter <- simulateResiduals(fittedModel = pca_mod_agr_2)
+plot(simulation_output_three_way_inter) 
+```
+
+```{r}
+testDispersion(simulation_output_three_way_inter)
+```
+
+```{r}
+check_heteroscedasticity(pca_mod_agr_2)
+```
+
 
 

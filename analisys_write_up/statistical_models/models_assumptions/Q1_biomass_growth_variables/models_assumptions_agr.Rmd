@@ -1,5 +1,5 @@
 ---
-title: "Models for Absolute and Relative Growth Rate "
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Checking assumptions for AGR Variable"
 author: "Mas o menos lab"
 date: "2020"
 output: 
@@ -59,8 +59,7 @@ data_rgr_agr_clean <-
     data_rgr_agr %>% 
     
     #Order the columns  
-    dplyr::select(id,spcode,family,treatment,nfixer,init_height,rgr,agr)
- 
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,agr)
   
 ```
 
@@ -75,7 +74,9 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  lmer(as.formula(formula), data = data_rgr_agr_clean)
+  glmer(as.formula(formula), 
+  	  family = gaussian(link = "identity"), 
+  	  data = data_rgr_agr)
 }
 ```
 
@@ -83,7 +84,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rgr_agr_clean)[7:8]
+vars <- names(data_rgr_agr_clean)[7]
 ```
 
 ```{r}
@@ -98,14 +99,18 @@ mixed_models <-  vars %>%
 # Results
 
 ## Absolute Growth Rate
-```{r message=FALSE, warning=FALSE, fig.align='center',fig.width=16, fig.height=8}
+__MODEL NEED WORK__
+
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$agr)
+```
 
+```{r message=FALSE, warning=FALSE, fig.align='center',fig.width=16, fig.height=8}
 check_model(mixed_models$agr)
-
 ```
 
 
@@ -113,7 +118,19 @@ check_model(mixed_models$agr)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$agr)
-plotQQunif(mixed_models$agr) 
+simulation_output_arg <- simulateResiduals(fittedModel = mixed_models$agr)
+plot(simulation_output_arg) 
 ```
+
+
+```{r}
+testDispersion(simulation_output_arg)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$agr)
+```
+
+
+
 

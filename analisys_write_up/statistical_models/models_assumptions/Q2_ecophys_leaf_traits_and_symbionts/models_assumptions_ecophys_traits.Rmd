@@ -1,7 +1,7 @@
 ---
-title: "Models assumptions for ecophysiology traits"
+title: "(Q2) How does increased nutrient and/or water availability influence seedling water- and nutrient-use traits and relationships with symbionts?. Checking assumptions for ecophys variables"
 author: "Mas o menos Lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 9
@@ -41,7 +41,8 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot2.R")
 ```{r}
 
 data_ecophys_traits <- 
-  read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", header = T) %>% 
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", 
+  		 header = T) %>% 
   clean_names()  
 
 data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
@@ -67,7 +68,8 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  lmer(as.formula(formula), data = data_ecophys_traits)
+  glmer(as.formula(formula), family = gaussian(link = "identity"), 
+  	  data = data_ecophys_traits)
 }
 ```
 
@@ -91,14 +93,17 @@ mixed_models <-  vars %>%
 
 ## Amax
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+__No major problems detected__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$amax)
+```
 
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(mixed_models$amax)
-
 ```
 
 
@@ -106,41 +111,66 @@ check_model(mixed_models$amax)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$amax)
-plotQQunif(mixed_models$amax) 
+simulation_output_amax <- simulateResiduals(fittedModel = mixed_models$amax)
+plot(simulation_output_amax) 
 ```
 
+```{r}
+testDispersion(simulation_output_amax)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$amax)
+```
 
 ## gs
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+__Model need work__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$gs)
 
-check_model(mixed_models$gs)
+```
 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+check_model(mixed_models$gs)
 ```
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$gs)
-plotQQunif(mixed_models$gs) 
+simulation_output_gs <- simulateResiduals(fittedModel = mixed_models$gs)
+plot(simulation_output_gs) 
 ```
+
+```{r}
+testDispersion(simulation_output_gs)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$gs)
+```
+
 
 ## WUE
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+__Model needs work__
+
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$wue)
+```
 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(mixed_models$wue)
-
 ```
 
 
@@ -148,6 +178,20 @@ check_model(mixed_models$wue)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = mixed_models$wue)
-plotQQunif(mixed_models$wue) 
+simulation_output_wue <- simulateResiduals(fittedModel = mixed_models$wue)
+plot(simulation_output_wue) 
 ```
+
+```{r}
+testDispersion(simulation_output_wue)
+```
+
+```{r}
+check_heteroscedasticity(mixed_models$wue)
+```
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 ---
-title: "Models assumptions for Mycorrhyzal colonization"
+title: "(Q2) How does increased nutrient and/or water availability influence seedling water- and nutrient-use traits and relationships with symbionts?. Checking assumptions for Mycorrhyzal colonization"
 author: "Mas o menos lab"
-date: "2020"
+date: "2021"
 output: 
  prettydoc::html_pretty:
     fig_width: 8
@@ -55,21 +55,25 @@ $$Mycorrhyzal\ colonization\sim treatment*fixer +\ random(1|specie)$$
 ## Percentage of mycorryzal colonization
 
 ```{r}
-m1 <- lmer(percentage ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
+  
+m1 <- glmer(percentage ~ treatment * nfixer  + (1|spcode),
+			  family = gaussian(link = "identity"), 
+			  data = data_mycorrhizal_colonization_cleaned)
 
 ```
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as:
 # “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(m1)
+```
 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(m1)
-
 ```
 
 
@@ -77,26 +81,39 @@ check_model(m1)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m1)
-plotQQunif(m1) 
+simulation_output_mycorrhyzal_colonization <- simulateResiduals(fittedModel = m1)
+plot(simulation_output_mycorrhyzal_colonization) 
 ```
 
+```{r}
+testDispersion(simulation_output_mycorrhyzal_colonization)
+```
+
+```{r}
+check_heteroscedasticity(m1)
+```
 
 ## log Percentage of mycorryzal colonization 
   
-```{r}
-m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
+```{r message=FALSE, warning=FALSE}
+m1_log <- glmer(log_perc ~ treatment * nfixer  + (1|spcode),
+			  family = gaussian(link = "identity"), 
+			  data = data_mycorrhizal_colonization_cleaned)
+
 ```
 
-
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted 
 # as “the proportion of the variance explained by the grouping structure in the 
 # population”
 model_performance(m1_log)
+
+```
+
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 
 check_model(m1_log)
 
@@ -107,29 +124,38 @@ check_model(m1_log)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(m1_log)
-plotQQunif(m1_log) 
+simulation_output_m1_log <- simulateResiduals(m1_log)
+plot(simulation_output_m1_log) 
 ```
 
+
+```{r}
+testDispersion(simulation_output_m1_log)
+```
+
+```{r}
+check_heteroscedasticity(m1_log)
+```
 
 ## Mycorrhyzal colonization up to 100%
 
-```{r}
-m1_upto_100 <- lmer(percentage_upto_100 ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
+```{r message=FALSE, warning=FALSE}
+m1_upto_100 <- glmer(percentage_upto_100 ~ treatment * nfixer  + (1|spcode),
+			  family = gaussian(link = "identity"), 
+			  data = data_mycorrhizal_colonization_cleaned)
 
-Anova(m1_upto_100, type = "III")
 ```
 
-
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(m1_upto_100)
+```
 
+
+```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
 check_model(m1_upto_100)
-
 ```
 
 
@@ -137,35 +163,50 @@ check_model(m1_upto_100)
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
-simulationOutput <- simulateResiduals(fittedModel = m1_upto_100)
-plotQQunif(m1_upto_100) 
+simulation_output_m1_upto_100 <- simulateResiduals(fittedModel = m1_upto_100)
+plot(simulation_output_m1_upto_100) 
 ```
+
+```{r}
+testDispersion(simulation_output_m1_upto_100)
+```
+
+```{r}
+check_heteroscedasticity(m1_upto_100)
+```
+
 
 ## log Mycorrhyzal colonization up to 100% 
 
-```{r}
-m1_log_upto_100 <- lmer(log_perc_upto_100 ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
-Anova(m1_log_upto_100, type = "III")
+```{r message=FALSE, warning=FALSE}
+m1_log_upto_100 <- glmer(log_perc_upto_100 ~ treatment * nfixer  + (1|spcode),
+			  family = gaussian(link = "identity"), 
+			  data = data_mycorrhizal_colonization_cleaned)
 ```
 
-
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(m1_log_upto_100)
-
-check_model(m1_log_upto_100)
-
 ```
 
 
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
-#check model assumptions with DHARMa 
-#passes all tests so just go with it. 
+check_model(m1_log_upto_100)
+```
 
-simulationOutput <- simulateResiduals(m1_log_upto_100)
-plotQQunif(m1_log_upto_100) 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+simulation_output_m1_log_upto_100 <- simulateResiduals(m1_log_upto_100)
+plot(simulation_output_m1_log_upto_100) 
+```
+
+```{r}
+testDispersion(simulation_output_m1_log_upto_100)
+```
+
+```{r}
+check_heteroscedasticity(m1_log_upto_100)
 ```
 

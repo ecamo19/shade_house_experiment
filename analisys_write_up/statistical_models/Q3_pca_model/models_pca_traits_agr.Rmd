@@ -86,7 +86,6 @@ pca_final_traits$loadings
 
 ## Biplots
 
-
 ### PC1 vrs PC2
 
 ```{r}
@@ -185,7 +184,7 @@ $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 ```{r}
 # fit treatment/nfixer interactions separately
-pca_mod_agr_1 <- lmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
+pca_mod_agr_1 <- glmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
                               treatment * PC1 +
                               treatment * PC2 +
                               treatment * PC3 +
@@ -205,7 +204,7 @@ pca_mod_agr_1 <- lmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
 
 ```{r}
 # fit three-way interaction
-pca_mod_agr_2 <- lmer(agr ~ treatment * nfixer* PC1 +
+pca_mod_agr_2 <- glmer(agr ~ treatment * nfixer* PC1 +
                             treatment * nfixer* PC2 +
                             treatment * nfixer* PC3 +
                             

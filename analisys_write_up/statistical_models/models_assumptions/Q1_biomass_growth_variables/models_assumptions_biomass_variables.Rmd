@@ -1,5 +1,5 @@
 ---
-title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Biomass Variables. Checking assumptions for biomass variables"
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Checking assumptions for biomass variables"
 author: "Mas o menos lab"
 date: "2021"
 output: 
