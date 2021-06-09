@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align='center',fig.width=16, 
+					  fig.height=8)
 ```
 
 # Load packages and data
@@ -83,7 +84,7 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  glmer(as.formula(formula), family = gaussian(link = "identity"), data = data_rate_change)
+  lmer(as.formula(formula), data = data_rate_change)
 }
 
 
@@ -122,7 +123,7 @@ model_performance(mixed_models$totalbiom)
 
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=12}
+```{r,message=FALSE, warning=FALSE}
 
 
 check_model(mixed_models$totalbiom)
@@ -130,7 +131,7 @@ check_model(mixed_models$totalbiom)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -138,9 +139,6 @@ simulation_output_totalbiom <- simulateResiduals(fittedModel = mixed_models$tota
 plot(simulation_output_totalbiom) 
 ```
 
-```{r}
-testDispersion(simulation_output_totalbiom)
-```
 ```{r}
 check_heteroscedasticity(mixed_models$totalbiom)
 ```
@@ -160,12 +158,12 @@ model_performance(mixed_models$above_biom)
 ```
 
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
+```{r,message=FALSE, warning=FALSE}
 check_model(mixed_models$above_biom)
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -174,9 +172,7 @@ plot(simulation_output_above_biom)
 ```
 
 
-```{r}
-testDispersion(simulation_output_above_biom)
-```
+
 
 ```{r}
 check_heteroscedasticity(mixed_models$above_biom)
@@ -185,7 +181,7 @@ check_heteroscedasticity(mixed_models$above_biom)
 
 ## Belowground Biomass
 
-__NEEDS WORK__
+__Done, varIdent implemented__
 ```{r}
 # Model performance
 
@@ -194,15 +190,12 @@ model_performance(mixed_models$below_biom)
 ```
 
 
-```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
-
-
+```{r message=FALSE, warning=FALSE}
 check_model(mixed_models$below_biom)
-
 ```
 
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r,message=FALSE, warning=FALSE}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -210,14 +203,74 @@ simulation_output_below_biom <- simulateResiduals(fittedModel = mixed_models$bel
 plot(simulation_output_below_biom) 
 ```
 
-```{r}
-testDispersion(simulation_output_below_biom)
-```
+
 
 
 ```{r}
 check_heteroscedasticity(mixed_models$below_biom)
 ```
+
+
+
+```{r}
+plot(data_rate_change$nfixer, resid(mixed_models$below_biom), xlab = "NFixer",
+ylab = "Residuals")
+```
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$below_biom), xlab = "Treatment",
+ylab = "Residuals")
+```
+
+### First model Belowground biomass model
+
+```{r}
+belowbiom_model <- lme(below_biom ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+### varIdent Below biomass model
+
+
+```{r}
+
+varident_belowbiom <- lme(below_biom ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_rate_change) 
+
+
+
+```
+
+
+```{r}
+anova(belowbiom_model,varident_belowbiom)
+```
+
+
+
+```{r}
+
+plot(varident_belowbiom,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_belowbiom,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "Nfixer")
+```
+
+```{r}
+E <- resid(varident_belowbiom)
+coplot(E ~ treatment | nfixer, data = data_rate_change )
+```
+
+
 
 ## Stem Dry weight
 
@@ -243,9 +296,6 @@ plot(simulation_output_stem_dry_weight)
 ```
 
 
-```{r}
-testDispersion(simulation_output_stem_dry_weight)
-```
 
 
 ```{r}
@@ -282,9 +332,7 @@ plot(simulation_output_whole_leaf_dry_weight)
 ```
 
 
-```{r}
-testDispersion(simulation_output_whole_leaf_dry_weight)
-```
+
 
 ```{r}
 check_heteroscedasticity(mixed_models$whole_leaf_dry_weight)
@@ -295,7 +343,6 @@ check_heteroscedasticity(mixed_models$whole_leaf_dry_weight)
 
 ## Root Mass Fraction 
 
-__NEEDS WORK__
 
 ```{r}
 
@@ -320,17 +367,71 @@ plot(simulation_output_rmf)
 ```
 
 
-```{r}
-testDispersion(simulation_output_rmf)
-```
 
 ```{r}
 check_heteroscedasticity(mixed_models$rmf)
 ```
 
+```{r}
+plot(data_rate_change$nfixer, resid(mixed_models$rmf), xlab = "NFixer",
+	 ylab = "Residuals")
+```
+
+
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$rmf), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+
+### First model Root Mass Fraction
+```{r}
+rmf_model <- lme(rmf ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+### varIdent Root Mass Fraction
+
+```{r}
+varident_rmf <- lme(rmf ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+```{r}
+anova(rmf_model,varident_rmf)
+```
+
+
+
+```{r}
+
+plot(varident_rmf,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_rmf,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E <- resid(varident_rmf,type = "normalized")
+coplot(E ~ treatment | nfixer, data = data_rate_change, 
+	   ylab = "Normalised residuals" )
+```
+
 
 ## Stem Mass fraction
-__NEEDS WORK__
+
 
 ```{r}
 # Model performance
@@ -355,16 +456,70 @@ plot(simulation_output_smf)
 
 
 ```{r}
-testDispersion(simulation_output_smf)
+check_heteroscedasticity(mixed_models$smf)
 ```
 
 ```{r}
-check_heteroscedasticity(mixed_models$smf)
+plot(data_rate_change$nfixer, resid(mixed_models$smf), xlab = "NFixer",
+	 ylab = "Residuals")
+```
+
+
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$smf), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+
+### First model Root Mass Fraction
+```{r}
+smf_model <- lme(smf ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+### varIdent Root Mass Fraction
+
+```{r}
+varident_smf <- lme(smf ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment), 
+												
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+```{r}
+anova(smf_model,varident_smf)
+```
+
+
+
+```{r}
+
+plot(smf_model,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(smf_model,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+
+```{r}
+E <- resid(smf_model,type = "normalized")
+coplot(E ~ treatment | nfixer, data = data_rate_change, 
+	   ylab = "Normalised residuals" )
 ```
 
 ## Leaf Mass fraction
 
-__No major problems detected__
 ```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 # Model performance
 
@@ -383,10 +538,6 @@ simulation_output_lmf <- simulateResiduals(fittedModel = mixed_models$lmf)
 plot(simulation_output_lmf) 
 ```
 
-
-```{r}
-testDispersion(simulation_output_lmf)
-```
 
 ```{r}
 check_heteroscedasticity(mixed_models$lmf)
