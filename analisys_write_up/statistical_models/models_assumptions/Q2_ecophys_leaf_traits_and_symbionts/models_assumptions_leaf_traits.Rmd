@@ -11,8 +11,10 @@ output:
     toc_depth: 2
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
 
 # Load packages and data
@@ -63,6 +65,7 @@ data_rate_change <-
 	dplyr::select(-c(rmf,smf,lmf,whole_leaf_dry_weight,
 					 root_dry_weight,stem_dry_weight,totalbiom,above_biom,
 					 below_biom,la,ldmc,CN,totalleafmass_Nmass)) %>% 
+	mutate(nfixer = factor(nfixer)) %>% 
 	clean_names()
 
 
@@ -100,10 +103,10 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Results
 
-## d13c
-__No major problems detected__
+
+# d13c model: No major problems detected
+
 
 ```{r}
 # Model performance
@@ -131,18 +134,13 @@ simulation_output_d13c <- simulateResiduals(fittedModel = mixed_models$d13c)
 plot(simulation_output_d13c) 
 ```
 
-```{r}
-testDispersion(simulation_output_d13c)
-```
 
 ```{r}
 check_heteroscedasticity(mixed_models$d13c)
 ```
 
 
-## SLA
-
-__Model needs work__
+# SLA model: varIdent implemented
 
 ```{r}
 # Model performance
@@ -168,17 +166,69 @@ simulation_output_sla <- simulateResiduals(fittedModel = mixed_models$sla_cm2_g)
 plot(simulation_output_sla) 
 ```
 
-```{r}
-testDispersion(simulation_output_sla)
-```
 
 ```{r}
 check_heteroscedasticity(mixed_models$sla_cm2_g)
 ```
 
-## NArea
+```{r}
+plot(data_rate_change$nfixer, resid(mixed_models$sla_cm2_g), xlab = "NFixer",	 
+	 ylab = "Residuals")
+```
 
-__Model needs work__
+
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$sla), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+
+
+## First model SLA
+```{r}
+sla_model <- lme(sla_cm2_g ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+## varIdent SLA model
+
+```{r}
+varident_sla <- lme(sla_cm2_g ~ nfixer*treatment + init_height,
+								random = ~ 1|spcode,
+                				weights = varIdent(form = ~ 1 | treatment*nfixer),
+								#method="REML",
+                				data = data_rate_change) 
+
+```
+
+```{r}
+anova(sla_model,varident_sla)
+```
+
+```{r}
+plot(varident_sla,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_sla,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_sla <- resid(varident_sla,type = "normalized")
+coplot(E_sla ~ treatment | nfixer, data = data_rate_change, 
+	   ylab = "Normalised residuals" )
+```
+
+
+# NArea model: varIdent implemented
+
 
 ```{r}
 # Model performance
@@ -208,31 +258,65 @@ plot(simulation_output_narea)
 
 
 ```{r}
-### BoxCox tranformation for Narea
-#boxcox(lm(narea_g_m2 ~  treatment * nfixer + init_height, 
-#		data = data_rate_change))
-```
-
-
-```{r}
-### Boxcox model
-#narea_1_sqrt <- lmer((1/sqrt(narea_g_m2)) ~  treatment * nfixer +
-#								 	init_height + 
-#								 	(1|spcode), 
-#								 data = data_rate_change)
-```
-
-```{r}
-testDispersion(simulation_output_narea)
-```
-
-```{r}
+## I dont trust this pvalue
 check_heteroscedasticity(mixed_models$narea_g_m2)
 ```
 
-## NMass
 
-__Model needs work__
+```{r}
+plot(data_rate_change$nfixer, resid(mixed_models$narea_g_m2), xlab = "NFixer",	 
+	 ylab = "Residuals")
+```
+
+
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$narea_g_m2), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+
+## First model Narea
+```{r}
+narea_model <- lme(narea_g_m2 ~ nfixer*treatment + init_height,
+                				random = ~ 1|spcode,
+                				#weights = varIdent(form = ~ 1 | treatment),
+								#method="REML",
+                				data = data_rate_change) 
+
+```
+
+## varIdent Narea model
+```{r}
+varident_narea <- lme(narea_g_m2 ~  nfixer*treatment + init_height,
+                					random = ~ 1|spcode,
+                					weights = varIdent(form = ~ 1 | treatment*nfixer),
+									#method="REML",
+                					data = data_rate_change) 
+
+```
+
+```{r}
+anova(narea_model,varident_narea)
+```
+
+```{r}
+plot(varident_narea,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_narea,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+```{r}
+E_narea <- resid(varident_narea,type = "normalized")
+coplot(E_narea ~ treatment | nfixer, data = data_rate_change, 
+	   ylab = "Normalised residuals" )
+```
+
+
+# NMass model: varIdent implemented
 
 ```{r}
 # Model performance
@@ -261,29 +345,64 @@ simulation_output_nmass <- simulateResiduals(fittedModel = mixed_models$nmass_mg
 plot(simulation_output_nmass) 
 ```
 
-
-
-```{r}
-### BoxCox tranformation for Nmass
-#boxcox(lm(nmass_mg_g ~  treatment * nfixer + init_height, 
-#		data = data_rate_change  ))
-```
-
-```{r}
-#nmass_sqrt <- lmer(sqrt(nmass_mg_g) ~  treatment * nfixer +
-#								 	init_height + 
-#								 	(1|spcode), 
-#								 data = data_rate_change)
-```
-
-```{r}
-testDispersion(simulation_output_nmass)
-```
-
 ```{r}
 check_heteroscedasticity(mixed_models$nmass_mg_g)
 ```
 
+
+```{r}
+plot(data_rate_change$nfixer, resid(mixed_models$nmass_mg_g), xlab = "NFixer",	 
+	 ylab = "Residuals")
+```
+
+
+```{r}
+plot(data_rate_change$treatment, resid(mixed_models$nmass_mg_g), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+
+## First model Nmass
+```{r}
+nmass_model <- lme(nmass_mg_g ~ nfixer*treatment + init_height,
+                				random = ~ 1|spcode,
+                				#weights = varIdent(form = ~ 1 | treatment),
+								#method="REML",
+                				data = data_rate_change) 
+
+```
+
+## varIdent Nmass model
+
+```{r}
+varident_nmass <- lme(nmass_mg_g ~  nfixer*treatment + init_height,
+                					random = ~ 1|spcode,
+                					weights = varIdent(form = ~ 1 | treatment*nfixer),
+									#method="REML",
+                					data = data_rate_change) 
+
+```
+
+```{r}
+anova(nmass_model,varident_nmass)
+```
+
+```{r}
+plot(varident_nmass,which = c(1), col = data_rate_change$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_nmass,which = c(1), col = data_rate_change$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_nmass <- resid(varident_nmass,type = "normalized")
+coplot(E_nmass ~ treatment | nfixer, data = data_rate_change, 
+	   ylab = "Normalised residuals" )
+```
 
 
 

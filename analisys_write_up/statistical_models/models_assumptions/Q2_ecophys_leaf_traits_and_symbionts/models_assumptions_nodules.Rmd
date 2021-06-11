@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16,fig.height = 10)
 ```
 
 # Load packages and data 
@@ -47,15 +48,13 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 ```
 
 
-
 # Checking Model assumptions
 
 # Model Formula
 
 $$response \sim treatment*specie + initial\ height$$
 
-## Number of nodules
-__No major problems detected__
+## Number of nodules: No major problems detected
 
 ```{r}
 
@@ -87,10 +86,6 @@ simulation_output_m1_nodules <- simulateResiduals(fittedModel = m1)
 plot(simulation_output_m1_nodules) 
 ```
 
-```{r}
-testDispersion(simulation_output_m1_nodules)
-```
-
 
 ```{r}
 check_heteroscedasticity(m1)
@@ -99,7 +94,6 @@ check_heteroscedasticity(m1)
 
 
 ## Average Nodule Weight model
-__Model needs work__
 
 ```{r}
 m2 <- glm(average_nodule_weight ~ treatment * spcode, 
@@ -128,9 +122,7 @@ plot(simulation_output_m2_nodules)
 ```
 
 
-```{r}
-testDispersion(simulation_output_m2_nodules)
-```
+
 
 
 ```{r}
@@ -167,10 +159,6 @@ simulation_output_m3 <- simulateResiduals(fittedModel = m3)
 plot(simulation_output_m3) 
 ```
 
-
-```{r}
-testDispersion(simulation_output_m3)
-```
 
 
 ```{r}

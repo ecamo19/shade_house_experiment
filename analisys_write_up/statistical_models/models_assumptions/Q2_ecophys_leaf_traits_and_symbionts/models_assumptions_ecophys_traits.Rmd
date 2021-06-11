@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16,fig.height = 10)
 ```
 
 # Load packages and data
@@ -42,8 +43,14 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot2.R")
 
 data_ecophys_traits <- 
   read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", 
-  		 header = T) %>% 
-  clean_names()  
+  		 header = T) %>%
+	clean_names()   %>%
+	dplyr::select(-c(rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
+					 stem_dry_weight,totalbiom,above_biom,below_biom,
+					 la,ldmc,d13c,sla_cm2_g,cn,narea_g_m2,nmass_mg_g,
+					 totalleafmass_nmass)) %>%
+	
+	mutate(nfixer = factor(nfixer))
 
 data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
 					levels = c(
@@ -53,6 +60,7 @@ data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
 							   "ambientrain_water_nutrients"
 							   )
 					)
+
 
 
 ```
@@ -68,8 +76,7 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  glmer(as.formula(formula), family = gaussian(link = "identity"), 
-  	  data = data_ecophys_traits)
+  lmer(as.formula(formula),data = data_ecophys_traits)
 }
 ```
 
@@ -77,7 +84,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_ecophys_traits)[6:(ncol(data_ecophys_traits)-1)]
+vars <- names(data_ecophys_traits)[7:(ncol(data_ecophys_traits))]
 ```
 
 ```{r}
@@ -89,11 +96,8 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Results
 
-## Amax
-
-__No major problems detected__
+# Amax model: No major problems detected
 
 ```{r}
 # Model performance
@@ -115,24 +119,18 @@ simulation_output_amax <- simulateResiduals(fittedModel = mixed_models$amax)
 plot(simulation_output_amax) 
 ```
 
-```{r}
-testDispersion(simulation_output_amax)
-```
 
 ```{r}
 check_heteroscedasticity(mixed_models$amax)
 ```
 
-## gs
-
-__Model need work__
+# gs model: varIdent implemented
 
 ```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$gs)
-
 ```
 
 
@@ -149,17 +147,66 @@ plot(simulation_output_gs)
 ```
 
 ```{r}
-testDispersion(simulation_output_gs)
-```
-
-```{r}
 check_heteroscedasticity(mixed_models$gs)
 ```
 
 
-## WUE
+```{r}
+plot(data_ecophys_traits$nfixer, resid(mixed_models$gs), xlab = "NFixer",	 
+	 ylab = "Residuals")
+```
 
-__Model needs work__
+
+```{r}
+plot(data_ecophys_traits$treatment, resid(mixed_models$gs), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+## First model gs
+```{r}
+gs_model <- lme(gs ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_ecophys_traits) 
+
+```
+
+## varIdent gs model
+
+```{r}
+varident_gs <- lme(gs ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_ecophys_traits) 
+
+```
+
+
+```{r}
+anova(gs_model,varident_gs)
+```
+
+```{r}
+plot(varident_gs,which = c(1), col = data_ecophys_traits$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_gs,which = c(1), col = data_ecophys_traits$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_gs <- resid(varident_gs,type = "normalized")
+coplot(E_gs ~ treatment | nfixer, data = data_ecophys_traits, 
+	   ylab = "Normalised residuals" )
+```
+
+
+# WUE model: varIdent implemented
 
 ```{r}
 # Model performance
@@ -183,15 +230,64 @@ plot(simulation_output_wue)
 ```
 
 ```{r}
-testDispersion(simulation_output_wue)
-```
-
-```{r}
 check_heteroscedasticity(mixed_models$wue)
 ```
 
 
+```{r}
+plot(data_ecophys_traits$nfixer, resid(mixed_models$wue), xlab = "NFixer",	
+	 ylab = "Residuals")
+```
 
+
+```{r}
+plot(data_ecophys_traits$treatment, resid(mixed_models$wue), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+## First model wue
+```{r}
+wue_model <- lme(wue ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_ecophys_traits) 
+
+```
+
+## varIdent WUE model
+
+```{r}
+varident_wue <- lme(wue ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_ecophys_traits) 
+
+```
+
+
+```{r}
+anova(wue_model,varident_wue)
+```
+
+```{r}
+plot(varident_wue,which = c(1), col = data_ecophys_traits$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_wue,which = c(1), col = data_ecophys_traits$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_wue <- resid(varident_wue,type = "normalized")
+
+coplot(E_wue ~ treatment | nfixer, data = data_ecophys_traits, 
+	   ylab = "Normalised residuals" )
+```
 
 
 

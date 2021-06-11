@@ -85,15 +85,15 @@ simulation_output_mycorrhyzal_colonization <- simulateResiduals(fittedModel = m1
 plot(simulation_output_mycorrhyzal_colonization) 
 ```
 
-```{r}
-testDispersion(simulation_output_mycorrhyzal_colonization)
-```
+
 
 ```{r}
 check_heteroscedasticity(m1)
 ```
 
-## log Percentage of mycorryzal colonization 
+## log Percentage of mycorryzal colonization: Model selected 
+
+____
   
 ```{r message=FALSE, warning=FALSE}
 m1_log <- glmer(log_perc ~ treatment * nfixer  + (1|spcode),
@@ -126,11 +126,6 @@ check_model(m1_log)
 
 simulation_output_m1_log <- simulateResiduals(m1_log)
 plot(simulation_output_m1_log) 
-```
-
-
-```{r}
-testDispersion(simulation_output_m1_log)
 ```
 
 ```{r}
@@ -168,7 +163,7 @@ plot(simulation_output_m1_upto_100)
 ```
 
 ```{r}
-testDispersion(simulation_output_m1_upto_100)
+(simulation_output_m1_upto_100)
 ```
 
 ```{r}
@@ -202,9 +197,6 @@ simulation_output_m1_log_upto_100 <- simulateResiduals(m1_log_upto_100)
 plot(simulation_output_m1_log_upto_100) 
 ```
 
-```{r}
-testDispersion(simulation_output_m1_log_upto_100)
-```
 
 ```{r}
 check_heteroscedasticity(m1_log_upto_100)

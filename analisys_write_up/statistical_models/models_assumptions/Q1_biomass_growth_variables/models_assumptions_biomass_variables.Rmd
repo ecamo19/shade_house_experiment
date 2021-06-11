@@ -14,8 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align='center',fig.width=16, 
-					  fig.height=8)
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
 
 # Load packages and data
@@ -46,7 +46,6 @@ data_complete_final <-
 
 ```{r message=FALSE, warning=FALSE}
 
-
 data_complete_final$treatment <- factor(data_complete_final$treatment,
 					levels = c(
 							   "ambientrain", 
@@ -63,13 +62,15 @@ data_rate_change <-
     #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-  	clean_names() 
+	clean_names()   %>%
+	dplyr::select(-c(la,ldmc,d13c,sla_cm2_g,cn,narea_g_m2,nmass_mg_g,
+			  totalleafmass_nmass)) %>%
+	mutate(nfixer = factor(nfixer))
 
+  	
 data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
 data_rate_change$spcode <- as.factor(data_rate_change$spcode)
 
-
-levels(unique(data_rate_change$treatment))
 ```
 
 
@@ -108,9 +109,7 @@ mixed_models <-  vars %>%
 
 # Model assumptions for dry weights
 
-## Total Biomasss
-
-__No major problems detected__
+## Total Biomass: No major problems detected
 
 ```{r}
 # Model performance
@@ -121,11 +120,7 @@ __No major problems detected__
 model_performance(mixed_models$totalbiom)
 ```
 
-
-
 ```{r,message=FALSE, warning=FALSE}
-
-
 check_model(mixed_models$totalbiom)
 
 ```
@@ -143,10 +138,7 @@ plot(simulation_output_totalbiom)
 check_heteroscedasticity(mixed_models$totalbiom)
 ```
 
-## Aboveground Biomass
-
-__No major problems detected__
-
+## Aboveground Biomass: No major problems detected
 
 ```{r}
 # Model performance
@@ -171,17 +163,14 @@ simulation_output_above_biom <- simulateResiduals(fittedModel = mixed_models$abo
 plot(simulation_output_above_biom) 
 ```
 
-
-
-
 ```{r}
 check_heteroscedasticity(mixed_models$above_biom)
 ```
 
 
-## Belowground Biomass
+## Belowground Biomass: varIdent implemented
 
-__Done, varIdent implemented__
+
 ```{r}
 # Model performance
 
@@ -203,9 +192,6 @@ simulation_output_below_biom <- simulateResiduals(fittedModel = mixed_models$bel
 plot(simulation_output_below_biom) 
 ```
 
-
-
-
 ```{r}
 check_heteroscedasticity(mixed_models$below_biom)
 ```
@@ -214,14 +200,14 @@ check_heteroscedasticity(mixed_models$below_biom)
 
 ```{r}
 plot(data_rate_change$nfixer, resid(mixed_models$below_biom), xlab = "NFixer",
-ylab = "Residuals")
+	 ylab = "Residuals")
 ```
 ```{r}
-plot(data_rate_change$treatment, resid(mixed_models$below_biom), xlab = "Treatment",
-ylab = "Residuals")
+plot(data_rate_change$treatment, resid(mixed_models$below_biom), 
+	 xlab = "Treatment",ylab = "Residuals")
 ```
 
-### First model Belowground biomass model
+### First model Belowground biomass 
 
 ```{r}
 belowbiom_model <- lme(below_biom ~ nfixer*treatment + init_height,
@@ -233,7 +219,6 @@ belowbiom_model <- lme(below_biom ~ nfixer*treatment + init_height,
 ```
 
 ### varIdent Below biomass model
-
 
 ```{r}
 
@@ -253,7 +238,6 @@ anova(belowbiom_model,varident_belowbiom)
 ```
 
 
-
 ```{r}
 
 plot(varident_belowbiom,which = c(1), col = data_rate_change$treatment, 
@@ -266,15 +250,13 @@ plot(varident_belowbiom,which = c(1), col = data_rate_change$nfixer,
 ```
 
 ```{r}
-E <- resid(varident_belowbiom)
-coplot(E ~ treatment | nfixer, data = data_rate_change )
+E_belowbiom <- resid(varident_belowbiom)
+coplot(E_belowbiom ~ treatment | nfixer, data = data_rate_change )
 ```
 
+## Stem Dry weight: No major problems detected
 
 
-## Stem Dry weight
-
-__No major problems detected__
 
 ```{r}
 # Model performance
@@ -303,8 +285,8 @@ check_heteroscedasticity(mixed_models$stem_dry_weight)
 ```
 
 
-## Leaf Dry weight
-__No major problems detected__
+## Leaf Dry weight: No major problems detected
+
 
 ```{r}
 # Model performance
@@ -341,8 +323,7 @@ check_heteroscedasticity(mixed_models$whole_leaf_dry_weight)
 
 # Model assumptions for Mass Fractions
 
-## Root Mass Fraction 
-
+## Root Mass Fraction: varIdent implemented
 
 ```{r}
 
@@ -383,7 +364,6 @@ plot(data_rate_change$treatment, resid(mixed_models$rmf), xlab = "Treatment",
 	 ylab = "Residuals")
 ```
 
-
 ### First model Root Mass Fraction
 ```{r}
 rmf_model <- lme(rmf ~ nfixer*treatment + init_height,
@@ -410,9 +390,7 @@ anova(rmf_model,varident_rmf)
 ```
 
 
-
 ```{r}
-
 plot(varident_rmf,which = c(1), col = data_rate_change$treatment, 
 	 add.smooth = T, caption = "Treatment")
 ```
@@ -424,14 +402,13 @@ plot(varident_rmf,which = c(1), col = data_rate_change$nfixer,
 
 
 ```{r}
-E <- resid(varident_rmf,type = "normalized")
-coplot(E ~ treatment | nfixer, data = data_rate_change, 
+E_rmf <- resid(varident_rmf,type = "normalized")
+coplot(E_rmf ~ treatment | nfixer, data = data_rate_change, 
 	   ylab = "Normalised residuals" )
 ```
 
 
-## Stem Mass fraction
-
+## Stem Mass fraction: original model selected
 
 ```{r}
 # Model performance
@@ -470,7 +447,6 @@ plot(data_rate_change$treatment, resid(mixed_models$smf), xlab = "Treatment",
 	 ylab = "Residuals")
 ```
 
-
 ### First model Root Mass Fraction
 ```{r}
 smf_model <- lme(smf ~ nfixer*treatment + init_height,
@@ -486,7 +462,7 @@ smf_model <- lme(smf ~ nfixer*treatment + init_height,
 ```{r}
 varident_smf <- lme(smf ~   nfixer*treatment + init_height,
                 			random = ~ 1|spcode,
-                			weights = varIdent(form = ~ 1 | treatment), 
+                			weights = varIdent(form = ~ 1 | treatment*nfixer), 
 												
 							#method="REML",
                 			data = data_rate_change) 
@@ -498,34 +474,38 @@ anova(smf_model,varident_smf)
 ```
 
 
-
 ```{r}
 
-plot(smf_model,which = c(1), col = data_rate_change$treatment, 
+plot(mixed_models$smf,which = c(1), col = data_rate_change$treatment, 
 	 add.smooth = T, caption = "Treatment")
 ```
 
 ```{r}
-plot(smf_model,which = c(1), col = data_rate_change$nfixer, 
+plot(mixed_models$smf,which = c(1), col = data_rate_change$nfixer, 
 	 add.smooth = T, caption = "nfixer")
 ```
 
 
 
 ```{r}
-E <- resid(smf_model,type = "normalized")
-coplot(E ~ treatment | nfixer, data = data_rate_change, 
+E_smf <- resid(smf_model,type = "normalized")
+
+
+coplot(E_smf ~ treatment | nfixer, data = data_rate_change, 
 	   ylab = "Normalised residuals" )
 ```
 
-## Leaf Mass fraction
+## Leaf Mass fraction: No major problems detected
 
-```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 # Model performance
 
 # ICC provides information on the explained variance and can be interpreted as “the proportion of the variance explained by the grouping structure in the population”
 model_performance(mixed_models$lmf)
+```
 
+
+```{r,message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
 check_model(mixed_models$lmf)
 ```
 

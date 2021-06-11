@@ -13,9 +13,12 @@ output:
     toc_depth: 2
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
+
 
 # Load packages and data
 ```{r message=FALSE, warning=FALSE}
@@ -41,8 +44,9 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 
 ```{r message=FALSE, warning=FALSE}
 data_rgr_agr <- 
-  read.csv("~/Documents/projects/shade_house_experiment/data/finalDat.csv", header = T) %>% 
-	 clean_names() 
+  read.csv("~/Documents/projects/shade_house_experiment/data/finalDat.csv", 
+  		 header = T) %>%
+	clean_names() 
 
 
 data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
@@ -55,10 +59,12 @@ data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
 					)
 
 #Clean data
-data_rgr_agr_clean <- 
+data_agr_clean <- 
     data_rgr_agr %>% 
+	# Convert to factor nfixer
+	mutate(nfixer = factor(nfixer)) %>% 
     
-    #Order the columns  
+    # Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,agr)
   
 ```
@@ -74,17 +80,15 @@ mixed_models_formula = function(response) {
   #'this function takes each response variable and join it to the formula
   formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
   
-  glmer(as.formula(formula), 
-  	  family = gaussian(link = "identity"), 
-  	  data = data_rgr_agr)
+  lmer(as.formula(formula),data = data_rgr_agr)
 }
 ```
 
-# Run Models
+# Run Model
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rgr_agr_clean)[7]
+vars <- names(data_agr_clean)[7]
 ```
 
 ```{r}
@@ -96,11 +100,8 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
-# Results
 
-## Absolute Growth Rate
-__MODEL NEED WORK__
-
+# Absolute Growth Rate model: varIdent implemented
 
 ```{r}
 # Model performance
@@ -124,13 +125,62 @@ plot(simulation_output_arg)
 
 
 ```{r}
-testDispersion(simulation_output_arg)
-```
-
-```{r}
 check_heteroscedasticity(mixed_models$agr)
 ```
 
+
+```{r}
+
+plot(data_agr_clean$nfixer, resid(mixed_models$agr), xlab = "NFixer",	 ylab = "Residuals")
+```
+
+
+```{r}
+plot(data_agr_clean$treatment, resid(mixed_models$agr), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+## First model AGR
+```{r}
+agr_model <- lme(agr ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			#weights = varIdent(form = ~ 1 | treatment),
+							#method="REML",
+                			data = data_agr_clean) 
+
+```
+
+## varIdent AGR model
+```{r}
+varident_agr <- lme(agr ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_agr_clean) 
+
+```
+
+```{r}
+anova(agr_model,varident_agr)
+```
+
+
+```{r}
+plot(varident_agr,which = c(1), col = data_agr_clean$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+```{r}
+plot(varident_agr,which = c(1), col = data_agr_clean$nfixer, 
+	 add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_agr <- resid(varident_agr,type = "normalized")
+coplot(E_agr ~ treatment | nfixer, data = data_agr_clean, 
+	   ylab = "Normalised residuals" )
+```
 
 
 

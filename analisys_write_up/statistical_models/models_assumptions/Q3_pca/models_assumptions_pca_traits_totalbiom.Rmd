@@ -1,5 +1,5 @@
 ---
-title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species? Checking assumptions for PCA analysis"
+title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species? Checking assumptions for PCA regression"
 
 author: "Main code Leland Werden, edited by ECM"
 date: "2021"
@@ -15,7 +15,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+                      fig.width = 16,fig.height = 10)
 ```
 
 
@@ -33,6 +34,7 @@ library(DHARMa)
 library(car)
 library(gridExtra)
 library(janitor)
+library(nlme)
 library(factoextra)
 ```
 
@@ -40,14 +42,14 @@ library(factoextra)
 # Load and Clean Data
 
 ```{r}
-final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
-colnames(final_trait_dat)
+final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv",
+                              header=TRUE, sep=",", strip.white=TRUE)
 ```
 
 ```{r}
 
 # Select variables that are going to be used in the model
-all_trait <-  
+all_traits <-  
     final_trait_dat %>%
     dplyr::select(spcode, treatment, nfixer, init_height, 
                   
@@ -63,33 +65,43 @@ all_trait <-
 
 
 #Generate a copy of the original data
-all_trait_scaled <- all_trait
+all_trait_scaled <- all_traits
 
 # Scale and center data traits
-all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)],center = TRUE, scale = TRUE)
+all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)], center = TRUE, 
+                                    scale = TRUE)
+colnames(all_trait_scaled)
 ```
 
 
 # PCA 
-
 ```{r}
-pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
+pca_traits <- princomp(all_trait_scaled[,c(9:15)])
 ```
 
 ```{r}
 #Extract loadings
-pca_final_traits$loadings 
+pca_traits$loadings 
 ```
 
 ```{r}
 # Pull out PC axes and add to trait/growth data frame
-pca_scores <- scores(pca_final_traits)
+pca_scores <- scores(pca_traits)
 ```
 
 
 # Data for PCA regression 
 ```{r}
-all_trait_scaled_for_reg <- all_trait
+all_trait_scaled_for_reg <- all_trait_scaled %>%
+    
+    #Transform to factor 
+    mutate(
+        nfixer = factor(nfixer),
+        treatment = factor(treatment),
+        spcode = factor(spcode)
+    )
+
+
 ```
 
 ## Pull out PC axes and add to trait/growth data frame
@@ -100,29 +112,35 @@ all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
 all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
 ```
 
-# Models 
+# Model
 
-__NEEDS MORE WORK__
-## Do PCs predict AGR? Two-Way interaction model
+## Do PCs predict AGR? Two-Way interaction model: varIdent implemented
 $$1)\ response\sim treatment*PC +\ fixer*PC\ + initial\ height\ + random(1|specie)$$
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 # fit treatment/nfixer interactions separately
-pca_mod_agr_1 <- glmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
-                              treatment * PC1 +
-                              treatment * PC2 +
-                              treatment * PC3 +
+pca_mod_agr_1 <- lmer(agr ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+                            
+                            #Control over different plant heights
+                            init_height +  
+                            
+                            #Interactions
+                            #Treament
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
    
-                        #NFixer interaction
-                              nfixer * PC1 +
-                              nfixer * PC2 +
-                              nfixer * PC3 +
+                            #NFixer 
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
                         
-                        #Random part
-                        init_height + (1|spcode), 
+                            #Random part
+                            (1|spcode), 
                         data = all_trait_scaled_for_reg)
 ```
+
 
 
 ```{r}
@@ -137,14 +155,11 @@ model_performance(pca_mod_agr_1)
 
 ```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
 
-#check_model(pca_mod_agr_1, panel = T, 
-#            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq"))
-
 check_model(pca_mod_agr_1, panel = T) 
 ```
 
 
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=16, fig.height=8}
+```{r}
 #check model assumptions with DHARMa 
 #passes all tests so just go with it. 
 
@@ -152,33 +167,122 @@ simulation_output_two_way_inter <- simulateResiduals(fittedModel = pca_mod_agr_1
 plot(simulation_output_two_way_inter) 
 ```
 
-```{r}
-testDispersion(simulation_output_two_way_inter)
-```
 
 ```{r}
 check_heteroscedasticity(pca_mod_agr_1)
 ```
 
 
+```{r}
+plot(all_trait_scaled_for_reg$nfixer, resid(pca_mod_agr_1), xlab = "NFixer",
+     ylab = "Residuals")
+```
 
-## Do PCs predict AGR? Three-Way interaction model
+```{r}
+plot(all_trait_scaled_for_reg$treatment, resid(pca_mod_agr_1), xlab = "Treatment",
+	 ylab = "Residuals")
+```
 
-__NEEDS MORE WORK__
+
+### First model PCA regression Two-way interaction
+
+```{r}
+pca_mod_agr_two_way <- lme(agr ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+
+                        data = all_trait_scaled_for_reg)
+```
+
+### varIdent PCA regression Two-way interaction
+
+```{r}
+
+varident_pca_mod_agr_two_way <- lme(agr ~treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+                            
+                            #varIdent
+                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
+
+
+
+
+```
+
+
+```{r}
+anova(pca_mod_agr_two_way,varident_pca_mod_agr_two_way)
+```
+
+```{r}
+plot(varident_pca_mod_agr_two_way,which = c(1), 
+     col = all_trait_scaled_for_reg$treatment,add.smooth = T, 
+     caption = "Treatment")
+```
+
+```{r}
+plot(varident_pca_mod_agr_two_way,which = c(1), 
+     col = all_trait_scaled_for_reg$nfixer,add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E_two_way <- resid(varident_pca_mod_agr_two_way,type = "normalized")
+coplot(E_two_way ~ treatment | nfixer, data = all_trait_scaled_for_reg, 
+	   ylab = "Normalised residuals" )
+```
+
+## Do PCs predict AGR? Three-Way interaction model: varIdent implemented
 
 $$2)\ response\sim treatment*fixer*PC + initial\ height\ + random(1|specie)$$
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 # fit three-way interaction
-pca_mod_agr_2 <- glmer(agr ~ treatment * nfixer* PC1 +
+pca_mod_agr_2 <- lmer(agr ~ treatment * nfixer* PC1 +
                             treatment * nfixer* PC2 +
                             treatment * nfixer* PC3 +
                             
+                            #Control over different plant heights
+                            init_height +
+                            
                             #Random part
-                            init_height + (1|spcode),
+                            (1|spcode),
+                      
                           data = all_trait_scaled_for_reg)
 ```
-
 
 
 ```{r}
@@ -191,11 +295,7 @@ model_performance(pca_mod_agr_2)
 ```
 
 
-```{r message=FALSE, warning=FALSE, fig.align='center', fig.width=20, fig.height=10}
-
-#check_model(pca_mod_agr_1, panel = T, 
-#            check = c( "qq", "normality", "ncv", "homogeneity", "outliers", "reqq","reqq"))
-
+```{r}
 check_model(pca_mod_agr_2, panel = T) 
 ```
 
@@ -208,13 +308,96 @@ simulation_output_three_way_inter <- simulateResiduals(fittedModel = pca_mod_agr
 plot(simulation_output_three_way_inter) 
 ```
 
-```{r}
-testDispersion(simulation_output_three_way_inter)
-```
 
 ```{r}
 check_heteroscedasticity(pca_mod_agr_2)
 ```
+
+
+```{r}
+plot(all_trait_scaled_for_reg$nfixer, resid(pca_mod_agr_2), xlab = "NFixer",
+     ylab = "Residuals")
+```
+
+```{r}
+plot(all_trait_scaled_for_reg$treatment, resid(pca_mod_agr_2), xlab = "Treatment",
+	 ylab = "Residuals")
+```
+
+### First model PCA regression Three-way interaction
+
+```{r}
+
+pca_mod_agr_three_way <- lme(agr ~  treatment * nfixer* PC1 +
+                                    treatment * nfixer* PC2 +
+                                    treatment * nfixer* PC3 +
+
+                                    #Control over different plant heights
+                                    init_height,
+
+                                    #Random part
+                                    random = ~ 1|spcode,
+
+                        data = all_trait_scaled_for_reg)
+```
+
+### varIdent PCA regression Three-way interaction
+
+```{r}
+
+varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
+                                            treatment * nfixer* PC2 +
+                                            treatment * nfixer* PC3 +
+
+                                            #Control over different plant heights
+                                            init_height,
+
+                                            #Random part
+                                            random = ~ 1|spcode,
+                            
+                                            #varIdent
+                                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
+```
+
+
+```{r}
+anova(pca_mod_agr_three_way,varident_pca_mod_agr_three_way)
+```
+
+
+```{r}
+plot(varident_pca_mod_agr_three_way,which = c(1), 
+     col = all_trait_scaled_for_reg$treatment,add.smooth = T, 
+     caption = "Treatment")
+```
+
+```{r}
+plot(varident_pca_mod_agr_three_way,which = c(1), 
+     col = all_trait_scaled_for_reg$nfixer,add.smooth = T, caption = "nfixer")
+```
+
+
+```{r}
+E <- resid(varident_pca_mod_agr_three_way,type = "normalized")
+coplot(E ~ treatment | nfixer, data = all_trait_scaled_for_reg, 
+	   ylab = "Normalised residuals" )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
