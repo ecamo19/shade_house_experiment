@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
 
 # Load packages and data
@@ -39,13 +40,19 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
 ```
 
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 data_complete_final <- 
   read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
+colnames(data_complete_final)
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
-					levels = c("Harvestatthebegging",
+					levels = c(
 							   "ambientrain", 
 							   "ambientrain_nutrients",
 							   "ambientrain_water",
@@ -60,12 +67,16 @@ data_rate_change <-
     #Order the columns  
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-	clean_names() %>% 
-	filter(!treatment == "Harvestatthebegging")
-	
+	clean_names()   %>%
+	dplyr::select(-c(la,ldmc,d13c,sla_cm2_g,cn,narea_g_m2,nmass_mg_g,
+			  totalleafmass_nmass)) %>%
+	mutate(nfixer = factor(nfixer))
 
+  	
 data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
 data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+
+
 ```
 
 
@@ -87,11 +98,13 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[7:ncol(data_rate_change)]
+vars <- names(data_rate_change)[8:(ncol(data_rate_change)-1)]
+
 ```
 
 ```{r}
 vars <- purrr::set_names(vars)
+vars
 ```
 
 ```{r}
@@ -177,20 +190,31 @@ data_above_biom_plot <-
 ```
 
 ## Belowground Biomass
-
-
 ```{r}
-Anova(mixed_models$below_biom, type = "III",test="F")
+varident_belowbiom <- lme(below_biom ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_rate_change) 
+
 ```
 
 
-```{r message=FALSE, warning=FALSE}
+```{r}
+Anova(varident_belowbiom, type = "III",test="F")
+```
+
+```{r}
 data_below_biom_plot <- 
-  emmip(mixed_models$below_biom, ~treatment, CIs = TRUE)$data 
+  emmip(varident_belowbiom, treatment ~ nfixer, CIs = TRUE)$data 
+```
+
+```{r message=FALSE, warning=FALSE}
+
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$below_biom,
-    					  pairwise ~ treatment,
+as.data.frame(emmeans(varident_belowbiom,
+    					  pairwise ~ treatment | nfixer,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
   
@@ -198,7 +222,7 @@ data_below_biom_plot <-
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,estimate,se,p_value)  %>%
+	dplyr::select(group1, group2,nfixer,estimate,se,p_value) %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
@@ -297,23 +321,40 @@ data_leaf_dry_weight_plot <-
 ## Root Mass Fraction 
 
 ```{r}
-Anova(mixed_models$rmf, type = "III")
+
+varident_rmf <- lme(rmf ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_rate_change) 
+
 ```
 
-```{r message=FALSE, warning=FALSE}
+
+```{r}
+Anova(varident_rmf,type = "III",test="F")
+```
+
+```{r} 
 data_rmf_plot <- 
-  emmip(mixed_models$rmf,~treatment, CIs = TRUE)$data 
+  emmip(varident_rmf, ~ treatment ~ nfixer, CIs = TRUE)$data 
+```
+
+
+
+```{r message=FALSE, warning=FALSE}
+
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$rmf,
-    					  pairwise ~ treatment,
+as.data.frame(emmeans(varident_rmf,
+    					  pairwise ~ treatment|nfixer,
     					  type = "response", adjust = "tukey")$contrast) %>% 
   
     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,estimate,se,p_value)  %>%
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()

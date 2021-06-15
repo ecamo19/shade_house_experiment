@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
 
 # Load packages and data
@@ -38,12 +39,13 @@ source("~/Documents/projects/shade_house_experiment//codes/masomenos_plot.R")
 
 
 ```{r message=FALSE, warning=FALSE}
-data_agr <- 
-  read.csv("~/Documents/projects/shade_house_experiment//data/finalDat.csv", header = T) %>% 
-	 clean_names() 
+data_rgr_agr <- 
+  read.csv("~/Documents/projects/shade_house_experiment/data/finalDat.csv", 
+  		 header = T) %>%
+	clean_names() 
 
 
-data_agr$treatment <- factor(data_agr$treatment,
+data_rgr_agr$treatment <- factor(data_rgr_agr$treatment,
 					levels = c(
 							   "ambientrain", 
 							   "ambientrain_nutrients",
@@ -54,11 +56,12 @@ data_agr$treatment <- factor(data_agr$treatment,
 
 #Clean data
 data_agr_clean <- 
-    data_agr %>% 
+    data_rgr_agr %>% 
+	# Convert to factor nfixer
+	mutate(nfixer = factor(nfixer)) %>% 
     
-    #Order the columns  
-    dplyr::select(id,spcode,family,treatment,nfixer,init_height,rgr,agr)
- 
+    # Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,agr)
   
 ```
 
@@ -67,46 +70,37 @@ data_agr_clean <-
 
 $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
-```{r}
-mixed_models_formula = function(response) {
-  
-  #'this function takes each response variable and join it to the formula
-  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
-  
-  lmer(as.formula(formula), data = data_agr_clean)
-}
-```
 
-# Run Models
-
-```{r}
-#Takes response variable's names 
-vars <- names(data_agr_clean)[7:8]
-```
-
-```{r}
-vars <- purrr::set_names(vars)
-```
-
-```{r}
-mixed_models <-  vars %>%
-     map(mixed_models_formula)
-```
 
 # Results Absolute Growth Rate
 
-## Anova
+
 ```{r}
-Anova(mixed_models$agr, type = "III",test="F")
+varident_agr <- lme(agr ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_agr_clean) 
+
+```
+
+
+
+```{r}
+Anova(varident_agr, type = "III", test="F")
+```
+
+```{r}
+data_agr_plot <- 
+  emmip(varident_agr, treatment ~ nfixer, CIs = TRUE)$data 
+
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
-data_agr_plot <- 
-  emmip(mixed_models$agr, treatment ~ nfixer, CIs = TRUE)$data 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$agr,
+    as.data.frame(emmeans(varident_agr,
     					  pairwise ~ treatment | nfixer,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
@@ -129,42 +123,4 @@ data_agr_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Absolute Growth Rate"))
 ```
-
-# Results Relative Growth Rate
-## Anova
-```{r}
-#Anova(mixed_models$rgr, type = "III",test="F")
-```
-
-
-
-```{r message=FALSE, warning=FALSE}
-#data_rgr_plot <- 
-#  emmip(mixed_models$rgr, treatment ~ nfixer, CIs = #TRUE)$data 
-
-# Get by group comparitions
-#    as.data.frame(emmeans(mixed_models$rgr,
-#    					  pairwise ~ treatment | nfixer,
-#    					  type = "response", 
-#    					  adjust ="tukey")$contrast) %>% 
-#  
-#    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-#    clean_names() %>% 
-#    mutate(group1 = factor(group1)) %>%
-#    mutate(group2 = factor(group2)) %>% 
-#    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-#    mutate(p_value = round(p_value, 20)) %>% 
-#    kable()
-```
-
-
-```{r}
-#(plot_rgr <- 
-#  masomenos_plot_no_lines(data = data_rgr_plot,xvar = xvar, yvar = yvar, 
-#                 tvar = tvar, color = treatment,
-#                 ucl = UCL, lcl = LCL, n_treat = 4) +
-#  theme(legend.position = "right") + ylab("Relative Growth Rate"))
-```
-
-
 

@@ -65,8 +65,10 @@ data_rate_change <-
 	dplyr::select(-c(rmf,smf,lmf,whole_leaf_dry_weight,
 					 root_dry_weight,stem_dry_weight,totalbiom,above_biom,
 					 below_biom,la,ldmc,CN,totalleafmass_Nmass)) %>% 
-	mutate(nfixer = factor(nfixer)) %>% 
+	mutate(nfixer = factor(nfixer),
+		   spcode = factor(spcode)) %>% 
 	clean_names()
+
 
 
 ```

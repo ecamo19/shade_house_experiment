@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16,fig.height = 10)
 ```
 
 # Load packages and data
@@ -29,6 +30,7 @@ library(ggsci)
 library(knitr)
 library(multcomp)
 library(arm)
+library(nlme)
 ```
 
 
@@ -46,34 +48,37 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 
 ```{r}
 #Delete unused variables
-data_nodules_cleaned <- 
-    data_nodules_cleaned %>% 
+data_nodules_cleaned <-
+    data_nodules_cleaned %>%
     dplyr::select(-c("nodule_count_lab","average_nodule_weight",
                      "nodule_mass_in_the_lab","average_nodule_weight",
-                     "estimated_nodule_mass_per_plant"))
+                     "estimated_nodule_mass_per_plant")) %>%
+    dplyr::select(id,spcode,treatment, everything())
     
 ```
 
 
+# Linear model
 
-
-# Model Used
 ```{r}
-mod_nud_numb <- lm(number_of_root_nodulation ~ treatment * spcode + init_height, 
+mod_nod_numb <- lm(number_of_root_nodulation ~ treatment * spcode + init_height, 
 		   data = data_nodules_cleaned)
+```
 
-
-Anova(mod_nud_numb, type = "III",test="F")
+```{r}
+Anova(mod_nod_numb, type = "III",test="F")
+```
+```{r}
+data_nodule_number <- 
+  emmip(mod_nod_numb, treatment ~ spcode, CIs = TRUE)$data 
 ```
 
 
-
 ```{r message=FALSE, warning=FALSE}
-data_nodule_number <- 
-  emmip(mod_nud_numb, treatment ~ spcode, CIs = TRUE)$data 
+
 
 # Get by group comparitions
-    as.data.frame(emmeans(mod_nud_numb,
+    as.data.frame(emmeans(mod_nod_numb,
     					  pairwise ~ treatment | spcode,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
@@ -96,11 +101,56 @@ data_nodule_number <-
     ylab("Number of root nodulation"))
 ```
 
+# Mixed model
 
 
+```{r}
+varident_mixed_mod_nod_numb <- lme(number_of_root_nodulation ~ treatment,
+                		                random = ~ 1|spcode,
+                		                weights = varIdent(form = ~ 1 | treatment),
+							
+						                        data = data_nodules_cleaned) 
+
+```
 
 
+```{r}
+Anova(varident_mixed_mod_nod_numb, type = "III",test="F")
+```
 
+```{r}
+data_nodule_number_mixed_model <- 
+  emmip(varident_mixed_mod_nod_numb, ~ treatment, CIs = TRUE)$data 
+
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+# Get by group comparitions
+    as.data.frame(emmeans(varident_mixed_mod_nod_numb,
+    					  pairwise ~ treatment,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    dplyr::select(group1,group2, estimate, se,p_value) %>% 
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+```
+
+
+```{r}
+(boxplot_number_of_root_nodulation <- 
+    masomenos_boxplot(data = data_nodules_cleaned,
+                      xvar = treatment,
+                      yvar = number_of_root_nodulation, 
+                      n_treat = 4 ) +
+    ylab("Number of root nodulation"))
+```
 
 
 

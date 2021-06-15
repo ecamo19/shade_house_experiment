@@ -96,8 +96,7 @@ check_heteroscedasticity(m1)
 ____
   
 ```{r message=FALSE, warning=FALSE}
-m1_log <- glmer(log_perc ~ treatment * nfixer  + (1|spcode),
-			  family = gaussian(link = "identity"), 
+m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode),
 			  data = data_mycorrhizal_colonization_cleaned)
 
 ```
@@ -114,9 +113,7 @@ model_performance(m1_log)
 
 
 ```{r,fig.align='center', fig.height=8, fig.width=16, message=FALSE, warning=FALSE}
-
 check_model(m1_log)
-
 ```
 
 

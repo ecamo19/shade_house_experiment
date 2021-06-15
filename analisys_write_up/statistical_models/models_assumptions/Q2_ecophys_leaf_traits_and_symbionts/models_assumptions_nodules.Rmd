@@ -165,3 +165,35 @@ plot(simulation_output_m3)
 check_heteroscedasticity(m3)
 ```
 
+# Mixed model
+
+
+```{r}
+varident_mixed_mod_nod_numb <- lme(number_of_root_nodulation ~ treatment + init_height,
+                		                random = ~ 1|spcode,
+                		                weights = varIdent(form = ~ 1 | treatment),
+							
+						                        data = data_nodules_cleaned) 
+
+```
+
+```{r}
+plot(varident_mixed_mod_nod_numb,which = c(1), col = data_nodules_cleaned$treatment, 
+	 add.smooth = T, caption = "Treatment")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

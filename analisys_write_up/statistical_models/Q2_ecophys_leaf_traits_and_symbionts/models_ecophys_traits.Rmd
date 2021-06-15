@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16,fig.height = 10)
 ```
 
 # Load packages and data
@@ -40,9 +41,18 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot2.R")
 # Load data
 ```{r}
 
+
 data_ecophys_traits <- 
-  read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", header = T) %>% 
-  clean_names()  
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", 
+  		 header = T) %>%
+	clean_names()   %>%
+	dplyr::select(-c(rmf,smf,lmf,whole_leaf_dry_weight,root_dry_weight,
+					 stem_dry_weight,totalbiom,above_biom,below_biom,
+					 la,ldmc,d13c,sla_cm2_g,cn,narea_g_m2,nmass_mg_g,
+					 totalleafmass_nmass)) %>%
+	
+	mutate(nfixer = factor(nfixer),
+		   spcode = factor(spcode))
 
 data_ecophys_traits$treatment <- factor(data_ecophys_traits$treatment,
 					levels = c(
@@ -75,11 +85,13 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_ecophys_traits)[6:(ncol(data_ecophys_traits)-1)]
+vars <- names(data_ecophys_traits)[7]
+
 ```
 
 ```{r}
 vars <- purrr::set_names(vars)
+vars
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -96,10 +108,11 @@ mixed_models <-  vars %>%
 Anova(mixed_models$amax, type = "III",test="F")
 ```
 
+```{r}
+data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data 
+```
 
 ```{r message=FALSE, warning=FALSE}
-
-data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data 
 
 # Get by group comparitions
     as.data.frame(emmeans(mixed_models$amax,
@@ -119,8 +132,6 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 ```
 
 
-
-
 ```{r message=FALSE, warning=FALSE}
 (plot_amax <- 
   masomenos_plot(data = data_amax_plot,xvar = xvar, yvar = yvar, 
@@ -132,9 +143,18 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
 ```
 
 ## gs
+```{r}
+varident_gs <- lme(gs ~ nfixer*treatment + init_height,
+                		random = ~ 1|spcode,
+                		weights = varIdent(form = ~ 1 | treatment*nfixer),
+							
+						data = data_ecophys_traits) 
+
+
+```
 
 ```{r}
-Anova(mixed_models$gs, type = "III",test="F")
+Anova(varident_gs, type = "III",test="F")
 ```
 
 
@@ -142,10 +162,10 @@ Anova(mixed_models$gs, type = "III",test="F")
 ```{r message=FALSE, warning=FALSE}
 
 data_gs_plot_treatment <- 
-	emmip(mixed_models$gs, ~ treatment, CIs = TRUE)$data 
+	emmip(varident_gs, ~ treatment, CIs = TRUE)$data 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$gs,
+    as.data.frame(emmeans(varident_gs,
     					  pairwise ~ treatment,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
@@ -162,7 +182,7 @@ data_gs_plot_treatment <-
 
 ```{r message=FALSE, warning=FALSE}
 data_gs_plot_treatment <- 
-	emmip(mixed_models$gs, ~ nfixer, CIs = TRUE)$data 
+	emmip(varident_gs, ~ treatment, CIs = TRUE)$data 
 
 ```
 
@@ -178,10 +198,10 @@ data_gs_plot_treatment <-
 
 ```{r}
 data_gs_plot_nfixer <- 
-	emmip(mixed_models$gs, ~nfixer, CIs = TRUE)$data 
+	emmip(varident_gs, ~ nfixer, CIs = TRUE)$data 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$gs,
+    as.data.frame(emmeans(varident_gs,
     					  pairwise ~ nfixer,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
@@ -200,7 +220,7 @@ data_gs_plot_nfixer <-
 
 ```{r message=FALSE, warning=FALSE}
 (plot_gs_nfixer <- 
-  masomenos_plot(data = data_gs_plot_nfixer,xvar = xvar, yvar = yvar, 
+ 	masomenos_plot(data = data_gs_plot_nfixer,xvar = xvar, yvar = yvar, 
                  tvar = tvar,
   				 ucl = UCL, lcl = LCL) +
     
@@ -209,19 +229,27 @@ data_gs_plot_nfixer <-
 
 
 ## WUE
+```{r}
+varident_wue <- lme(wue ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_ecophys_traits) 
+
+```
 
 
 ```{r}
-Anova(mixed_models$wue, type = "III",test="F")
+Anova(varident_wue , type = "III",test="F")
 ```
 
 
 
 ```{r message=FALSE, warning=FALSE}
-data_wue_plot_treatment <- emmip(mixed_models$wue, ~treatment , CIs = TRUE)$data 
+data_wue_plot_treatment <- emmip(varident_wue , ~treatment , CIs = TRUE)$data 
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$wue,
+    as.data.frame(emmeans(varident_wue ,
     					  pairwise ~ treatment,
     					  type = "response", 
     					  adjust ="tukey")$contrast) %>% 
@@ -251,15 +279,14 @@ data_wue_plot_treatment <- emmip(mixed_models$wue, ~treatment , CIs = TRUE)$data
 
  
 ```{r message=FALSE, warning=FALSE}
-data_wue_plot_nfixer <- emmip(mixed_models$wue, ~ nfixer , CIs = TRUE)$data 
-
+data_wue_plot_nfixer <- emmip(varident_wue , ~ nfixer , CIs = TRUE)$data 
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
 (plot_wue_nfixer <- 
   masomenos_plot(data = data_wue_plot_nfixer,
-  				 xvar = xvar, yvar = yvar,
+  				 xvar = xvar, yvar = yvar,tvar = tvar,
                  ucl = UCL, lcl = LCL) +
     
   theme(legend.position = "bottom") + ylab("WUE") )

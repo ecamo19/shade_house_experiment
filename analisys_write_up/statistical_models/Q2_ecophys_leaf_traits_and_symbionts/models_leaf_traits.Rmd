@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
 ```
 
 # Load packages and data
@@ -45,7 +46,7 @@ data_complete_final <-
   read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
 
 data_complete_final$treatment <- factor(data_complete_final$treatment,
-					levels = c("Harvestatthebegging",
+					levels = c(
 							   "ambientrain", 
 							   "ambientrain_nutrients",
 							   "ambientrain_water",
@@ -61,8 +62,14 @@ data_rate_change <-
 	#Order the columns
     dplyr::select(id,spcode,family,treatment,nfixer,init_height,
                   everything()) %>% 
-	filter(!treatment == "Harvestatthebegging") %>% 
-	clean_names() 
+	dplyr::select(-c(rmf,smf,lmf,whole_leaf_dry_weight,
+					 root_dry_weight,stem_dry_weight,totalbiom,above_biom,
+					 below_biom,la,ldmc,CN,totalleafmass_Nmass)) %>% 
+	mutate(nfixer = factor(nfixer),
+		   spcode = factor(spcode)) %>% 
+	clean_names()
+
+
 
 ```
 
@@ -85,7 +92,7 @@ mixed_models_formula = function(response) {
 
 ```{r}
 #Takes response variable's names 
-vars <- names(data_rate_change)[18:19]
+vars <- names(data_rate_change)[7]
 ```
 
 ```{r}
@@ -107,18 +114,31 @@ Anova(mixed_models$d13c, type = "III",test="F")
 
 
 ## SLA
+
 ```{r}
-Anova(mixed_models$sla_cm2_g, type = "III",test="F")
+varident_sla <- lme(sla_cm2_g ~ nfixer*treatment + init_height,
+								random = ~ 1|spcode,
+                				weights = varIdent(form = ~ 1 | treatment*nfixer),
+								#method="REML",
+                				data = data_rate_change) 
+
 ```
 
 
+```{r}
+Anova(varident_sla, type = "III",test="F")
+```
+
+```{r}
+data_sla_plot <- emmip(varident_sla, ~ treatment, 
+					   CIs = TRUE)$data
+```
+
 
 ```{r message=FALSE, warning=FALSE}
-data_sla_plot <- emmip(mixed_models$sla_cm2_g,  ~ treatment, 
-					   CIs = TRUE)$data
 
 # Get by group comparitions
-    as.data.frame(emmeans(mixed_models$sla_cm2_g,
+    as.data.frame(emmeans(varident_sla,
                           pairwise ~ treatment,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
@@ -141,29 +161,32 @@ data_sla_plot <- emmip(mixed_models$sla_cm2_g,  ~ treatment,
     ylab("SLA"))
 ```
 
-## 1/sqrt(NArea)
+## Narea
 
 ```{r}
-narea_1_sqrt <- lmer((1/sqrt(narea_g_m2)) ~  treatment * nfixer +
-								 	init_height + 
-								 	(1|spcode), 
-								 data = data_rate_change)
+varident_narea <- lme(narea_g_m2 ~  nfixer*treatment + init_height,
+                					random = ~ 1|spcode,
+                					weights = varIdent(form = ~ 1 | treatment*nfixer),
+									#method="REML",
+                					data = data_rate_change) 
 ```
 
 
 ```{r}
-Anova(narea_1_sqrt, type = "III",test="F")
+Anova(varident_narea, type = "III",test="F")
+```
+```{r}
+data_narea_plot <- emmip(varident_narea, ~ nfixer, CIs = TRUE)$data
+
 ```
 
 
 ```{r message=FALSE, warning=FALSE}
-data_narea_plot <- emmip(narea_1_sqrt, 
-                         treatment ~ nfixer, CIs = TRUE)$data
 
 
 # Get by group comparitions
-    as.data.frame(emmeans(narea_1_sqrt,
-                          pairwise ~ treatment | nfixer,
+    as.data.frame(emmeans(varident_narea,
+                          pairwise ~ nfixer,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
   
@@ -171,7 +194,7 @@ data_narea_plot <- emmip(narea_1_sqrt,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,nfixer,estimate,se,p_value)  %>%
+    dplyr::select(group1, group2,estimate,se,p_value)  %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -179,37 +202,40 @@ data_narea_plot <- emmip(narea_1_sqrt,
 ```{r}
 (plot_narea <- 
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,
+                 tvar = tvar,
                  ucl = UCL, lcl = LCL ) +
-     ylab("narea_1_sqrt") +
+     ylab("Narea") +
      theme(legend.position = "none" ))
 
 ```
 
-## sqrt(NMass)
+## NMass
 
 ```{r}
-nmass_sqrt <- lmer(sqrt(nmass_mg_g) ~  treatment * nfixer +
-								 	init_height + 
-								 	(1|spcode), 
-								 data = data_rate_change)
+varident_nmass <- lme(nmass_mg_g ~  nfixer*treatment + init_height,
+                					random = ~ 1|spcode,
+                					weights = varIdent(form = ~ 1 | treatment*nfixer),
+									#method="REML",
+                					data = data_rate_change) 
+
 ```
 
 
 
 ```{r}
-Anova(nmass_sqrt, type = "III",test="F")
+Anova(varident_nmass, type = "III",test="F")
 ```
 
 ### Treatment
 
+```{r}
+data_nmass_plot_treatment <- emmip(varident_nmass,~ treatment,CIs = TRUE)$data
+```
+
 ```{r message=FALSE, warning=FALSE}
-data_nmass_plot_treatment <- emmip(nmass_sqrt, 
-                          ~ treatment, 
-                         CIs = TRUE)$data
 
 # Get by group comparitions
-    as.data.frame(emmeans(nmass_sqrt,
+    as.data.frame(emmeans(varident_nmass,
                           pairwise ~ treatment,
                           type = "response", 
                           adjust ="tukey")$contrast) %>% 
@@ -236,19 +262,16 @@ data_nmass_plot_treatment <- emmip(nmass_sqrt,
 ### Nfixer
 
 ```{r message=FALSE, warning=FALSE}
-data_nmass_plot_nfixer <- emmip(nmass_sqrt, 
-                        ~ nfixer, 
-                         CIs = TRUE)$data
-
+data_nmass_plot_nfixer <- emmip(varident_nmass,~ nfixer,CIs = TRUE)$data
 ```
 
 ```{r}
 (plot_nmass_nfixer <- 
   masomenos_plot(data = data_nmass_plot_nfixer,
-  				xvar = xvar, yvar = yvar, 
-                 tvar = tvar,
-                 ucl = UCL, lcl = LCL) +
-    ylab("nmass_sqrt") +
+  			   xvar = xvar, yvar = yvar, 
+               tvar = tvar,
+               ucl = UCL, lcl = LCL) +
+    ylab("Nmass") +
     theme(legend.position = "none" ))
 ```
 

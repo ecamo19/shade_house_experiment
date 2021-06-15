@@ -47,11 +47,12 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_mycorrhiz
 
 $$log(Mycorrhyzal\ colonization)\sim treatment*fixer +\ random(1|specie)$$
 
-## Run Model
+```{r}
+m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode),
+			  data = data_mycorrhizal_colonization_cleaned)
+```
 
 ```{r}
-m1_log <- lmer(log_perc ~ treatment * nfixer  + (1|spcode), 
-		   data = data_mycorrhizal_colonization_cleaned)
 Anova(m1_log, type = "III",test="F")
 ```
 
