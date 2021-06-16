@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+                      fig.width = 16,fig.height = 10)
 ```
 
 
@@ -39,8 +40,17 @@ library(factoextra)
 
 ```{r}
 final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
-colnames(final_trait_dat)
+
 ```
+
+```{r}
+number_of_nodule <- read.table("~/Documents/projects/shade_house_experiment/data/raw_data/1_nodule_data_with_zeros.csv", header=TRUE, sep=",", strip.white=TRUE)
+
+```
+```{r}
+JOIN TO INCULDE NUMBER OF NODULES VER SI TIENE SENTIDO
+```
+
 
 ```{r}
 

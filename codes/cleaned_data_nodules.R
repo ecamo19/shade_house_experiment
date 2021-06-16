@@ -17,7 +17,7 @@ data_init_height <-
 	dplyr::select(1:5)
 
 
-# Transform to factor spcode,id and treatment -------------------------
+# Transform to factor spcode,id and treatment -----------------------------------
 
 data_nodules <- 
 	data_nodules %>% 
@@ -39,7 +39,7 @@ data_nodules$treatment <-
 	)
 
 
-# Clean data and join initial height ---------------------------------------
+# Clean data and join initial height --------------------------------------------
 
 #Select nfixer species
 
@@ -49,9 +49,6 @@ data_init_height_nfixer <-
 	
 	#Remove unused columns 
 	dplyr::select(-c(family)) %>% 
-	
-	#Remove Harvestatthebegging level
-	filter(!treatment == "Harvestatthebegging") %>% 
 	
 	#Transform columns to a factor
 	mutate(spcode = factor(spcode),
@@ -71,12 +68,12 @@ data_nodules_cleaned <-
 #left_join(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...)
 
 data_nodules_cleaned <- 
-	left_join(data_nodules_cleaned,data_init_height_nfixer , by = c('id','treatment',
-																'spcode')) 
+	left_join(data_nodules_cleaned,data_init_height_nfixer , 
+			  by = c('id','treatment','spcode')) 
 
 
 
 
-# Remove unused data sets --------------------------------------------------
+# Remove unused data sets -------------------------------------------------------
 rm(data_nodules)
 rm(data_init_height)
