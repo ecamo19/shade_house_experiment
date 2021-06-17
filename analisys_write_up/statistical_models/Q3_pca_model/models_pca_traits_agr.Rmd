@@ -33,6 +33,7 @@ library(DHARMa)
 library(car)
 library(janitor)
 library(factoextra)
+library(nlme)
 ```
 
 
@@ -40,15 +41,6 @@ library(factoextra)
 
 ```{r}
 final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
-
-```
-
-```{r}
-number_of_nodule <- read.table("~/Documents/projects/shade_house_experiment/data/raw_data/1_nodule_data_with_zeros.csv", header=TRUE, sep=",", strip.white=TRUE)
-
-```
-```{r}
-JOIN TO INCULDE NUMBER OF NODULES VER SI TIENE SENTIDO
 ```
 
 
@@ -57,26 +49,32 @@ JOIN TO INCULDE NUMBER OF NODULES VER SI TIENE SENTIDO
 # Select variables that are going to be used in the model
 all_trait <-  
     final_trait_dat %>%
+  
+    # Select columns needed for regression
     dplyr::select(spcode, treatment, nfixer, init_height, 
                   
-                  #Performance measures
-                  totalbiom, above_biom,rgr, agr, 
+                  # Performance measures
+                  totalbiom, above_biom,below_biom, agr, 
                   
-                  #physiology traits
+                  # physiology traits
                   amax, gs, wue,
                   
-                  #Leaf traits
-                  Narea_g_m2,Nmass_mg_g,d13c, sla_cm2_g)
+                  # Leaf traits
+                  Narea_g_m2,Nmass_mg_g,d13c, sla_cm2_g) %>% 
+    
+    # Convert to factors type columns
+    mutate(spcode = factor(spcode) , 
+           treatment = factor(treatment) , 
+           nfixer = factor(nfixer) )
 
 
 
 #Generate a copy of the original data
 all_trait_scaled <- all_trait
 
-# Scale and center data traits
+# Scale and center traits
 all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)],center = TRUE, scale = TRUE)
 ```
-
 
 # PCA 
 
@@ -122,7 +120,7 @@ fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
 fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
                 
                 # Add group 
-                habillage=all_trait_scaled$nfixer, 
+                habillage=all_trait_scaled$treatment, 
                 
                 # Set labels
                 label ="var",
@@ -167,7 +165,7 @@ fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
 # Regression model with PCs as independent variables
 
 ```{r}
-all_trait_scaled_for_reg <- all_trait
+all_trait_scaled_for_reg <- all_trait_scaled
 ```
 
 
@@ -190,22 +188,32 @@ $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 # Perform regression models with AGR as response variable
 
-## Do PCs predict AGR? Two-Way interaction model
+## Do PCs predict AGR? varIdent Two-Way interaction model
 
 ```{r}
 # fit treatment/nfixer interactions separately
-pca_mod_agr_1 <- glmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
-                              treatment * PC1 +
-                              treatment * PC2 +
-                              treatment * PC3 +
-   
-                        #NFixer interaction
-                              nfixer * PC1 +
-                              nfixer * PC2 +
-                              nfixer * PC3 +
-                        
-                        #Random part
-                        init_height + (1|spcode), 
+varident_pca_mod_agr_two_way <- lme(agr ~treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+                            
+                            #varIdent
+                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
                         data = all_trait_scaled_for_reg)
 ```
 
@@ -214,13 +222,20 @@ pca_mod_agr_1 <- glmer(agr ~   treatment + nfixer+ PC1 + PC2 + PC3 +
 
 ```{r}
 # fit three-way interaction
-pca_mod_agr_2 <- glmer(agr ~ treatment * nfixer* PC1 +
-                            treatment * nfixer* PC2 +
-                            treatment * nfixer* PC3 +
+varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
+                                            treatment * nfixer* PC2 +
+                                            treatment * nfixer* PC3 +
+
+                                            #Control over different plant heights
+                                            init_height,
+
+                                            #Random part
+                                            random = ~ 1|spcode,
                             
-                            #Random part
-                            init_height + (1|spcode),
-                          data = all_trait_scaled_for_reg)
+                                            #varIdent
+                                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
 ```
 
 ## Model comparision and selection
@@ -228,29 +243,19 @@ pca_mod_agr_2 <- glmer(agr ~ treatment * nfixer* PC1 +
 ```{r}
 # check two-way vs. three-way interaction models 
 #(shows that two-way is way better, more negative AICc -- include in methods)
-compare_performance(pca_mod_agr_1, pca_mod_agr_2,metrics = "all")
+compare_performance(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way,metrics = "all")
 ```
 
 ```{r}
-anova(pca_mod_agr_1, pca_mod_agr_2)
+anova(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way)
 ```
 
-## Check Model assumptions 
-```{r,fig.width= 10, fig.height=10}
-#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
-simulationOutput <- simulateResiduals(fittedModel = pca_mod_agr_1)
-plotQQunif(simulationOutput) 
-```
-```{r message=FALSE, warning=FALSE, fig.width= 18, fig.height=10}
-check_model(pca_mod_agr_1)
-```
 
 
 ## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(pca_mod_agr_1, type = "III",test="F") %>% 
-  kable()
+Anova(varident_pca_mod_agr_two_way, type = "III",test = "F") 
 ```
 
 ## PCA trends
@@ -262,7 +267,7 @@ Anova(pca_mod_agr_1, type = "III",test="F") %>%
 # summary(emtrends(model = fit_sat, ~agef, var="SATV"), infer=TRUE)
 #emtrends(pca_mod_agr_1, pairwise ~ treatment|PC1, var = "PC1")
 
-emtrends(pca_mod_agr_1,pairwise ~ treatment, var = "PC1")$contrast  %>% kable()
+emtrends(varident_pca_mod_agr_two_way,pairwise ~ treatment, var = "PC1")$contrast  
 ```
 
 ### PC1 trends plot
@@ -271,7 +276,7 @@ emtrends(pca_mod_agr_1,pairwise ~ treatment, var = "PC1")$contrast  %>% kable()
 # plot that shit
 cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
 
-PC1_predict <- ggpredict(pca_mod_agr_1, terms = c("PC1", "treatment"))
+PC1_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC1","treatment"))
 
 (PC1_AGR_fig <- ggplot(PC1_predict, aes(x, predicted, colour = group)) + 
                       geom_line()+
@@ -291,7 +296,7 @@ PC1_predict <- ggpredict(pca_mod_agr_1, terms = c("PC1", "treatment"))
 
 ```{r}
 # compare slopes of lines for treatment X PC1 iteraction
-emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC2")$contrast
+emtrends(varident_pca_mod_agr_two_way, pairwise ~ treatment, var = "PC2")$contrast
 ```
 
 ### PC2 trends plot
@@ -299,7 +304,7 @@ emtrends(pca_mod_agr_1, pairwise ~ treatment, var = "PC2")$contrast
 ```{r}
 cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
 
-PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC2", "treatment"))
+PC2_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC2", "treatment"))
 
 (PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
                       geom_line()+
@@ -316,36 +321,56 @@ PC2_predict <- ggpredict(pca_mod_agr_1, terms = c("PC2", "treatment"))
 `
 # Perform regression models with Total Biomass as response variable
 
-## Do PCs predict total biomass? Two-Way interaction
+## Do PCs predict Total Biomass? Two-Way interaction
 
 ```{r}
 # fit treatment/nfixer interactions separately
-pca_mod_totalbiom_1 <- lmer(totalbiom ~   treatment * PC1 +
-                                          treatment * PC2 +
-                                          treatment * PC3 +
-   
-                                          #NFixer interaction
-                                          nfixer * PC1 +
-                                          nfixer * PC2 +
-                                          nfixer * PC3 +
-                        
-                        #Random part
-                        init_height + (1|spcode), 
+varident_pca_mod_totalbiom_two_way <- lme(totalbiom ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+                            
+                            #varIdent
+                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
                         data = all_trait_scaled_for_reg)
+
+
 ```
 
 
-## Do PCs predict total biomass? Three-Way interaction
+## Do PCs predict Total Biomass? Three-Way interaction
 
 ```{r}
 # fit three-way interaction
-pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
-                                        treatment * nfixer* PC2 +
-                                        treatment * nfixer* PC3 +
+varident_pca_mod_totalbiom_three_way <- lme(totalbiom ~ treatment * nfixer* PC1 +
+                                            treatment * nfixer* PC2 +
+                                            treatment * nfixer* PC3 +
+
+                                            #Control over different plant heights
+                                            init_height,
+
+                                            #Random part
+                                            random = ~ 1|spcode,
                             
-                            #Random part
-                            init_height + (1|spcode),
-                            data = all_trait_scaled_for_reg)
+                                            #varIdent
+                                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
 ```
 
 ## Model comparision and selection
@@ -353,32 +378,21 @@ pca_mod_totalbiom_2 <- lmer(totalbiom ~ treatment * nfixer* PC1 +
 ```{r}
 # check two-way vs. three-way interaction models 
 # (shows that two-way is way better, more negative AICc -- include in methods)
-compare_performance(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
+compare_performance(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way,metrics = "all")
 ```
 
 ```{r}
-anova(pca_mod_totalbiom_1, pca_mod_totalbiom_2)
-```
-
-## Check Model assumptions 
-
-```{r}
-#check model assumptions with DHARMa -- could be worse... passes all tests so just go with it. 
-simulationOutput <- simulateResiduals(fittedModel = pca_mod_totalbiom_2)
-plotQQunif(simulationOutput) 
+anova(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way)
 ```
 
 
-```{r}
-check_model(pca_mod_totalbiom_2)
-```
 
 
 
 ## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(pca_mod_totalbiom_2, type = "III",test="F") %>% 
+Anova(varident_pca_mod_totalbiom_three_way, type = "III",test="F") %>% 
   kable()
 ```
 
