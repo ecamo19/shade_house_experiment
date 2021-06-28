@@ -6,7 +6,7 @@ library(janitor)
 # Load nodule and height data ----------------------------------------------
 
 data_nodules <- 
-	read.csv("~/Documents/projects/shade_house_experiment/data/raw_data/1_nodule_data_with_zeros.csv", header = T) %>%
+	read.csv("~/Documents/projects/shade_house_experiment/data/raw_data/1_nodule_data.csv", header = T) %>%
 	clean_names()
 
 data_init_height <- 

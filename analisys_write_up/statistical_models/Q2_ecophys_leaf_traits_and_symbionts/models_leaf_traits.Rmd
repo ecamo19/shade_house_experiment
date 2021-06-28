@@ -275,3 +275,54 @@ data_nmass_plot_nfixer <- emmip(varident_nmass,~ nfixer,CIs = TRUE)$data
     theme(legend.position = "none" ))
 ```
 
+# Mean values from models
+
+## SLA
+
+```{r}
+(emm_sla_treatment <- emmeans(varident_sla, specs = "treatment"))
+```
+
+## Narea
+
+### Narea fixer
+```{r}
+(emm_narea_nfixer <- emmeans(varident_narea, specs = "nfixer"))
+```
+
+## Nmass
+
+### Nmass treatment
+```{r}
+(emm_nmass_treatment <- emmeans(varident_nmass, specs = "treatment"))
+```
+
+
+### Nmass nfixer
+```{r}
+(emm_nmass_nfixer <- emmeans(varident_nmass, specs = "nfixer"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -72,8 +72,7 @@ $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 
 
-# Results Absolute Growth Rate
-
+# VarIdent Absolute Growth Rate
 
 ```{r}
 varident_agr <- lme(agr ~   nfixer*treatment + init_height,
@@ -83,7 +82,6 @@ varident_agr <- lme(agr ~   nfixer*treatment + init_height,
                 			data = data_agr_clean) 
 
 ```
-
 
 
 ```{r}
@@ -115,7 +113,6 @@ data_agr_plot <-
 ```
 
 
-
 ```{r}
 (plot_agr_biom <- 
   masomenos_plot_no_lines(data = data_agr_plot ,xvar = xvar, yvar = yvar, 
@@ -123,4 +120,19 @@ data_agr_plot <-
                  ucl = UCL, lcl = LCL) +
   theme(legend.position = "right") + ylab("Absolute Growth Rate"))
 ```
+
+
+## Mean values from models
+
+```{r}
+(emm_varident_agr <- emmeans(varident_agr, specs = "treatment", by="nfixer"))
+```
+
+
+
+
+
+
+
+
 

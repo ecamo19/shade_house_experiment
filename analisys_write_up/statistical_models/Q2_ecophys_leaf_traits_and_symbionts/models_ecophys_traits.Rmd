@@ -40,8 +40,6 @@ source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot2.R")
 
 # Load data
 ```{r}
-
-
 data_ecophys_traits <- 
   read.csv("~/Documents/projects/shade_house_experiment/data/data_ecophys_models.csv", 
   		 header = T) %>%
@@ -292,5 +290,42 @@ data_wue_plot_nfixer <- emmip(varident_wue , ~ nfixer , CIs = TRUE)$data
   theme(legend.position = "bottom") + ylab("WUE") )
 ```
 
+# Mean values from models
+
+## Amax
+
+```{r}
+(emm_amax <- emmeans(mixed_models$amax, specs = "treatment", by="nfixer"))
+```
 
 
+
+## gs
+
+### gs treatment
+```{r}
+(emm_gs_treatment <- emmeans(varident_gs,specs = "treatment"))
+```
+
+
+### gs nfixer
+
+```{r}
+(emm_gs_nfixer <- emmeans(varident_gs,specs = "nfixer"))
+```
+
+## WUE
+
+### WUE treatment
+```{r}
+
+(emm_wue_treatment <- emmeans(varident_wue, specs = "treatment"))
+
+```
+
+### WUE nfixer
+```{r}
+
+(emm_wue_nfixer <- emmeans(varident_wue, specs = "nfixer"))
+
+```

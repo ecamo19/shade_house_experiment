@@ -12,9 +12,9 @@
 
 <meta name="author" content="Mas o menos Lab" />
 
-<meta name="date" content="2021-01-01" />
+<meta name="date" content="2020-01-01" />
 
-<title>(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Mean values Biomass and Growth</title>
+<title>Model for number of nodules</title>
 
 <script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
@@ -129,9 +129,9 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Mean values Biomass and Growth</h1>
+<h1 class="title toc-ignore project-name">Model for number of nodules</h1>
 <h4 class="author project-author">Mas o menos Lab</h4>
-<h4 class="date project-date">2021</h4>
+<h4 class="date project-date">2020</h4>
 </section>
 
 
@@ -139,17 +139,8 @@ a.sourceLine {
 <div class="toc-box">
 <ul>
 <li><a href="#load-packages-and-data"><span class="toc-section-number">1</span> Load packages and data</a></li>
-<li><a href="#mean-values"><span class="toc-section-number">2</span> Mean values</a>
-<ul>
-<li><a href="#biomass-variables"><span class="toc-section-number">2.1</span> Biomass variables</a>
-<ul>
-<li><a href="#total-aboveground-biomass"><span class="toc-section-number">2.1.1</span> Total, Aboveground Biomass</a></li>
-<li><a href="#belowground"><span class="toc-section-number">2.1.2</span> Belowground</a></li>
-</ul></li>
-<li><a href="#stem-and-whole-leaf-dry-weights"><span class="toc-section-number">2.2</span> Stem and whole leaf Dry weights</a></li>
-<li><a href="#growth-agr"><span class="toc-section-number">2.3</span> Growth AGR</a></li>
-<li><a href="#mass-fractions"><span class="toc-section-number">2.4</span> Mass fractions</a></li>
-</ul></li>
+<li><a href="#linear-model"><span class="toc-section-number">2</span> Linear model</a></li>
+<li><a href="#mean-values-from-the-model"><span class="toc-section-number">3</span> Mean values from the model</a></li>
 </ul>
 </div>
 </div>
@@ -160,454 +151,257 @@ a.sourceLine {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load Biomass data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_complete_final <span class="ot">&lt;-</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv&quot;</span>, <span class="at">header =</span> T)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_complete_final<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_complete_final<span class="sc">$</span>treatment,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Harvestatthebegging&quot;</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain&quot;</span>, </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_nutrients&quot;</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_water&quot;</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_water_nutrients&quot;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                               )</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                    )</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Cleaned data</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>data_rate_change <span class="ot">&lt;-</span> </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    data_complete_final <span class="sc">%&gt;%</span> </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Order the columns  </span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(id,spcode,family,treatment,nfixer,init_height,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ecophysiology and growth data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_ecophys_growth <span class="ot">&lt;-</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/data/finalDat.csv&quot;</span>, <span class="at">header =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id,spcode,family,treatment,nfixer,amax, wue, gs, rgr,agr)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>data_ecophys_growth<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">factor</span>(data_ecophys_growth<span class="sc">$</span>treatment,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain&quot;</span>, </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_nutrients&quot;</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_water&quot;</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;ambientrain_water_nutrients&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                               )</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                    )</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Source maso menos plots</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Load plot function to keep same format to all plots</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#source cleaned data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Delete unused variables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_nodules_cleaned <span class="ot">&lt;-</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    data_nodules_cleaned <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(id,spcode,treatment, <span class="fu">everything</span>())</span></code></pre></div>
 </div>
-<div id="mean-values" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Mean values</h1>
-<div id="biomass-variables" class="section level2" number="2.1">
-<h2 number="2.1"><span class="header-section-number">2.1</span> Biomass variables</h2>
-<div id="total-aboveground-biomass" class="section level3" number="2.1.1">
-<h3 number="2.1.1"><span class="header-section-number">2.1.1</span> Total, Aboveground Biomass</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>summary_mean_biomass <span class="ot">&lt;-</span>  </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    data_rate_change <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            totalbiom,above_biom) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(treatment,nfixer) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_if</span>(is.numeric, mean) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(nfixer)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">### Round the numbers</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>summary_mean_biomass [,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_biomass)] <span class="ot">&lt;-</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(summary_mean_biomass [,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_biomass)],<span class="dv">3</span>) </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_mean_biomass)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">treatment</th>
-<th align="left">nfixer</th>
-<th align="right">totalbiom</th>
-<th align="right">above_biom</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Harvestatthebegging</td>
-<td align="left">fixer</td>
-<td align="right">1.307</td>
-<td align="right">0.646</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain</td>
-<td align="left">fixer</td>
-<td align="right">8.264</td>
-<td align="right">4.053</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">13.491</td>
-<td align="right">5.958</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water</td>
-<td align="left">fixer</td>
-<td align="right">10.673</td>
-<td align="right">4.896</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">14.049</td>
-<td align="right">7.395</td>
-</tr>
-<tr class="even">
-<td align="left">Harvestatthebegging</td>
-<td align="left">nonfixer</td>
-<td align="right">1.624</td>
-<td align="right">1.137</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain</td>
-<td align="left">nonfixer</td>
-<td align="right">5.753</td>
-<td align="right">3.042</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">7.998</td>
-<td align="right">3.991</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">nonfixer</td>
-<td align="right">6.870</td>
-<td align="right">3.733</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">8.125</td>
-<td align="right">4.376</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="belowground" class="section level3" number="2.1.2">
-<h3 number="2.1.2"><span class="header-section-number">2.1.2</span> Belowground</h3>
-<p><strong>Interaction was not significant</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>summary_mean_root_biomass <span class="ot">&lt;-</span>  </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data_rate_change <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id,spcode,family,treatment,nfixer,below_biom) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_if</span>(is.numeric, mean) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(treatment)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">### Round the numbers</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>summary_mean_root_biomass[,<span class="dv">2</span>] <span class="ot">&lt;-</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(summary_mean_root_biomass[,<span class="dv">2</span>],<span class="dv">3</span>) </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_mean_root_biomass)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">treatment</th>
-<th align="right">below_biom</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Harvestatthebegging</td>
-<td align="right">0.559</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain</td>
-<td align="right">3.244</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_nutrients</td>
-<td align="right">5.330</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water</td>
-<td align="right">4.138</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="right">4.838</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="stem-and-whole-leaf-dry-weights" class="section level2" number="2.2">
-<h2 number="2.2"><span class="header-section-number">2.2</span> Stem and whole leaf Dry weights</h2>
-<p><strong>Interaction was significant</strong></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>summary_mean_dry_weights <span class="ot">&lt;-</span>  </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    data_rate_change <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           stem_dry_weight,whole_leaf_dry_weight) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(treatment,nfixer) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_if</span>(is.numeric, mean) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(nfixer)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Round the numbers</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>summary_mean_dry_weights[,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_dry_weights)] <span class="ot">&lt;-</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(summary_mean_dry_weights[,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_dry_weights)],<span class="dv">3</span>) </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_mean_dry_weights)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">treatment</th>
-<th align="left">nfixer</th>
-<th align="right">stem_dry_weight</th>
-<th align="right">whole_leaf_dry_weight</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Harvestatthebegging</td>
-<td align="left">fixer</td>
-<td align="right">0.245</td>
-<td align="right">0.401</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain</td>
-<td align="left">fixer</td>
-<td align="right">1.720</td>
-<td align="right">2.333</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">2.691</td>
-<td align="right">3.267</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water</td>
-<td align="left">fixer</td>
-<td align="right">2.219</td>
-<td align="right">2.677</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">3.353</td>
-<td align="right">4.043</td>
-</tr>
-<tr class="even">
-<td align="left">Harvestatthebegging</td>
-<td align="left">nonfixer</td>
-<td align="right">0.392</td>
-<td align="right">0.744</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain</td>
-<td align="left">nonfixer</td>
-<td align="right">1.276</td>
-<td align="right">1.765</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">1.453</td>
-<td align="right">2.537</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">nonfixer</td>
-<td align="right">1.677</td>
-<td align="right">2.056</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">1.722</td>
-<td align="right">2.654</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="growth-agr" class="section level2" number="2.3">
-<h2 number="2.3"><span class="header-section-number">2.3</span> Growth AGR</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>summary_mean_growth <span class="ot">&lt;-</span>  </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    data_ecophys_growth <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(id,spcode,family,treatment,nfixer,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>           agr,rgr) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_to_rownames</span>(<span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(treatment,nfixer) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_if</span>(is.numeric, <span class="fu">funs</span>(mean)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(nfixer)</span></code></pre></div>
-<pre><code>Warning: `funs()` was deprecated in dplyr 0.8.0.
-Please use a list of either functions or lambdas: 
+<div id="linear-model" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Linear model</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mod_nod_numb <span class="ot">&lt;-</span> <span class="fu">lm</span>(number_of_root_nodulation <span class="sc">~</span> treatment <span class="sc">*</span> spcode <span class="sc">+</span> init_height, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> data_nodules_cleaned)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(mod_nod_numb, <span class="at">type =</span> <span class="st">&quot;III&quot;</span>,<span class="at">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>Anova Table (Type III tests)
 
-  # Simple named list: 
-  list(mean = mean, median = median)
-
-  # Auto named with `tibble::lst()`: 
-  tibble::lst(mean, median)
-
-  # Using lambdas
-  list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Round the numbers</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>summary_mean_growth[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(summary_mean_growth[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>],<span class="dv">3</span>) </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_mean_growth)</span></code></pre></div>
+Response: number_of_root_nodulation
+                  Sum Sq Df  F value    Pr(&gt;F)    
+(Intercept)      21614.3  1 113.0669 1.660e-12 ***
+treatment         6232.1  3  10.8670 3.419e-05 ***
+spcode           25458.0  2  66.5869 1.176e-12 ***
+init_height        747.5  1   3.9104  0.055906 .  
+treatment:spcode  4860.2  6   4.2374  0.002621 ** 
+Residuals         6690.7 35                       
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_nodule_number <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmip</span>(mod_nod_numb, treatment <span class="sc">~</span> spcode, <span class="at">CIs =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>data </span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get by group comparitions</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(mod_nod_numb,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          pairwise <span class="sc">~</span> treatment <span class="sc">|</span> spcode,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adjust =</span><span class="st">&quot;tukey&quot;</span>)<span class="sc">$</span>contrast) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate</span>(contrast,<span class="fu">c</span>(<span class="st">&quot;group1&quot;</span>,<span class="st">&quot;group2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot; - &quot;</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">group1 =</span> <span class="fu">factor</span>(group1)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">group2 =</span> <span class="fu">factor</span>(group2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(group1,group2, spcode, estimate, se,p_value) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="fu">round</span>(p_value, <span class="dv">20</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code></pre></div>
 <table>
+<colgroup>
+<col width="24%" />
+<col width="31%" />
+<col width="7%" />
+<col width="13%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">treatment</th>
-<th align="left">nfixer</th>
-<th align="right">agr</th>
-<th align="right">rgr</th>
+<th align="left">group1</th>
+<th align="left">group2</th>
+<th align="left">spcode</th>
+<th align="right">estimate</th>
+<th align="right">se</th>
+<th align="right">p_value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">ambientrain</td>
-<td align="left">fixer</td>
-<td align="right">0.159</td>
-<td align="right">0.007</td>
-</tr>
-<tr class="even">
 <td align="left">ambientrain_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">0.257</td>
-<td align="right">0.011</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">fixer</td>
-<td align="right">0.189</td>
-<td align="right">0.009</td>
+<td align="left">dr</td>
+<td align="right">26.6485840</td>
+<td align="right">9.800450</td>
+<td align="right">0.0475204</td>
 </tr>
 <tr class="even">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">0.282</td>
-<td align="right">0.011</td>
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_water</td>
+<td align="left">dr</td>
+<td align="right">20.3541085</td>
+<td align="right">9.885664</td>
+<td align="right">0.1865846</td>
 </tr>
 <tr class="odd">
 <td align="left">ambientrain</td>
-<td align="left">nonFixer</td>
-<td align="right">0.056</td>
-<td align="right">0.004</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">dr</td>
+<td align="right">-24.1361189</td>
+<td align="right">9.778543</td>
+<td align="right">0.0828700</td>
 </tr>
 <tr class="even">
 <td align="left">ambientrain_nutrients</td>
-<td align="left">nonFixer</td>
-<td align="right">0.079</td>
-<td align="right">0.005</td>
+<td align="left">ambientrain_water</td>
+<td align="left">dr</td>
+<td align="right">-6.2944755</td>
+<td align="right">9.807741</td>
+<td align="right">0.9176893</td>
 </tr>
 <tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">nonFixer</td>
-<td align="right">0.062</td>
-<td align="right">0.003</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">dr</td>
+<td align="right">-50.7847028</td>
+<td align="right">9.788772</td>
+<td align="right">0.0000520</td>
 </tr>
 <tr class="even">
+<td align="left">ambientrain_water</td>
 <td align="left">ambientrain_water_nutrients</td>
-<td align="left">nonFixer</td>
-<td align="right">0.074</td>
-<td align="right">0.005</td>
+<td align="left">dr</td>
+<td align="right">-44.4902274</td>
+<td align="right">9.858630</td>
+<td align="right">0.0003873</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ec</td>
+<td align="right">-0.5694057</td>
+<td align="right">9.825219</td>
+<td align="right">0.9999287</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_water</td>
+<td align="left">ec</td>
+<td align="right">-6.5151576</td>
+<td align="right">10.234331</td>
+<td align="right">0.9194620</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">ec</td>
+<td align="right">-4.9137415</td>
+<td align="right">10.456827</td>
+<td align="right">0.9651730</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ambientrain_water</td>
+<td align="left">ec</td>
+<td align="right">-5.9457519</td>
+<td align="right">9.989252</td>
+<td align="right">0.9328480</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">ec</td>
+<td align="right">-4.3443359</td>
+<td align="right">10.151574</td>
+<td align="right">0.9732970</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">ec</td>
+<td align="right">1.6014160</td>
+<td align="right">9.800450</td>
+<td align="right">0.9984169</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_nutrients</td>
+<td align="left">gs</td>
+<td align="right">-16.7500000</td>
+<td align="right">9.776593</td>
+<td align="right">0.3322558</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_water</td>
+<td align="left">gs</td>
+<td align="right">10.7971679</td>
+<td align="right">9.871674</td>
+<td align="right">0.6956197</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">gs</td>
+<td align="right">-20.1708217</td>
+<td align="right">9.780979</td>
+<td align="right">0.1854664</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ambientrain_water</td>
+<td align="left">gs</td>
+<td align="right">27.5471679</td>
+<td align="right">9.871674</td>
+<td align="right">0.0402726</td>
+</tr>
+<tr class="odd">
+<td align="left">ambientrain_nutrients</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">gs</td>
+<td align="right">-3.4208217</td>
+<td align="right">9.780979</td>
+<td align="right">0.9850651</td>
+</tr>
+<tr class="even">
+<td align="left">ambientrain_water</td>
+<td align="left">ambientrain_water_nutrients</td>
+<td align="left">gs</td>
+<td align="right">-30.9679896</td>
+<td align="right">9.916470</td>
+<td align="right">0.0179640</td>
 </tr>
 </tbody>
 </table>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(boxplot_number_of_root_nodulation <span class="ot">&lt;-</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">masomenos_boxplot</span>(<span class="at">data =</span> data_nodules_cleaned,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xvar =</span> spcode,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">yvar =</span> number_of_root_nodulation, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> treatment,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n_treat =</span> <span class="dv">4</span> ) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Number of root nodulation&quot;</span>))</span></code></pre></div>
+<p><img src="data:image/png;base64,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wIBFixaNGDEiCbcjTH6Sv/C+9+fvu/ahVAcBAAD4PIYNG3bppZfefvvtQRBEIpEvfelLN99884gRI7p165aXl1ddXX3fffc1b958xowZ77///tKlS9u1a3fGGWd06dLl7rvvjkQiP/7xj/fv3//2228fNlVGRkb37t1nz55dVVX1zW9+c9euXXfcccc111wzffr0Z555pri4uF27dkebPyMjo3PnzjNmzDj99NMfeOCBl19+edeuXc2aNTt0fhqt2l8Bq6ysTHIOAAAA4Gguvvjia665JgiCFStW/OlPf9q+fXu7du2CIHj22We7du06d+7c66677vrrr7/88st79uwZBMEnn3wyadKkWqe67777vvKVrwRBcNllly1YsGDKlClBEPzwhz/85S9/uWnTprVr19Y6//XXXx8Ewc033zx27Nj4JM8///ymTZt69+6dpH8EHJ/aC6BoNBo/2LNnT60ntG3btqESAQAAAP/s7LPPjh989NFHBw8ezMrKqvmqsrJy8+bNkUjk5ptvfuWVV5566qk1a9a8+eabNf9pf5js7Oz4Qfv27XNycmqO654/fjx48OD4QceOHevtt5EUCRaBjhd+R0rOK2AAAABAEAStWrWKH7Rt27ZLly5btmw57ITS0tJhw4alp6ePHz/+29/+9sUXX3zHHXcknPbIFWCONn9c06ZNP3t2GoUE28CvOUR+fv5///d/d+/e3e5uAAAAkBL9+vXbtm3bRx99FP+4adOmc88994MPPli4cOHq1avnz59/5513XnTRRenpCR74+Kzz1096UifBX4i+ffse+vHMM8/s0qXL+eeff/XVV7du3bohgwEAAMDJKy0tbcOGDbt37z7s1ZzTTjvtsssuu/TSS2fOnNmkSZMpU6aUlpb269evtLS0oqLipZde+trXvvbOO+/88Ic/LCsrKy4uzszMPNpUtTra/J8jKo1KgieAjtSlS5fq6uomTZo0RBoAAAAgCIJ//dd/ff755+NLLx/mv/7rv/Ly8m644YYrrriiffv2f/jDH6LR6Je//OWpU6fefffdAwcO/J//+Z8//vGPOTk5F154Yd1T1arW+T9fVBqP2reBr/Hhhx8e+nH37t0PPfRQQUHB6tWrGzhYENgGnuNgG3gAAACokeAVsDPPPPOwkU6dOj377LMNlgcAAACAepagACotLT1spGXLlg0WBgAAAID6V3sBtGDBgrovy8vLa4AwAAAAANS/2gugSy+9tOZ437598XWCotFoVVVVixYtevXqlZ+fn6SAAAAAAByf2ncB2/v/+/Wvf92tW7ff/e53+/btO3DgwKJFi7p27TplypQkpwQAAADgc0uwDfw999wzc+bMSy65pEWLFunp6SNGjPjpT3/64x//OCnZAAAAAKgHCQqgv//975mZmYeOtG/ffuPGjQ0ZCQAAAID6lKAAGjp06P3337937974x717906ZMmXo0KENHwyOy5U9B/5+9PWpTgEAAACNQoJt4J944onhw4fn5OQMGTIkCIK33367efPmixcvTko2+PxyWrXPadU+1SkAAACgUUhQAJ166ql/+9vfnnvuuQ8//DAajY4bN+6b3/xm8+bNkxMOAAAAgOOXoAAKgqB58+Z9+vSpqqqqrKzs3bt3s2bNkhALAAAAqFWsuqR0x80tO05NS++e6iycMBIUQMXFxRdccMF7772Xk5OTlpZWWFg4aNCg1157rWPHjsnJBwAAABwqVl1SXbm5umq7Aohjl2AR6AkTJkSj0YKCgvXr13/88ccFBQXRaHTixInJCQcAAADA8UvwBNCCBQteeOGF7t3/0SlmZ2dPmzZt3LhxDR8MAAAATmqV5X+pqlh35Hisek8QBAfLFlVV/O3Ib9PST8loPrzBw3GiSbwG0JFisVi95wAAAAAOdaDk6aqDH0citWzEFElrffDAn48cj8XKI2mtFEAcKUEBlJeXN3ny5Dlz5mRnZwdBUFRUdOedd44ePTop2QAAAOBkFmvSfFTz9pOP/YIDJb+q2Pdq/YaYPXv28uXLf/7znx86uHTp0rvvvnvhwoXHPk91dfVVV1314osvJjzzc0xOQgnWAJo5c2Z1dXXPnj379OnTp0+fXr16VVZWzpgxIznhAAAAgEaof//+jz/++Ge6JBaLvfrqP5VTFRUV9TU5CSUogDIzM1esWPHGG29MnDhx4sSJ8+fPf/vttzMzM5MTDgAAAKhfDz/8cE5OTocOHXJzc7du3RoEwapVq4YMGTJ8+PBOnTqdf/75v/3tbwcPHty7d++ap3V27tw5ZsyYrKys0aNHf/LJJ0EQfPTRR7feemv829dff71///49evS4/vrry8vL4xPm5uZedtll3bp1y83Nff/994MguOKKK8rLy4cOHfruu+9edNFFEyZMGDNmTK15aiavdR4+nwQFUBAE5eXl2dnZX//617/+9a937949viNYEpIBAAAA9WvdunUPPvjgkiVLtm7d2rlz52eeeSY+/s4770ydOrWwsHDDhg0PPfTQW2+9NX369KlTp8a/nTt37qRJk7Zs2dKvX7+bbrrp0Am3b99+5ZVXPvfcc+vXr6+urp40aVJ8fNGiRePGjSsqKh/rf00AACAASURBVBowYMD06dPjkzRt2nTFihVBELz55ptnnHHGvHnzjpanxpHz8PkkWAPoN7/5zbXXXnvgwIHDxq0DDQAAAA2qunpn7MD2fcV3foZLKjcHsf11nNCzZ8/CwsIOHTps3749EomUlJTEx3v37j1s2LAgCIYOHTp48OAmTZrk5eVdd9118W9HjhyZl5cXBMH999+fmZlZWVlZM+Err7ySm5vbv3//IAhuueWW888//4knngiCoFWrVuPGjYtEImPGjDnyfa4OHTrceOONdeSpUfc8HLsEBdDkyZMvvfTS++67r2PHjskJBAAAAARBEAkiQSQjktb6s1zTNBZE6j5lypQpc+fO7datWzQa7dGjR3ywffv28YNoNBpf+CUajdZc0r179/hBmzZtWrZs+emnn9Z8tWnTpmXLlg0aNCj+Mb6FVBAEffv2zcjIOGyeGl27dq07T4265+HYJSiANm/efM8995x22mnJSQMAAADERdLaR9O71+8uYM8///zKlSvz8/PbtWs3bdq0nTt3Hsu0RUVF8YN169aVlZVlZWUVFhbGRzp16jRu3LjHHnssCIKysrI1a9b8I3ykrh4qLS3tGPPUPQ/HLsEaQL169ar5lwcAAACc0IqLi7Oystq0aVNcXDx79uyDBw8ey1ULFy5csmRJVVXVrFmzLr/88pr6JgiCCy+8cM6cOfn5+RUVFbfffnv8/a+jqaysrK6uPv48fA4JngB64IEHbr311rVr1w4ePLhp06Y14yNGjGjgYAAAAEA9+9a3vrV8+fK+ffvm5OTcdtttP/7xj6+++ur09ATlwCWXXPL9739/w4YN55xzztNPP33oVzk5ObNmzRo7duyuXbu+9KUvHbmKc41oNDpq1Kj+/fs/++yzdec5zt9IrSJ1L+ccf9HuSMnp5PLz8wcMGLBo0SJ9EwAAACeb0h03f75XwNp8YW7DpeIElaDk8/AVAAAApEhaRdn8irL5n+maSLRDA6XhhJagAAIAAABSolnb71SVf3jkeKx6T3npi01aXJCW3u3Ib6MZPRo8GScgBRAAAAA0RulN+qc36X/keHXlJ+WlL2a0GJne9F+Sn4oTVIJdwAAAAAA40SmAAAAA4EQSSWsbzeiVFu2S6iCcSBIUQBdccMFhI7t37x47dmyD5QEAAADqEklr3arT/1vrAkBwNLWvAVRaWvrkk08GQTBv3rxHH3300K8KCgoWLVqUhGQAAAAA1IvaC6D9+/e//PLL8eOag7i0tLRHHnmkwXMBAAAAUE9qL4CysrL+9Kc/BUFwzjnnxA8AAACAxmBXxf6R//uzOaP+9bQ2WanOwgkjwTbw77zzTiwWW7JkyZo1ayorK/v16zdixIhIJJKccAAAAMBhdhwo/WDXlsK9uxRAHLsEBVBxcfEFF1zw3nvv5eTkpKWlFRYWDho06LXXXuvYsWNy8gEAAABwnBIUQBMmTIhGowUFBd27dw+CoKioaPz48RMnTnz22WeTEg8AAABOUku2Fry14+9HjheX7wuC4MXCVe/t3HTkt2e063xx9hkNHo4TTYICaMGCBS+88EK8/QmCIDs7e9q0aePGjWv4YAAAAHBSm7zyD8trK4Dinlq3otbxLs1bb7nq3gYLxYkqQQFUq1gsVu85AAAAgENVB7F/PfVfZg+76tgvufe9P/5izVsNF4kTV1rdX+fl5U2ePLmoqCj+saio6M477xw9enTDBwMAAABSb/bs2d/97ncPG1y6dGlubu5nmqe6unr8+PHHcubnmPw4YzToz2kkEhRAM2fOrK6u7tmzZ58+ffr06dOrV6/KysoZM2YkJxwAAADQCPXv3//xxx//TJfEYrFXX3310JGKior6mvw4Y9TLz2nkEhRAmZmZK1aseOONNyZOnDhx4sT58+e//fbbmZmZyQkHAAAA1K+HH344JyenQ4cOubm5W7duDYJg1apVQ4YMGT58eKdOnc4///zf/va3gwcP7t2794svvhi/ZOfOnWPGjMnKyho9evQnn3wSBMFHH3106623xr99/fXX+/fv36NHj+uvv768vDw+YW5u7mWXXdatW7fc3Nz3338/CIIrrriivLx86NCh77777kUXXTRhwoQxY8bUmqdm8lrnqVWtZy5evPirX/1q/IS5c+dee+21R4txPD/n4MGD//Zv/9apU6cuXbrMnDmz3v991ZcEBVBcJBKJRqOxWCwSiTR0IAAAACAIgu0HShdvLRi/8L+O/c9vCj/YV1n7YzVx69ate/DBB5csWbJ169bOnTs/88wz8fF33nln6tSphYWFGzZseOihh956663p06dPnTo1/u3cuXMnTZq0ZcuWfv363XTTTf8Ucvv2K6+88rnnnlu/fn11dfWkSZPi44sWLRo3blxRUdGAAQOmT58en6Rp06YrVqwIguDNN98844wz5s2bd7Q8NY6c52iO8cxaYxzPz5kzZ866desKCwsXLlz4gx/8YN++fXWETKEEBVBxcfGQIUPy8vJ+8pOfzJgx46tf/erQoUM//fTT5IQDAACAk1ZVrLqiunJXRdmx/zlQdbDubZt69uxZWFiYk5Oze/fuSCRSUlISH+/du/ewYcNatGgxdOjQa665pkmTJnl5eRs3box/O3LkyLy8vPT09Pvvv3/+/PmVlZU1E77yyiu5ubn9+/ePRqO33HJLzUNDrVq1GjduXCQSGTNmzJ49ew6L0aFDhxtvvDEajR4tT4265/l8Zx4Z43h+TlZWVnFx8QcffPDFL36xrKysZcuWx3Lr5EuwC9iECROi0WhBQUF8J/iioqLx48dPnDjx2WefTUo8AAAAOEl9oXmbL7btVO+7gE2ZMmXu3LndunWLRqM9evSID7Zv3z5+EI1G4wu/HFqLxDuBIAjatGnTsmXLQ58L2bRp07JlywYNGhT/mJ2dHT/o27dvRkbGYfPU6Nq1a915atQ9z7GfWeuG5ofG+Nw/Z9SoUVdeeeX48ePLy8tvvPHGKVOm1J0zVRIUQAsWLHjhhRdq/k1nZ2dPmzZt3LhxDR8MAAAAqGfPP//8ypUr8/Pz27VrN23atJ07dx7LVTWbg69bt66srCwrK6uwsDA+0qlTp3Hjxj322GNBEJSVla1ZsyY+XvcaMmlpaceY59jXoqn1zOrq6vjB2rVr64hR43P8nC1bttx6661Tpkx5//33L7/88osvvvicc845xszJdExrAB2m1toMAAAAaOSKi4uzsrLatGlTXFw8e/bsgwcPHstVCxcuXLJkSVVV1axZsy6//PJDe5MLL7xwzpw5+fn5FRUVt99++xNPPFHHPJWVlTWNzPHkOUatW7d+9913i4uL9+3b98ILL9QRo8bn+DnPPvvsDTfcsHPnzpycnGg0WlpaWo8/oR4lKIDy8vImT55cU/UVFRXdeeedo0ePbvhgAAAAQD371re+1aRJk759+1511VW33Xbbc8899+677ya86pJLLvn+979/yimnFBQUHLbRVU5OzqxZs8aOHdutW7fNmzdPmzbtaJNEo9FRo0b179//+PMco0GDBn37298+++yzs7OzBw8eXEeM4/k5//Ef/1FRUXHqqaf269dv/Pjxubm59ZW/fkXqfpynuLj4wgsv/Mtf/tKzZ88gCAoLCwcOHPjaa68lZyf4/Pz8AQMGLFq0aMSIEUm4HQAAADQe5/7+sfc+3dQyvcmxX7K/6mC7Js23XHVvw6XiBJVgDaDMzMwVK1YsXrx49erVQRCcfvrpI0eOtBk8AAAANLSpgy9YWfzJkePF5fum5y+6/rShfdrU8nBGrYOhsXbt2lmzZh022KNHj9tvvz0leU4gdT0BVFZWdvXVV//sZz87clns5PAEEAAAABxmXcmOvnMf+ePXvvO1rqelOgsnjLrWAGrRokVZWdnixYuTlgYAAACAepfgFbAHHnhg0qRJGzduHDRoUKtWrWrGzzvvvAYOBgAAANSiY9OWvVt3zG7ZNtVBOJEkKIDOPffcIAiWLVt22Lid4AEAACAlOjZt8bexP0h1Ck4wCQogRQ8AAADAia6uNYAAAAAACAEFEAAAAJxIyipjP1y6a+u+qlQH4USiAAIAAIATyZ7y6r/tPri9TAHEZ6AAAgAAAAi52heBHjly5Jw5c7Kysr70pS+99dZbSc4EAAAArN99cENJ5ZHje8qrgyD4y/by7ftreQioS8vomR2bNHg4TjS1F0D79u37zne+M3DgwOXLl993331HnnDvvfc2cDAAAAA4qf1qdem6XQeP9u1rhftrHW/fNO0XozMbLBQnqtoLoCeffHLWrFnLly8PgiD+vwAAAEAyVceC4d2a3XxWm2O/ZM66fa//vfZiiJNc7QXQ2Wef/fTTTwdBkJub+9prryU3EgAAANBYzJ49e/ny5T//+c8PHVy6dOndd9+9cOHCY5+nurr6qquuevHFFxOe+Tkmb4gYIVN7AVRj4cKFsVhsyZIla9asqays7Nev34gRIyKRSHLCAQAAAI1Q//79H3/88c90SSwWe/XVVw8dqaioaNKkluWKPsfkxxOjVkfLduJKsAtYcXHxkCFD8vLyfvKTn8yYMeOrX/3q0KFDP/300+SEAwAAAOrXww8/nJOT06FDh9zc3K1btwZBsGrVqiFDhgwfPrxTp07nn3/+b3/728GDB/fu3bvmMZmdO3eOGTMmKytr9OjRn3zySRAEH3300a233hr/9vXXX+/fv3+PHj2uv/768vLy+IS5ubmXXXZZt27dcnNz33///SAIrrjiivLy8qFDh7777rsXXXTRhAkTxowZU2uemslrnadWgwYNWrRoURAEd911V8+ePeODXbp0Wb169WHz18SoNflh2cIkQQE0YcKEaDRaUFCwfv36jz/+uKCgIBqNTpw4MTnhAAAA4KRVUlG9+tOK//OXPcf+Z/mWA+VVsTrmXLdu3YMPPrhkyZKtW7d27tz5mWeeiY+/8847U6dOLSws3LBhw0MPPfTWW29Nnz596tSp8W/nzp07adKkLVu29OvX76abbjp0wu3bt1955ZXPPffc+vXrq6urJ02aFB9ftGjRuHHjioqKBgwYMH369PgkTZs2XbFiRRAEb7755hlnnDFv3ryj5alx5Dy1ys3NXbZsWRAEK1as2Llz59atWwsKCoIgSE9PP2z+mhhHS16T7Vj/PZ0gEhRACxYseOSRR7p37x7/mJ2dPW3atNdff73hgwEAAMBJrbI6Vl4V215Wdex/9h2MVdfV/wQ9e/YsLCzMycnZvXt3JBIpKSmJj/fu3XvYsGEtWrQYOnToNddc06RJk7y8vI0bN8a/HTlyZF5eXnp6+v333z9//vzKyv+7Of0rr7ySm5vbv3//aDR6yy231Dw01KpVq3HjxkUikTFjxuzZs+ewGB06dLjxxhuj0ejR8tSoe54aubm5S5curaqqKiwsvOSSS1asWLFs2bJRo0bVMf/Rktdkq+uf4wkowRpAtYrF6vzbBAAAABy3Ds2ip7SK1vsuYFOmTJk7d263bt2i0WiPHj3ig+3bt48fRKPRzMzM+EHNJTXPhbRp06Zly5aHrgyzadOmZcuWDRo0KP4xOzs7ftC3b9+MjIzD5qnRtWvXuvPUqHueGsOHD7/uuuv++te/9uvX78tf/vLy5ctLSkpyc3PrmP9oyQ/NFiYJngDKy8ubPHlyUVFR/GNRUdGdd945evTohg8GAAAA1LPnn39+5cqV+fn5b7311je+8Y1jvKqmFli3bl1ZWVlWVlbNV506dRo3btx777333nvvLV269Je//GV8vO79o9LS0o4xzzHuQ9W2bdsePXr86le/Gjp0aLwAij8BVMf8R0teky1kEvyqmTNnVldX9+zZs0+fPn369OnVq1dlZeWMGTOSEw4AAACoR8XFxVlZWW3atCkuLp49e/bBgweP5aqFCxcuWbKkqqpq1qxZl19++aEVyYUXXjhnzpz8/PyKiorbb7/9iSeeqGOeysrK6urq489Tq9zc3Keeemro0KFnnnnm6tWr9+zZ07t371rnj8f4TMlDIEEBlJmZuWLFijfeeGPixIkTJ06cP3/+22+/HX8YDAAAADixfOtb32rSpEnfvn2vuuqq22677bnnnnv33XcTXnXJJZd8//vfP+WUUwoKCmbOnHnoVzk5ObNmzRo7dmy3bt02b948bdq0o00SjUZHjRrVv3//489Tq1GjRpWWlg4ZMiQajfbv33/48OG1zv/+++/HYxx78nCINOYFffLz8wcMGLBo0aIRI0akOgsAAAAk1Q+X7vqktLJtk8/wRlLpwer0tMh/jvbcBof7PItAAwAAAA3tij4t1uys5ZWo0oOxBRv3f/kLTbNa1LIucrfWYf4v/bVr186aNeuwwR49etx+++0pyXMCCfNfCwAAADhxnd2p6dmdmh45vmVf1YKN+3Ozmw/IapL8VKnVt2/fxx9/PNUpTkjhXNoaAAAAgBp1FUBlZWXf+MY3Nm3alLQ0AAAAQN1aZUTaN01r38wjHXwGdf11adGiRVlZ2eLFi5OWBgAAAKhb6yZpvxidmR3qtX6odwn+ujzwwAOTJk3auHHjoEGDWrVqVTN+3nnnNXAwAAAAAOpHggLo3HPPDYJg2bJlh4035s3jAQAAADhUgjcGY0eRnHAAAADAYUoOVOb9/K0NO8tSHYQTSeIlo3bv3v3UU0898MADQRB88MEHVVVVDZ8KAAAAqN3WveVv/q344x37Uh2EE0mCV8CKiorOP//8Tz/9dNu2bXffffd3vvOd0tLSP/zhDzk5OcnJBwAAAMBxSlAAffe73x00aNDs2bObNWsWBMHcuXOvueaaiRMnvvTSS0mJBwAAACepVZtLVmzcdeT4tr3lQRD875pthbtqeQusX+fW5/Xs0ODhONEkKICWLFmyYMGCaDQa/9i1a9d77rln7NixDR8MAAAATmr/MTd/WeHOo307c8mGWsf/v/buPD6q+t4b+JmshABJ2EUQEBUFgiKKVgUN2CuCesUF2osVtbW4a0WtSx/rUvfllkrv1T6lLVqpyuX2tmqh1YKiYmnBoiiyKODCGrYESMg6zx+5T0SEBDAzJzl5v1/8cebMmfP9zLRC+PA7Z7q0abH6x99MWCiaqnoKoJycnJ07d+66p7y8vHXr1omMBAAAAASV1dVjjunynxf03/eXPPDX5VP+8XniItF01XMT6BEjRvz4xz/eunVrzcMPP/zw+uuvP+eccxIfDAAAAJq7zLSUvKz0ff+VlZ7a4BmmTJly5ZVX7rbzrbfeKigo2K/zVFdXjx49el+OPICTJyJGIgYl9HOrWz0F0MMPPxwEQceOHSsrKw866KC+ffvm5+fX7AQAAACap/z8/CeeeGK/XhKPx1988cVd95SXlzfUyb9OjD3aW7avM6i8vLxBPrcDU08BlJOTM2vWrDfeeOPXv/71f/zHfyxdunT69OktW7b8+oMBAACA5HvwwQe7d+/etm3bgoKCdevWBUHw7rvvDho0aMiQIR07dhw+fPjvf//7gQMH9urV64UXXqh5yebNm0eOHNmhQ4fTTz/9888/D4Lgww8/vPbaa2uefeWVV/Lz83v06PHd7363rKys5oQFBQWjRo3q2rVrQUHBwoULgyA4//zzy8rKTjjhhAULFpx11lnXX3/9yJEj95in9uR7PM8eDRgw4LXXXguC4NZbb+3Zs2fNzs6dOy9evHi389fG2GPy3bJ91R4jvf7669/85v/ed2n69Onf+c539vZ+v87nVlFRcemll3bs2LFz584TJ07c3//d6ymAgiDYtGnTm2+++eabb77yyiuvvvrqjh079ncGAAAAsL82lVT8bdWW8dPe2/dfLy1eX1JRWcc5ly1bdv/998+ZM2fdunWdOnX69a9/XbP/H//4x3333bdq1aqVK1c+8MADb7/99qOPPnrffffVPDt9+vQbb7xx7dq1ffv2veKKK3Y94YYNG8aMGTN16tSPP/64urr6xhtvrNn/2muvXXjhhZ999ln//v0fffTRmpNkZmbOmzcvCIJZs2b16dNn5syZe8tT66vn2aOCgoK5c+cGQTBv3rzNmzevW7duxYoVQRCkpaXtdv7aGHtLXpttb7P2MdIe3+/X+dymTZu2bNmyVatWzZ49+7bbbtvffqaeAmjhwoWHHnroww8/vGnTpg0bNtxzzz2HHXbYxx9/vF8zAAAAgP1VWlG1qaR8wedb9/3X2uKdVdV1nbNnz56rVq3q3r371q1bY7FYcXFxzf5evXoNHjy4ZcuWJ5xwwtixYzMyMoYNG/bpp5/WPHvaaacNGzYsLS3t3nvv/ctf/lJZ+UXH9Mc//rGgoCA/Pz81NfWaa66pXTTUqlWrCy+8MBaLjRw5sqioaLcYbdu2HT9+fGpq6t7y1Kr7PLUKCgreeuutqqqqVatWnXPOOfPmzZs7d+7QoUPrOP/ektdm29usfYy0x/f7dT63Dh06bNy48b333jvyyCNLSkqys7P3ZXSter4F7Lrrrhs8ePC0adOysrKCICgtLR09evRVV1315z//eb/GAAAAAPula06LIzu2mvLtAfv+kh//eemTcz+p+5h77rln+vTpXbt2TU1N7dGjR83OvLy8mo3U1NT27dvXbNS+5JBDDqnZaNOmTXZ29qZNm2qfWr169dy5cwcM+N+Q3bp1q9no3bt3enr6buepdfDBB9edp1bd56k1ZMiQyy677P333+/bt+9JJ530t7/9rbi4uOZ2y3s7/96S75ptj+qOFI/H636/dU+v4+RDhw4dM2bM6NGjy8rKxo8ff88999Sdczf1FEALFy58+eWXa9qfIAiysrJuu+22ESNG7NcMAAAAoDF47rnn5s+fv2jRotzc3EceeWTz5s378qrPPvusZmPZsmUlJSUdOnRYtWpVzZ6OHTteeOGFP/vZz4IgKCkpWbJkSc3+WCxWxwlTUlL2MU/d56mVk5PTo0eP3/zmNyeccMJJJ530wgsvbN269cYbb6zj/HtLXpttb/YYqbr6f1deLV26tI73W+/0Ot7v2rVrr7322nvuuWfhwoXnnXfe2Wefffzxx9cd9UsZ6n768MMPLyws3HVPYWFh165d930AAAAA0Ehs3LixQ4cObdq02bhx45QpUyoqKvblVbNnz54zZ05VVdWkSZPOO++8XeuMESNGTJs2bdGiReXl5RMmTPj5z39ex3kqKytri5Kvk2ePCgoKJk+efMIJJ/Tr12/x4sVFRUW9evXa4/lrYuxX8rq1bt16wYIFGzdu3LFjx/PPP1/H+611AJ/b008/ffnll2/evLl79+6pqanbt2/fr5D1FECPP/74D3/4wz/84Q9FRUVFRUV/+MMfrr766iuvvHK/ZgAAAACNwbhx4zIyMnr37v2tb33ruuuumzp16oIFC+p91TnnnHPLLbd06dJlxYoVu33/VPfu3SdNmnTBBRd07dp1zZo1jzzyyN5OkpqaOnTo0Pz8/K+fZ4+GDh26ffv2QYMGpaam5ufnDxkyZI/nX7hwYU2MfU9erwEDBlxyySXHHntst27dBg4cWMf7rXUAn9tVV11VXl5+2GGH9e3bd/To0TUXuO272B4vTqt7hVWXLl1Wr169X2MOzKJFi/r37//aa6+deuqpSRgHAAAAjccJE99YvH57x1YZ+/6SLSUVGWkp6+76l8Sloona8z2A/va3vyU5BwAAALCrmwsOe2Vp4Vf3F+2sfH7h6hFHduqa2+Krzx7bNSfx0UKzdOnSSZMm7bazR48eEyZMaKKDkmbPK4B2tXXr1q+u9+nbt2/CIn3BCiAAAADYzbLCHb0fnPXn75/4L707hJ2FJqOebwGbOHHihAkTqqqqdttfb20EAAAAQCNRz02gf/KTn1x22WUrV67c+mXJCQcAAADsJjcrLadFeqfWmWEHoSmpZwVQamrqhAkTevTokZQwAAAAQD06tsrcet/wsFPQxNSzAmjMmDHPPvtscqIAAAAAkAj1rAC65ZZbDj/88GnTpnXv3n3X74afMWNGgoMBAAAA0DDqKYAuuuiivLy8YcOG5eXlJScQAAAAAA2rngJo3rx5M2bM8C3sAAAAAE1XPfcAysvLS0urpyQCAAAAoDGrp9y5/fbbL7744rvvvrtbt2677rcmCAAAAKCpqKcAuuGGG4IguPTSS3fbX1FRkahEAAAAADSoegogRQ8AAABAU1dPAVRUVLTH/Tk5OQkIAwAAAEDDq6cAys3N3eP+eDyegDAAAAAANLx6CqAlS5bUbldUVLz77ru33377HXfckeBUAAAAADSYegqg3r177/qwX79+nTt3Hj58+Le//e3WrVsnMhgAAAAADSNlf1/QuXPn6urqjIyMRKQBAAAAoMHVswLogw8+2PXh1q1bH3jggd69e2dmZiYyFQAAAAANpp4CqF+/frvt6dix49NPP52wPAAAAAA0sHoKoO3bt++2Jzs7O2FhAAAAAGh49RRA6h4AAACApm7PBdBDDz1U98t++MMfJiAMAAAAAA1vzwXQc889t8f9O3fuXLJkSaAAAgAAAGg69lwA/fOf//zqztmzZ19xxRXt27d/9NFHE5wKAAAAgAaTsi8HFRYWjhs3btiwYaeccsqSJUvGjRuX6FgAAAA0Kis3lyzZsPvXBAFNRT0FUDwenzx58pFHHjl//vzXX3998uTJ7dq1S04yAAAAGo87Zy699LmFYacADlBdBdAHH3wwZMiQa6+9dsKECQsXLhw8eHDSYgEAAADQUPZcAJWWlt5+++0DBgzIzs5+//33b7/99vT09CQnAwAAAKBB7Pkm0H379l25cmVBQcG55577yiuvfPWA8ePHJzgYAAAAAA1jzwVQRUVF165dly9fft999+3xAAUQAAAAQFOx5wLos88+S3IOAAAAABJkn74GHgAAAICmSwEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAANhmhpQAAIABJREFUAABAxCmAAAAAACJOAQQAAARnvTp52qp3w04BQKIogAAAgGDWmo9WbdsSdgoAEkUBBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhTAAEAAABEnAIIAAAAIOLSwg4AAADAgdhWVrmscEfSxm0uqdhRXrXg86KkTeyel9U+OyNp4yDaFEAAAABN0v+ZsXTiGyuSPPS4f5+TtFkjj+r00vcGJW0cRJsCCAAAoEkqrag6vH32774zMOwgCXHzi4tLK6rCTgHRoQACAABoqrLSUwd2zQk7RULkZaVvLa0IOwVEh5tAAwAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHFpYQcAAICkqix7r6L0r0G8Mq3FielZg8OOAwDJoAACAKAZqSh9rWTzvTXb5SUzW7S5JLP1d8KNBABJ4BIwAACakbJtv9314c7i3wTxyrDCAEDSKIAAAGhGqipW7ranunprKEkAIJkUQAAANCNpmf13fZiS2iEltV1YYQAgaRRAAAA0Iy1yrk5J7fDFw9xrgyAWYh4ASA43gQYAoBlJTT+sVcdfVO78ezxentbi+F3LIACIMAUQAADNSyylTXrL08NOAQBJ5RIwAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAAR5ybQAAAATdWnW0u/+dTfwk6REO+tKe7TqVXYKSA6FEAAAABN1Y6yyleXFYadIlH6dGoddgSIDpeAAQAAAEScFUAAAABN1WHts1/63glhp0iIq6YvqqisDjsFRIcCCAAAoKlKT005tF3LsFMkRHZG6tYqBRA0GJeAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAQOMy8pfznnhzZdgpAIBIUQABADQui9ZuW120M+wUAECkKIAAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgACAML2/qfyVT0rDTgEAEHFpYQcAAJq1f24o//u6sm92zwo7CDQ6Z/zlF/8o/Cxp4yqqq+5e+JcH3vtrcsalpaROPXXs6V0OT844ABRAAADQGC3Y+HnfvM4nd+wRdpCEeGjR7KVFGxRAAEmjAAIAgEbq9C6H//iYfwk7RcOLB/GHFs0OOwVA8+IeQAAAAAARpwACAAAAiDgFEAAAAEDEKYAAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDi0sIOAADQ2P3un6vfXVOctHFFOyte/3jTrS9/mLSJFx/XtU+n1kkbBwAknwIIAKAe9/xl2Zrine2zM5Izrn12xobtZdPeXZOccZ9sKW2ZnnrnvyiAACDKklQA3XTTTcuWLavZHjly5Pjx44Mg+OCDD5588sni4uLBgwdfdtllKSmuRwMAGqN4EIw7rtvPRvULO0hCtL/zz/GwMwAAiZakAmj9+vXPPvtsixYtgiCoKXqqqqoee+yxG2644Ygjjvjxj388Z86c0047LTlhAAAAAJqVZCy62blzZxAErVu3Tk9PT09PT01NDYLg3Xffbd++ff/+/Vu0aHH22We/9tprSUgCAAAA0AwlYwXQunXrgiC47rrrNm3adNRRR1199dV5eXkbNmzo1q1bzQHdunUrLCysPb6kpGTmzJlBEKxevTo7OzsJCQEAAJqiTSXlv/jbJ2GnSIiVm0vystLDTgHRkYwCqKysrE+fPuPHj8/JyZk4ceJTTz116623btu2LSsrq+aArKys4uIvvlmjuLj4/vvvr9nOzc1NQkIAoFY8HmzcWVWdrLvC7KiIV8WD9SVVSZoXBLmZKZmpsaSNA0icbrlZq4t2jp/2XthBEmXc8d3CjgDRkYwCqHfv3rfddlvN9llnnXXnnXcGQdCqVav169fX7CwtLW3VqlXt8Z07d54/f34QBIsWLerfv38SEgIAtf60quTpxduTPPS62ZuSNuvItul3fyMvaeMAEudH3zz8R988POwUQNOQjAKo5vu/jjjiiCAI0tLS0tPTgyDo1KnTnDlzag5Ys2ZNp06dkpAEAKjXjop4y7TY+P5twg6SEH/9rHTzzuqwUwAAJFsyCqDCwsLJkyc/+OCD7du3f+mll0488cQgCI4++uif/exnK1as6NGjx8yZM0899dQkJAEA9kV6auzEgzLDTpEQH2wqVwABAM1QMgqgk08+ef369XfccUdFRcUxxxzzve99LwiC1NTUW2+9deLEiWVlZYMGDSooKEhCEgAAAIBmKBkFUBAE55133nnnnbfbziOPPHLixInJCQAAAADQbKWEHQAAAACAxFIAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIi4tLADAAAAe1Adj7+5ftVDi2aHHaThxYN42BEAmh0FEAAANEbV8fira5a9umZZ2EEAiAKXgAEAAABEnBVAAADQGKWkxM7u1uesbn3CDtLw4kH8irnTw04B0LwogAAAoDFKCWID23f9fu8Tww7S8BRAAMnnEjAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhTAAEAAABEXFrYAQAAgD2b+MEbT3+0IOwUiRKLxcKOANCMKIAAAKAxumvAGYu2rE3auF8t+/vA9l2PbtslOePSYr2HH9w7ObMACBRAAADQOF1z1MnJHPfMRwvO797/5vzTkjkUgKRxDyAAAACAiFMAAQAAwdAuh/VonRd2CgASxSVgAABA8NLp3w07AgAJZAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEZcWdgAAgMauOh7/aOOOae+uCTtIQlRUxcOOAAAknAIIAKAeVdXxGUs2zFiyIewgCZGWYkk4AESfP+8BAAAAIs4KIACAeqTGYif1aHtO305hB0mIn7y6POwIAEDCKYAAAOqRkhIb2DXnh0MPCztIQjzy2sdhRwAAEs4lYAAAAAARpwACAAAAiDgFEAAAAEDEuQcQALC7nVXx/7toW9gpEmLJ5orqIB52CgCAZFMAAQC7q6yKv/ppadgpEqVzq9SwIwAAJJtLwAAAAAAizgogAGB3LdNjtw/KCztFQvzh45LPtlWEnQIAINkUQADA7lJisUNzovlDQpuMWCwWCzsFAECyuQQMAAAAIOIUQAAAAAARpwACAAAAiDgFEAAAAEDEKYAAAAAAIi6aX/ABAEDTUr7jT2Xbp4adIoHSs05t0ebysFMA0HwpgAAACF9VxfJ4dUlG9plhB0mIitK5VeUfhp0CgGZNAQQAQKOQkpoX1TUy1ZVr49Vbw04BQLPmHkAAAAAAEacAAiCBKsvfr65cHXYKAABo7hRAACRQ6eYHyne8FHYKAABo7hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAARlxZ2AACSqnz77yvLFyVtXLx6a8XOt6ur1idrYCyz1QWpGUclaxwAADQNCiCA5qVsx4tBvCQlrVtyxqVm9AmCIF69LTnjKsvfS0nrpgACAIDdKIAAmp20Fidl5V4XdoqEKF57ftgRAACgMXIPIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAoDkWVtS/NCi2WtLisMOAgBA86IAAoDk+WzH1lvnv/zZjq1hBwEAoHnxNfAAAABfEg+CDzeVF5ZWd2+T1qONvzQBUeD3MgCauxmfL9leWZacWR8VbwyC4K9rl3+yY0tyJrZOzxx+8JHJmQUQDVXx4MF/bH2vsLzm4YieLcf1aRVuJICvTwEEQLO2tKhwxCu/TPLQ2xfMSOa4pef/8Ig2HZI5EaBJ++unpbXtTxAEf1pZ8o2DMo/ISw8xEsDXpwACoFmrqK4KguCPp192SqeeYWdpeG+uX3nOq7+qeY8A7KMVRRW77fm4qFIBBDR1CiAACFqnZ+ZlZIWdouG1SssIOwJA09O2Repue9q18OU5QJPnNzIAAIAvDOvWon3WFx3QIW3SBnTUpwNNnhVAAAAAX2iXlXrXN3JfWlFSWFrds03aiJ4t01NiYYcC+LoUQAAAAF/SISv10r6tw04B0JBcAgYAAAAQcQogAAAAgIhzCRhAc1NZvuMP5Tv+EHaMxIgd4J9rBTP+s2GDAABAo2IFEAAAAEDEWQEE0LzE47FYSm5KasewgyREVeWqA3vhEW06tE7PbNAsjcK2irJlxYVhpwAAIHwKIIDmJRZLTWtxalbudWEHSYjitecf2AufOvmC0zr3atgwjcHstR8Nnflk2CkAAAifS8AAAAAAIs4KIAAAGoXqyrXb1l8UdoqEiFdvSUk/POwUADRrCiAAABqHeFV15dqwQwB7UFFV/fDsj3+74POKqvi/9ut09xm9W2X6uyQ0Mf6jBQAAoC73vLLsJ68sr9l+/PUV67aVPTv22HAjAftLAQQAQKOQkt61VcfJYadIiJLN98Srt4adAg7cM/M/3/Xh1HdW/3L00VnpqWHlAQ6Am0ADAABQl5KKqt33lO++B2jkFEAAAADU5dRD2+36cGDXnHbZGWGFAQ6MAggAAIC6PHFe/ik929Zs9+vc+pl/cwMgaHrcAwgAAIC6dG6dOefqk1dtKamsjh/atmVqSizsRMB+UwABQPDSZ4uXFRWGnaLhLY3imwIgFLFY0LNty7BTAAdOAQRAs9Y2s2V2WsZj778edpBEyU7LaJvh53UAgOZOAQRAs9alZZvt37k/aeP+XvjpCS/9bN5Z1w3qcEjShgIAgAIIANjd9vLq297cHHaKhNhYWt0m80C+BOP5hWvmrormZ1JUWtFIbuZRXbl2+4Yrw06RENVVa1PTDw07BQDNmgIIAPiSQZ0zi8qqkzZu+daKDSVVJ3dpkZxxh+YEh+el7++rbinoNe+TrYnIs0dT31l9WPvsQYfkJmfc8YfknpvfOTmz6pDRclgQJO//eJVlC+Px7ektTknOuNTgiLTMgcmZBQB7pAACAL6kR5u0y/NbJ23cMx9u//u6smROPACXDTrkskHJu2pvxpINZxzZ4cGRRyVtYmOQmtEvK6Nf0saVbnmoqvKTrNwfJG0iAITrQJZAAwAAANCEKIAAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAMmTnZ4xsF3X7PSMsIMAANC8pIUdAACakb65neefc0PYKQAAaHasAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHFuAg0AADQB5VXxVz4trawOO0fCtM6IDe2WFXYKILIUQADNTrx6S1XFsrBTJEhV2AEASJRlWyueXrw9Ky2WEgs7SgJUVgdlVfFBnTNbpbtKA0gIBRBA8xKLZVaUzqkonRN2kESJxTLCjgBAQsTjQRAE953c9uBWqWFnaXhz1+yc+M/imvcIkAgKIIDmpWW7e6orP0vauJLND6Rl5mdkn5WsgSmpGUclaxYAADQZCiCA5iUltUNKaoekjYvFMlJSO6VlHpu0iQAAwFcpgAAAaHZa5IyPxyvDTgEAyaMAAgCg2Yml5EbxPsIAsFfuMA8AAAAQcQogAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAARpwACAAAAiDgFEAAAAEDEpYUdAAAAYF/d+PqmsCMANElWAAEAAABEnBVAAABAk9GuRWpaFP8Ve2dVvKisOuwUQJQpgAAAgCajXVZKZmos7BQNr6isWgEEJFQUy3MAACByurVOO65TZtLan+Ly6kUbyyuq48kZl5OZMvjgFtnp/oIGJIoVQAAAQBOQm5ly83E5SRs3f33ZI/OLrj2mTfus1KQNBUgcBRAAEKbDc9PTUyJ4NQcAQKOiAAIAwnTiQZknHpQZdgoAgIhziSkAAABAxCmAAAAAACJOAQQAAAAQcQogAACA3bXJSMlvn5GerG+dB0g0N4EGAADY3RF56T86ITfsFAANxgogAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAARpwACAAAAiDgFEAAAAEDEKYAAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcWlhBwAA4EuuPKn7MQfnhJ0CAIgUBRAAQONy27DDw44AAESNS8AAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhLCzsAAFHWst1PYimtwk4BAADNnQIIgARKTe8ZdgQAAMAlYAAAAABRpwACAAAAiDgFEAAAAEDEKYAAAAAAIk4BBAAAABBxCiAAAACAiFMAAQAAAEScAggAAAAg4hRAAAAAABGnAAIAAACIOAUQAAAAQMQpgAAAAAAiTgEEAAAAEHEKIAAAAICIUwABAAAARJwCCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAARpwACAAAAiDgFEAAAAEDEKYAAAAAAIk4BBAAAABBxCiAAAACAiEsLcfYHH3zw5JNPFhcXDx48+LLLLktJ0UYBAAAANLzQOpeqqqrHHnvs8ssvf+qpp5YvXz5nzpywkgAAAABEW2gF0Lvvvtu+ffv+/fu3aNHi7LPPfu2118JKAgAAABBtoV0CtmHDhm7dutVsd+vWrbCwsPapkpKSmTNnBkGwevXq7OzscPIBAAAAREVoBdC2bduysrJqtrOysoqLi2ufKi4uvv/++2u2c3NzQwgHAAAAECGhFUCtWrVav359zXZpaWmrVq1qn+rcufP8+fODIFi0aFH//v3DyQcAAAAQFaHdA6hTp06rV6+u2V6zZk2nTp3CSgIAAAAQbaEVQEcfffTatWtXrFhRXV09c+bMIUOGhJUEAAAAINpCuwQsNTX11ltvnThxYllZ2aBBgwoKCvZ25IIFCyoqKpKZDQAAAA7YySefXHvTW2gkYvF4POwMe1VYWDhu3LgZM2aEHQQOXF5eXnp6+oYNG8IOAvAlLVu2zMvLW7NmTWP+SQBohtLS0jp16rRp06adO3eGnQUO3MqVK3v06BF2CviSRl0ABUGwbt262lsFQVP0m9/8Zs2aNbfffnvYQQC+ZO7cuVOmTHniiScyMjLCzgLwhY0bN95xxx3XXnttv379ws4CBy4/P9+fsDQ2oV0Cto86d+7cuXPnsFPAgXvxxReLiooGDhwYdhCAL6n595UBAwa0aNEi7CwAX6j53emwww7z4xNAwwrtJtAAAAAAJEdjvwQMmrotW7ZUVFR07Ngx7CAAX1JSUrJly5YuXbrEYrGwswB8obKycv369e3atbM+EaBhKYAAAAAAIs4lYAAAAAARpwCCxPr0009vvPHGsFMAAADQrCmAINkqKyvDjgAAAEDz0ti/Bh6aqP/+7//+4x//2KJFi8GDB9fs+eijj6ZOnXrQQQd9+umn9957b7jxgOZp4cKFkydPLi0t7d+//5VXXpmenh4EwaxZs55//vny8vIhQ4aMGzcuJcU/DgEhmDVr1tSpUzMyMgYOHFhUVHT99ddPmjRp/vz5sVjswgsvPPvss8MOCNDk+SEPGt5777338ssvP/zww48//vg777yz6/5u3brdfffdIWYDmq2ioqKHH374pptu+sUvfhGPxydPnhwEwSeffPLb3/72vvvu++lPfzp//vxFixaFHRNojtatW/fss88+/PDDDzzwwN///vcgCN58883Vq1f/8pe/vO+++6ZMmbJz586wMwI0eQogaHhvv/32iBEjOnbs2LJly1GjRtXub9269fDhw/3rOhCKefPm5efnd+/ePSUlZeTIkW+++WYQBHPnzh02bFj79u1zcnJuvPHGtm3bhh0TaI7mzp17yimntG3bNicnZ+jQoUEQ5OTkbNu2bdWqVV27dv2v//ovXwkP8PW5BAwa3tatW/v06VOz3bFjx9r97dq1CykRQLBp06YlS5bccMMNNQ/bt29fs/Pwww+v2dOrV6/QwgHN26ZNm2p/ZGrXrt3q1av79+9/yimnPPTQQxUVFcOHDx87dmy4CQEiQAEEDS83N7ewsLBme8WKFbX7Y7FYSIkAgtzc3JNPPvn73/9+EARlZWWff/55EAQ5OTlbtmypOeD999+vqqo6+uijw0wJNEu5ubm1vxfVbGzevPmss84aO3bsihUrHnjggUGDBtW21QAcGJeiQMP7xje+8ac//Wnjxo07d+6cNWtW2HEAgiAIBg4c+NZbb33yySeVlZW/+tWvXn755SAITjjhhL/+9a9btmzZtm3bU089tX379rBjAs3RoEGD3nzzzaKiou3bt8+ePTsIgtmzZ0+aNGnbtm0dO3ZMSUlxDyCAr88KIGh4/fv3P/PMM2+++eaMjIxzzz33lVdeCTsRQNCxY8fx48c/+OCD27dv79279/XXXx8EwRFHHHHeeefdcsst5eXlgwcPPumkk8KOCTRH3bt3HzVq1A033NC2bdtBgwbt2LFjxIgRixcvHj9+fHp6+umnn56fnx92RoAmLxaPx8POAAAANF8rV66cO3fu2LFj4/H4Y489NnDgwIKCgrBDAUSNAggAAAhTVVXVlClTFi9eXFVVlZ+ff+mll7pzIkCDUwABAAAARJybQAMAAABEnAIIAAAAIOIUQAAAAAARpwACAAAAiDgFEAAkT35+/m233ZaIM1dVVcVisXnz5n2dk/zzn/8cNGjQaaedto/Hz5kzp3///mPGjAmCID8/f/LkyV9nOgAAiaMAAgD+1xNPPHHwwQdPmzZtH49/9NFHjz/++CeffDIIgksuuSQ/Pz+R6QAAOHBpYQcAABqLtWvXnnjiiR06dNj3488444y8vLwgCCZMmPB1RpeUlLRs2fLrnAEAgDpYAQQA4SsuLr7iiiu6d++ek5Nz9tlnf/7550EQ/Ou//uuFF15Ye8zPf/7zDh06VFRU7PHgXb344osDBgxo2bJlz549f/rTn3513KZNm77zne8cdNBBXbp0ueiiizZu3BgEQUFBwcyZM++6665vfOMbux2fnp7+P//zP/369WvZsuVhhx02ffr0IAjy8/Pnz59/zTXXjBo1Kvj/l4DNmDEjOzt7xYoVQRBUVlYeffTRd9xxx97eYBAENZetnXHGGd/+9rcb6LMEAGAPFEAAEL5Ro0YtXbr0mWeeefXVV9u0aXPGGWds3bp1zJgxM2bM2LlzZ80x06ZN+7d/+7f09PQ9Hlx7qk8//fSCCy4YPnz4nDlzrrrqqh/84Advv/32rrPi8fiZZ565bNmy3/3ud1OnTl2+fPmIESOCIJg9e/bw4cPvuuuu3Y6vcc0119x1113/+Mc/jj/++Isuumjnzp2LFi067rjjJk2a9Pvf/772sDPPPPP888+/4oorgiB45JFHKisr77zzzr29wZqX/OAHP7j44ot//vOfN/BnCgDALlwCBgAhmzdv3htvvLFhw4bc3NwgCJ5++umDDz54+vTpo0ePrqqq+stf/nLOOeesW7fujTfeePzxx/d28CWXXFJztuXLl1dUVHzve9/r1avXcccd16dPny5duuw67vXXX3/nnXdWrFhxyCGHBEHwwgsv9OrVa86cOUOGDKkj5NVXX33BBRcEQXD33Xc/99xzq1ev7tWr1x6P/OlPf3rUUUfdeeedjz/++OzZszMzM/eW+bvf/W4QBGefffbYsWO/9qcIAEBdrAACgJB9+OGHFRUVHTp0SE9PT09Pb9Gixfr169esWdO6desRI0bUrK+ZPn36UUcddeyxx+7t4NqznXTSSSeeeGLfvn1HjRr1xBNP9O/fv3v37ruN69mzZ037EwRB9+7du3fv/uGHH9YdcuDAgTUb7dq1q/vItm3bTpo06d57773qqquOP/74Ot5gzfHHHnvsfnxYAAAcECuAACBkOTk5nTt3Xrt27VefGj169NVXX11ZWfnCCy+MGzeujoOrqqpqNrKyst5666233nrrz3/+869//eubbrrp+eefP/fcc2uPjMfju702JSWlsrKy7pCZmZn7/o7Wr18fBMFHH31U7xsMgqAHD+PqAAACEklEQVRVq1b7fmYAAA6MFUAAELK+ffuuX7++dg3O6tWrTzzxxPfeey8IgrPOOqu0tPT5559/++23a66TquPgGrNmzXrwwQdPOeWUe++995133jnzzDOffvrpXccdddRRq1atqr0N82effbZq1aq+ffs21Nv5+OOPb7vttt/97nevvvpqze2i680MAECiWQEEAEm1du3aBQsW1D7Mysrq06fPqFGjzj333IkTJ2ZkZNxzzz3bt2+vaWSys7NHjhx5ww03DB06tOZWPkccccTeDq4Ri8V+9KMftW7duqCgYPHixXPmzLnpppt2DXDaaacdc8wxo0ePfuSRR+Lx+C233HLMMceceuqpDfLu4vH4ZZddNnbs2G9961uFhYXXXHPNsGHD6s0MAECiWQEEAEk1ZcqU43ZRs67nmWeeGTZs2OWXX37++efn5eW9/PLLqampNcePGTNm48aNF198ce0Z6jg4CIKCgoLHH3/83//93wcOHHjzzTdfccUVt9xyy64BYrHYjBkzevbsef7551944YWHHnrojBkzYrFYg7y7J554Yvny5Q899FAQBFdfffUhhxwyYcKEejMDAJBosa/eCAAAAACAKLECCAAAACDiFEAAAAAAEacAAgAAAIg4BRAAAABAxCmAAAAAACJOAQQAAAAQcQogAAAAgIhTAAEAAABEnAIIAAAAIOIUQAAAAAAR9/8A1P4Uf+68CEgAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
 </div>
-<div id="mass-fractions" class="section level2" number="2.4">
-<h2 number="2.4"><span class="header-section-number">2.4</span> Mass fractions</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>summary_mean_mass_fractions <span class="ot">&lt;-</span>  </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    data_rate_change <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(family,treatment,nfixer,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>           rmf,smf,lmf) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(treatment,nfixer) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>treatment <span class="sc">==</span> <span class="st">&quot;Harvestatthebegging&quot;</span> ) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_if</span>(is.numeric, <span class="fu">funs</span>(mean)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(nfixer) </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">### Round the numbers</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>summary_mean_mass_fractions[,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_mass_fractions)] <span class="ot">&lt;-</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(summary_mean_mass_fractions[,<span class="dv">3</span><span class="sc">:</span><span class="fu">ncol</span>(summary_mean_mass_fractions)],<span class="dv">3</span>) </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_mean_mass_fractions)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="left">treatment</th>
-<th align="left">nfixer</th>
-<th align="right">rmf</th>
-<th align="right">smf</th>
-<th align="right">lmf</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">ambientrain</td>
-<td align="left">fixer</td>
-<td align="right">49.320</td>
-<td align="right">21.055</td>
-<td align="right">29.625</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">53.801</td>
-<td align="right">20.122</td>
-<td align="right">26.077</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">fixer</td>
-<td align="right">53.512</td>
-<td align="right">20.802</td>
-<td align="right">25.686</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">fixer</td>
-<td align="right">47.389</td>
-<td align="right">24.126</td>
-<td align="right">28.485</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain</td>
-<td align="left">nonfixer</td>
-<td align="right">50.140</td>
-<td align="right">19.127</td>
-<td align="right">30.732</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">48.464</td>
-<td align="right">18.104</td>
-<td align="right">33.432</td>
-</tr>
-<tr class="odd">
-<td align="left">ambientrain_water</td>
-<td align="left">nonfixer</td>
-<td align="right">48.258</td>
-<td align="right">20.653</td>
-<td align="right">31.090</td>
-</tr>
-<tr class="even">
-<td align="left">ambientrain_water_nutrients</td>
-<td align="left">nonfixer</td>
-<td align="right">48.159</td>
-<td align="right">18.962</td>
-<td align="right">32.879</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div id="mean-values-from-the-model" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Mean values from the model</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">emm_number_nodules =</span> <span class="fu">emmeans</span>(mod_nod_numb, <span class="at">specs =</span> <span class="st">&quot;treatment&quot;</span>, <span class="at">by=</span> <span class="st">&quot;spcode&quot;</span>))</span></code></pre></div>
+<pre><code>spcode = dr:
+ treatment                   emmean   SE df lower.CL upper.CL
+ ambientrain                  139.5 7.82 35   123.59    155.3
+ ambientrain_nutrients        112.8 8.16 35    96.25    129.4
+ ambientrain_water            119.1 8.60 35   101.65    136.6
+ ambientrain_water_nutrients  163.6 7.91 35   147.54    179.6
+
+spcode = ec:
+ treatment                   emmean   SE df lower.CL upper.CL
+ ambientrain                   20.3 7.20 35     5.64     34.9
+ ambientrain_nutrients         20.8 7.53 35     5.54     36.1
+ ambientrain_water             26.8 8.56 35     9.40     44.1
+ ambientrain_water_nutrients   25.2 8.98 35     6.95     43.4
+
+spcode = gs:
+ treatment                   emmean   SE df lower.CL upper.CL
+ ambientrain                   32.7 6.94 35    18.58     46.7
+ ambientrain_nutrients         49.4 6.94 35    35.33     63.5
+ ambientrain_water             21.9 6.96 35     7.73     36.0
+ ambientrain_water_nutrients   52.8 6.96 35    38.69     67.0
+
+Confidence level used: 0.95 </code></pre>
 </div>
 </section>
 

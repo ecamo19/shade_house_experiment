@@ -411,4 +411,34 @@ data_lmf_plot <-
   ylab("Leaf mass fraction plus CI's"))
 ```
 
+# Mean values from models
+
+## Total Biomass
+
+```{r}
+(emm_total_biomass <- emmeans(mixed_models$totalbiom, specs = "treatment", by="nfixer"))
+```
+
+## Aboveground Biomass
+
+```{r}
+(emm_below_biom <- emmeans(mixed_models$above_biom, specs = "treatment", by="nfixer"))
+```
+
+
+## Belowground Biomass
+
+```{r}
+(emm_belowbiom <- emmeans(varident_belowbiom, specs = "treatment", by="nfixer"))
+
+```
+
+
+
+
+
+
+
+
+
 

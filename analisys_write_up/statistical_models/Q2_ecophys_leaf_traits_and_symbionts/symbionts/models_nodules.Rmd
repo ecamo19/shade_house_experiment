@@ -50,9 +50,6 @@ source("~/Documents/projects/shade_house_experiment/codes/cleaned_data_nodules.R
 #Delete unused variables
 data_nodules_cleaned <-
     data_nodules_cleaned %>%
-    dplyr::select(-c("nodule_count_lab","average_nodule_weight",
-                     "nodule_mass_in_the_lab","average_nodule_weight",
-                     "estimated_nodule_mass_per_plant")) %>%
     dplyr::select(id,spcode,treatment, everything())
     
 ```
@@ -68,6 +65,9 @@ mod_nod_numb <- lm(number_of_root_nodulation ~ treatment * spcode + init_height,
 ```{r}
 Anova(mod_nod_numb, type = "III",test="F")
 ```
+
+
+
 ```{r}
 data_nodule_number <- 
   emmip(mod_nod_numb, treatment ~ spcode, CIs = TRUE)$data 
@@ -101,55 +101,9 @@ data_nodule_number <-
     ylab("Number of root nodulation"))
 ```
 
-# Mixed model
-
-
+# Mean values from the model
 ```{r}
-varident_mixed_mod_nod_numb <- lme(number_of_root_nodulation ~ treatment,
-                		                random = ~ 1|spcode,
-                		                weights = varIdent(form = ~ 1 | treatment),
-							
-						                        data = data_nodules_cleaned) 
-
-```
-
-
-```{r}
-Anova(varident_mixed_mod_nod_numb, type = "III",test="F")
-```
-
-```{r}
-data_nodule_number_mixed_model <- 
-  emmip(varident_mixed_mod_nod_numb, ~ treatment, CIs = TRUE)$data 
-
-```
-
-
-```{r message=FALSE, warning=FALSE}
-
-# Get by group comparitions
-    as.data.frame(emmeans(varident_mixed_mod_nod_numb,
-    					  pairwise ~ treatment,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1,group2, estimate, se,p_value) %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-
-```{r}
-(boxplot_number_of_root_nodulation <- 
-    masomenos_boxplot(data = data_nodules_cleaned,
-                      xvar = treatment,
-                      yvar = number_of_root_nodulation, 
-                      n_treat = 4 ) +
-    ylab("Number of root nodulation"))
+(emm_number_nodules = emmeans(mod_nod_numb, specs = "treatment", by= "spcode"))
 ```
 
 
