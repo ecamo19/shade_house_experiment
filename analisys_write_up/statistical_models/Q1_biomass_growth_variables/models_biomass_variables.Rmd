@@ -3,9 +3,7 @@ title: "(Q1) What is the relative influence of water vs. nutrient availability o
 author: "Mas o menos lab"
 date: "2021"
 output: 
- prettydoc::html_pretty:
-    fig_width: 8
-    fig_height: 5 
+ prettydoc::html_pretty: 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -200,7 +198,8 @@ varident_belowbiom <- lme(below_biom ~ nfixer*treatment + init_height,
 
 
 ```{r}
-Anova(varident_belowbiom, type = "III",test="F")
+#Anova(varident_belowbiom, type = "III",test="F")
+anova.lme(varident_belowbiom, type='marginal')
 ```
 
 ```{r}
@@ -331,7 +330,8 @@ varident_rmf <- lme(rmf ~   nfixer*treatment + init_height,
 
 
 ```{r}
-Anova(varident_rmf,type = "III",test="F")
+#Anova(varident_rmf,type = "III",test="F")
+anova.lme(varident_rmf, type='marginal')
 ```
 
 ```{r} 

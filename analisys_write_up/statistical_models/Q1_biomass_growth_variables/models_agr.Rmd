@@ -85,7 +85,7 @@ varident_agr <- lme(agr ~   nfixer*treatment + init_height,
 
 
 ```{r}
-Anova(varident_agr, type = "III", test="F")
+anova.lme(varident_agr, type='marginal')
 ```
 
 ```{r}

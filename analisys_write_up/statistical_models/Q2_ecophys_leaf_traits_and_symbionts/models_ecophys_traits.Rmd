@@ -4,8 +4,6 @@ author: "Mas o menos Lab"
 date: "2021"
 output: 
  prettydoc::html_pretty:
-    fig_width: 9
-    fig_height: 6 
     highlight: pygments
     theme: cayman   
     toc: yes
@@ -101,7 +99,6 @@ mixed_models <-  vars %>%
 
 ## Amax
 
-
 ```{r}
 Anova(mixed_models$amax, type = "III",test="F")
 ```
@@ -152,7 +149,7 @@ varident_gs <- lme(gs ~ nfixer*treatment + init_height,
 ```
 
 ```{r}
-Anova(varident_gs, type = "III",test="F")
+anova.lme(varident_gs, type='marginal')
 ```
 
 
@@ -238,9 +235,9 @@ varident_wue <- lme(wue ~   nfixer*treatment + init_height,
 
 
 ```{r}
-Anova(varident_wue , type = "III",test="F")
+#Anova(varident_wue , type = "III",test="F")
+anova.lme(varident_wue, type='marginal')
 ```
-
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -325,7 +322,5 @@ data_wue_plot_nfixer <- emmip(varident_wue , ~ nfixer , CIs = TRUE)$data
 
 ### WUE nfixer
 ```{r}
-
 (emm_wue_nfixer <- emmeans(varident_wue, specs = "nfixer"))
-
 ```
