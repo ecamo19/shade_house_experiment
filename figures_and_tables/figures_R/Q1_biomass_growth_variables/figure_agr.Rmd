@@ -1,5 +1,5 @@
 ---
-title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling growth and biomass allocation. AGR Model"
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling growth and biomass allocation. Figure"
 author: "Mas o menos lab"
 date: "2021"
 output: 
@@ -91,52 +91,14 @@ data_agr_plot <-
 ```
 
 
-```{r message=FALSE, warning=FALSE}
-
-# Get by group comparitions
-    as.data.frame(emmeans(varident_agr,
-    					  pairwise ~ treatment | nfixer,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-	select(group1, group2,nfixer,estimate,df,se,t_ratio,p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
 
 ```{r}
-# Get by group comparitions
-    as.data.frame(emmeans(varident_agr,
-    					  pairwise ~ nfixer | treatment,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,treatment,estimate,df,se,t_ratio,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-    
-```
-
-
-```{r}
-(plot_agr_biom <- 
-  masomenos_plot_no_lines(data = data_agr_plot ,xvar = xvar, yvar = yvar, 
+(plot_agr <- 
+  masomenos_plot(data = data_agr_plot ,xvar = xvar, yvar = yvar, 
                  tvar = tvar, color = treatment,n_treat = 4,
                  ucl = UCL, lcl = LCL) +
-  theme(legend.position = "right") + ylab("Absolute Growth Rate"))
+  theme(legend.position = "none") + ylab("Absolute Growth Rate"))
 ```
-
-
 # Mean values from model
 
 ```{r}
@@ -144,10 +106,6 @@ data_agr_plot <-
 ```
 
 
-```{r}
-(emm_varident_agr_fixer_nonfixer <- emmeans(varident_agr, specs = "nfixer", 
-											by =  "treatment" ))
-```
 
 
 

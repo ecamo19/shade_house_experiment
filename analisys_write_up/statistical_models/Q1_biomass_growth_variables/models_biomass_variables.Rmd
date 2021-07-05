@@ -7,7 +7,7 @@ output:
     highlight: pygments
     theme: cayman   
     toc: yes
-    number_sections: True
+    number_sections: False
     toc_depth: 2
 ---
 
@@ -23,13 +23,11 @@ library(ggpubr)
 library(nlme)
 library(car)
 library(emmeans)
-library(lme4)
 library(cowplot)
 library(tidyverse)
 library(ggsci)
 library(knitr)
 library(performance)
-library(glmmTMB) #for beta regression
 ```
 
 ```{r}
@@ -82,13 +80,14 @@ data_rate_change$spcode <- as.factor(data_rate_change$spcode)
 $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 ```{r}
-mixed_models_formula = function(response) {
-  
-  #'this function takes each response variable and join it to the formula
-  formula = paste(response, " ~ treatment * nfixer + init_height + (1|spcode)")
-  
-  lmer(as.formula(formula), data = data_rate_change)
+
+mixed_models_formula = function(response) {	
+	
+	#this function takes each response variable and join it to the formula
+	formula = paste(response, " ~ nfixer*treatment + init_height")
+	lme(as.formula(formula),random = ~ 1|spcode,method = "REML",data = data_rate_change)
 }
+
 ```
 
 # Run Models
@@ -96,12 +95,10 @@ mixed_models_formula = function(response) {
 ```{r}
 #Takes response variable's names 
 vars <- names(data_rate_change)[8:(ncol(data_rate_change)-1)]
-
 ```
 
 ```{r}
 vars <- purrr::set_names(vars)
-vars
 ```
 
 ```{r}
@@ -109,14 +106,21 @@ mixed_models <-  vars %>%
      map(mixed_models_formula)
 ```
 
+
+
+
 # Results: Dry weights
+
+```{r}
+# add t-ratio
+emm_options(contrast = list(infer = c(TRUE, TRUE)))
+```
+
 
 ## Total Biomasss
 
 ```{r}
-#Anova(Vc1, type="III", test="F") 
-#anova.lme(Vc1, type = "marginal", adjustSigma = F) 
-Anova(mixed_models$totalbiom, type = "III",test="F")
+anova.lme(mixed_models$totalbiom, type = "marginal", adjustSigma = F) 
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -133,11 +137,27 @@ data_totalbiom_plot <-
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
+    select(group1, group2,nfixer,estimate,df,se,t_ratio,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+	kable()
+```
+```{r message=FALSE, warning=FALSE}
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$totalbiom,
+    					  pairwise ~ nfixer | treatment,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,treatment,estimate,df,se,t_ratio,p_value)  %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
+    
 ```
+
 
 
 
@@ -153,7 +173,7 @@ data_totalbiom_plot <-
 ## Aboveground Biomass
 
 ```{r}
-Anova(mixed_models$above_biom, type = "III",test="F")
+anova.lme(mixed_models$above_biom, type = "marginal", adjustSigma = F) 
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -170,13 +190,31 @@ data_above_biom_plot <-
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
+    select(group1, group2,nfixer,estimate,df,se,t_ratio,p_value)  %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
 
 ```
+
+```{r}
+# Get by group comparitions
+    as.data.frame(emmeans(mixed_models$above_biom,
+    					  pairwise ~ nfixer | treatment,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,treatment,estimate,df,se,t_ratio,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+    
+```
+
+
 
 ```{r}
 (plot_above_biom <- 
@@ -199,7 +237,8 @@ varident_belowbiom <- lme(below_biom ~ nfixer*treatment + init_height,
 
 ```{r}
 #Anova(varident_belowbiom, type = "III",test="F")
-anova.lme(varident_belowbiom, type='marginal')
+anova.lme(varident_belowbiom, type = "marginal", adjustSigma = F) 
+
 ```
 
 ```{r}
@@ -208,7 +247,6 @@ data_below_biom_plot <-
 ```
 
 ```{r message=FALSE, warning=FALSE}
-
 
 # Get by group comparitions
 as.data.frame(emmeans(varident_belowbiom,
@@ -220,14 +258,29 @@ as.data.frame(emmeans(varident_belowbiom,
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-	dplyr::select(group1, group2,nfixer,estimate,se,p_value) %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
+	dplyr::select(group1, group2,nfixer,estimate,df,se,t_ratio,p_value) %>%
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
 
 ```
 
+```{r}
+# Get by group comparitions
+    as.data.frame(emmeans(varident_belowbiom,
+    					  pairwise ~ nfixer | treatment,
+    					  type = "response", 
+    					  adjust ="tukey")$contrast) %>% 
+  
+    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+    clean_names() %>% 
+    mutate(group1 = factor(group1)) %>%
+    mutate(group2 = factor(group2)) %>% 
+    select(group1, group2,treatment,estimate,df,se,t_ratio,p_value)  %>%
+    mutate(p_value = round(p_value, 20)) %>% 
+    kable()
+    
+```
 
 
 ```{r}
@@ -241,76 +294,75 @@ as.data.frame(emmeans(varident_belowbiom,
 ## Stem Dry weight
 
 ```{r}
-Anova(mixed_models$stem_dry_weight, type = "III",test="F")
+#Anova(mixed_models$stem_dry_weight, type = "III",test="F")
 ```
 
 ```{r}
-data_stem_dry_weight_plot <- 
-  emmip(mixed_models$stem_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
-
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$stem_dry_weight, 
-                          pairwise ~ treatment | nfixer, 
-                          type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
+# data_stem_dry_weight_plot <- 
+#   emmip(mixed_models$stem_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
+# 
+# 
+# # Get by group comparitions
+#     as.data.frame(emmeans(mixed_models$stem_dry_weight, 
+#                           pairwise ~ treatment | nfixer, 
+#                           type = "response", adjust = "tukey")$contrast) %>% 
+#   
+#     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+#     clean_names() %>% 
+#     mutate(group1 = factor(group1)) %>%
+#     mutate(group2 = factor(group2)) %>% 
+#     select(group1, group2,nfixer,estimate,se,p_value)  %>%
+#     #filter(!group1 == "Harvestatthebegging") %>% 
+#     mutate(p_value = round(p_value, 20)) %>% 
+#     kable()
 ```
 
 
 ```{r}
-(plot_stem_dry_weight <- 
-  masomenos_plot_no_lines(data = data_stem_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-  theme(legend.position = "none") + 
-  ylab("Stem Dry Weight plus CI's"))
+# (plot_stem_dry_weight <- 
+#   masomenos_plot_no_lines(data = data_stem_dry_weight_plot,xvar = xvar, yvar = yvar, 
+#                  tvar = tvar, color = treatment,n_treat = 4,
+#                  ucl = UCL, lcl = LCL) +
+#   theme(legend.position = "none") + 
+#   ylab("Stem Dry Weight plus CI's"))
 ```
 
 
 ## Leaf Dry weight
 
-
 ```{r}
-Anova(mixed_models$whole_leaf_dry_weight, type = "III",test="F")
+#Anova(mixed_models$whole_leaf_dry_weight, type = "III",test="F")
 ```
 
 ```{r}
-data_leaf_dry_weight_plot <- 
-  emmip(mixed_models$whole_leaf_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
-
-
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$whole_leaf_dry_weight, 
-                          pairwise ~ treatment | nfixer, 
-                          type = "response", adjust = "tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,se,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
+# data_leaf_dry_weight_plot <- 
+#   emmip(mixed_models$whole_leaf_dry_weight, treatment ~ nfixer, CIs = TRUE)$data 
+# 
+# 
+# # Get by group comparitions
+#     as.data.frame(emmeans(mixed_models$whole_leaf_dry_weight, 
+#                           pairwise ~ treatment | nfixer, 
+#                           type = "response", adjust = "tukey")$contrast) %>% 
+#   
+#     separate(contrast,c("group1","group2"), sep = " - " ) %>% 
+#     clean_names() %>% 
+#     mutate(group1 = factor(group1)) %>%
+#     mutate(group2 = factor(group2)) %>% 
+#     select(group1, group2,nfixer,estimate,se,p_value)  %>%
+#     #filter(!group1 == "Harvestatthebegging") %>% 
+#     mutate(p_value = round(p_value, 20)) %>% 
+#     kable()
 ```
 
 
 
 ```{r}
-(plot_leaf_dry_weight <- 
-  masomenos_plot_no_lines(data = data_leaf_dry_weight_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, color = treatment,n_treat = 4,
-                 ucl = UCL, lcl = LCL) +
-  theme(legend.position = "right") + 
-  ylab("Leaf Dry Weight plus CI's"))
+# (plot_leaf_dry_weight <- 
+#   masomenos_plot_no_lines(data = data_leaf_dry_weight_plot,xvar = xvar, yvar = yvar, 
+#                  tvar = tvar, color = treatment,n_treat = 4,
+#                  ucl = UCL, lcl = LCL) +
+#   theme(legend.position = "right") + 
+#   ylab("Leaf Dry Weight plus CI's"))
 ```
 
 
@@ -319,19 +371,17 @@ data_leaf_dry_weight_plot <-
 ## Root Mass Fraction 
 
 ```{r}
-
 varident_rmf <- lme(rmf ~   nfixer*treatment + init_height,
                 			random = ~ 1|spcode,
                 			weights = varIdent(form = ~ 1 | treatment*nfixer),
-							#method="REML",
+							method="REML",
                 			data = data_rate_change) 
 
 ```
 
 
 ```{r}
-#Anova(varident_rmf,type = "III",test="F")
-anova.lme(varident_rmf, type='marginal')
+anova.lme(varident_rmf, type = "marginal", adjustSigma = F) 
 ```
 
 ```{r} 
@@ -356,6 +406,7 @@ as.data.frame(emmeans(varident_rmf,
 ```
 
 
+
 ```{r}
 (plot_rmf <- 
   masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
@@ -369,16 +420,15 @@ as.data.frame(emmeans(varident_rmf,
 
 ## Stem Mass fraction
 
-
 ```{r}
-Anova(mixed_models$smf, type = "III",test="F")
+anova.lme(mixed_models$smf, type = "marginal", adjustSigma = F) 
 ```
 
 
 ## Leaf Mass fraction
 
 ```{r}
-Anova(mixed_models$lmf, type = "III",test="F")
+anova.lme(mixed_models$lmf, type = "marginal", adjustSigma = F) 
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -418,6 +468,13 @@ data_lmf_plot <-
 ```{r}
 (emm_total_biomass <- emmeans(mixed_models$totalbiom, specs = "treatment", by="nfixer"))
 ```
+
+```{r}
+(emm_total_biomass_fixers_nonfixers <- emmeans(mixed_models$totalbiom, 
+											   specs = "nfixer", by="treatment"))
+```
+
+
 
 ## Aboveground Biomass
 

@@ -53,7 +53,7 @@ m1_log <- lme(log_perc ~ treatment * nfixer,
 ```
 
 ```{r}
-anova.lme(m1_log, type = "marginal",adjustSigma = F)
+Anova(m1_log, type = "III",test="F")
 ```
 
 

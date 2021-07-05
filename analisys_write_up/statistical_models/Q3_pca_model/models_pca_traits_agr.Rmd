@@ -1,15 +1,13 @@
 ---
 title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species?"
-author: "Main code: Leland Werden, Modified by: Erick Calderon-Morales"
+author: "Main code: Leland Werden, Modified by: ECM"
 date: "2021"
 output: 
  prettydoc::html_pretty:
-    fig_width: 8
-    fig_height: 7 
     highlight: pygments
     theme: cayman   
     toc: yes
-    number_sections: true
+    number_sections: False
     toc_depth: 2
 ---
 
@@ -26,7 +24,6 @@ require(knitr)
 require(ggpubr)
 library(ggeffects)
 library(emmeans)
-library(lme4)
 library(MuMIn)
 library(performance)
 library(DHARMa)
@@ -40,7 +37,8 @@ library(nlme)
 # Load and Clean Data
 
 ```{r}
-final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", header=TRUE, sep=",", strip.white=TRUE)
+final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", 
+                              header=TRUE, sep=",", strip.white=TRUE)
 ```
 
 
@@ -120,7 +118,7 @@ fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
 fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
                 
                 # Add group 
-                habillage=all_trait_scaled$treatment, 
+                habillage=all_trait_scaled$nfixer, 
                 
                 # Set labels
                 label ="var",
@@ -188,11 +186,16 @@ $$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
 
 # Perform regression models with AGR as response variable
 
+```{r}
+# add t-ratio
+emm_options(contrast = list(infer = c(TRUE, TRUE)))
+```
+
 ## Do PCs predict AGR? varIdent Two-Way interaction model
 
 ```{r}
 # fit treatment/nfixer interactions separately
-varident_pca_mod_agr_two_way <- lme(agr ~treatment + nfixer+ PC1 + PC2 + PC3 +
+varident_pca_mod_agr_two_way_comp <- lme(agr ~ treatment + nfixer+ PC1 + PC2 + PC3 +
 
                             #Two way interactions
                             #Treatments
@@ -211,6 +214,9 @@ varident_pca_mod_agr_two_way <- lme(agr ~treatment + nfixer+ PC1 + PC2 + PC3 +
                             #Random part
                             random = ~ 1|spcode,
                             
+                            #use ML to compare models
+                            method = "ML",
+                            
                             #varIdent
                             weights = varIdent(form = ~ 1 | treatment*nfixer),
 
@@ -222,7 +228,7 @@ varident_pca_mod_agr_two_way <- lme(agr ~treatment + nfixer+ PC1 + PC2 + PC3 +
 
 ```{r}
 # fit three-way interaction
-varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
+varident_pca_mod_agr_three_way_comp <- lme(agr ~ treatment * nfixer* PC1 +
                                             treatment * nfixer* PC2 +
                                             treatment * nfixer* PC3 +
 
@@ -231,6 +237,9 @@ varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
 
                                             #Random part
                                             random = ~ 1|spcode,
+                                      
+                                            #use ML to compare models
+                                            method = "ML",
                             
                                             #varIdent
                                             weights = varIdent(form = ~ 1 | treatment*nfixer),
@@ -243,11 +252,43 @@ varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
 ```{r}
 # check two-way vs. three-way interaction models 
 #(shows that two-way is way better, more negative AICc -- include in methods)
-compare_performance(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way,metrics = "all")
+compare_performance(varident_pca_mod_agr_two_way_comp, varident_pca_mod_agr_three_way_comp,
+                    rank = TRUE,metrics = "all")
 ```
 
 ```{r}
-anova(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way)
+anova(varident_pca_mod_agr_two_way_comp,varident_pca_mod_agr_three_way_comp)
+```
+
+## Model selected
+
+```{r}
+varident_pca_mod_agr_two_way <- lme(agr ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+                            
+                            # Changed to REML
+                            method = "REML",
+                            
+                            #varIdent
+                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
 ```
 
 
@@ -255,7 +296,8 @@ anova(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way)
 ## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(varident_pca_mod_agr_two_way, type = "III",test = "F") 
+anova.lme(varident_pca_mod_agr_two_way, type = "marginal", adjustSigma = F) %>% 
+  kable()
 ```
 
 ## PCA trends
@@ -267,7 +309,8 @@ Anova(varident_pca_mod_agr_two_way, type = "III",test = "F")
 # summary(emtrends(model = fit_sat, ~agef, var="SATV"), infer=TRUE)
 #emtrends(pca_mod_agr_1, pairwise ~ treatment|PC1, var = "PC1")
 
-emtrends(varident_pca_mod_agr_two_way,pairwise ~ treatment, var = "PC1")$contrast  
+emtrends(varident_pca_mod_agr_two_way,pairwise ~ treatment, var = "PC1")$contrast  %>% 
+  kable()
 ```
 
 ### PC1 trends plot
@@ -284,8 +327,9 @@ PC1_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC1","treatmen
                       xlab("PC1")+ 
                       theme_classic()+
                       scale_color_manual(values= cbbPalette,
-                                        labels=c("ambient", "nutrients", 
-                                                  "water", "nutrients + water")
+                                        labels=c("No addition", "Plus nutrients addition", 
+                                                  "Plus water addition", 
+                                                 "Plus nutrients and water addition")
                                         ) +
                       geom_line(size=1))
 
@@ -296,7 +340,8 @@ PC1_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC1","treatmen
 
 ```{r}
 # compare slopes of lines for treatment X PC1 iteraction
-emtrends(varident_pca_mod_agr_two_way, pairwise ~ treatment, var = "PC2")$contrast
+emtrends(varident_pca_mod_agr_two_way, pairwise ~ treatment, var = "PC2")$contrast %>% 
+  kable()
 ```
 
 ### PC2 trends plot
@@ -312,10 +357,11 @@ PC2_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC2", "treatme
                       xlab("PC2")+ 
                       theme_classic()+
                       scale_color_manual(values= cbbPalette,
-                                        labels=c("ambient", "nutrients", 
-                                                  "water", "nutrients + water")
-                                        ) +
-                      geom_line(size=2))
+                                        labels=c("No addition", "Plus nutrients addition", 
+                                                  "Plus water addition", 
+                                                 "Plus nutrients and water addition")
+                                        )+
+                      geom_line(size = 1))
 
 ```
 `
@@ -325,30 +371,32 @@ PC2_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC2", "treatme
 
 ```{r}
 # fit treatment/nfixer interactions separately
-varident_pca_mod_totalbiom_two_way <- lme(totalbiom ~ treatment + nfixer+ PC1 + PC2 + PC3 +
-
-                            #Two way interactions
-                            #Treatments
-                            treatment * PC1 +
-                            treatment * PC2 +
-                            treatment * PC3 +
-
-                            #NFixer
-                            nfixer * PC1 +
-                            nfixer * PC2 +
-                            nfixer * PC3 +
-
-                            #Control over different plant heights
-                            init_height,
-
-                            #Random part
-                            random = ~ 1|spcode,
-                            
-                            #varIdent
-                            weights = varIdent(form = ~ 1 | treatment*nfixer),
-
-                        data = all_trait_scaled_for_reg)
-
+# varident_pca_mod_totalbiom_two_way <- lme(totalbiom ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+# 
+#                             #Two way interactions
+#                             #Treatments
+#                             treatment * PC1 +
+#                             treatment * PC2 +
+#                             treatment * PC3 +
+# 
+#                             #NFixer
+#                             nfixer * PC1 +
+#                             nfixer * PC2 +
+#                             nfixer * PC3 +
+# 
+#                             #Control over different plant heights
+#                             init_height,
+# 
+#                             #Random part
+#                             random = ~ 1|spcode,
+#                             
+#                             method = "REML",
+#                             
+#                             #varIdent
+#                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
+# 
 
 ```
 
@@ -357,20 +405,22 @@ varident_pca_mod_totalbiom_two_way <- lme(totalbiom ~ treatment + nfixer+ PC1 + 
 
 ```{r}
 # fit three-way interaction
-varident_pca_mod_totalbiom_three_way <- lme(totalbiom ~ treatment * nfixer* PC1 +
-                                            treatment * nfixer* PC2 +
-                                            treatment * nfixer* PC3 +
-
-                                            #Control over different plant heights
-                                            init_height,
-
-                                            #Random part
-                                            random = ~ 1|spcode,
-                            
-                                            #varIdent
-                                            weights = varIdent(form = ~ 1 | treatment*nfixer),
-
-                        data = all_trait_scaled_for_reg)
+# varident_pca_mod_totalbiom_three_way <- lme(totalbiom ~ treatment * nfixer* PC1 +
+#                                             treatment * nfixer* PC2 +
+#                                             treatment * nfixer* PC3 +
+# 
+#                                             #Control over different plant heights
+#                                             init_height,
+# 
+#                                             #Random part
+#                                             random = ~ 1|spcode,
+#                                             
+#                                             method = "REML",
+#                             
+#                                             #varIdent
+#                                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
 ```
 
 ## Model comparision and selection
@@ -378,25 +428,180 @@ varident_pca_mod_totalbiom_three_way <- lme(totalbiom ~ treatment * nfixer* PC1 
 ```{r}
 # check two-way vs. three-way interaction models 
 # (shows that two-way is way better, more negative AICc -- include in methods)
-compare_performance(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way,metrics = "all")
+#compare_performance(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way,metrics = "all",rank = TRUE)
 ```
 
 ```{r}
-anova(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way)
+#anova.lme(varident_pca_mod_totalbiom_two_way, varident_pca_mod_totalbiom_three_way)
 ```
-
-
-
 
 
 ## ANOVA table
 ```{r message=FALSE, warning=FALSE}
 # ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
-Anova(varident_pca_mod_totalbiom_three_way, type = "III",test="F") %>% 
-  kable()
+# (varident_pca_mod_agr_two_way, ) %>% 
+  
+#anova.lme(varident_pca_mod_totalbiom_three_way, type = "marginal", adjustSigma = F) %>% 
+#  kable()
 ```
 
 
+# Perform regression models with Belowground biomass as response variable
 
+## Do PCs predict Belowground biomass? varIdent Two-Way interaction model
+
+```{r}
+# fit treatment/nfixer interactions separately
+# varident_pca_mod_below_biom_two_way <- lme(below_biom ~treatment + nfixer+ PC1 + PC2 + PC3 +
+# 
+#                             #Two way interactions
+#                             #Treatments
+#                             treatment * PC1 +
+#                             treatment * PC2 +
+#                             treatment * PC3 +
+# 
+#                             #NFixer
+#                             nfixer * PC1 +
+#                             nfixer * PC2 +
+#                             nfixer * PC3 +
+# 
+#                             #Control over different plant heights
+#                             init_height,
+# 
+#                             #Random part
+#                             random = ~ 1|spcode,
+#                             
+#                             method = "REML",
+#                             
+#                             #varIdent
+#                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
+```
+
+
+## Do PCs predict Belowground biomass? Three-Way interaction model
+
+```{r}
+# fit three-way interaction
+# varident_pca_mod_below_biom_three_way <- lme(below_biom ~ treatment * nfixer* PC1 +
+#                                             treatment * nfixer* PC2 +
+#                                             treatment * nfixer* PC3 +
+# 
+#                                             #Control over different plant heights
+#                                             init_height,
+# 
+#                                             #Random part
+#                                             random = ~ 1|spcode,
+#                                       
+#                                             method = "REML",
+#                             
+#                                             #varIdent
+#                                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
+```
+
+
+## Model comparision and selection
+
+```{r}
+# check two-way vs. three-way interaction models 
+#(shows that two-way is way better, more negative AICc -- include in methods)
+# compare_performance(varident_pca_mod_below_biom_two_way, 
+#                     varident_pca_mod_below_biom_three_way,
+#                     rank = TRUE,metrics = "all")
+```
+
+```{r}
+#anova.lme(varident_pca_mod_below_biom_two_way,varident_pca_mod_below_biom_three_way)
+```
+
+
+## ANOVA table
+```{r message=FALSE, warning=FALSE}
+# ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
+#anova.lme(varident_pca_mod_below_biom_two_way, type = "marginal", adjustSigma = F) %>% 
+#  kable()
+```
+
+# Perform regression models with Aboveground biomass as response variable
+
+## Do PCs predict Aboveground biomass? varIdent Two-Way interaction model
+
+```{r}
+# fit treatment/nfixer interactions separately
+# varident_pca_mod_above_biom_two_way <- lme(above_biom ~treatment + nfixer+ PC1 + PC2 + PC3 +
+# 
+#                             #Two way interactions
+#                             treatment * nfixer +
+#                             #Treatments
+#                             treatment * PC1 +
+#                             treatment * PC2 +
+#                             treatment * PC3 +
+# 
+#                             #NFixer
+#                             nfixer * PC1 +
+#                             nfixer * PC2 +
+#                             nfixer * PC3 +
+# 
+#                             #Control over different plant heights
+#                             init_height,
+# 
+#                             #Random part
+#                             random = ~ 1|spcode,
+#                             
+#                             method = "REML",
+#                             
+#                             #varIdent
+#                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
+```
+
+
+## Do PCs predict Belowground biomass? Three-Way interaction model
+
+```{r}
+# fit three-way interaction
+# varident_pca_mod_above_biom_three_way <- lme(above_biom ~ treatment * nfixer* PC1 +
+#                                             treatment * nfixer* PC2 +
+#                                             treatment * nfixer* PC3 +
+# 
+#                                             #Control over different plant heights
+#                                             init_height,
+# 
+#                                             #Random part
+#                                             random = ~ 1|spcode,
+#                                       
+#                                             method = "REML",
+#                             
+#                                             #varIdent
+#                                             weights = varIdent(form = ~ 1 | treatment*nfixer),
+# 
+#                         data = all_trait_scaled_for_reg)
+```
+
+
+## Model comparision and selection
+
+```{r}
+# check two-way vs. three-way interaction models 
+#(shows that two-way is way better, more negative AICc -- include in methods)
+# compare_performance(varident_pca_mod_above_biom_two_way, 
+#                     varident_pca_mod_above_biom_three_way,
+#                     rank = TRUE,metrics = "all")
+```
+
+```{r}
+#anova.lme(varident_pca_mod_below_biom_two_way,varident_pca_mod_below_biom_three_way)
+```
+
+## ANOVA table
+```{r message=FALSE, warning=FALSE}
+# ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
+# anova.lme(varident_pca_mod_above_biom_two_way, type = "marginal", adjustSigma = F) %>% 
+#   kable()
+```
 
 

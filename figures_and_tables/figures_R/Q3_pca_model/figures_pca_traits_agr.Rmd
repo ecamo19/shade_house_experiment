@@ -1,0 +1,362 @@
+---
+title: "(Q3) Are traits coordinated along the “fast to slow” continuum and to what extent does this correlate with growth rates among species?"
+author: "Main code: Leland Werden, Modified by: ECM"
+date: "2021"
+output: 
+ prettydoc::html_pretty:
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: False
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+                      fig.width = 16,fig.height = 8,message=FALSE, warning=FALSE)
+```
+
+
+```{r }
+library(tidyverse)
+require(vegan)
+require(knitr)
+require(ggpubr)
+library(ggeffects)
+library(emmeans)
+library(MuMIn)
+library(performance)
+library(DHARMa)
+library(car)
+library(janitor)
+library(factoextra)
+library(nlme)
+```
+
+
+# Load and Clean Data
+
+```{r}
+final_trait_dat <- read.table("~/Documents/projects/shade_house_experiment/data/data_rda_leland.csv", 
+                              header=TRUE, sep=",", strip.white=TRUE)
+```
+
+
+```{r}
+
+# Select variables that are going to be used in the model
+all_trait <-  
+    final_trait_dat %>%
+  
+    # Select columns needed for regression
+    dplyr::select(spcode, treatment, nfixer, init_height, 
+                  
+                  # Performance measures
+                  totalbiom, above_biom,below_biom, agr, 
+                  
+                  # physiology traits
+                  amax, gs, wue,
+                  
+                  # Leaf traits
+                  Narea_g_m2,Nmass_mg_g,d13c, sla_cm2_g) %>% 
+    
+    # Convert to factors type columns
+    mutate(spcode = factor(spcode) , 
+           treatment = factor(treatment) , 
+           nfixer = factor(nfixer) )
+
+
+
+#Generate a copy of the original data
+all_trait_scaled <- all_trait
+
+# Scale and center traits
+all_trait_scaled[,c(9:15)] <- scale(all_trait_scaled[,c(9:15)],center = TRUE, scale = TRUE)
+```
+
+# PCA 
+
+```{r}
+pca_final_traits <- princomp(all_trait_scaled[,c(9:15)])
+```
+
+```{r}
+fviz_screeplot(pca_final_traits, addlabels = TRUE, ylim = c(0, 50))
+```
+
+```{r}
+#Extract loadings
+pca_final_traits$loadings 
+```
+
+
+## Biplots
+
+### PC1 vrs PC2
+```{r}
+# Select colors
+
+#RColorBrewer::display.brewer.pal(n = 9, name = "Dark2")
+#RColorBrewer::brewer.pal(9, "Dark2")
+#RColorBrewer::display.brewer.pal(9, "Set1")
+```
+
+```{r}
+library(dichromat)
+
+#cols <- colorRampPalette(RColorBrewer::brewer.pal("#1B9E77", "Dark2"))()
+eigs <- pca_final_traits$sdev^2/sum(pca_final_traits$sdev^2)
+```
+
+
+```{r}
+
+
+
+(pca_fig <- fviz_pca_biplot(pca_final_traits,axes = c(1, 2),
+                
+                invisible="quali",
+                pointsize = 2.5,
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                geom=c("point", "arrows"),
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  
+  theme_minimal() + xlim(NA, 7.5) +  labs(title = "")+
+  coord_fixed() + theme(text = element_text(size = 30))+
+  xlab(paste0("PC1 [", round(100*eigs[1], 1), "%]")) +
+  ylab(paste0("PC2 [", round(100*eigs[2], 1), "%]")) +
+  
+  scale_shape_manual(values = c(16, 17)) + 
+  scale_color_manual(values = c("#1B9E77","#D95F02" )) +
+  scale_fill_manual(values = c("#1B9E77","#D95F02" )) +
+  theme(legend.position = "bottom"))
+```
+
+### PC1 vrs PC3
+
+```{r}
+fviz_pca_biplot(pca_final_traits,axes = c(1, 3),
+                
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  theme_minimal() + scale_color_brewer(palette="Set1")
+```
+
+### PC2 vrs PC3
+```{r}
+fviz_pca_biplot(pca_final_traits,axes = c(2, 3),
+                
+                # Add group 
+                habillage=all_trait_scaled$nfixer, 
+                
+                # Set labels
+                label ="var",
+                
+                # Set arrow color
+                col.var = "black",
+                
+                # Repel overlapping labels
+                repel = TRUE) +
+  theme_minimal() + scale_color_brewer(palette="Set1")
+```
+
+## Biplots interpretation
+[PCA interpretation](https://wilkelab.org/SDS375/slides/dimension-reduction-1.html#18)
+
++ The first 3 PCs explains 83% (47.9,19.4,15.8) of the variability in the data
++ PC1 separates fixers from non-fixers
++ All traits contribute positively to PC1 
+
++ PC1 represents the overall high photosynthetic capacity 
++ PC2 represents the difference between stomatal conductance and SLA
++ PC3 represents the difference between d13c and SLA
+
+# Regression model with PCs as independent variables
+
+```{r}
+all_trait_scaled_for_reg <- all_trait_scaled
+```
+
+
+```{r}
+# Pull out PC axes and add to trait/growth data frame
+pca_scores <- scores(pca_final_traits)
+```
+
+```{r}
+#Extract PCs
+all_trait_scaled_for_reg$PC1 <- pca_scores[,1]
+all_trait_scaled_for_reg$PC2 <- pca_scores[,2]
+all_trait_scaled_for_reg$PC3 <- pca_scores[,3]
+```
+
+
+# Model formula used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+# Perform regression models with AGR as response variable
+
+## Do PCs predict AGR? varIdent Two-Way interaction model
+
+```{r}
+# fit treatment/nfixer interactions separately
+varident_pca_mod_agr_two_way <- lme(agr ~ treatment + nfixer+ PC1 + PC2 + PC3 +
+
+                            #Two way interactions
+                            #Treatments
+                            treatment * PC1 +
+                            treatment * PC2 +
+                            treatment * PC3 +
+
+                            #NFixer
+                            nfixer * PC1 +
+                            nfixer * PC2 +
+                            nfixer * PC3 +
+
+                            #Control over different plant heights
+                            init_height,
+
+                            #Random part
+                            random = ~ 1|spcode,
+                            
+                            method = "REML",
+                            
+                            #varIdent
+                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
+```
+
+
+## Do PCs predict AGR? Three-Way interaction model
+
+```{r}
+# fit three-way interaction
+varident_pca_mod_agr_three_way <- lme(agr ~ treatment * nfixer* PC1 +
+                                            treatment * nfixer* PC2 +
+                                            treatment * nfixer* PC3 +
+
+                                            #Control over different plant heights
+                                            init_height,
+
+                                            #Random part
+                                            random = ~ 1|spcode,
+                                      
+                                            method = "REML",
+                            
+                                            #varIdent
+                                            weights = varIdent(form = ~ 1 | treatment*nfixer),
+
+                        data = all_trait_scaled_for_reg)
+```
+
+## Model comparision and selection
+
+```{r}
+# check two-way vs. three-way interaction models 
+#(shows that two-way is way better, more negative AICc -- include in methods)
+compare_performance(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way,
+                    rank = TRUE,metrics = "all")
+```
+
+```{r}
+anova.lme(varident_pca_mod_agr_two_way, varident_pca_mod_agr_three_way)
+```
+
+
+## ANOVA table
+```{r message=FALSE, warning=FALSE}
+# ANOVA -- PC1 X Treatment effect significant (chi-sq = 29.25, P <0.001) 
+anova.lme(varident_pca_mod_agr_two_way, type = "marginal", adjustSigma = F) %>% 
+  kable()
+```
+
+## PCA trends
+
+### PC1 trends contrasts
+
+```{r}
+# compare slopes of lines for treatment X PC1 iteraction
+# summary(emtrends(model = fit_sat, ~agef, var="SATV"), infer=TRUE)
+#emtrends(pca_mod_agr_1, pairwise ~ treatment|PC1, var = "PC1")
+
+emtrends(varident_pca_mod_agr_two_way,pairwise ~ treatment, var = "PC1")$contrast  %>% 
+  kable()
+```
+
+### PC1 trends plot
+
+```{r}
+# plot that shit
+# 
+# 
+
+cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
+
+PC1_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC1","treatment"))
+
+(PC1_AGR_fig <- ggplot(PC1_predict, aes(x, predicted, colour = group)) + 
+                      geom_line()+
+                      ylab("AGR")+
+                      xlab("PC1")+ 
+                      theme_bw()+
+                      scale_color_manual(values= cbbPalette,
+                                        labels=c("No addition", "Plus nutrients addition", 
+                                                  "Plus water addition", 
+                                                 "Plus nutrients and water addition")
+                                        ) +
+                      geom_line(size = 1.5)+ 
+                      theme(legend.position = "bottom"))
+
+
+```
+
+### PC2 trends contrasts
+
+```{r}
+# compare slopes of lines for treatment X PC1 iteraction
+emtrends(varident_pca_mod_agr_two_way, pairwise ~ treatment, var = "PC2")$contrast %>% 
+  kable()
+```
+
+### PC2 trends plot
+
+```{r}
+cbbPalette <- c("#F0E442", "#009E73", "#56B4E9", "#0072B2")
+
+PC2_predict <- ggpredict(varident_pca_mod_agr_two_way, terms = c("PC2", "treatment"))
+
+(PC2_AGR_fig <- ggplot(PC2_predict, aes(x, predicted, colour = group)) + 
+                      geom_line()+
+                      ylab("AGR")+
+                      xlab("PC2")+ 
+                      theme_bw()+
+                      scale_color_manual(values= cbbPalette,
+                                        labels=c("No addition", "Plus nutrients addition", 
+                                                  "Plus water addition", 
+                                                 "Plus nutrients and water addition")
+                                        )+
+                      geom_line(size = 1.5)+
+                      theme(legend.position = "bottom"))
+
+```
+

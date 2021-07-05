@@ -1,6 +1,6 @@
 
 # Function: Plot with lines -----------------------------------------------
-masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
+masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color,n_treat){
 	xvar <- enquo(xvar)
 	yvar <- enquo(yvar)
 	tvar <- enquo(tvar)
@@ -8,10 +8,10 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 	ucl  <- enquo(ucl)
 	color <- enquo(color)
 		
-		
+	if (n_treat == 4 ){	
 	plot <- ggplot(aes(x = !! xvar, y = !! yvar,
 					   group = !! tvar, colour = !! color ), 
-				   data = data)+
+				   data = data,addDot=TRUE, dotSize=1)+
 		geom_point(position = position_dodge(width=0.5))+
 		geom_line(linetype = "dashed", position=position_dodge(width=0.5))+
 
@@ -28,15 +28,14 @@ masomenos_plot <- function(data,xvar,yvar,tvar,lcl,ucl,color){
 			#ambientrain_nutrients = Green ("#009E73") 
 			#ambientrain_water = Light blue ("#56B4E9")
 			#ambientrain_water_nutrients = Dark blue ("#0072B2")
-		scale_colour_manual(values = c("#000000","#F0E442",
+		scale_colour_manual(values = c("#F0E442",
 									   "#009E73","#56B4E9",
 									   "#0072B2"))+
 		theme_classic() +
 		theme(legend.position = "right") + 
 		guides(col = guide_legend(ncol = 1,title.position = "top",))
 		
-		return(plot)
-	}
+		return(plot)}}
 	
 
 

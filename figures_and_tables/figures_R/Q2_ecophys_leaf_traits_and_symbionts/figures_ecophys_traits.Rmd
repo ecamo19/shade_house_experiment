@@ -94,11 +94,6 @@ mixed_models <-  vars %>%
 
 # Results
 
-```{r}
-# add t-ratio
-emm_options(contrast = list(infer = c(TRUE, TRUE)))
-```
-
 ## Amax
 
 ```{r}
@@ -121,28 +116,11 @@ data_amax_plot <- emmip(mixed_models$amax, treatment ~ nfixer, CIs = TRUE)$data
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,nfixer,estimate,df,se,t_ratio,p_value)  %>%
+    select(group1, group2,nfixer,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 
-```
-```{r}
-# Get by group comparitions
-    as.data.frame(emmeans(mixed_models$amax,
-    					  pairwise ~ nfixer | treatment,
-    					  type = "response", 
-    					  adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    
-	select(group1, group2,treatment,estimate,df,se,t_ratio,p_value)  %>%
-    #filter(!group1 == "Harvestatthebegging") %>% 
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
 ```
 
 
@@ -189,7 +167,8 @@ data_gs_plot_treatment <-
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,estimate,df,se,t_ratio,p_value)  %>%
+    select(group1, group2,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 ```
@@ -225,6 +204,7 @@ data_gs_plot_nfixer <-
   theme(legend.position = "bottom") + ylab("gs"))
 ```
 
+
 ## WUE
 ```{r}
 varident_wue <- lme(wue ~   nfixer*treatment + init_height,
@@ -256,7 +236,8 @@ data_wue_plot_treatment <- emmip(varident_wue , ~treatment , CIs = TRUE)$data
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    select(group1, group2,estimate,df,se,t_ratio,p_value)  %>%
+    select(group1, group2,estimate,se,p_value)  %>%
+    #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()
 

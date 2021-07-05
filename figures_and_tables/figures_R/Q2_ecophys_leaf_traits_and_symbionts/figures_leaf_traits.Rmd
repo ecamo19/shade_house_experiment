@@ -104,11 +104,6 @@ mixed_models <-  vars %>%
 
 # Results
 
-```{r}
-# add t-ratio
-emm_options(contrast = list(infer = c(TRUE, TRUE)))
-```
-
 ## d13c
 
 ```{r}
@@ -138,32 +133,6 @@ data_sla_plot <- emmip(varident_sla, ~ treatment,
 ```
 
 
-```{r message=FALSE, warning=FALSE}
-
-# Get by group comparitions
-    as.data.frame(emmeans(varident_sla,
-                          pairwise ~ treatment,
-                          type = "response", 
-                          adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,estimate,df,se,t_ratio,p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
-
-```{r}
-(plot_sla <- 
-  masomenos_plot(data = data_sla_plot,xvar = xvar, yvar = yvar, 
-                 tvar = tvar, 
-                 ucl = UCL, lcl = LCL, n_treat = 4) +
-   theme(legend.position = "none" ) + 
-    ylab("SLA"))
-```
-
 ## Narea
 
 ```{r}
@@ -181,33 +150,15 @@ anova.lme(varident_narea, type = "marginal", adjustSigma = F)
 
 ```{r}
 data_narea_plot <- emmip(varident_narea, ~ nfixer, CIs = TRUE)$data
-
 ```
 
 
-```{r message=FALSE, warning=FALSE}
-
-
-# Get by group comparitions
-    as.data.frame(emmeans(varident_narea,
-                          pairwise ~ nfixer,
-                          type = "response", 
-                          adjust ="tukey")$contrast) %>% 
-  
-    separate(contrast,c("group1","group2"), sep = " - " ) %>% 
-    clean_names() %>% 
-    mutate(group1 = factor(group1)) %>%
-    mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,estimate,df,se,t_ratio,p_value)  %>%
-    mutate(p_value = round(p_value, 20)) %>% 
-    kable()
-```
 
 ```{r}
 (plot_narea <- 
   masomenos_plot(data = data_narea_plot,xvar = xvar, yvar = yvar, 
                  tvar = tvar,
-                 ucl = UCL, lcl = LCL, n_treat = 4) +
+                 ucl = UCL, lcl = LCL, n_treat = 4 ) +
      ylab("Narea") +
      theme(legend.position = "none" ))
 
@@ -248,7 +199,7 @@ data_nmass_plot_treatment <- emmip(varident_nmass,~ treatment,CIs = TRUE)$data
     clean_names() %>% 
     mutate(group1 = factor(group1)) %>%
     mutate(group2 = factor(group2)) %>% 
-    dplyr::select(group1, group2,estimate,df,se,t_ratio,p_value)  %>%
+    dplyr::select(group1, group2,estimate,se,p_value)  %>%
     #filter(!group1 == "Harvestatthebegging") %>% 
     mutate(p_value = round(p_value, 20)) %>% 
     kable()

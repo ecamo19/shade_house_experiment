@@ -1,0 +1,275 @@
+---
+title: "(Q1) What is the relative influence of water vs. nutrient availability on tropical dry forest seedling performance. Figures"
+author: "Mas o menos lab"
+date: "2021"
+output: 
+ prettydoc::html_pretty: 
+    highlight: pygments
+    theme: cayman   
+    toc: yes
+    number_sections: False
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "", fig.align = 'center',
+					  fig.width = 16, fig.height = 10)
+```
+
+# Load packages and data
+```{r message=FALSE, warning=FALSE}
+library(janitor)
+library(ggpubr)
+library(nlme)
+library(car)
+library(emmeans)
+library(cowplot)
+library(tidyverse)
+library(ggsci)
+library(knitr)
+```
+
+```{r}
+#Source maso menos plot
+source("~/Documents/projects/shade_house_experiment/codes/masomenos_plot.R")
+```
+
+
+```{r}
+data_complete_final <- 
+  read.csv("~/Documents/projects/shade_house_experiment/data/data_for_biomass_leaftraits_models.csv", header = T)
+
+```
+
+
+```{r message=FALSE, warning=FALSE}
+
+
+data_complete_final$treatment <- factor(data_complete_final$treatment,
+					levels = c(
+							   "ambientrain", 
+							   "ambientrain_nutrients",
+							   "ambientrain_water",
+							   "ambientrain_water_nutrients"
+							   )
+					)
+
+#Cleaned data
+data_rate_change <- 
+    data_complete_final %>% 
+    
+    #Order the columns  
+    dplyr::select(id,spcode,family,treatment,nfixer,init_height,
+                  everything()) %>% 
+	clean_names()   %>%
+	dplyr::select(-c(la,ldmc,d13c,sla_cm2_g,cn,narea_g_m2,nmass_mg_g,
+			  totalleafmass_nmass)) %>%
+	mutate(nfixer = factor(nfixer))
+
+  	
+data_rate_change$nfixer <- as.factor(data_rate_change$nfixer)
+data_rate_change$spcode <- as.factor(data_rate_change$spcode)
+
+
+```
+
+
+# Model used 
+
+$$response\sim treatment*fixer\ + initial\ height\ + random(1|specie)$$
+
+```{r}
+
+mixed_models_formula = function(response) {	
+	
+	#this function takes each response variable and join it to the formula
+	formula = paste(response, " ~ nfixer*treatment + init_height")
+	lme(as.formula(formula),random = ~ 1|spcode,method = "REML",data = data_rate_change)
+}
+
+```
+
+# Run Models
+
+```{r}
+#Takes response variable's names 
+vars <- names(data_rate_change)[8:(ncol(data_rate_change)-1)]
+```
+
+```{r}
+vars <- purrr::set_names(vars)
+```
+
+```{r}
+mixed_models <-  vars %>%
+     map(mixed_models_formula)
+```
+
+# Figures
+
+## Total Biomasss
+
+```{r}
+anova.lme(mixed_models$totalbiom, type = "marginal", adjustSigma = F) 
+```
+
+```{r message=FALSE, warning=FALSE}
+data_totalbiom_plot <- 
+  emmip(mixed_models$totalbiom, treatment ~ nfixer, CIs = TRUE)$data 
+```
+
+
+```{r}
+ (plot_totalbiom <- 
+   masomenos_plot(data = data_totalbiom_plot,xvar = xvar, yvar = yvar, 
+                  tvar = tvar, color = treatment,n_treat = 4,
+                  ucl = UCL, lcl = LCL) +
+   theme(legend.position = "none") + ylab("Total Biomass")) 
+```
+
+## Aboveground Biomass
+
+```{r}
+anova.lme(mixed_models$above_biom, type = "marginal", adjustSigma = F) 
+```
+
+```{r message=FALSE, warning=FALSE}
+data_above_biom_plot <- 
+  emmip(mixed_models$above_biom, treatment ~ nfixer, CIs = TRUE)$data 
+
+```
+
+```{r}
+(plot_above_biom <- 
+  masomenos_plot(data = data_above_biom_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + ylab("Aboveground Biomass"))
+```
+
+## Belowground Biomass
+```{r}
+varident_belowbiom <- lme(below_biom ~ nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							#method="REML",
+                			data = data_rate_change) 
+
+```
+
+
+```{r}
+#Anova(varident_belowbiom, type = "III",test="F")
+anova.lme(varident_belowbiom, type = "marginal", adjustSigma = F) 
+#anova.lme(varident_belowbiom, type='marginal')
+```
+
+```{r}
+data_below_biom_plot <- 
+  emmip(varident_belowbiom, treatment ~ nfixer, CIs = TRUE)$data 
+```
+
+
+
+```{r}
+(plot_below_biom <- 
+  masomenos_plot(data = data_below_biom_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar, color = treatment,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "none") + ylab("Belowground Biomass"))
+```
+
+# Results: Mass Fractions
+
+## Root Mass Fraction 
+
+```{r}
+varident_rmf <- lme(rmf ~   nfixer*treatment + init_height,
+                			random = ~ 1|spcode,
+                			weights = varIdent(form = ~ 1 | treatment*nfixer),
+							method="REML",
+                			data = data_rate_change) 
+
+```
+
+
+```{r}
+anova.lme(varident_rmf, type = "marginal", adjustSigma = F) 
+```
+
+```{r} 
+data_rmf_plot <- 
+  emmip(varident_rmf, ~ treatment, CIs = TRUE)$data 
+```
+
+
+
+
+```{r}
+(plot_rmf <- 
+  masomenos_plot_no_lines(data = data_rmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+    theme(legend.position = "none") + 
+    ylab("RMF plus CI's"))
+```
+
+## Stem Mass fraction
+
+```{r}
+anova.lme(mixed_models$smf, type = "marginal", adjustSigma = F) 
+```
+
+
+## Leaf Mass fraction
+
+```{r}
+anova.lme(mixed_models$lmf, type = "marginal", adjustSigma = F) 
+```
+
+```{r message=FALSE, warning=FALSE}
+data_lmf_plot <- 
+  emmip(mixed_models$lmf,  ~ treatment, CIs = TRUE)$data 
+```
+
+
+```{r}
+(plot_lmf <- 
+  masomenos_plot_no_lines(data = data_lmf_plot,xvar = xvar, yvar = yvar, 
+                 tvar = tvar,n_treat = 4,
+                 ucl = UCL, lcl = LCL) +
+  theme(legend.position = "right") + 
+  ylab("Leaf mass fraction plus CI's"))
+```
+
+# Mean values from models
+
+## Total Biomass
+
+```{r}
+(emm_total_biomass <- emmeans(mixed_models$totalbiom, specs = "treatment", by="nfixer"))
+```
+
+## Aboveground Biomass
+
+```{r}
+(emm_below_biom <- emmeans(mixed_models$above_biom, specs = "treatment", by="nfixer"))
+```
+
+
+## Belowground Biomass
+
+```{r}
+(emm_belowbiom <- emmeans(varident_belowbiom, specs = "treatment", by="nfixer"))
+
+```
+
+
+
+
+
+
+
+
+
+
